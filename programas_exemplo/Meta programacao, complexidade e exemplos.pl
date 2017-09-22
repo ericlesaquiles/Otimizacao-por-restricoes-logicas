@@ -1,3 +1,5 @@
+testando alteracao...
+
 %
 % Os programas aqui presentes foram inspirados nos exemplos ou exercícios do livros
 %   "The Art of Prolog", de Ehud Shapiro et al
