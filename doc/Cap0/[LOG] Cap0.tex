@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{placeins}
+
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definição}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+
+%
+% TODO: revisar terminar esta seção!
+%
+%
+
+
+\begin{document}
+\section{Dando nome aos bois}
+
+Neste capítulo serão explicadas algumas noções mais ou menos simples, assim como definidos termos a serem utilizados posteriormente. Vale notar que alguns dos termos usados aqui também são usados em outros contextos, mas com significado diferente. As definições aqui colocadas são referentes apenas à utilização no presente documento.\par
+É uma quantidade relativamente grande de definições que a leitora poderia, possívelmente, reconhecer de capítulos posteriores e está posto aqui para referência. Dependendo de seu estilo, talvez seja considere mais interessante começar do capítulo 1: Continue por sua conta e risco.
+
+
+
+  \theoremstyle{definition}
+  \begin{definition}{Átomo}
+  é algo que seja uma:
+    \begin{itemize}
+      \item Sequência de caracteres entre aspas simples (\textit{'Qualquer coisa assim'});
+      \item Ou uma sequência de caracteres contendo apenas caracteres alfabéticos, numéricos e \textit{underscore} ('\_') começando com um caractere alfabético minúsculo;
+      \item Ou uma sequência contínua de caracteres dos símbolos: +, -, *, /, \, \^, >, <, =, ', :, ., ?, @, \#, \$, \&\. (e.g. ***+***+@)
+      \item Ou algum dos seguintes átomos especiais: [], {}, ;, !.
+    \end{itemize}
+  \end{definition}
+
+
+  \theoremstyle{definition}
+  \begin{definition}{Funtor}
+    é um átomo seguido de $n$ argumentos fechados por parênteses e separados por vírgula:
+    \[
+      p(a_1, ..., a_n)
+    \]
+    Onde $p$ é um átomo e $a_1$ a $a_n$ são quaisquer termos. Quando $n = 0$, não são colocados parênteses e o funtor é apenas um átomo. Quando $n > 0$, o funtor é chamado \textit{termo composto} e $p$ é chamado \textit{funtor principal} (essa definição faz sentido porque cada um dos argumentos pode, por sua vez, ser um outro funtor).
+  \end{definition}
+Vale notar que os funtores são diferenciados por nome e aridade (quantidade de parâmetros). Assim, os funtores a seguir são distintos:
+    \[
+      f(a_1, a_2)
+    \]
+    \[
+      f(a_1)
+    \]
+
+    Um funtor de aridade \textit{n} e nome \textit{p} será denotado \textit{p/n}.
+
+
+
+  \theoremstyle{definition}
+  \begin{definition}{Termo}
+     é ou um funtor (composto ou não), uma variável (o que são variáveis e como funcionam será explicado adiante), ou um número (em especial, lidaremos com números inteiros ou reais).
+  \end{definition}
+
+  Quando um termo for um átomo ou um número, diremos que ele é \textbf{Atômico}.
+
+  \footnote{ O termo \textit{funtor} foi introduzido por Rudolph Carnap, filósofo alemão que participou do círculo de Vienna, em seu \textit{Logische Syntax der Sprache} e indica uma \textit{palavra função}, que contribui primariamente com a sintaxe de uma sentença (em contraste com \textit{palavras conteúdo}, que contribuem primariamente com o significado): resumidamente, em sua concepção original, funtores expressam a estrutura relacional que palavras tem umas com as outras. O termo atualmente
+    também é usado em outras áreas (além de em linguística e programação lógica), como em \textit{Teoria de Categoria}, com   significado semelhante (é claro, levando em conta o contexto).  }
+
+
+
+
+
+\end{document}
