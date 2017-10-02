@@ -13,7 +13,7 @@ naive_search2(List) :-
 % Less naive
 %
 % less_naive_search(List) :-
-%   assigns valus from the variable domains to all the
+%   assigns values from the variable domains to all the
 %   Var-Domain pairs in List
 %
 less_naive_search(List) :-
