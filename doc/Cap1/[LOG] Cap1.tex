@@ -44,7 +44,7 @@ and\_gate(Inputl,Input2,Output) :-\\
   inverter(X,Output).
 $
 \\
-Qual será o resultado do goal \tt{$and_gate(In1, In2, Out)?$}, a leitora pode se perguntar. Mais do que isso, ela pode se perguntar ``Será que, dado um programa qualquer e um goal qualquer dá para \textit{calcular} o resultado do goal?''. Te convido a refletir por alguns momentos sobre essa questão.
+Qual será o resultado do goal {\tt $and_gate(In1, In2, Out)?$}, a leitora pode se perguntar. Mais do que isso, ela pode se perguntar ``Será que, dado um programa qualquer e um goal qualquer dá para \textit{calcular} o resultado do goal?''. Te convido a refletir por alguns momentos sobre essa questão.
 
 %Note que, como o goal consiste contém variáveis (lembre-se que o que for capitalizado em programas lógicos denota uma variável), um resultado não é só \textit{sucesso} ou \textit{falha}, mas
 %também, possivelmente, uma substituição para valores das variáveis (isto é, valores para as variáveis tal que o goal tenha sucesso).
@@ -75,7 +75,7 @@ A leitora atenta vai notar que ainda não disse o que quero dizer com ``uma subs
     \item Se existe mais algum $p_i$ a ser escolhido, volte ao item (a), se não retorne com sucesso.
 \end{itemize}
 
-Antes de estudarmos mais a fundo o funcionamento do algoritmo de Martelli-Montanari, precisamos saber o que é uma \textit{substituição}. Intuitivamente, ela é o que parece ser: a substituição de uma variável por um valor atômico ou, possívelmente, uma outra variável. Mais em geral, dada a cláusula \textbf{P}: \tt{p($A_1$, ..., $A_n$)}, uma substituição
+Antes de estudarmos mais a fundo o funcionamento do algoritmo de Martelli-Montanari, precisamos saber o que é uma \textit{substituição}. Intuitivamente, ela é o que parece ser: a substituição de uma variável por um valor atômico ou, possívelmente, uma outra variável. Mais em geral, dada a cláusula \textbf{P}: {\tt p($A_1$, ..., $A_n$)}, uma substituição
 \u{o} sobre P, denotada P\u{o}, é um conjunto (possívelmente vazio) de atribuição de valores às variáveis de $A_i$ de P. Uma atribuição é escrita como $A_i = B$, onde o símbolo ``='' deve ser entendido como usado em álgebra (isto é, como denotando uma relação simétrica de igualdade entre $A_i$ e $B$, não como geralmente usado em programação, como um operador de atribuição). Não pense em ``='' como um operador de atribuição, mas sim como algo que expressa a relação de dois termos terem o mesmo valor.
 
 Até então, evitamos lidar com variáveis muito a fundo. Isso porque elas adicionam complicações importantes (na verdade, essenciais, como logo ficará patente). Mas voltando ao algoritmo de unificação...

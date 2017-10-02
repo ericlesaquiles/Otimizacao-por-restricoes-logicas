@@ -44,7 +44,7 @@ As definições apresentadas serão as usadas no Prolog; quando houverem diferen
     \begin{itemize}
       \item Sequência de caracteres entre aspas simples (\textit{'Qualquer coisa assim'});
       \item Ou uma sequência de caracteres contendo apenas caracteres alfabéticos, numéricos e \textit{underscore} (`\_') começando com um caractere alfabético minúsculo;
-      \item Ou uma sequência contínua de caracteres dos símbolos: +, -, *, /, \, \^{}, $>$, $<$, =, ', :, ., ?, @, \#, \$, \&\.{} (e.g. ***+***+@)
+      \item Ou uma sequência contínua de caracteres dos símbolos: $+$, $-$, $*$, $/$, $\backslash$, \^{}, $>$, $<$, $=$, ', :, ., ?, @, \#, \$, \&. (e.g. ***+***+@)
       \item Ou algum dos seguintes átomos especiais: [], {}, ;, !.
     \end{itemize}
   \end{definition}
@@ -89,14 +89,14 @@ Com base nessas definições, podemos definir os blocos de construção da progr
 
 Intuitivamente, fatos e regras são como axiomas matemáticos: a partir deles é possível fazer deduções.
 
-Dos dois, fatos são mais simples. Eles são escritos como  $\tt{p(a_1, ..., a_n).}$\footnote{Trechos escritos \tt{com esta fonte}, devem ser entendidos como trechos de código.},  ou, mais resumidamente, \tt{p.}, isto é, um funtor e seus argumentos, seguido de um ponto final ``.''. Fatos podem ser lidas e entendidas como ``$\tt{p(a_1, ..., a_n)}$ é verdade''.
+Dos dois, fatos são mais simples. Eles são escritos como  ${\tt p(a_1, ..., a_n).}$\footnote{Trechos escritos {\tt com esta fonte}, devem ser entendidos como trechos de código.},  ou, mais resumidamente, {\tt p.}, isto é, um funtor e seus argumentos, seguido de um ponto final ``.''. Fatos podem ser lidas e entendidas como ``${\tt p(a_1, ..., a_n)}$ é verdade''.
 
-Regras são escritas como $\tt{p :- b_1, ..., b_n.}$, onde $p$ denota um funtor e $b_1$ a $b_n$ são termos quaisquer. Regras podem ser lidas e entendidas como \tt{p é verdade se $b_1$ a $b_n$ forem} (se ajudar, você pode ler o ``:-'' como uma seta de implica, $\leftarrow$, estilizada). É conveniente dar nomes diferentes para a parte de uma regra que vem à esquerda do ``:-'' da que vem à direita dele: o que vem à esquerda de ``:-'' (o ``p'' do nosso exemplo) será chamado \textit{cabeça} da cláusula e, o que vem à direita, \textit{corpo} da cláusula. Assim, a
+Regras são escritas como ${\tt p :- b_1, ..., b_n.}$, onde $p$ denota um funtor e $b_1$ a $b_n$ são termos quaisquer. Regras podem ser lidas e entendidas como {\tt p é verdade se $b_1$ a $b_n$ forem} (se ajudar, você pode ler o ``:-'' como uma seta de implica, $\leftarrow$, estilizada). É conveniente dar nomes diferentes para a parte de uma regra que vem à esquerda do ``:-'' da que vem à direita dele: o que vem à esquerda de ``:-'' (o ``p'' do nosso exemplo) será chamado \textit{cabeça} da cláusula e, o que vem à direita, \textit{corpo} da cláusula. Assim, a
 \textit{cabeça} é verificada como verdadeira se o \textit{corpo} o for (mas não o contrário).
 
 Um programa lógico consiste em um conjunto de cláusulas. Um exemplo de programa lógico é o seguinte:\\
 
-\tt{
+{\tt
   pao(de).\\
   pao(de, queijo).\\
   com(cafe) :- tem(cafe).\\
@@ -106,7 +106,7 @@ Um programa lógico consiste em um conjunto de cláusulas. Um exemplo de program
 
 Note que os nomes usados para os funtores são arbitrários. O seguinte programa tem essencialmente o mesmo significado\footnote{ Aqui, ``Essencialmente o mesmo'' significa ``o mesmo'', se não levarmos em conta os significados usuais dos nomes usados (em geral, levamos isso em conta)}:\\
 
-\tt{
+{\tt
   queijo(lua).\\
   queijo(lua, pao).\\
   coma(terra) :- gem(terra).\\
@@ -114,7 +114,7 @@ Note que os nomes usados para os funtores são arbitrários. O seguinte programa
   terra.
 }
 
-A maneira primária de se utilizar um programa lógico é por meio de \textbf{buscas}, às vezes também chamadas objetivos ou de \textit{goals} (daqui para frente referidas como \textbf{\textit{goals}}, sem itálico, que é anomenclatura mais utilizada). Um goal é escrito como um fato e é o que se busca ``provar'' a partir do programa. Intuitivamente, pode-se pensar no programa lógico como um conjunto de axiomas e no goal como uma hipótese que se quer provar a partir desses axiomas. Assim, um goal
+A maneira primária de se utilizar um programa lógico é por meio de \textbf{buscas}, às vezes também chamadas objetivos ou de \textit{goals} (daqui para frente referidas como \textbf{\textit{goals}}, sem itálico, que é a nomenclatura mais utilizada). Um goal é escrito como um fato e é o que se busca ``provar'' a partir do programa. Intuitivamente, pode-se pensar no programa lógico como um conjunto de axiomas e no goal como uma hipótese que se quer provar a partir desses axiomas. Assim, um goal
 relativo a algum programa pode ter o status de sucesso, se ele pode ser provado a partir do programa, falha se não ou, se foi um goal mal escrito, pode gerar um erro (isto é, o goal gera um erro quando não é ``compreensível'' à partir da gramática utilizada pelo interpretador). Mais especificamente, um goal é uma \textbf{conjunção}, escrita como \textit{$p_1,p_2,...,p_n.$}, onde as vírgulas podem ser lidas como um \textit{e} lógico (isto é, lê-se um goal como \textit{$p_1$ e $p_2$ e ... e
   $p_n.$}, onde $p_i$ é
 entendida como uma proposição que pode ser verdadeira ou falsa\footnote{Na verdade, como veremos, uma interpretação mais próxima da realidade do programa lógico é uma baseada na lógica construtivista, mas, por enquanto, é suficiente pensar em um goal como uma conjunção no sentido clássico}).
@@ -126,10 +126,11 @@ Para diferenciarmos goals de fatos, goals serão, aqui, escritos como:
   p?
 \]
 
-Onde \tt{p?} indica a conjunção dos $p_i$s, como explicado anteriormente, e pode ser entendida como a proposição\footnote{É algo como uma tradição usar ``funtor'' e ``proposição'' de forma quase que intercambiável, deixando a leitora potencialmente confusa quanto à diferença (se alguma) entre os dois. Este texto não tem a intenção de quebrar tradições (em particular, não essa), confiando que isso não lhe apresentará maior dificuldade no entendimento.} que se quer provar. Note que essa convenção será usada aqui mas não reflete como um goal pode parecer na natureza (em particular, no
+Onde {\tt p?} indica a conjunção dos $p_i$s, como explicado anteriormente, e pode ser entendida como a proposição\footnote{É algo como uma tradição usar ``funtor'' e ``proposição'' de forma quase que intercambiável, deixando a leitora potencialmente confusa quanto à diferença (se alguma) entre os dois. Este texto não tem a intenção de quebrar tradições (em particular, não essa), confiando que isso não lhe apresentará maior dificuldade no entendimento.} que se quer provar. Note que essa convenção será usada aqui mas não reflete como um goal pode parecer na natureza (em particular, no
 Prolog padrão, assim como nas outras implementações conhecidas pelo autor, o ``\textit{?}'' é substituído pelo ``.'' e um goal, assim, seria diferenciável de um fato apenas pelo contexto).
 
 Para melhor compreensão, considere o seguinte programa:
+%TODO por o programa
 
 
 
@@ -154,10 +155,11 @@ Com essa discussão em mente, será ocasionalmente útil ter o \textit{significa
   Na verdade, essa é a definição procedural do significado de um programa lógico (mas veremos posteriormente que essa distinção é imaterial) e, vale notar, ela é sempre bem definida (isto é, todo programa lógico tem um significado bem definido). Nesse contexto, o significado intencionado pela programadora (isto é, ``o que ela quer dizer com o programa'') é um conjunto de goals que pode ou não estar contido no significado do programa. Assim, podemos nos perguntar ``Será que o
   programa diz tudo que se quer que ele diga?'' (isto é, se o significado intencionado está contido no significado do programa), ou ``Será que tudo o que ele diz é correto?'' (isto é, se o significado do programa está contido no intencionado). No primeiro caso, se o significado intencionado estiver contido no do programa, dizemos que o programa é \textit{completo} e, no segundo, que ele é \textit{correto}.
 
-  Por exemplo, digamos que o programa x seja um trecho de um programa no qual a programadora deseja modelar as relações entre programas e especificações de software atuais e antigos, de forma que A é pai de B se A veio antes de B e B herda características de A, como partes do código ou especificações (como é possível ver, ela apenas começou a escrever o programa). Assim, estão no significado intencionado goals como \tt{pai(gnu, linux)?} e \tt{pai(dos, windows)?}, enquanto que o
-  significado do programa é {\tt{pai(d,c)?}} (esse programa é correto? e completo?).
+  Por exemplo, digamos que o programa x seja um trecho de um programa no qual a programadora deseja modelar as relações entre programas e especificações de software atuais e antigos, de forma que A é pai de B se A veio antes de B e B herda características de A, como partes do código ou especificações (como é possível ver, ela apenas começou a escrever o programa). Assim, estão no significado intencionado goals como {\tt pai(gnu, linux)?} e {\tt pai(dos, windows)?}, enquanto que o
+  significado do programa é {\tt pai(d,c)?} (esse programa é correto? e completo?).
 
 
   Leituras adicionais:
+  %TODO adicionar leituras adicionais
 
 \end{document}

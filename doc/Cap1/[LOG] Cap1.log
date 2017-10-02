@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  2 OCT 2017 14:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  2 OCT 2017 15:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -424,33 +424,33 @@ LaTeX Warning: Command \' invalid in math mode on input line 47.
 \add@accent ...@spacefactor \spacefactor }\accent 
                                                   #1 #2\egroup \spacefactor ...
 l.47 Qual será
-                o resultado do goal \tt{$and_gate(In1, In2, Out)?$}, a leito...
+                o resultado do goal {\tt $and_gate(In1, In2, Out)?$}, a leit...
 
 ? 
 ! You can't use `\spacefactor' in math mode.
 \add@accent ...}\accent #1 #2\egroup \spacefactor 
                                                   \accent@spacefactor 
 l.47 Qual será
-                o resultado do goal \tt{$and_gate(In1, In2, Out)?$}, a leito...
+                o resultado do goal {\tt $and_gate(In1, In2, Out)?$}, a leit...
 
 ? 
 ! Missing } inserted.
 <inserted text> 
                 }
-l.47 Qual será o resultado do goal \tt{$
-                                         and_gate(In1, In2, Out)?$}, a leito...
+l.47 Qual será o resultado do goal {\tt $
+                                          and_gate(In1, In2, Out)?$}, a leit...
 
 ? 
 Missing character: There is no � in font cmex10!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.47 Qual será o resultado do goal \tt{$and_
-                                             gate(In1, In2, Out)?$}, a leito...
+l.47 Qual será o resultado do goal {\tt $and_
+                                              gate(In1, In2, Out)?$}, a leit...
 
 ? 
 ! Too many }'s.
-l.47 ...do do goal \tt{$and_gate(In1, In2, Out)?$}
+l.47 ...o do goal {\tt $and_gate(In1, In2, Out)?$}
                                                   , a leitora pode se pergun...
 
 ? 
@@ -503,196 +503,32 @@ l.64 \end{enumerate}
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (8.08398pt too wide) in paragraph at lines 77--79
-[]\OT1/cmr/m/n/10 Antes de es-tu-dar-mos mais a fundo o fun-ci-o-na-mento do al
--go-ritmo de Martelli-
- []
-
-
-Overfull \hbox (4.17691pt too wide) in paragraph at lines 77--79
-\OT1/cmtt/m/n/10 p($\OML/cmm/m/it/10 A[]$\OT1/cmtt/m/n/10 , ..., $\OML/cmm/m/it
-/10 A[]$\OT1/cmtt/m/n/10 ), uma substitui^^Xc~ao ^^Uo sobre P, denotada P^^Uo, 
-^^Se um
- []
-
-
-Overfull \hbox (36.99692pt too wide) in paragraph at lines 77--79
-\OT1/cmtt/m/n/10 conjunto (poss^^S^^Pvelmente vazio) de atribui^^Xc~ao de valor
-es ^^Ras vari^^Saveis
- []
-
-
-Overfull \hbox (17.0761pt too wide) in paragraph at lines 77--79
-\OT1/cmtt/m/n/10 de $\OML/cmm/m/it/10 A[]$ \OT1/cmtt/m/n/10 de P. Uma atribui^^
-Xc~ao ^^Se escrita como $\OML/cmm/m/it/10 A[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/1
-0 B$\OT1/cmtt/m/n/10 , onde o s^^S^^Pmbolo
- []
-
-
-Overfull \hbox (47.49683pt too wide) in paragraph at lines 77--79
-\OT1/cmtt/m/n/10 ``='' deve ser entendido como usado em ^^Salgebra (isto ^^Se, 
-como denotando
- []
-
-
-Overfull \hbox (40.16316pt too wide) in paragraph at lines 77--79
-\OT1/cmtt/m/n/10 uma rela^^Xc~ao sim^^Setrica de igualdade entre $\OML/cmm/m/it
-/10 A[]$ \OT1/cmtt/m/n/10 e $\OML/cmm/m/it/10 B$\OT1/cmtt/m/n/10 , n~ao como ge
-ralmente
- []
-
-
-Overfull \hbox (21.24706pt too wide) in paragraph at lines 77--79
-\OT1/cmtt/m/n/10 usado em programa^^Xc~ao, como um operador de atribui^^Xc~ao).
- N~ao pense
- []
-
-
-Overfull \hbox (5.4972pt too wide) in paragraph at lines 77--79
-\OT1/cmtt/m/n/10 em ``='' como um operador de atribui^^Xc~ao, mas sim como algo
- que
- []
-
-
-Overfull \hbox (31.74696pt too wide) in paragraph at lines 80--81
-[]\OT1/cmtt/m/n/10 At^^Se ent~ao, evitamos lidar com vari^^Saveis muito a fundo
-. Isso porque
- []
-
-
-Overfull \hbox (15.9971pt too wide) in paragraph at lines 80--81
-\OT1/cmtt/m/n/10 elas adicionam complica^^Xc~oes importantes (na verdade, essen
-ciais,
- []
-
-
-Overfull \hbox (47.49683pt too wide) in paragraph at lines 80--81
-\OT1/cmtt/m/n/10 como logo ficar^^Sa patente). Mas voltando ao algoritmo de uni
-fica^^Xc~ao... 
- []
-
-
-Overfull \hbox (10.74715pt too wide) in paragraph at lines 82--84
-[]\OT1/cmtt/m/n/10 Intuitivamente, ele tenta provar o goal a partir do programa
- de
- []
-
-
-Overfull \hbox (63.24669pt too wide) in paragraph at lines 82--84
-\OT1/cmtt/m/n/10 forma construtiva: tenta construir uma solu^^Xc~ao por meio de
- substitui^^Xc~oes
- []
-
-
-Overfull \hbox (15.9971pt too wide) in paragraph at lines 82--84
-\OT1/cmtt/m/n/10 e, se n~ao chegar a uma contradi^^Xc~ao s^^Seria demais no pro
-cesso (uma
- []
-
-
-Overfull \hbox (21.24706pt too wide) in paragraph at lines 82--84
-\OT1/cmtt/m/n/10 contradi^^Xc~ao que n~ao pode ser corrigida. continue lendo), 
-termina
- []
-
-
-Overfull \hbox (0.24724pt too wide) in paragraph at lines 82--84
-\OT1/cmtt/m/n/10 com sucesso, ``retornando'' (n~ao no sentido de uma fun^^Xc~ao
- que
- []
-
-
-Overfull \hbox (0.24724pt too wide) in paragraph at lines 82--84
-\OT1/cmtt/m/n/10 retorna um valor, mas no de mostrar ao usu^^Sario do programa)
- a
- []
-
-
-Overfull \hbox (0.24724pt too wide) in paragraph at lines 82--84
-\OT1/cmtt/m/n/10 substitui^^Xc~ao realizada (na verdade, extritamente falando, 
-ele
- []
-
-
-Overfull \hbox (5.4972pt too wide) in paragraph at lines 82--84
-\OT1/cmtt/m/n/10 n~ao precisa ``retornar'' as substitui^^Xc~oes, mas assumiremo
-s que
- []
-
-
-Overfull \hbox (15.9971pt too wide) in paragraph at lines 85--86
-[]\OT1/cmtt/m/n/10 No item (a), escolhemos um dos termos do goal para provar. I
-sso
- []
-
-
-Overfull \hbox (21.24706pt too wide) in paragraph at lines 85--86
-\OT1/cmtt/m/n/10 porque, como discutido anteriormente, o goal ^^Se verdadeiro s
-e cada
- []
-
-
-Overfull \hbox (13.85773pt too wide) in paragraph at lines 85--86
-\OT1/cmtt/m/n/10 um de seus termos o for: Provando todos os $\OML/cmm/m/it/10 p
-[]$\OT1/cmtt/m/n/10 , provamos o goal. 
- []
-
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 89.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 89.
-
-Overfull \hbox (15.23328pt too wide) in paragraph at lines 87--90
-[]\OT1/cmtt/m/n/10 Em seguida, no item (b), escolhemos n~ao-determ^^S^^Pnistica
-mente[] uma
- []
-
-
-Overfull \hbox (7.99098pt too wide) in paragraph at lines 87--90
-\OT1/cmtt/m/n/10 das cl^^Sausulas (digamos, a cl^^Sausula $\OML/cmm/m/it/10 m[]
-$\OT1/cmtt/m/n/10 ) do programa para provar
- []
-
-
-Overfull \hbox (13.85773pt too wide) in paragraph at lines 87--90
-\OML/cmm/m/it/10 p[]$\OT1/cmtt/m/n/10 . Essa opera^^Xc~ao pode ser vista como a
- tentativa de unifica^^Xc~ao
- []
-
-
-! LaTeX Error: \begin{itemize} on input line 74 ended by \end{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.95 \end{document}
-                   
-? 
-[2] [3] (./[LOG] Cap1.aux) )
-(\end occurred inside a group at level 1)
-
-### semi simple group (level 1) entered at line 74 (\begingroup)
-### bottom level 
+ [2] [3]
+(./[LOG] Cap1.aux) ) 
 Here is how much of TeX's memory you used:
  1184 strings out of 492990
  13125 string characters out of 6138688
- 78035 words of memory out of 5000000
+ 79035 words of memory out of 5000000
  4772 multiletter control sequences out of 15000+600000
  7914 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 25i,8n,23p,558b,237s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pf
-b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/sha
-re/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on "[LOG] Cap1.pdf" (3 pages, 141438 bytes).
+ 25i,8n,23p,558b,180s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
+0.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sh
+are/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr
+/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
+>
+Output written on "[LOG] Cap1.pdf" (3 pages, 136990 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  44 compressed objects within 1 object stream
