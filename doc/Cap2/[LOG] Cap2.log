@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  8 OCT 2017 15:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  9 OCT 2017 14:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**"[LOG] Cap0.tex"
-(./[LOG] Cap0.tex
+**"[LOG] Cap2.tex"
+(./[LOG] Cap2.tex
 LaTeX2e <2017-04-15>
 Babel <3.12> and hyphenation patterns for 84 language(s) loaded.
 (/usr/share/texmf-dist/tex/latex/base/article.cls
@@ -467,97 +467,92 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 File: lstlang2.sty 2015/06/04 1.6 listings language file
 )
 \c@definition=\count101
- (./[LOG] Cap0.aux)
-\openout1 = `"[LOG] Cap0.aux"'.
+ (./[LOG] Cap2.aux)
+\openout1 = `"[LOG] Cap2.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
 \c@lstlisting=\count102
 
-[1
+(../Exemplos/Cap2/prog1_natural.pl
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 2.
+) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 63.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 92.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 92.
 
-(/usr/share/texmf-dist/tex/latex/base/omscmr.fd
+Overfull \hbox (2.77782pt too wide) in paragraph at lines 92--93
+[]\OT1/cmr/m/n/10 Por exem-plo, se omi-tir-mos o pri-meiro fato do pro-grama 1,
+ o goal \OT1/cmtt/m/n/10 natural(X)?
+ []
+
+[2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 99.
+ (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 63.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 99.
 
-Overfull \hbox (21.39436pt too wide) in paragraph at lines 64--65
-\OT1/cmr/m/it/10 num^^Sericos e un-ders-core (`[]') come^^Xcando com um ca-rac-
-tere al-fab^^Setico min^^Susculo; 
- []
-
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 65.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 65.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 73.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 73.
-[2]
+(../Exemplos/Cap2/prog2_append.pl
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 105.
-
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
-
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 2.
+)
+Overfull \hbox (0.1949pt too wide) in paragraph at lines 115--116
+[]\OT1/cmr/m/n/10 Esse ^^Se um pro-grama cl^^Sassico e, por isso, es-co-lhe-mos
+ man-ter seu nome cl^^Sassico,
  []
 
-(../Exemplos/Cap0/prog1_cafe.pl)
-Underfull \hbox (badness 10000) in paragraph at lines 120--121
+[3]
+! Undefined control sequence.
+l.137 ... ou 0 ou um $s^n(0)$, para $n \in \mathbb
+                                                  {N}$.
+? 
 
+Overfull \hbox (2.85246pt too wide) in paragraph at lines 147--148
+[]\OT1/cmr/m/n/10 Para isso, pre-ci-sa-re-mos do con-ceito de bf com-pri-mento 
+de uma prova. Quando
  []
 
-(../Exemplos/Cap0/prog2_queijo.pl [3])
-Overfull \hbox (2.01443pt too wide) in paragraph at lines 132--133
-[]\OT1/cmr/m/n/10 Assim, go-als, as-sim como re-gras s~ao como cl^^Sausulas de 
-Horn[] (isto ^^Se, cl^^Sausulas
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 142--143
-
- []
-
-(../Exemplos/Cap0/prog3_arvb.pl [4]) (../Exemplos/Cap0/prog4_pai.pl) [5]
-[6] (./[LOG] Cap0.aux) ) 
+[4] [5] (./[LOG] Cap2.aux) ) 
 Here is how much of TeX's memory you used:
- 4000 strings out of 492990
- 52816 string characters out of 6138688
- 157214 words of memory out of 5000000
- 7532 multiletter control sequences out of 15000+600000
- 8267 words of font info for 31 fonts, out of 8000000 for 9000
+ 3971 strings out of 492990
+ 52453 string characters out of 6138688
+ 155214 words of memory out of 5000000
+ 7512 multiletter control sequences out of 15000+600000
+ 7495 words of font info for 27 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 26i,8n,40p,741b,1552s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
-/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8
-.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/sha
-re/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on "[LOG] Cap0.pdf" (6 pages, 176297 bytes).
+ 30i,8n,40p,621b,1127s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.p
+fb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/font
+s/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmtt10.pfb>
+Output written on "[LOG] Cap2.pdf" (5 pages, 143082 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 64 PDF objects out of 1000 (max. 8388607)
+ 45 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -7,7 +7,22 @@
 \usepackage{amsthm}
 \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 
-\theoremstyle{definition}
+\usepackage{listings}
+\lstset{language=Prolog}
+\renewcommand{\lstlistingname}{Código}
+
+%\newtheoremstyle{definition}% name of the style to be used
+  %{3pt}% measure of space to leave above the theorem. E.g.: 3pt
+  %{3pt}% measure of space to leave below the theorem. E.g.: 3pt
+  %{}% name of font to use in the body of the theorem
+  %{2cm}% measure of space to indent
+  %{}% name of head font
+  %{:}% punctuation between head and body
+  %{.5em}% space after theorem head; " " = normal interword space
+  %{}% Manually specify head
+
+
+%\theoremstyle{definition}{indent=1cm}
 \newtheorem{definition}{Definição}[section]
 
 \theoremstyle{remark}
@@ -22,6 +37,7 @@
 
 
 \begin{document}
+
 \section{Dando nome aos bois}
 
 Neste capítulo serão explicadas algumas noções mais ou menos simples, assim como definidos termos a serem utilizados posteriormente. Vale notar que alguns dos termos usados aqui também são usados em outros contextos, mas com significado diferente. As definições aqui colocadas são referentes apenas à utilização no presente documento.\par
@@ -60,6 +76,7 @@ As definições apresentadas serão as usadas no Prolog; quando houver diferenç
       p(a_1, ..., a_n)
     \]
 \noindent em que $p$ é um átomo e $a_1$ a $a_n$ são quaisquer termos. Quando $n = 0$, não são colocados parênteses e o funtor é apenas um átomo. Quando $n > 0$, o funtor é chamado \textit{termo composto} e $p$ é chamado \textit{funtor principal} (essa definição faz sentido porque cada um dos argumentos pode, por sua vez, ser um outro funtor).
+  Não confunda funtor com função: sua única semelhança é na forma de se escriver.
   \end{definition}
 Vale notar que os funtores são diferenciados por nome e aridade (quantidade de parâmetros). Assim, os funtores a seguir são distintos:
     \[
@@ -75,7 +92,7 @@ Vale notar que os funtores são diferenciados por nome e aridade (quantidade de 
 
   \theoremstyle{definition}
   \begin{definition}{Termo}
-     é um funtor (composto ou não), uma variável (o que são variáveis e como funcionam será explicado adiante), ou um número (em especial, lidaremos com números inteiros ou reais).
+    \\Termo é um funtor (composto ou não) com seus argumentos, uma variável (o que são variáveis e como funcionam será explicado adiante), ou um número (em especial, lidaremos com números inteiros ou reais).
   \end{definition}
 
   Quando um termo for um átomo ou um número, diremos que ele é \textbf{atômico}.
@@ -91,36 +108,24 @@ Com base nessas definições, podemos definir os blocos de construção da progr
 
 Intuitivamente, fatos e regras são como axiomas matemáticos: a partir deles é possível fazer deduções.
 
-Dos dois, fatos são mais simples. Eles são escritos como  ${\tt p(a_1, ..., a_n).}$\footnote{Trechos escritos {\tt com esta fonte}, devem ser entendidos como trechos de código.},  ou, mais resumidamente, {\tt p.}, isto é, um funtor e seus argumentos, seguido de um ponto final ``.''. Fatos podem ser lidos e entendidos como ``${\tt p(a_1, ..., a_n)}$ é verdade''.
+Dos dois, fatos são mais simples. Eles são escritos como  ${\tt p(a_1, ..., a_n).}$\footnote{Trechos escritos {\tt com esta fonte} no meio do texto devem ser entendidos como trechos de código.},  ou, mais resumidamente, {\tt p.}, isto é, um funtor e seus argumentos, seguido de um ponto final ``.''. Fatos podem ser lidos e entendidos como ``${\tt p(a_1, ..., a_n)}$ é verdade''.
 
 Regras são escritas como ${\tt p :- b_1, ..., b_n.}$, onde $p$ denota um funtor e $b_1$ a $b_n$ são termos quaisquer. Regras podem ser lidas e entendidas como {\tt p é verdade se $b_1$ a $b_n$ forem} (se ajudar, você pode ler o ``:-'' como uma seta de implica, $\leftarrow$, estilizada). É conveniente dar nomes diferentes para a parte de uma regra que vem à esquerda do ``:-'' da que vem à direita dele: o que vem à esquerda de ``:-'' (o ``p'' do nosso exemplo) será chamado \textit{cabeça} da cláusula e, o que vem à direita, \textit{corpo} da cláusula. Assim, a
 \textit{cabeça} é verificada como verdadeira se o \textit{corpo} o for (mas não o contrário).
 
 Um programa lógico consiste em um conjunto de cláusulas. Um exemplo de programa lógico é o seguinte:\\
 
-{\tt
-  pao(de).\\
-  pao(de, queijo).\\
-  com(cafe) :- tem(cafe).\\
-  tem(cafe) :- cafe.\\
-  cafe.
-}
+\lstinputlisting[caption=Café]{../Exemplos/Cap0/prog1_cafe.pl}
 
 Note que os nomes usados para os funtores são arbitrários. O seguinte programa tem essencialmente o mesmo significado\footnote{ Aqui, ``Essencialmente o mesmo'' significa ``o mesmo'', se não levarmos em conta os significados usuais dos nomes usados (em geral, levamos isso em conta)}:\\
 
-{\tt
-  queijo(lua).\\
-  queijo(lua, pao).\\
-  coma(terra) :- gem(terra).\\
-  gem(terra) :- terra.\\
-  terra.
-}
+\lstinputlisting[caption=Queijo]{../Exemplos/Cap0/prog2_queijo.pl}
 
 %TODO: esta uma mistura de coisas marcadas em italico, em negrito e com o \tt. Poderia criar uma convencao e usa-la sempre. Por exemplo: sempre que falar de um comando, usar \tt; sempre que for definir alguma coisa, usar negrito; sempre que estiver em ingles, usar italico.
 % No caso do goal, que estava em italico mas falou que nao ia mais usar o italico, esta otimo tambem, porque nao usa mais o italico mas explicou que vai fazer isso.
 
-A maneira primária de se utilizar um programa lógico é por meio de \textbf{buscas}, às vezes também chamadas objetivos ou de \textit{goals} (daqui para frente referidas como \textbf{\textit{goals}}, sem itálico, que é a nomenclatura mais utilizada). Um goal é escrito como um fato e é o que se busca ``provar'' a partir do programa. Intuitivamente, pode-se pensar no programa lógico como um conjunto de axiomas e no goal como uma hipótese que se quer provar a partir desses axiomas. Assim, um goal
-relativo a algum programa pode ter o status de sucesso, se ele pode ser provado a partir do programa, falha se não ou, se foi um goal mal escrito, pode gerar um erro (isto é, o goal gera um erro quando não é ``compreensível'' a partir da gramática utilizada pelo interpretador). Mais especificamente, um goal é uma \textbf{conjunção}, escrita como \textit{$p_1,p_2,...,p_n.$}, onde as vírgulas podem ser lidas como um \textit{e} lógico (isto é, lê-se um goal como \textit{$p_1$ e $p_2$ e ... e
+A maneira primária de se utilizar um programa lógico é por meio de buscas, às vezes também chamadas objetivos ou de \textit{goals} (daqui para frente referidas como goals, sem itálico, que é a nomenclatura mais utilizada). Um goal é escrito como um fato e é o que se busca ``provar'' a partir do programa. Intuitivamente, pode-se pensar no programa lógico como um conjunto de axiomas e no goal como uma hipótese que se quer provar a partir desses axiomas. Assim, um
+goal, relativo a algum programa, pode ter o status de sucesso, se ele pode ser provado a partir do programa, falha se não, ou, se foi um goal mal escrito, pode gerar um erro (isto é, o goal gera um erro quando não é ``compreensível'' a partir da gramática utilizada pelo interpretador). Mais especificamente, um goal é uma \textbf{conjunção}, escrita como \textit{$p_1,p_2,...,p_n.$}, onde cada vírgula pode ser lida como um \textit{e} lógico (assim, lê-se um goal como \textit{$p_1$ e $p_2$ e ... e
   $p_n.$}, onde $p_i$ é
 entendida como uma proposição que pode ser verdadeira ou falsa\footnote{Na verdade, como veremos, uma interpretação mais próxima da realidade do programa lógico é uma baseada na lógica construtivista, mas, por enquanto, é suficiente pensar em um goal como uma conjunção no sentido clássico}).
 
@@ -131,21 +136,21 @@ Para diferenciarmos goals de fatos, goals serão, aqui, escritos como:
   p?
 \]
 
-\noindent em que {\tt p?} indica a conjunção dos $p_i$s, como explicado anteriormente, e pode ser entendida como a proposição\footnote{É algo como uma tradição usar ``funtor'' e ``proposição'' de forma quase que intercambiável, deixando a leitora potencialmente confusa quanto à diferença (se alguma) entre os dois. Este texto não tem a intenção de quebrar tradições (em particular, não essa), confiando que isso não lhe apresentará maior dificuldade no entendimento.} que se quer provar. Note que essa convenção será usada aqui mas não reflete como um goal pode parecer na natureza (em particular, no
+\noindent onde {\tt p?} indica a conjunção dos $p_i$, como explicado anteriormente, e pode ser entendida como a proposição\footnote{É algo como uma tradição usar ``funtor'' e ``proposição'' de forma quase que intercambiável, deixando a leitora potencialmente confusa quanto à diferença (se alguma) entre os dois. Este texto não tem a intenção de quebrar tradições (em particular, não essa), confiando que isso não lhe apresentará maior dificuldade no entendimento.} que se quer provar. Note que essa convenção será usada aqui mas não reflete como um goal pode parecer na natureza (em particular, no
 Prolog padrão, assim como nas outras implementações conhecidas pelo autor, o ``\textit{?}'' é substituído pelo ``.'' e um goal, assim, seria diferenciável de um fato apenas pelo contexto).
 
-Para melhor compreensão, considere o seguinte programa:
-%TODO por o programa
+Para melhor compreensão, considere o seguinte programa:\\
 
+\lstinputlisting[caption=Árvore binária]{../Exemplos/Cap0/prog3_arvb.pl}
 
+O goal {\tt $arvore\_b$(vazio)?} tem sucesso, já que é um dos fatos. O goal {\tt $arvore\_b$(arvore(raiz, vazio, vazio))?} também tem, já que {\tt $arvore\_b$(a, B, C)?} tem sucesso se $arvore\_b(A)$ e $arvore\_b(B)$ tiverem, o que ocorre. Perceba que, neste caso, o goal não tem sucesso segundo a primeira cláusula apenas e nem segundo a segunda. Ambas contribuem para a definição de $arvore\_b$.
 
 Utilizamos a convenção de que termos capitalizados (isto é, com inicial maiúscula) denotam variáveis, enquanto os demais denotam constantes (a leitora descobrirá que, por incrível coincidência, o Prolog faz uso da mesma convenção).
 
-No geral, o que um programa lógico deveria fazer (isto é, o que a programadora tem em mente ao escrevê-lo) pode não ser a princípio claro. Numa tentativa de aliviar isso, usaremos aqui a convenção de usar nomes significativos, assumindo o significado usual (a não ser quando dito o contrário), para os elementos relevantes. Assim, por exemplo, o seguinte trecho (programa x):
-\[
-  filho(c,b).
-  pai(Pai, Filho) :- filho(Filho, Pai).
-\]
+No geral, o que um programa lógico deveria fazer (isto é, o que a programadora tem em mente ao escrevê-lo) pode não ser a princípio claro. Numa tentativa de aliviar isso, usaremos aqui a convenção de usar nomes significativos, assumindo o significado usual (a não ser quando dito o contrário), para os elementos relevantes. Assim, por exemplo, o seguinte trecho:
+
+\lstinputlisting[caption=Pai e filho]{../Exemplos/Cap0/prog4_pai.pl}
+
 
 Indica que Pai tem a relação \textit{pai/2} com Filho se Filho tem a relação \textit{filho} com Pai (em outras palavras, um Pai é pai de um Filho de Filho é filho de Pai). Mas não é assumido que o interpretador do programa tenha conhecimento sobre o que é \textit{pai} ou \textit{filho}, ou seja, essa interpretação é relevante para o leitor do programa apenas (o que também significa que o leitor do programa ler \textit{pai} e a \textit{filho} de várias formas e um programa pode, assim,
 ser interpretado de mais de uma forma).
