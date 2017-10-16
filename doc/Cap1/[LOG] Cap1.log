@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  12 OCT 2017 11:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  16 OCT 2017 13:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -489,11 +489,26 @@ Overfull \hbox (0.51411pt too wide) in paragraph at lines 64--65
 mr/m/n/10 (\OML/cmm/m/it/10 b[]; :::; b[]\OT1/cmr/m/n/10 )$:
  []
 
+
+Underfull \hbox (badness 5939) in paragraph at lines 74--74
+[][]\OT1/cmr/m/n/10 E im-por-tante
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--74
+\OT1/cmr/m/n/10 per-der-mos
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--74
+\OT1/cmr/m/n/10 poss^^S^^Pveis
+ []
+
 [2]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 110.
+(Font)              <8> on input line 108.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 110.
+(Font)              <6> on input line 108.
  [3] [4] (./[LOG] Cap1.aux) ) 
 Here is how much of TeX's memory you used:
  3475 strings out of 492990
@@ -514,7 +529,7 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mtt10.pfb>
-Output written on "[LOG] Cap1.pdf" (4 pages, 149066 bytes).
+Output written on "[LOG] Cap1.pdf" (4 pages, 148548 bytes).
 PDF statistics:
  65 PDF objects out of 1000 (max. 8388607)
  46 compressed objects within 1 object stream

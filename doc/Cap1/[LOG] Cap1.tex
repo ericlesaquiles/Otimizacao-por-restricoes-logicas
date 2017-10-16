@@ -42,7 +42,7 @@ Qual será o resultado do goal {\tt porta\_and(Entrada1, Entrada2, Saida)?}, a l
 
 A leitora pode imaginar que, se houvessem muitos programas com goals de resultados incalculáveis, programação lógica não seria tão útil e difícilmente teria sido feito um material como este (mais difícil ainda é o material ter sido feito e a leitora estar lendo), então esse não deve ser o caso.
 
-Se o goal estiver expresso no programa apenas como um fato base, prová-lo é fácil: só precisamos checar se algum dos fatos é igual ao goal. Mas, se o goal contiver alguma variável ou só puder ser provado através de alguma regra, que é o caso geral, a situação fica mais complicada.
+Se o goal estiver expresso no programa apenas como um fato base, prová-lo é fácil: só precisamos checar se algum dos fatos é igual ao goal. Mas, se o goal contiver alguma variável ou só puder ser provável através de alguma regra, que é o caso geral, a situação fica mais complicada.
 
 Se o goal contiver variáveis, para prová-lo o que precisamos é encontrar uma substituição para cada uma delas de forma que cada um dos termos do goal seja logicamente consistente com o programa. Aqui o que queremos dizer com ``substituição'' é que a variável toma o valor de um outro termo. Uma forma de pensar sobre isso é que, antes da substituição, a variável ``tem uma vida só sua'' (é irrestrita) e que, depois, sua vida é, na verdade, ``a vida de
 outro'' (é restrita). Mais precisamente, temos:\\
@@ -67,14 +67,12 @@ Todas as substituições são iguais, mas algumas são mais iguais que outras. E
 
 Dito isso, podemos expressar mais claramente nosso objetivo de provar o goal a partir do programa como o de achar uma substituição tal que cada termo do goal seja unificável com alguma cláusula do programa. Mais precisamente, um goal é provado a partir do programa se é possível unificar cada termo do goal com algum cláusula do programa de forma a preservar a consistência das regras. O processo pelo qual esse objetivo é realizado é chamado \textbf{processo de resolução}.
 
-Unificação exerce um papel fundamental na programação lógica. Na prática, ele resume processos de atribuição de valores, gerenciamento de memória, invocação de funções e passagem de valores, entre outros. O primeiro estudo formal sobre unificação é devido a John A. Robinson, que depois de provar que existe um algoritmo de unificação, gerou o primeiro algoritmo de que temos conhecimento.
+Unificação exerce um papel fundamental na programação lógica. Na prática, ele resume processos de atribuição de valores, gerenciamento de memória, invocação de funções e passagem de valores, entre outros. O primeiro estudo formal sobre unificação é devido a John A. Robinson, que depois de provar que existe um algoritmo de unificação, gerou o primeiro de que temos conhecimento.
 
-O algoritmo dele é um tanto ineficiente, e não será estudado aqui. Usaremos um mais prático no lugar. Antes, lembre-se que um programa lógico é um conjunto de regras que recebe um goal (ou, uma busca) e retorna {\it sim} se a busca tem sucesso ou {\it não} se não.
+O algoritmo dele é um tanto ineficiente, e não será estudado aqui. Usaremos um mais prático no lugar. Antes, lembre-se que um programa lógico é um conjunto de regras que recebe um goal (ou, uma busca) e retorna {\it sucesso}(ou, sim, ou verdadeiro, dependendo da preferência) se a busca tem sucesso ou {\it falha}(ou, não, ou falso...) se não.
 
-Como discutido acima, para provar um goal a partir de um programa é suficiente que tenhamos um algoritmo de unificação. Esse algoritmo recebe uma equação do tipo $T_1 = T_2$, e retorna uma substituição mais geral para as variáveis presentes, caso tal substituição exista, ou falha, caso contrário. O algoritmo que utilizaremos faz uso de uma pilha para armazenar as equações a serem resolvidas e de um espaço $\Gamma$ para armazenar a substituiçõe.
-
-No lugar disso, para entender como o processo de unificação (e, consequentemente, o de resolução) pode funcionar, usaremos o \textbf{algoritmo de Martelli-Montanari}:
-\vspace{0.5cm}
+Como discutido acima, para provar um goal a partir de um programa é suficiente que tenhamos um algoritmo de unificação. Esse algoritmo recebe uma equação do tipo $T_1 = T_2$, e retorna uma substituição mais geral\marginpar{É importante que seja a mais geral, para não perdermos possíveis soluções} para as variáveis presentes, caso tal substituição exista, ou falha, caso contrário. O algoritmo que utilizaremos faz uso de uma pilha para armazenar as equações a serem resolvidas e de um espaço
+$\Gamma$ para armazenar a substituições:
 
 \begin{itemize}
     \item[(a)] Primeiro faça o \textit{push} da equação na pilha;
