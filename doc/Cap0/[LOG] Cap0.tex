@@ -28,7 +28,15 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+
 \setlength{\parskip}{.5em}
+
+\usepackage{epigraph}
+\setlength\epigraphwidth{0.9\linewidth}
+\setlength\epigraphrule{0pt}
+
+
 
 %
 % TODO: revisar terminar esta seção!
@@ -39,6 +47,10 @@
 \begin{document}
 
 \section{Dando nome aos bois}
+
+\epigraph{\textit{Foi a influência da filosofia grega que fez da matemática uma ciência. De fato, os primeiros matemáticos gregos estão entre os primeiros filósofos, como é o caso de Tales e Pitágoras. A noção de que um fato matemático pode ser demonstrado é fruto da interação entre matemática e filosofia. Afinal, uma demonstração é essencialmente um argumento para esclarecer como um certo fato é consequência de algo que já conhecemos. E se há alguma coisa que os filósofos gregos gostavam de
+    fazer era argumentar.}}{S. C. Coutinho - Números Inteiros e Criptografia RSA}
+
 
 Neste capítulo serão explicadas algumas noções mais ou menos simples, assim como definidos termos a serem utilizados posteriormente. Vale notar que alguns dos termos usados aqui também são usados em outros contextos, mas com significado diferente. As definições aqui colocadas são referentes apenas à utilização no presente documento.\par
 É uma quantidade relativamente grande de definições que a leitora poderia, possivelmente, reconhecer de capítulos posteriores e estão postas aqui para referência. Dependendo de seu estilo, talvez considere mais interessante começar do Capítulo 1: Continue por sua conta e risco. %No futuro, colocar uma referencia para o label do capitulo 1, em vez de explicitar o 1.
@@ -124,7 +136,7 @@ Note que os nomes usados para os funtores são arbitrários. O seguinte programa
 %TODO: esta uma mistura de coisas marcadas em italico, em negrito e com o \tt. Poderia criar uma convencao e usa-la sempre. Por exemplo: sempre que falar de um comando, usar \tt; sempre que for definir alguma coisa, usar negrito; sempre que estiver em ingles, usar italico.
 % No caso do goal, que estava em italico mas falou que nao ia mais usar o italico, esta otimo tambem, porque nao usa mais o italico mas explicou que vai fazer isso.
 
-A maneira primária de se utilizar um programa lógico é por meio de buscas, às vezes também chamadas objetivos ou de \textit{goals} (daqui para frente referidas como goals, sem itálico, que é a nomenclatura mais utilizada). Um goal é escrito como um fato e é o que se busca ``provar'' a partir do programa. Intuitivamente, pode-se pensar no programa lógico como um conjunto de axiomas e no goal como uma hipótese que se quer provar a partir desses axiomas. Assim, um
+A maneira primária de se utilizar um programa lógico é por meio de buscas, às vezes também chamadas objetivos ou de \textit{goals} (daqui para frente preferiremos usar goals, sem itálico, que é a nomenclatura mais utilizada, exceto quando for conveniente utilizar ``busca'' ou ``objetivo''). Um goal é escrito como um fato e é o que se busca ``provar'' a partir do programa. Intuitivamente, pode-se pensar no programa lógico como um conjunto de axiomas e no goal como uma hipótese que se quer provar a partir desses axiomas. Assim, um
 goal, relativo a algum programa, pode ter o status de sucesso, se ele pode ser provado a partir do programa, falha se não, ou, se foi um goal mal escrito, pode gerar um erro (isto é, o goal gera um erro quando não é ``compreensível'' a partir da gramática utilizada pelo interpretador). Mais especificamente, um goal é uma \textbf{conjunção}, escrita como \textit{$p_1,p_2,...,p_n.$}, onde cada vírgula pode ser lida como um \textit{e} lógico (assim, lê-se um goal como \textit{$p_1$ e $p_2$ e ... e
   $p_n.$}, onde $p_i$ é
 entendida como uma proposição que pode ser verdadeira ou falsa\footnote{Na verdade, como veremos, uma interpretação mais próxima da realidade do programa lógico é uma baseada na lógica construtivista, mas, por enquanto, é suficiente pensar em um goal como uma conjunção no sentido clássico}).
