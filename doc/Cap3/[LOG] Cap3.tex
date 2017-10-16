@@ -29,6 +29,12 @@
 
 \setlength{\parskip}{.5em}
 
+%\documentclass[tikz,border=5]{standalone}
+%\usetikzlibrary{graphs,graphdrawing,arrows.meta}
+%\usegdlibrary{trees}
+
+\usepackage[linguistics]{forest}
+
 %
 % TODO: revisar terminar esta seção!
 %
@@ -39,6 +45,80 @@
 
 \section{Prolog e predicados não lógicos}
 
-Vimos anteriormente que existem várias formas
+Antes de prosseguirmos, a seguinte construção será ocasionalmente útil:
+
+\begin{definition}{Lista}
+  \\ Usaremos a seguinte definição formal de lista:
+  \begin{itemize}
+    \item {\tt .()} (o ``funtor .'') é uma lista\footnote{Na verdade, isso não é extritamente padrão e implementações diferentes podem usar funtores diferentes. Essa é outra razão para não usarmos essa definição na prática, mas sim a convenção seguinte. Apesar disso, é importante se lembrar que a lista não é, extritamente falando, diferente de um funtor.};
+    \item {\tt .(A, B)} é uma lista se B é uma lista
+  \end{itemize}
+  Como é chato ficar escrevendo coisas como {\tt.(A, .(B, C))} usaremos as seguinte convenções:
+  \begin{itemize}
+    \item {\tt [A,B]} é o mesmo que {\tt .(A, .(B, .()))};
+    \item {\tt [A]} é o mesmo que {\tt .(A, .())} (o funtor . é de aridade 2, a não ser quando não recebe arguentos);
+    \item {\tt [A, B, C, ...]} é o mesmo que {\tt .(A, .(B, .(C, ...)))};
+    \item {\tt [A|B]} indica que A é o primeiro elemento da lista e B é o resto da lista (B é uma lista).
+  \end{itemize}
+\end{definition}
+
+Dado isso, podemos escrever um programa para adicionar um elemento na lista como o seguinte:
+
+\lstinputlisting[caption=Append]{../Exemplos/Cap2/prog2_append.pl}
+
+Esse é um programa clássico e, por isso, escolhemos manter seu nome clássico, que, daqui para frente será usado sem itálico. Os dois elementos iniciais de append são listas e o final é o resultado de se ``juntar as duas listas'': cada elemento da primeira lista está, ordenadamente, antes da cada elemento da segunda. Para exercitar, pense em qual seria o resultado do goal {\tt append([cafe, queijo], [goiabada], L)?}.
+
+
+\begin{definition}{Lista Completa}
+\\ Uma lista L é completa se toda instância L$\iota$ satisfaz a definição dada: se existem instâncias que não a satisfazem, ela é dita incompleta
+\end{definition}
+
+A lista {\tt[a,b,c]} é completa: a {\tt[a,b|Xs]}\marginpar{{\tt.(a,.(b,Xs))} só satisfaz a definição se...?}, não (lembre-se: nomes capitalizados denotam variáveis).
+
+
+Até agora, temos nos ocupado mais com aspectos teóricos de programação lógica. Na prática, as coisas podem ser diferentes.
+
+A começar pela avaliação do programa: computadores comuns não vem equipados com uma placa de clarevidência e podem não conseguir adivinhar bem o caminho para a prova de um goal. Isto é, a hipótese de não-determinismo não segue na prática. Seguindo nessa linha o ideal seria que, se um goal pode ser provado por um programa, o processo de prova seguisse um caminho direto, sem tentativas de unificações infrutíferas. Na prática, isso só é realizável para situações muito específicas e, no geral, serão tentadas diversas unificações infrutíferas antes de se chegar a um objetivo.
+
+Para lidar com isso, é, no geral, criado um {\it choice point} logo antes de se tentar uma unificação. Se a tentativa resulta em falha, o processo volta ao estado de antes da tentativa, a possibilidade daquela unificação é eliminada e o processo continua. O goal só falha quando todas as possibilidades foram eliminadas.
+
+Para vizualisarmos isso precisamos ter uma ideia melhor de em qual ordem ocorrem as tentativas de unificações. Como antes, usaremos o Prolog como base.
+
+A explicação será na base do seguinte exemplo, representando um pedaço da árvore genealógica da dinastia Julio-Claudiana, junto com a relação ancestral\footnote{\textit{``It is, of course, obvious at once that `ancestor' must be capable
+of definition in terms of `parent', but until Frege developed his generalised theory of induction, no one could have defined `ancestor' precisely in terms of `parent.' ''} --- Bertrand Russel,\textit{Introduction to Mathematical Philosophy}. Para sermos honestos: na verdade, ele se referia a uma versão mais geral dessa relação do que a apresentada aqui. Voltaremos a esse tema depois.}:
+
+\lstinputlisting[caption=Ancestral]{../Exemplos/Cap3/prog1_ancestor.pl}
+
+O goal {\tt ancestral(augustu, nero)?} define implicitamente a seguinte árvore:
+
+\begin{forest}
+  [{\tt ancestral(augustu, nero)?}
+    [{\tt filhx(nero, $C_1$)?}
+      [{\tt filhx(nero, $C_1$=agrippina)?}
+        [sucesso]
+      ]
+      [{\tt{filhx(nero, $C_1$=gnaeus\_ahenobarbus)}}
+        [sucesso]
+      ]
+    ]
+    [{\tt ancestral(augustus, $C_1$)?}
+      [
+        [{\tt filhx($C_1$, $C_2$)?}]
+      ]
+      [
+        [{\tt ancestral(augustus, $C_2$)}]
+      ]
+    ]
+  ]
+\end{forest}
+
+\subsection{Controle}
+
+
+
+
+
+
+
 
 \end{document}
