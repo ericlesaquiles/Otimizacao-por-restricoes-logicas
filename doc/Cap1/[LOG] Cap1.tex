@@ -40,9 +40,9 @@ Qual será o resultado do goal {\tt porta\_and(Entrada1, Entrada2, Saida)?}, a l
 %Note que, como o goal consiste contém variáveis (lembre-se que o que for capitalizado em programas lógicos denota uma variável), um resultado não é só \textit{sucesso} ou \textit{falha}, mas
 %também, possivelmente, uma substituição para valores das variáveis (isto é, valores para as variáveis tal que o goal tenha sucesso).
 
-A leitora pode imaginar que, se houvessem muitos programas com goals de resultados incalculáveis, programação lógica não seria tão útil e difícilmente teria sido feito um material como este (mais difícil ainda é o material ter sido feito e a leitora estar lendo), então esse não deve ser o caso.
+A leitora pode imaginar que, se houvesse muitos programas com goals de resultados incalculáveis, programação lógica não seria tão útil e dificilmente teria sido feito um material como este (mais difícil ainda é o material ter sido feito e a leitora estar lendo), então esse não deve ser o caso.
 
-Se o goal estiver expresso no programa apenas como um fato base, prová-lo é fácil: só precisamos checar se algum dos fatos é igual ao goal. Mas, se o goal contiver alguma variável ou só puder ser provável através de alguma regra, que é o caso geral, a situação fica mais complicada.
+Se o goal estiver expresso no programa apenas como um fato base, prová-lo é fácil: só precisamos checar se algum dos fatos é igual ao goal. Mas, se o goal contiver alguma variável ou só puder ser provado através de alguma regra, que é o caso geral, a situação fica mais complicada.
 
 Se o goal contiver variáveis, para prová-lo o que precisamos é encontrar uma substituição para cada uma delas de forma que cada um dos termos do goal seja logicamente consistente com o programa. Aqui o que queremos dizer com ``substituição'' é que a variável toma o valor de um outro termo. Uma forma de pensar sobre isso é que, antes da substituição, a variável ``tem uma vida só sua'' (é irrestrita) e que, depois, sua vida é, na verdade, ``a vida de
 outro'' (é restrita). Mais precisamente, temos:\\
@@ -55,34 +55,35 @@ outro'' (é restrita). Mais precisamente, temos:\\
 Convém fazer algumas observações a respeito do que foi dito:
 
 \begin{enumerate}
-  \item A relação ``$A = B$'' deve ser entendido como usado em álgebra (isto é, como denotando uma relação simétrica de igualdade entre $A$ e $B$) e não como geralmente usado em programação, como um operador de atribuição assimétrico (onde $A = b$ não é o mesmo que $b = A$);
+  \item A relação ``$A = B$'' deve ser entendida como usado em álgebra (isto é, como denotando uma relação simétrica de igualdade entre $A$ e $B$) e não como geralmente usado em programação, como um operador de atribuição assimétrico (onde $A = b$ não é o mesmo que $b = A$);
   \item O símbolo ``='' expressa a relação de dois termos serem idênticos;
-  \item Essa relação é transitiva: se A, B e C são variáveis e se $A = B$ e $B = C$, então $A = C$ (se A é idêntico a B e B é idêntico a C, A é idêntico a C);
+  \item Essa relação é transitiva: se A, B e C são variáveis e se $A = B$ e $B = C$, então $A = C$ (se A é idêntico a B e B é idêntico a C, então A é idêntico a C);
   \item Pelo item (2), não podemos fazer $A = 1$ e $A = 2$: isso dá falha por inconsistência.
 \end{enumerate}
 
-Se temos que existe alguma substituição $\iota$ (possívelmente vazia) para que $p(a_1, ..., a_n) = q(b_1, ..., b_n)$, dizemos que  $p(a_1, ..., a_n)$ é unificável com $q(b_1, ..., b_n)$: ``='' é o \textbf{símbolo de unificação}.
+Se temos que existe alguma substituição $\iota$ (possívelmente vazia) para que $p(a_1, ..., a_n) = q(b_1, ..., b_n)$, dizemos que  $p(a_1, ..., a_n)$ é unificável com $q(b_1, ..., b_n)$. ``='' é o \textbf{símbolo de unificação}.
 
-Todas as substituições são iguais, mas algumas são mais iguais que outras. Em particular, dado um programa P e substituições $\iota$ e $\nu$, se existe alguma substituição $\eta$ tal que $P\iota\eta = P \nu$, dizemos que $\iota$ é uma substituição mais geral do que $\nu$. A substituição mais geral é será de especial importância logo mais.
+Todas as substituições são iguais, mas algumas são mais iguais que outras. Em particular, dado um programa P e substituições $\iota$ e $\nu$, se existe alguma substituição $\eta$ tal que $P\iota\eta = P \nu$, dizemos que $\iota$ é uma substituição mais geral do que $\nu$. A substituição mais geral será de especial importância logo mais. %QUESTION: o que significa $P\iota\eta$? 
 
-Dito isso, podemos expressar mais claramente nosso objetivo de provar o goal a partir do programa como o de achar uma substituição tal que cada termo do goal seja unificável com alguma cláusula do programa. Mais precisamente, um goal é provado a partir do programa se é possível unificar cada termo do goal com algum cláusula do programa de forma a preservar a consistência das regras. O processo pelo qual esse objetivo é realizado é chamado \textbf{processo de resolução}.
+Dito isso, podemos expressar mais claramente nosso objetivo de provar o goal a partir do programa como o de achar uma substituição tal que cada termo do goal seja unificável com alguma cláusula do programa. Mais precisamente, um goal é provado a partir do programa se é possível unificar cada termo do goal com alguma cláusula do programa de forma a preservar a consistência das regras. O processo pelo qual esse objetivo é realizado é chamado \textbf{processo de resolução}.
 
-Unificação exerce um papel fundamental na programação lógica. Na prática, ele resume processos de atribuição de valores, gerenciamento de memória, invocação de funções e passagem de valores, entre outros. O primeiro estudo formal sobre unificação é devido a John A. Robinson, que depois de provar que existe um algoritmo de unificação, gerou o primeiro de que temos conhecimento.
+Unificação exerce um papel fundamental na programação lógica. Na prática, ele resume processos de atribuição de valores, gerenciamento de memória, invocação de funções e passagem de valores, entre outros. O primeiro estudo formal sobre unificação é devido a John A. Robinson, que depois de provar que existe um algoritmo de unificação, gerou o primeiro de que temos conhecimento. %QUESTION: nao tem uma referencia?
 
-O algoritmo dele é um tanto ineficiente, e não será estudado aqui. Usaremos um mais prático no lugar. Antes, lembre-se que um programa lógico é um conjunto de regras que recebe um goal (ou, uma busca) e retorna {\it sucesso}(ou, sim, ou verdadeiro, dependendo da preferência) se a busca tem sucesso ou {\it falha}(ou, não, ou falso...) se não.
+O algoritmo dele é um tanto ineficiente, e não será estudado aqui. Usaremos um mais prático no lugar. Antes, lembre-se que um programa lógico é um conjunto de regras que recebe um goal (ou uma busca) e retorna {\it sucesso} (ou, sim, ou verdadeiro, dependendo da preferência) se a busca tem sucesso ou {\it falha} (ou, não, ou falso...) se não.
 
-Como discutido acima, para provar um goal a partir de um programa é suficiente que tenhamos um algoritmo de unificação. Esse algoritmo recebe uma equação do tipo $T_1 = T_2$, e retorna uma substituição mais geral\marginpar{É importante que seja a mais geral, para não perdermos possíveis soluções} para as variáveis presentes, caso tal substituição exista, ou falha, caso contrário. O algoritmo que utilizaremos faz uso de uma pilha para armazenar as equações a serem resolvidas e de um espaço
+Como discutido acima, para provar um goal a partir de um programa é suficiente que tenhamos um algoritmo de unificação. Esse algoritmo recebe uma equação do tipo $T_1 = T_2$, e devolve uma substituição mais geral\marginpar{É importante que seja a mais geral, para não perdermos possíveis soluções} %COMMENT: como essa "nota lateral" nao deixa uma marca na coisa a que se refere, como no caso da nota de rodape, ficou estranho. Neste caso, acho que ficaria melhor a nota de rodape mesmo. Estas notas na margem ficam melhores quando voce faz nelas comentarios mais auto-contidos, que tem a ver com o que foi dito no texto principal que esta ao lado dela. 
+para as variáveis presentes, caso tal substituição exista, ou falha, caso contrário. O algoritmo que utilizaremos faz uso de uma pilha para armazenar as equações a serem resolvidas e de um espaço
 $\Gamma$ para armazenar a substituições:
 
 \begin{itemize}
     \item[(a)] Primeiro faça o \textit{push} da equação na pilha;
-    \item[(b)] Se a pilha estiver vazia, retorne sucesso. Se não, faça o \textit{pop} de um elemento (uma equação) $T_1 = T_2$ da pilha. Realize uma das ações a seguir, segundo a equação retirada:
+    \item[(b)] Se a pilha estiver vazia, devolva sucesso. Se não, faça o \textit{pop} de um elemento (uma equação) $T_1 = T_2$ da pilha. Realize uma das ações a seguir, segundo a equação retirada:
       \begin{enumerate}
-        \item Se $T_1$ e $T_2$ forem termos unários idênticos, nada precisa ser feito: volte ao passo (b);
-        \item Se $T_1$ é uma variável e $T_2$ um termo não contendo $T_1$, é realizada uma busca na pilha pelas ocorrências de $T_1$ e $T_1$ é trocada por $T_2$ (o mesmo é feito em $\Gamma$);
-        \item Análogamente se $T_2$ for uma variável e $T_1$ for um termo não contendo $T_2$;
-        \item Se $T_1$ e $T_2$ forem termos compostos de mesmo funtor principal e aridade, $f(a_1, ..., a_n)$ e $p(b_1, ..., b_n)$, as equações $a_i = b_i$ são adicionadas na pilha;
-        \item Em outro caso, retorne falha.
+        \item Se $T_1$ e $T_2$ forem termos unários idênticos, nada precisa ser feito: repita o passo (b);
+        \item Se $T_1$ é uma variável e $T_2$ um termo não contendo $T_1$, realize uma busca na pilha pelas ocorrências de $T_1$ e troque $T_1$ por $T_2$ (o mesmo é feito em $\Gamma$); %QUESTION: que \Gamma eh este? E depois disso? Repete o passo b?
+        \item Analogamente se $T_2$ for uma variável e $T_1$ for um termo não contendo $T_2$; %QUESTION: e o que faz neste caso?
+        \item Se $T_1$ e $T_2$ forem termos compostos de mesmo funtor principal e aridade, $f(a_1, ..., a_n)$ e $p(b_1, ..., b_n)$, adicione as equações $a_i = b_i$ na pilha e repita o passo (b);
+        \item Em outro caso, devolva falha.
       \end{enumerate}
 \end{itemize}
 
@@ -101,17 +102,18 @@ $\Gamma$ para armazenar a substituições:
   %\item[(c)] Se existe mais algum $p_i$ a ser escolhido, volte ao item (a), se não retorne com sucesso.
 %\end{itemize}
 
-Intuitivamente, esse algoritmo tenta provar a equação de forma construtiva: isto é, tenta construir uma solução por meio de substituições e, se não chegar a uma contradição, termina com sucesso, ``retornando'' (não no sentido de uma função que retorna um valor, mas no de ``mostrar'' ao usuário do programa) a substituição realizada.
-mas assumiremos que retorna).
+Intuitivamente, esse algoritmo tenta provar a equação de forma construtiva: isto é, tenta construir uma solução por meio de substituições e, se não chegar a uma contradição, termina com sucesso, ``devolvendo'' (não no sentido de uma função que devolve um valor, mas no de ``mostrar'' ao usuário do programa) a substituição realizada.
+mas assumiremos que retorna). %COMMENT: esse pedaco de frase sobrou aqui.
 
-Para provar um goal G, escolhemos não-determinísticamente\footnote{No geral, podem existir várias escolhas possíveis e pode ser que, por algumas sequências de escolhas de cláusulas, nunca chegemos a uma prova do goal, apesar de ele ser deduzível a partir de outras cláusulas. Quando dizemos que a escolha é não-determinística, queremos dizer que, se existem conjuntos de escolhas que provam o goal, um desses conjuntos é escolhido (a escolha é feita entre as cláusulas que podem provar o
-  goal, o que significa que, se ele é provável, ele é provado). Na prática, isso pode ser implementado apenas aproximadamente, mas, ainda assim, é uma abstração importante e leva a aplicações interessantes, como as dos, assim chamados, \textit{programas não-determinísticos}.} a cabeça de uma cláusula T do programa, construimos uma equação do tipo $G = T$ e aplicamos o algoritmo acima. Caso ele retorne sucesso, fazemos o mesmo com cada termo do corpo da cláusula. Caso retorne falha, seleciona-se outra cláusula e é realizado o mesmo processo, até que não hajam mais cláusulas a serem selecionadas, quando o goal retorna falha.
+Para provar um goal G, escolhemos não-deterministicamente\footnote{No geral, podem existir várias escolhas possíveis e pode ser que, por algumas sequências de escolhas de cláusulas, nunca chegemos a uma prova do goal, apesar de ele ser deduzível a partir de outras cláusulas. Quando dizemos que a escolha é não-determinística, queremos dizer que, se existem conjuntos de escolhas que provam o goal, um desses conjuntos é escolhido (a escolha é feita entre as cláusulas que podem provar o
+  goal, o que significa que, se ele é provável, ele é provado). Na prática, isso pode ser implementado apenas aproximadamente, mas, ainda assim, é uma abstração importante e leva a aplicações interessantes, como as dos assim chamados \textit{programas não-determinísticos}.} a cabeça de uma cláusula T do programa, construímos uma equação do tipo $G = T$ e aplicamos o algoritmo acima. Caso ele devolva sucesso, fazemos o mesmo com cada termo do corpo da cláusula. Caso devolva falha, seleciona-se outra cláusula e é realizado o mesmo processo, até que não haja mais cláusulas a serem selecionadas, quando o goal retorna falha.
 
-O item 2 merece uma explicação um pouco mais detalhada. Ela diz implicitamente que x não é unificável com algum $y(a_1, ...,x, ...a_n)$, isto é, com algum funtor que tome x como argumento. Pode parecer estranho a princípio, mas a estranheza some se se lembrar que funtor não é função: um funtor exerce uma função primariamente estrutural e simbólica. Sem isso, se $x = y(a_1, ..., x, ..., a_n)$, então $x = y(a_1, ...,y(a_1, ..., x, ..., a_n) , ..., a_n) = y(a_1, ...,y(a_1, ...,y(a_1, ...,y(a_1,
+O item 2 %QUESTION: que item 2? O passo b.2?
+merece uma explicação um pouco mais detalhada. Ela diz implicitamente que x não é unificável com algum $y(a_1, ...,x, ...a_n)$, isto é, com algum funtor que tome x como argumento. Pode parecer estranho a princípio, mas a estranheza some se se lembrar que funtor não é função: um funtor exerce uma função primariamente estrutural e simbólica. Sem isso, se $x = y(a_1, ..., x, ..., a_n)$, então $x = y(a_1, ...,y(a_1, ..., x, ..., a_n) , ..., a_n) = y(a_1, ...,y(a_1, ...,y(a_1, ...,y(a_1,
 ...,$
-$x, ..., a_n) , ..., a_n) , ..., a_n) , ..., a_n)$ em um círculo sem fim. Com um processo desses, não dá para provar um goal e, portanto, é retornado falha.
+$x, ..., a_n) , ..., a_n) , ..., a_n) , ..., a_n)$ em um ciclo sem fim. Com um processo desses, não dá para provar um goal e, portanto, é devolvida falha.
 
-Para entender melhor, tome o exemplo do código Circuito, no início deste capítulo, e suponha que àquele código é submetida o goal {\tt resistor(energia, n1)?}, o algoritmo é aplicado como se segue:
+Para entender melhor, tome o exemplo do código Circuito, no início deste capítulo, e suponha que àquele código é submetido o goal {\tt resistor(energia, n1)?}. O algoritmo é aplicado como se segue:
 
   \begin{enumerate}
     \item Tentaremos a unificação do goal com a cláusula na primeira linha do programa: a equação resistor(energia, n1) = resistor(energia, n1) é posta na pilha;
@@ -119,7 +121,7 @@ Para entender melhor, tome o exemplo do código Circuito, no início deste capí
     \item A equação é formada por dois funtores termos compostos de mesmo funtor principal e mesma aridade: as equações energia  = energia e n1 = n1 são postas na pilha;
     \item É retirada uma equação da pilha: a equação energia = energia. Como os dois lados da equação são idênticos, não há mais o que fazer;
     \item É retirada outra equação da pilha: a equação n1 = n1. Como os dois lados da equação são idênticos, não há mais o que fazer;
-    \item A pilha está vazia: o programa retorna sucesso, com a substituição $\Gamma = \{\}$ (substituição vazia).
+    \item A pilha está vazia: o programa devolve sucesso, com a substituição $\Gamma = \{\}$ (substituição vazia).
   \end{enumerate}
 
 
