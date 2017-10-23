@@ -63,61 +63,59 @@ começamos uma discussão informal nesse sentido. Como foi lá notado, a defini�
 
 O significado declarativo é baseado na assim chamada teoria de modelos. Para trabalharmos com ela, precisamos antes de alguma terminologia:
 
-\begin{definition}{Universo Herbrand:}\marginpar{\textbf{Universo Herbrand}} %COMMENT: aqui esta tentando um novo padrao para as definicoes. Lembrar de escolher uma e usar a mesma em todos os capitulos.
-  \\O universo Herbrand de um programa lógico P, denotado U(P), é o conjunto de termos base formados pelas constantes e símbolos de funtores que aparecem em P.
+\begin{definition} O \textbf{universo Herbrand}\marginpar{\textbf{Universo Herbrand}} de um programa lógico P, denotado U(P), é o conjunto de termos base formados pelas constantes e símbolos de funtores que aparecem em P.
 \end{definition}
 
 Por exemplo, se temos um programa como o seguinte:
 
 \lstinputlisting[caption=Natural]{../Exemplos/Cap2/prog1_natural.pl}
+\label{lst:natural}
 
 U(P) é o conjunto formado por 0, natural/1 e suas combinações:
 \[
-  U(P) = \{0, p(0), p(p(0)), p(p(p(0))), ...\} %QUESTION: nao seria s em vez de p?
+  U(P) = \{0, s(0), s(s(0)), s(s(s(0))), ...\} %QUESTION: nao seria s em vez de p?
 \]
 
-\begin{definition}{Base Herbrand}\marginpar{\textbf{Base Herbrand}}
-  \\ A base Herbrand de um programa lógico P, denotada B(P), é o conjunto de goals base formados por predicados em P e o termos de U(P).
+\begin{definition} A \textbf{base Herbrand}\marginpar{\textbf{Base Herbrand}}de um programa lógico P, denotada B(P), é o conjunto de goals base formados por predicados em P e o termos de U(P).
 \end{definition}
 
-  Assim, chamaremos um subconjunto de B(P) de \textbf{interpretação} e um subconjunto consistente com o programa, de \textbf{modelo}:
+  Chamaremos um subconjunto de B(P) de \textbf{interpretação} e um subconjunto consistente com o programa, de \textbf{modelo}:
 
-\begin{definition}{Modelo}
-  \\ Dada uma interpretação I de um programa lógico, I é um modelo se, para cada cláusula de P, {\tt a :- $b_0$, ..., $b_n$}, $a \in I$ se $b_0$, ..., $b_n$ $\in I$.
+\begin{definition} Dada uma interpretação I de um programa lógico, I é um modelo\marginpar{\textbf{Modelo}} se, para cada cláusula de P, {\tt a :- $b_0$, ..., $b_n$}, $a \in I$ se $b_0$, ..., $b_n$ $\in I$.
 \end{definition}
 
  Podem existir vários modelos diferentes para um programa lógico, então faz sentido falar de um modelo mínimo.
 
-\begin{definition}{Significado declarativo}
-  \\ Dado um programa P, um modelo mínimo para P, m(P), é um modelo tal que $\forall M_i$, $M_i$ modelo de P, m(P) $\subseteq M_i$. Tal modelo é chamado de significado declarativo de P.
+\begin{definition} Dado um programa P, um modelo mínimo para P, m(P), é um modelo tal que $\forall M_i$, $M_i$ modelo de P, m(P) $\subseteq M_i$. Tal modelo é chamado de \textbf{significado declarativo}\marginpar{\textbf{Significado declarativo}} de P.
 \end{definition}
 
-Mostrar que essa semântica e a anteriormente apresentada são equivalentes foge de nosso escopo.
+Mostrar que essa semântica e a anteriormente apresentada são equivalentes foge de nosso escopo atual.
 
 \subsection{Correção do Programa}
 
-Pelo que vimos na seção anterior, todo programa tem um significado bem definido. Apesar disso, esse significado pode ou não corresponder ao intencionado pela programadora. Querer tratar matematicamente o ``significado intencionado pela programadora'' é querer tirar conclusões rigorosas de algo não rigorosamente definido: ultrapassamos essa dificuldade no capítulo inicial dizendo que o significado intencionado é um conjunto de goals. Não nos questionamos se
-isso é mesmo possível, preferimos deixar essa questão de exercício para a leitora diligente.
+Pelo que vimos na seção anterior, todo programa tem um significado bem definido. Apesar disso, esse significado pode ou não corresponder ao intencionado pela programadora. Querer tratar matematicamente o ``significado intencionado pela programadora'' é querer tirar conclusões rigorosas de algo não rigorosamente definido: vencemos essa dificuldade no capítulo inicial dizendo que o significado intencionado é um conjunto de goals. Não nos questionamos se
+isso é mesmo possível, essa questão é deixada de exercício para a leitora diligente.
 
-Supondo que o ``significado intencionado pela programadora'' é conjunto de goals, definimos, também no capítulo inicial, o que chamamos de programa correto e programa completo. Caso não se lembre, um programa é correto em relação a um significado intencionado se o significado do programa está contido no intencionado e, completo, ele contém o intencionado: um programa é correto e completo se o significado intencionado for igual ao do programa.
+Supondo que o ``significado intencionado pela programadora'' é conjunto de goals, definimos, também no capítulo inicial, o que chamamos de \textit{programa correto} e \textit{programa completo}. Caso não se lembre, um programa é correto em relação a um significado intencionado se o significado do programa está contido no intencionado e, completo, se ele contém o intencionado: um programa é correto e completo se o significado intencionado for igual ao do programa.
 Geralmente gostaríamos que os programas fossem corretos e completos, mas isso nem sempre é possível de se obter.
 
-À parte do significado, outra questão importante é se ele termina com relação a algum goal: não adianta muito ter um goal no significado intencionado e no do programa se o processo de computação desse goal não termina. Talvez não seja intuitivo que isto é possível, com as definições dadas, mas, ao nos lembrarmos que uma busca pode gerar mais de um resultado e (de fato, pode gerar infinitos resultados), podemos ter uma ideia de que isso depende da forma como o goal é
+À parte do significado, outra questão importante é se ele termina com relação a algum goal: não adianta muito ter um goal no significado intencionado e no do programa se o processo de computação desse goal não termina. Talvez não seja intuitivo que isto é possível com as definições dadas, mas, ao nos lembrarmos que uma busca pode gerar mais de um resultado (e, de fato, pode gerar infinitos resultados), podemos ter uma ideia de que isso depende da forma como o goal é
 computado. Mas antes de lidarmos com a questão de terminação, precisamos de uma representação melhor do processo de computação de um resultado:
 
 Podemos\marginpar{Se não estiver claro, pare e pense sobre isso por alguns minutos.. se continuar escuro, considere ir tomar um suco de laranja e voltar depois} representar a computação de um goal G = $G_0$ em relação a um programa P como uma sequência (possivelmente infinita) de triplas \textit{$(G_i, Q_i, C_i)$}, em que $G_i$ é um
 goal, $Q_i$ um goal simples ocorrendo em $G_i$ (lembre-se de que um goal, no geral, é uma conjunção: um goal simples não o é) e $C_i$ uma cláusula tal como  {\tt A :- $B_1$, ..., $B_n$.} de P (possivelmente com uma renomeação de variáveis, para que variáveis diferentes tenham nomes diferentes). $G_{i+1}$ é o goal obtido quando se faz $Q_i$ como o corpo de $C_i$ (lembre-se que $Q_i$ é um goal em $G_i$) e se aplica o unificador mais geral de $Q_i$ com A, a cabeça de $C_i$; ou \textit{sucesso} se $Q_i$ for o único goal em $G_i$ e $C_i$ é vazio; ou \textit{falha} se $G_i$ e a cabeça de $C_i$ não são unificáveis.
 
-Dizemos que uma computação termina se $\exists n > 0:$ $G_n$ = \textit{sucesso} ou $G_n$ = \textit{falha}. Relacionado a isso é o \textbf{traço} de uma computação: dizemos que o traço de uma computação $(G_i, Q_i, C_i)$ é a sequência $(Q_i, \Gamma)$, onde $\Gamma$ é a parte do unificador mais geral computado no passo i, restrito às variáveis em $Q_i$.
+Dizemos que uma computação termina se $\exists n > 0:$ $G_n$ = \textit{sucesso} ou $G_n$ = \textit{falha}. Relacionado a isso é o \textbf{traço} de uma computação: dizemos que o traço\marginpar{\textbf{traço}} de uma computação $(G_i, Q_i, C_i)$ é a sequência $(Q_i, \Gamma)$, em que $\Gamma$ é a parte do unificador mais geral computado no passo i, restrito às variáveis em $Q_i$.
 %COMMENT: aqui um exemplo vai bem.
 
-Dizemos que um programa é \textbf{terminante} se todo goal em seu significado pode ser provado em uma quantidade finita de passos. Ou, em outras palavras, % QUESTION: esse comentario foi ironico? Porque quase nao aparece nenhuma palavra a seguir. 
-$G \in M(P) \Rightarrow \exists n \in N. G_n \in \{sucesso, falha\}$, em que M(P) é o significado de P. %TIP: evite usar "onde" quando nao se refere a lugar.
+Dizemos que um programa é \textbf{terminante} se todo goal em seu significado pode ser provado em uma quantidade finita de passos. Isto é, se $G \in M(P) \Rightarrow \exists n \in N. G_n \in \{sucesso, falha\}$, em que M(P) é o significado de P.
 
-Vimos anteriormente (no capítulo 1, o item 5 do algoritmo de Martelli-Montanari) %COMMENT: mais uma vez, melhor usar um \ref do que o 1 explicitamente. Tambem acho que eh passo b.5 em vez de item 5.
-uma checagem para evitar a não-terminação de um programa em um caso específico\footnote{Apesar de em implementações práticas essa checagem ser omitida por questões de eficiência, podendo ser ativada manualmente.}. Mesmo essa checagem não seria o suficiente para evitar a não-terminação de um programa. Em
-particular, em programas recursivos (muito comuns em programação lógica) é fácil criar um programa para o qual existam goals cuja busca não termina no sentido usual (isto é, no sentido de o programa não terminar a computação de um goal posto pela programadora). Mas o sentido definido acima é ainda mais fraco: por exemplo, na prática, o goal {\tt natural(X)?} pode terminar com a substituição $\iota$ = \{X = 0\}, por exemplo, e a computação terminaria. Mas outra computação poderia
-levar a outro $\iota$, por exemplo $\iota$ = \{ X = s(0)\}. Mais no geral, como é possível construir um traço não interminável para uma computação nesse goal, esse programa não é terminante.
+Vimos anteriormente (no capítulo 1, o passo b.5 do algoritmo de unificação) %COMMENT: mais uma vez, melhor usar um \ref do que o 1 explicitamente
+uma checagem para evitar a não-terminação de um programa em um caso específico\footnote{Apesar de em implementações práticas essa checagem ser omitida por questões de eficiência, podendo ser ativada manualmente.}.
+Mesmo essa checagem não seria o suficiente para evitar a não-terminação de um programa.
+Em particular, em programas recursivos (muito comuns em programação lógica) é fácil criar um programa para o qual existam goals cuja busca não termina no sentido usual (isto é, no sentido de o programa não terminar a computação de um goal posto pela programadora).
+Mas o sentido definido acima é ainda mais fraco: por exemplo, na prática, o goal {\tt natural(X)?} pode terminar com a substituição $\iota$ = \{X = 0\}, por exemplo, e a computação terminaria. Mas outra computação poderia
+levar a outro $\iota$, por exemplo $\iota$ = \{ X = s(0)\}. Mais no geral, como é possível construir um traço não terminável para uma computação nesse goal, esse programa não é terminante.
 
 Na prática, o tipo de caso de não-terminação mencionado acima seria provavelmente evitado, mas, ainda assim, é importante: primeiro porque mostra que, se um programa for não terminante, existirão resultados (unificações) corretas, mas, na prática, inatingíveis (quais seriam atingíveis ou não, nesse contexto, depende de como se faz a busca pela solução) e, segundo, porque ele nos mostra que a forma de computar o goal pode ser fundamental. Ademais, o caso acima poderia ser evitado porque é simples, mas em programas mais complicados esse tipo de situação pode se tornar um problema real.
 
@@ -125,28 +123,27 @@ Na prática, o tipo de caso de não-terminação mencionado acima seria provavel
 
 Dizemos que um termo A é uma \textbf{instância} de um termo B se existe uma substituição $\iota$ tal que A$\iota$ = B. Com isso, temos as seguintes definições:
 
-\begin{definition}{Domínio}
-  \\Um domínio D é um conjunto de goals fechados pela relação de instância: se A $\subseteq$ D e B = A$\iota$ para alguma substituição $\iota$, então B $\subseteq$ D.
+\begin{definition}
+  Um \textbf{domínio}\marginpar{\textbf{Domínio}} D é um conjunto de goals fechados pela relação de instância: se A $\subseteq$ D e B = A$\iota$ para alguma substituição $\iota$, então B $\subseteq$ D.
   \end{definition}
 
-\begin{definition}{Domínio de terminação}
-  \\ Um domínio de terminação D de um programa P é um domínio tal que qualquer computação de qualquer goal em D termina em P.
+\begin{definition}
+  Um \textbf{domínio de terminação}\marginpar{\textbf{Domínio de Terminação}} D de um programa P é um domínio tal que qualquer computação de qualquer goal em D termina em P.
 \end{definition}
 
-Por exemplo, a Base Herbrand para o programa Natural é um domínio de terminação. %COMMENT: seria legal fazer um \ref aqui, ou ao menos dizer em que secao esta este programa.
+Por exemplo, a Base Herbrand para o programa \ref{lst:natural} é um domínio de terminação.
 No geral, gostaríamos que um programa tivesse um domínio de terminação contido no seu significado intencionado. Para um programa lógico interessante no geral isso não poderá ser obtido. Felizmente, as linguagens de programação com que lidaremos são restritivas o suficiente para que possamos obter esse tipo de resultado no futuro.
 
 Pode ser útil buscarmos achar, para programas lógicos, domínios de terminação. Para isso, usaremos o conceito de \textbf{tipo}: um tipo é um conjunto de termos.
 
-Entenda isso como uma definição mais informal. Poderíamos, pela definição, tratar append, introduzido no Append deste capítulo, %QUESTION: o que eh APPEND deste capitulo?
-como um tipo, mas não temos, atualmente, motivos para fazer isso. Analogamente, podemos chamar arvore\_b, no programa Árvore Binária do capítulo 0 de um tipo, %COMMENT: de novo, melhor usar \ref.
+Entenda isso como uma definição mais informal. Poderíamos, pela definição, tratar o match/2, introduzido no programa Analogy, do capítulo anterior, como um tipo, mas não temos, atualmente, motivos para fazer isso.
+Analogamente, podemos chamar arvore\_b, no programa Árvore Binária do capítulo 0 de um tipo, %COMMENT: de novo, melhor usar \ref.
 e temos motivos para fazer isso.
 
-\begin{definition}{Tipo completo}
-\\ Um tipo é completo se é fechado pela relação de instância.
+\begin{definition} Um tipo é \textbf{completo}\marginpar{\textbf{Tipo completo}} se é fechado pela relação de instância.
 \end{definition}
 
-Assim, um (número) natural completo (vide programa Natural deste capítulo) é ou 0 ou um $s^n(0)$, para $n \in N$.
+Assim, um (número) natural completo (vide programa \ref{lst:natural} deste capítulo) é ou 0 ou um $s^n(0)$, para $n \in N$.
 
 \subsection{Complexidade}
 
@@ -154,17 +151,15 @@ Programas lógicos no geral podem ser usados de várias formas diferentes, o que
 
 Para isso, precisaremos do conceito de \textbf{comprimento de uma prova}. Quando submetemos um goal a um programa P, o processo de tentativa de goal define implicitamente uma árvore. Se, para cada termo do goal, há apenas uma cláusula no programa que o prova, dizemos que tal computação é \textbf{determinística}. A árvore determinada por uma computação determinística é essencialmente uma lista.
 
-Interpretadores abstratos diferentes podem construir diferentes árvores de busca, o que depende de quais cláusulas são escolhidas primeiro para a prova do goal. Por exemplo, um interpretador pode fazer uma busca por largura: logo depois de realizada a criação do ponto de escolha, o interpretador volta e tenta outra unificação com a consequente criação de outro ponto de escolha, continuando assim até que não haja mais possibilidades nesse ``nível'', na ocasião de que ele
+Interpretadores abstratos diferentes podem construir diferentes árvores \textbf{de busca}, o que depende de quais cláusulas são escolhidas primeiro para a prova do goal. Por exemplo, um interpretador pode fazer uma busca por largura: logo depois de realizada a criação do ponto de escolha, o interpretador volta e tenta outra unificação com a consequente criação de outro ponto de escolha, continuando assim até que não haja mais possibilidades nesse ``nível'', na ocasião de que ele
 volta ou primeiro ponto criado e continua nesse ``segundo nível''.
 
 O comprimento de uma prova de um goal é definido como a altura dessa árvore.
 
-\begin{definition}{Tamanho de um termo}
-  \\ O tamanho de um termo é o número de símbolos em sua representação textual. Constantes e variáveis de um símbolo tem tamanho 1. O tamanho de termos compostos é um mais a soma dos tamanhos de seus argumentos.
+\begin{definition} O \textbf{tamanho de um termo}\marginpar{\textbf{Tamanho de um termo}} é o número de símbolos em sua representação textual. Constantes e variáveis de um símbolo tem tamanho 1. O tamanho de termos compostos é um mais a soma dos tamanhos de seus argumentos.
 \end{definition}
 
-\begin{definition}{Complexidade por comprimento}
-  \\ Um programa P tem complexidade por comprimento C(n) se qualquer goal de tamanho n no significado de P tem alguma prova de comprimento menor ou igual a C(n).
+\begin{definition} Um programa P tem \textbf{complexidade por comprimento}\marginpar{\textbf{Complexidade por comprimento}} C(n) se qualquer goal de tamanho n no significado de P tem alguma prova de comprimento menor ou igual a C(n).
 \end{definition}
 
 \subsection{Negação}
@@ -177,7 +172,7 @@ Existem duas interpretações fundamentais para um programa lógico:
 
     À segunda interpretação corresponde a assim chamada \textit{hipótese de mundo fechado}: tudo o que é conhecível é conhecido. Nesse contexto, dizer que uma computação falha implica dizer que ``se não está no programa, não é verdade''. Nessa linha, se quiséssemos implementar algo como uma negação lógica, a qual denotaremos {\tt not\marginpar{\textbf{Not}}} (no lugar de ``não'', porque em programas de verdade é usado ``not'', não ``não''), o caminho mais natural é dizer que, dado um goal G, {\tt not G?} tem sucesso se G falha.
 
-Vale notar que essa forma de negação tem várias diferenças com a negação da lógica clássica. Por exemplo, a negação da lógica clássica é uma relação monótona\footnote{Caso não se lembre, relações monótonas são as que preservam ordem (isto é, se R é uma relação entre A e B, $\preceq$ a ordem em A e $\preceq$' a ordem em B, temos: $a \preceq b \Rightarrow Ra \preceq' Rb$ ) e, quando não dito o contrário, é assumido que a ordem é a induzida pela inclusão: $A \preceq B \Leftrightarrow A \subseteq B$.}: na lógica clássica, com mais a adição de proposições permite a derivação de, pelo menos, a mesma quantidade de conclusões (se $b \Rightarrow a$, então, para toda proposição c, $b \wedge c \Rightarrow a$), o que segue não é verdade com o nosso {\tt not}.
+Vale notar que essa forma de negação tem várias diferenças com a negação da lógica clássica. Por exemplo, a negação da lógica clássica é uma relação monótona\footnote{Relações monótonas são as que preservam ordem (isto é, se R é uma relação entre A e B, $\preceq$ a ordem em A e $\preceq$' a ordem em B, temos: $a \preceq b \Rightarrow Ra \preceq' Rb$ ) e, quando não dito o contrário, é assumido que a ordem é a induzida pela inclusão: $A \preceq B \Leftrightarrow A \subseteq B$.}: na lógica clássica, com mais a adição de proposições permite a derivação de, pelo menos, a mesma quantidade de conclusões (se $b \Rightarrow a$, então, para toda proposição c, $b \wedge c \Rightarrow a$), o que segue não é verdade com o nosso {\tt not}.
 
 Assim, por exemplo, podemos escrever algo como {\tt a :- not a.} que indica que {\tt a} tem sucesso se {\tt a} tem falha. Na prática, se existem outras cláusulas contribuindo para a definição de {\tt a}, o resultado dessa computação vai depender muito da ordem de avaliação do interpretador, que no geral não é não-determinístico.
 
