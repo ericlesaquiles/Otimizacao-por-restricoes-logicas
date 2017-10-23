@@ -68,9 +68,9 @@ Por exemplo, {\tt arg(1, tio(a,b), X)?} tem sucesso com \{X = a\}, enquanto que 
 
 Exemplos um pouco mais interessantes são os seguintes (o símbolo de percentagem denota um comentário no código, enquanto que o underline denota uma variável anônima\marginpar{É uma variável a que não se dá nome. Assim, não se pode chamá-la depois: cada variável anônima é diferente.}):
 
-\lstinputlisting[caption= Sub Termo]{../Exemplos/Cap4/prog1_subtermo.pl}
+\lstinputlisting[caption= Sub Termo]{../Exemplos/Cap6/prog1_subtermo.pl}
 
-\lstinputlisting[caption= Substitutu]{../Exemplos/Cap4/prog2_substitui.pl}
+\lstinputlisting[caption= Substitutu]{../Exemplos/Cap6/prog2_substitui.pl}
 
 Outro predicado de inspeção de estrutura é o, assim chamado, \textit{univ}, escrito como {\tt =../2}\footnote{Predicados para acesso e construção de termos têm origem na família Prolog de Edinburgo (que tem se tornado o padrão de facto) e alguns dos nomes usados vêm de lá. A forma “=..” para univ vem do Prolog-10, onde era usado “,..” no lugar de “|” em listas ({\tt[a, b,.. Xs]} no lugar de {\tt [a, b|Xs]}).}. Um exemplo de seu uso é {\tt Termo =.. [f,a,b]?}, com o resultado \{Termo = f(a, b)\}.
 O \textit{univ} pode ser usado de essencialmente duas formas diferentes:
@@ -81,7 +81,7 @@ O \textit{univ} pode ser usado de essencialmente duas formas diferentes:
 
 O seguinte programa mostra um exemplo da utilidade de \textit{univ}:
 
-\lstinputlisting[caption= Map]{../Exemplos/Cap4/prog3_apply.pl}
+\lstinputlisting[caption= Map]{../Exemplos/Cap6/prog3_apply.pl}
 
 \subsection{Predicados de Meta-Programação}
 
@@ -98,7 +98,7 @@ A ou B for uma variável ou uma constante não numérica. Além disso, is/2 não
 Assim, vemos que o operador de adição, por exemplo, não aje da maneira como estamos acostumados: gostaríamos que {\tt 5 is A + 4} seja equivalente a {\tt A is 5 - 4}. Veremos mais tarde outras formas de contornarmos isso, mas, por ora, podemos lidar com isso por meio de predicados de meta-programação:
 \\
 
-\lstinputlisting[caption= Map]{../Exemplos/Cap4/prog3_mais.pl}
+\lstinputlisting[caption= Map]{../Exemplos/Cap6/prog3_mais.pl}
 
 
 

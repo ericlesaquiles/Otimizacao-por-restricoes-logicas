@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  16 OCT 2017 12:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  23 OCT 2017 15:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**"./[LOG] Cap4.tex"
-(./[LOG] Cap4.tex
+**"./[LOG] Cap6.tex"
+(./[LOG] Cap6.tex
 LaTeX2e <2017-04-15>
 Babel <3.12> and hyphenation patterns for 84 language(s) loaded.
 (/usr/share/texmf-dist/tex/latex/base/article.cls
@@ -397,8 +397,8 @@ Package: amsthm 2015/03/04 v2.20.2
 Package amsthm Warning: Unknown theoremstyle `theorem' on input line 17.
 
 \c@theorem=\count96
-(./[LOG] Cap4.aux)
-\openout1 = `"[LOG] Cap4.aux"'.
+(./[LOG] Cap6.aux)
+\openout1 = `"[LOG] Cap6.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
 LaTeX Font Info:    ... okay on input line 29.
@@ -461,7 +461,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 69--69
 \OT1/cmr/m/n/10 an^onima ^^Se
  []
 
-(../Exemplos/Cap4/prog1_subtermo.pl
+(../Exemplos/Cap6/prog1_subtermo.pl
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 15.
 
 (/usr/share/texmf-dist/tex/latex/base/omlcmr.fd
@@ -470,12 +470,12 @@ File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 15.
 )
-(../Exemplos/Cap4/prog2_substitui.pl [2])
+(../Exemplos/Cap6/prog2_substitui.pl [2])
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 75.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 75.
- (../Exemplos/Cap4/prog3_apply.pl
+ (../Exemplos/Cap6/prog3_apply.pl
 Overfull \hbox (9.0036pt too wide) in paragraph at lines 2--3
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
@@ -493,7 +493,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 98--100
 
  []
 
-(../Exemplos/Cap4/prog3_mais.pl [4]) [5] (./[LOG] Cap4.aux) ) 
+(../Exemplos/Cap6/prog3_mais.pl [4]) [5] (./[LOG] Cap6.aux) ) 
 Here is how much of TeX's memory you used:
  2537 strings out of 492990
  31012 string characters out of 6138688
@@ -513,7 +513,7 @@ msfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
 are/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on "[LOG] Cap4.pdf" (5 pages, 143102 bytes).
+Output written on "[LOG] Cap6.pdf" (5 pages, 143102 bytes).
 PDF statistics:
  68 PDF objects out of 1000 (max. 8388607)
  48 compressed objects within 1 object stream
