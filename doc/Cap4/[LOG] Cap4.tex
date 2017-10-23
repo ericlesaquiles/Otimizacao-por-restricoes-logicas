@@ -1,105 +1,114 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
 \usepackage{placeins}
+
+\usepackage{amsthm}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 
 \usepackage{listings}
 \lstset{language=Prolog}
 \renewcommand{\lstlistingname}{Código}
 
-\usepackage{amsthm}
+%\newtheoremstyle{definition}% name of the style to be used
+  %{3pt}% measure of space to leave above the theorem. E.g.: 3pt
+  %{3pt}% measure of space to leave below the theorem. E.g.: 3pt
+  %{}% name of font to use in the body of the theorem
+  %{2cm}% measure of space to indent
+  %{}% name of head font
+  %{:}% punctuation between head and body
+  %{.5em}% space after theorem head; " " = normal interword space
+  %{}% Manually specify head
 
-%\theoremstyle{definition}
+
+%\theoremstyle{definition}{indent=1cm}
 \newtheorem{definition}{Definição}[section]
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
-\theoremstyle{theorem}
-\newtheorem{theorem}{Teorema}[section]
-
 \setlength{\parskip}{.5em}
 
+%\documentclass[tikz,border=5]{standalone}
+%\usetikzlibrary{graphs,graphdrawing,arrows.meta}
+%\usegdlibrary{trees}
 
-
+\usepackage[linguistics]{forest}
 
 %
-% TODO: revisar esta seção!
+% TODO: revisar terminar esta seção!
 %
+%
+
 
 \begin{document}
-\section{Predicados de Inspeção de Estrutura}
 
-Predicados de inspeção de estrutura nos passam informações sobre um termo específico. Por exemplo, será um termo atômico, numérico, constante, variável? Ou será um funtor composto? Se for, qual será seu funtor principal, qual sua aridade e quais seus argumentos? É esse tipo de questão que os predicados de inspeção de estrutura respondem.
+\section{Alguns predicados não lógicos}
 
-\subsection{Predicados de tipos}
+Até agora, temos nos ocupado mais com aspectos teóricos de programação lógica. Na prática, ainda temos alguns problemas a resolver.
 
-Alguns dos, assim chamados, predicados de tipo são:
+A começar pela avaliação do programa: computadores comuns não vem equipados com uma placa de clarevidência, e, assim, podem não conseguir adivinhar bem o caminho para a prova de um goal. Isto é, a hipótese de não-determinismo não segue na prática. O ideal seria que, se um goal pode ser provado por um programa, o processo de prova seguisse um caminho direto, sem tentativas de unificações infrutíferas. Na prática, isso só é realizável para situações muito específicas e, no geral, serão tentadas
+diversas unificações infrutíferas antes de se chegar ao objetivo.
+
+Para lidar com isso é criado um \textbf{\textit{choice point}}\marginpar{\textbf{Choice point}} logo antes de se tentar uma unificação. Se a tentativa resulta em falha, o processo volta ao estado de antes da tentativa, no que chamamos de \textbf\textit{{backtracking}}\marginpar{\textbf{Backtracking}}, a possibilidade daquela unificação é eliminada e o processo continua. O goal falha quando todas as possibilidades foram eliminadas e tem sucesso quando não existirem mais unificações a serem feitas.
+
+Os \textit{choice points} são um ponto chave na execução de um programa lógico. A quantidade deles está diretamente relacionada com a eficiência do programa: quanto mais choice points, em geral, mais ineficiente o programa é. Assim, se o mesmo goal puder ser provado de mais de uma forma diferente, é necessária a criação de \textit{choice points} a mais, o que deve ser evitado. Da mesma forma, se existe mais de um resultado para uma computação (isto é, se o mesmo goal admite
+diversas substituições que resultam em sucesso)
+, a eliminação das opções a mais implicariam na eliminação de \textit{choice points}, o que seria vantajoso.
+
+A quantidade de \textit{choice points} tem muito a ver com a de ``axiomas'' (isto é, tem a ver com a quantidade de cláusulas e com tamanho do corpo das cláusulas). Geralmente, um programa com menos axiomas resulta em melhor legibilidade e maior eficiência. No entanto, alguns desses axiomas representam restrições que podem levar uma falha mais cedo na computação, o que, na prática, diminui a quantidade de \textit{choice points} (os que seriam criados, não houvesse essa
+falha, não serão mais) e de unificações
+desnecessárias, aumentando a eficiência do progama.
+
+Veremos, então, métodos para lidar com essas situações. O mais importante, e mais polêmico, é o \textbf{corte}, o !/0 (um funtor de nome ``!'' e aridade 0). Intuitivamente, o que ele faz é se comprometer com a escolha atual, descartando as demais. Só poderemos compreender completamente como ele funciona depois que desenvolvermos a interpretação de uma computação lógica como a busca em uma árvore, mas, enquanto isso, nossa interpretação intuitiva será o suficiente.
+
+Como um exemplo de seu uso, considere o seguinte programa:
+
+\lstinputlisting[caption=Member]{../Exemplos/Cap4/prog1_member.pl}
+
+O underline ``\_'' representa uma \textbf{variável anônima}\marginpar{\textbf{Variável anônima}}. A utilizamos quando o nome daquela variável não é importante, o que acontece quando não a utilizarmos novamente (isso serve para não nos distrairmos com variáveis que não serão utilizadas: a variável anônima cumpre um papel meramente formal). Toda variável anônima é diferente.
+
+O goal {\tt member(X, Xs)?} resulta em sucesso se X é um elemento de Xs\footnote{Note que estamos assumindo tácitamente, neste programa e nos demais, que a ordem de execução é ``de cima para baixo, da direita para a esquerda'' (o interpretador ``enxerga'' primeiro a cláusula que aparece ``antes''), que é como as implementações usuais de Prolog funcionam}. Esse programa é usado primariamente de duas formas: para checar se um elemento é membro de uma lista; ou para gerar em X os elementos da lista. Por exemplo, para o goal {\tt member(X, [a, b, c])?}, X pode assumir o valor de a, b ou c.
+
+Se a programadora quiser saber apenas se um certo X faz parte de uma certa lista Xs, ela pode usar o corte, ``cortando'' as demais soluções:
+
+\lstinputlisting[caption=Member]{../Exemplos/Cap4/prog2_member2.pl}
+
+O que o corte ``diz'' essencialmente é: ``Tudo bem, agora que chegamos a este ponto, não olhe para trás''. O uso desse novo programa para \textit{member} é o mesmo do anterior, exceto que, agora, ao gerar membros da lista, só é gerado um membro e, ao checar se outro elemento pertence a lista, assim que se chega ao sucesso, o processo para.
+
+Mencionamos anteriormente que o corte é usado para fins de eficiência. Quando ele é usado somente para esse fim, ou seja, se ele só serve para fazer o programa rodar melhor, não interferindo no seu significado, dizemos que o corte é verde\marginpar{\textbf{Corte verde}}.
+Quando o corte não é verde, dizemos que ele é vermelho. O que acabamos de ver foi um corte vermelho\marginpar{\textbf{Corte Vermelho}}: goals como {\tt member(b,[a,b,c])?} e {\tt member(c,[a,b,c])?} não estão mais no significado. Perceba que o corte não é um predicado lógico, mas sim operacional: ele nos diz algo sobre ``como'' rodar um programa mas, a princípio, não sobre ``o que'' ele é.
+
+O corte é, provavelmente, o predicado não lógico mais importante e polêmico do Prolog. O que o torna polêmico é justamente o fato de ser não lógico. Dissemos anteriormente que a ideia da programação lógica era lidar com a parte da lógica (o ``o que fazer''), abstraindo a parte procedural (o ``como fazer''). O corte é um exemplo em que isso não foi obtido.
+
+Apesar disso, se deixarmos de lado nosso preconceito, o corte pode contribuir de maneiras interessantes para a lógica do programa.
+
+Por exemplo, o not/1 pode ser implementado de maneira similar à seguinte:
+
+\lstinputlisting[caption=Not]{../Exemplos/Cap4/prog3_not.pl}
+
+Onde o predicado fail/0 é um predicado do prolog que falha sempre.
+
+Similarmente, podemos, a partir do corte, gerar outras formas de controle, familiares a programadores de linguagens procedurais:
+
+\lstinputlisting[caption=Se entao se nao]{../Exemplos/Cap4/prog4_ifthenelse.pl}
+
+\lstinputlisting[caption=Ou]{../Exemplos/Cap4/prog5_or.pl}
+
+Perceba que, diferentemente do que ocorre em programas puramente lógicos\footnote{Você pode se perguntar se algum do programa nesse texto é puramente lógico. Alguns dos mais simples, como o \textit{Natural}, do capítulo 2, podem ser, mas a situação geral é que os programas que veremos são só ``meio que'' lógicos.}, a ordem das cláusulas e dos termos em cada cláusula podem ser fundamentais. Pode ser que, por exemplo, na cláusula {\tt p(a) :- b, c.}, b resulte em falha e c em um
+processo interminável. Neste caso, a mudança de ordem seria fatal.
+
+Os programas acima demonstram uma possível forma de se definir, respectivamente, o ``se,então, se não'' e o ``Ou''\footnote{Na verdade, poderíamos pensar como o processo de backtracking como o nosso ``ou'' natural, mas às vezes pode ser conveniente usar um ``ou'' em uma cláusula, seja por efeito de legibilidade ou para evitar o backtracking.}, mas essas construções já existem no Prolog por padrão, como:
 
 \begin{itemize}
-  \item integer/1;
-  \item real/1;
-  \item atom/1;
-  \item compound/1;
+  \item se, então, se não: {\tt A $->$ B ; R.} (lê-se: se A, então B, se não R);
+  \item ou: {\tt A ; B.} (lê-se: A ou B).
 \end{itemize}
 
-Cada um deles pode ser interpretado como uma lista infinita de átomos. Por exemplo, integer/1 pode ser interpretado como: {\tt integer(0). integer(1). integer(2). integer(3), ...}.
 
-A partir desses predicados podemos criar outros. Por exemplo, podemos fazer {\tt numero(X) :- integer(X);real(X).}, ou {\tt constante(X) :- numero(X); atom(X).}.
-
-\subsection{Acesso de termos compostos}
-
-Queremos ser capaz, além de lidar com tipos, lidar com funtores. Para acessar o funtor principal, temos o predicado functor/3. {\tt functor(Termo, F, Aridade)?} tem sucesso se o funtor principal de Termo tem aridade Aridade e nome F. Assim, por exemplo, {\tt functor(f($x_1$, ..., $X_n$), f, n)} tem sucesso, já que o funtor principal é f/n.
-
-Pode-se usar esse predicado para, entre outras coisas, decomposição e criação de termos:
-\begin{enumerate}
-  \item{\tt functor(tio(a,b), X, Y)?} tem como solução \{X = tio, Y = 2\};
-  \item{\tt functor(F, tio, 2)} tem como solução \{F = tio\}.
-\end{enumerate}
-
-Note que, no exemplo 2, se o goal fosse {\tt functor(F, tio, N)?}, teríamos erro, já que o interpretador não consegue adivinhar a aridade de um funtor a partir do nome. Análogamente, {\tt functor(F, tio(a, b), N)?} resultaria em erro, já que {\tt functor} espera um átomo como segundo argumento, não um funtor composto. Mas, {\tt functor(tio, X, N)?} teria sucesso, com \{X = tio, N = 0\} (átomos são considerados funtores de aridade 0).
-
-Similar a functor/3 é o arg/3: {\tt arg(N, F($X_1$, ..., $X_n$), Q)?} tem sucesso se o Nésimo argumento de F é o Q. Assim como functor, arg/3 é comumente usado para decomposição e criação de termos:
-\begin{itemize}
-  \item Para decompor um termo, arg/3 acha um argumento particular de um termo composto;
-  \item Para criar um termo, ele instancia um argumento variável de um termo.
-\end{itemize}
-
-Por exemplo, {\tt arg(1, tio(a,b), X)?} tem sucesso com \{X = a\}, enquanto que {\tt arg(1, tio(X,b), a)?} tem sucesso com \{X = a\}.
-
-Exemplos um pouco mais interessantes são os seguintes (o símbolo de percentagem denota um comentário no código, enquanto que o underline denota uma variável anônima\marginpar{É uma variável a que não se dá nome. Assim, não se pode chamá-la depois: cada variável anônima é diferente.}):
-
-\lstinputlisting[caption= Sub Termo]{../Exemplos/Cap4/prog1_subtermo.pl}
-
-\lstinputlisting[caption= Substitutu]{../Exemplos/Cap4/prog2_substitui.pl}
-
-Outro predicado de inspeção de estrutura é o, assim chamado, \textit{univ}, escrito como {\tt =../2}\footnote{Predicados para acesso e construção de termos têm origem na família Prolog de Edinburgo (que tem se tornado o padrão de facto) e alguns dos nomes usados vêm de lá. A forma “=..” para univ vem do Prolog-10, onde era usado “,..” no lugar de “|” em listas ({\tt[a, b,.. Xs]} no lugar de {\tt [a, b|Xs]}).}. Um exemplo de seu uso é {\tt Termo =.. [f,a,b]?}, com o resultado \{Termo = f(a, b)\}.
-O \textit{univ} pode ser usado de essencialmente duas formas diferentes:
-\begin{enumerate}
-  \item Com um funtor ao lado esquerdo e uma váriavel no direito: a variável é unificada com {\tt [f|v]}, onde f é o funtor principal e V a lista de seus argumentos;
-  \item Com uma variável ao lado esq analisam os predicados.''uerdo e uma lista no direito: se a lista é {\tt [a, $b_1$, ..., $b_n$]}, a variável é unificada com {\tt a($b_1$, ..., $b_n$)}.
-\end{enumerate}
-
-O seguinte programa mostra um exemplo da utilidade de \textit{univ}:
-
-\lstinputlisting[caption= Map]{../Exemplos/Cap4/prog3_apply.pl}
-
-\subsection{Predicados de Meta-Programação}
-
-O predicado de meta-programação básico é o var/1: {\tt var{T}?} tem sucesso se T é uma variável não instnanciada, e falha caso contrário. Sua irmã, nonvar/1, funciona de maneira análoga. Por exemplo, {\tt var(a)?} e {\tt var([X|Xs])?} falham, enquanto que {\tt var(X)?} tem sucesso, se X é uma variável não instanciada.
-
-Esse tipo de predicado é chamado meta-predicado: eles são ``predicados sobre predicados''. Como tais, podem prover grande flexibilidade a um programa lógico.
+  \begin{thebibliography}{2}
 
 
-\subsection{Operações Aritméticas}
-
-Antes de continuarmos, será útil introduzirmos operações aritméticas. Primeiro, é importante notar que a atribuição de uma operação aritmética, no Prolog, funciona de maneira diferente da unificação. Ela é do tipo {\tt X is Op.}, onde {\tt Op} é uma operação com valores, do tipo a que estamos acostumados: 1 + 2, 3 * 8, (1 - 5)/4 + 33475, etc. É importante notar que operações aritméticas só podem ser feitas com números: A Op B, onde Op é  uma operação aritmética, resulta em erro se
-A ou B for uma variável ou uma constante não numérica. Além disso, is/2 não é simétrico: {\tt 5 + 4 is A} resulta em erro.
-
-Assim, vemos que o operador de adição, por exemplo, não aje da maneira como estamos acostumados: gostaríamos que {\tt 5 is A + 4} seja equivalente a {\tt A is 5 - 4}. Veremos mais tarde outras formas de contornarmos isso, mas, por ora, podemos lidar com isso por meio de predicados de meta-programação:
-\\
-
-\lstinputlisting[caption= Map]{../Exemplos/Cap4/prog3_mais.pl}
-
-
+  \end{thebibliography}
 
 \end{document}
