@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage{placeins}
+
+\usepackage{amsthm}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+
+\usepackage{listings}
+\lstset{language=Prolog}
+\renewcommand{\lstlistingname}{Código}
+
+%\newtheoremstyle{definition}% name of the style to be used
+  %{3pt}% measure of space to leave above the theorem. E.g.: 3pt
+  %{3pt}% measure of space to leave below the theorem. E.g.: 3pt
+  %{}% name of font to use in the body of the theorem
+  %{2cm}% measure of space to indent
+  %{}% name of head font
+  %{:}% punctuation between head and body
+  %{.5em}% space after theorem head; " " = normal interword space
+  %{}% Manually specify head
+
+
+%\theoremstyle{definition}{indent=1cm}
+\newtheorem{definition}{Definição}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\setlength{\parskip}{.5em}
+
+%\documentclass[tikz,border=5]{standalone}
+%\usetikzlibrary{graphs,graphdrawing,arrows.meta}
+%\usegdlibrary{trees}
+
+\usepackage[linguistics]{forest}
+
+%
+% TODO: revisar terminar esta seção!
+%
+%
+
+
+\begin{document}
+
+
+
+Para visualizarmos isso precisamos ter uma ideia melhor de em qual ordem ocorrem as tentativas de unificações. Como antes, usaremos o Prolog como base. Considere o seguinte programa, representando um pedaço da árvore genealógica da dinastia Julio-Claudiana, junto com a relação ancestral\footnote{\textit{``It is, of course, obvious at once that `ancestor' must be capable
+of definition in terms of `parent', but until Frege developed his generalised theory of induction, no one could have defined `ancestor' precisely in terms of `parent.' ''} --- Bertrand Russel,\textit{Introduction to Mathematical Philosophy}. Para sermos honestos: na verdade, ele se referia a uma versão mais geral dessa relação do que a apresentada aqui. Voltaremos a esse tema depois.}:
+
+\lstinputlisting[caption=Ancestral]{../Exemplos/Cap4/prog1_ancestor.pl}
+
+O goal {\tt ancestral(augustu, nero)?} define implicitamente uma árvore, que começa da seguinte maneira:
+
+\begin{forest}
+  [{\tt ancestral(augustu, nero)?}
+    [
+      {\tt filhx(nero, $C_1$)?}
+    ]
+    [
+      {\tt ancestral(augustus, $C_1$)?}
+    ]
+  ]
+\end{forest}
+
+Isto é, para provar {\tt ancestral(augustu, nero)?}, precisamos provar {\tt filhx(nero, $C_1$)?} e {\tt ancestral(augustus, $C_1$)?}.
+
+Continuando de maneira similar, a árvore segue com as duas seguintes ramificações:
+
+\begin{forest}
+  [
+    {\tt filhx(nero, $C_1$=agrippina)?}
+      [
+        sucesso
+      ]
+  ]
+\end{forest}
+
+
+
+
+  \begin{thebibliography}{2}
+
+    \bibitem{russel} Russell, Bertrand (1919), \textit{Introduction to Mathematical Philosophy, George Allen and Unwin, London, UK. Reprinted, John G. Slater (intro.), Routledge, London, UK, 1993}
+    \\Esse livro está datado em alguns pontos, mas permanece interessante. Está gratuitamente disponível (em inglês) em [http://people.umass.edu/klement/russell-imp.html].
+
+  \end{thebibliography}
+
