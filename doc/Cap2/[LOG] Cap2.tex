@@ -73,7 +73,7 @@ Por exemplo, se temos um programa como o seguinte:
 
 U(P) é o conjunto formado por 0, natural/1 e suas combinações:
 \[
-  U(P) = \{0, s(0), s(s(0)), s(s(s(0))), ...\} %QUESTION: nao seria s em vez de p?
+  U(P) = \{0, s(0), s(s(0)), s(s(s(0))), ...\}
 \]
 
 \begin{definition} A \textbf{base Herbrand}\marginpar{\textbf{Base Herbrand}}de um programa lógico P, denotada B(P), é o conjunto de goals base formados por predicados em P e o termos de U(P).
@@ -103,12 +103,65 @@ Geralmente gostaríamos que os programas fossem corretos e completos, mas isso n
 computado. Mas antes de lidarmos com a questão de terminação, precisamos de uma representação melhor do processo de computação de um resultado:
 
 Podemos\marginpar{Se não estiver claro, pare e pense sobre isso por alguns minutos.. se continuar escuro, considere ir tomar um suco de laranja e voltar depois} representar a computação de um goal G = $G_0$ em relação a um programa P como uma sequência (possivelmente infinita) de triplas \textit{$(G_i, Q_i, C_i)$}, em que $G_i$ é um
-goal, $Q_i$ um goal simples ocorrendo em $G_i$ (lembre-se de que um goal, no geral, é uma conjunção: um goal simples não o é) e $C_i$ uma cláusula tal como  {\tt A :- $B_1$, ..., $B_n$.} de P (possivelmente com uma renomeação de variáveis, para que variáveis diferentes tenham nomes diferentes). $G_{i+1}$ é o goal obtido quando se faz $Q_i$ como o corpo de $C_i$ (lembre-se que $Q_i$ é um goal em $G_i$) e se aplica o unificador mais geral de $Q_i$ com A, a cabeça de $C_i$; ou \textit{sucesso} se $Q_i$ for o único goal em $G_i$ e $C_i$ é vazio; ou \textit{falha} se $G_i$ e a cabeça de $C_i$ não são unificáveis.
+goal, $Q_i$ um goal simples ocorrendo em $G_i$ (um goal, no geral, é uma conjunção: um goal simples não) e $C_i$ uma cláusula tal como  {\tt A :- $B_1$, ..., $B_n$.} de P (possivelmente com uma renomeação de variáveis, para que variáveis diferentes tenham nomes diferentes). $G_{i+1}$ é o goal obtido quando se faz $Q_i$ como o corpo de $C_i$ (lembre-se que $Q_i$ é um goal em $G_i$) e se aplica o unificador mais geral de $Q_i$ com A, a cabeça de $C_i$; ou \textit{sucesso} se $Q_i$ for o único goal em $G_i$ e $C_i$ é vazio; ou \textit{falha} se $G_i$ e a cabeça de $C_i$ não são unificáveis.
 
 Dizemos que uma computação termina se $\exists n > 0:$ $G_n$ = \textit{sucesso} ou $G_n$ = \textit{falha}. Relacionado a isso é o \textbf{traço} de uma computação: dizemos que o traço\marginpar{\textbf{traço}} de uma computação $(G_i, Q_i, C_i)$ é a sequência $(Q_i, \Gamma)$, em que $\Gamma$ é a parte do unificador mais geral computado no passo i, restrito às variáveis em $Q_i$.
 %COMMENT: aqui um exemplo vai bem.
 
 Dizemos que um programa é \textbf{terminante} se todo goal em seu significado pode ser provado em uma quantidade finita de passos. Isto é, se $G \in M(P) \Rightarrow \exists n \in N. G_n \in \{sucesso, falha\}$, em que M(P) é o significado de P.
+
+Para obtermos um exemplo concreto, é útil termos o passo a passo do processo de resolução de um goal. Por exemplo, por exemplo, considere o goal {\tt porta$\_$and(En1, En2, Sai)?} submetida ao Código 1, do capítulo 1.
+
+O processo de resolução, baseado no algoritmo visto no capítulo 1, é como se segue:
+
+\begin{itemize}
+  \item Construimos a equação {\tt porta$\_$and(En1, En2, Sai) = porta$\_$and(En1, En2, Saida)}, que é posta na pilha;
+  \item $\Gamma = \{\}$;
+    \begin{enumerate}
+      \item É realizado o \textit{pop} da equação {\tt porta$\_$and(En1, En2, Sai) = porta$\_$and(En1, En2, Saida)};
+      \item (Passos b.2 e b.3, três vezes sucessivamente) $\Gamma = \{Entrada1 = En1, Entrada2 = En2, Saida = Sai\}$;
+      \item Construimos as seguintes equações e as colocamos na pilha:
+        \begin{itemize}
+          \item {\tt porta$\_$nand(En1, En2, X) = porta$\_$nand(Entrada10, Entrada20, Saida0)}\footnote{Os dois lados da equação, pertencendo a cláusulas diferentes, fazem uso de variáveis, a priori, diferentes. Assim, para evitar problemas, renoeamo-las.} e:
+          \item {\tt inversor(X, Sai) = }{\tt inversor(Entrada00, Saida00)};
+        \end{itemize}
+      \item
+        \begin{enumerate}
+          \item Realizamos um \textit{pop}, retirando a equação {\tt porta$\_$nand(En1, En2, X) = porta$\_$nand(Entrada10, Entrada20, Saida0)} da pilha;
+          \item $\Gamma$ += \{X = Saida0, Entrada10 = En1, Entrada20 = En2\}\footnote{Por conveniência, usaremos C += B, onde C e B são dois conjuntos, para denotar que C' = C $\cup$ B e posterior renomeação de C' para C.} \footnote{Não se esqueça que quando adicionamos uma substituição, também a fazemos na pilha e em $\Gamma$};
+          \item Construimos as seguintes equações e as colocamos na pilha:
+            \begin{itemize}
+              \item {\tt transistor(En1, X0, X) = transistor(n3,n4,n2)};
+              \item {\tt transistor(En2, ground, X0) = transistor(n5,ground,n4)};
+              \item {\tt resistor(energia, X) = resistor(energia,n1)}
+            \end{itemize}
+          \item
+            \begin{enumerate}
+              \item Realizamos um \textit{pop} da equação {\tt transistor(En1, X0, X) = transistor(n2, ground, n1)};
+              \item $\Gamma$ += \{En1 = n3, X0 = n4, X = n2\};
+              \item Realizamos um \textit{pop} da equação {\tt transistor(En20, ground, X0) = transistor(n5, ground, n4)};
+              \item $\Gamma$ += \{En20 = n5, X0 = n4\};
+            \end{enumerate}
+        \end{enumerate}
+      \item
+        \begin{enumerate}
+          \item Realizamos um \textit{pop} da equação {\tt inversor(n2, Sai) = inversor(Entrada00, Saida00)};
+          \item $\Gamma$ += \{Entrada00 = n2, Saida00 = Sai\};
+          \item Construimos as seguintes equações e as colocamos na pilha:
+            \begin{itemize}
+              \item {\tt transistor(n2, ground, Sai) = transistor(n2,ground,n1)};
+              \item {\tt resistor(energia, Sai) = resistor(energia,n1)};
+            \end{itemize}
+          \item Realizamos um \textit{pop} da equação {\tt transistor(n2, ground, Sai) = transistor(n2,ground,n1)};
+          \item $\Gamma$ += \{Sai = n1\};
+          \item Realizamos um \textit{pop} da equação  {\tt resistor(energia, n1) = resistor(energia,n1)};
+        \end{enumerate}
+    \end{enumerate}
+  \item Por fim, se tivermos feito todos os passos corretamente, temos que En1 = n3, En2 = n5 e Sai = n1.
+\end{itemize}
+
+Com base nisso, qual seria o traço dessa computação?
+O programa é terminante?
 
 Vimos anteriormente (no capítulo 1, o passo b.5 do algoritmo de unificação) %COMMENT: mais uma vez, melhor usar um \ref do que o 1 explicitamente
 uma checagem para evitar a não-terminação de um programa em um caso específico\footnote{Apesar de em implementações práticas essa checagem ser omitida por questões de eficiência, podendo ser ativada manualmente.}.

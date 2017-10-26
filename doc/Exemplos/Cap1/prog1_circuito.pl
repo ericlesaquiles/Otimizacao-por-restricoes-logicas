@@ -9,10 +9,10 @@ inversor(Entrada, Saida) :-
   resistor(energia, Saida).
 
 porta_nand(Entrada1, Entrada2, Saida) :-
-  transistor(Entradal,X,Saida),
-  transistor(Entrada2,ground,X),
-  resistor(energia,Saida).
+  transistor(Entradal, X, Saida),
+  transistor(Entrada2, ground, X),
+  resistor(energia, Saida).
 
-porta_and(Entradal, Entrada2, Saida) :-
-  nand_gate(Entradal,Entrada2,X),
-  inversor(X,Saida).
+porta_and(Entrada1, Entrada2, Saida) :-
+  porta_nand(Entrada1, Entrada2, X),
+  inversor(X, Saida).

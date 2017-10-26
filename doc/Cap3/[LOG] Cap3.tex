@@ -76,14 +76,15 @@ Para uma melhor compreensão, será instrutivo analisarmos o seguinte programa:
 \label{lst:length}
 
 Mas antes, precisamos entender o que significa {\tt N is M + 1.}. Esse \textbf{is}\marginpar{\textbf{is}} é o operador de atribuição aritmético e ele não funciona como os demais predicados: para algo como {\tt A is B}, se B for uma constante numérica e A é uma variável, o comportamento é o esperado (A assume o valor de B); se não, ocorre erro. Disso segue que is/2 não é simétrico: por exemplo, {\tt A is 5} resulta em A = 5, mas {\tt 5 = A.}, onde A é uma variável, resulta em erro. Ademais, quando algum
-operador aritmético\footnote{Operadores aritméticos que temos à disposição são: $+/2, -/2, */2, //2, \wedge/2, -/1, abs/1, sin/1, cos/1, max/2, sqrt/1/ \ll/1, \gg/1$. O funcionamento de muitos deles é claro pelo símbolo, o dos demais será explicado na medida que forem usados.} op é usado com is/2, o operador realiza a operação esperada: {\tt A is 2 + 3} e {\tt A is 10 - 8} resultam em A = 5, por exemplo. Vale notar que esse comportamento é diferente do =/2, por exemplo: o seguinte programa não tem o resultado esperado:
+operador aritmético\footnote{Operadores aritméticos que temos à disposição são: $+/2, -/2, */2, //2, \wedge/2, -/1, abs/1, sin/1, cos/1, max/2, sqrt/1, \ll/1, \gg/1$. O funcionamento de muitos deles é claro pelo símbolo, o dos demais será explicado na medida que forem usados.} op é usado com is/2, o operador realiza a operação esperada: {\tt A is 2 + 3} e {\tt A is 10 - 8} resultam em A = 5, por exemplo. Vale notar que esse comportamento é diferente do =/2, por exemplo: o seguinte programa não tem o resultado esperado:
+% TODO arrumar << >>
 
 \lstinputlisting[caption=Length]{../Exemplos/Cap3/prog3_length1.pl}
 
 \noindent Isso porque =/2 tem um efeito puramente simbólico. Em particular, =/2 não realiza operações aritméticas. Além do is/2, temos \textbf{operadores de comparação} (também chamados de operadores relacionais), que funcionam de maneira semelhante e também possibilitam o uso de operadores aritméticos à direita do símbolo, na maneira usual. Eles serão de alguma importância:
 
 \begin{itemize}
-  \item $=:=/2$, de igualdade;
+  \item $=:=$/2, de igualdade;
   \item $=/=/2$, de desigualdade;
   \item $>/2  $, de ``maior que'';
   \item $>=/2$, de ``maior ou igual que'';
