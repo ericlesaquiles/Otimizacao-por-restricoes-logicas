@@ -76,7 +76,7 @@ Unificação exerce um papel fundamental na programação lógica. Na prática, 
 
 O algoritmo dele é um tanto ineficiente e não será estudado aqui. Usaremos um mais prático no lugar. Antes, vale lembrar que um programa lógico é um conjunto de regras que recebe um goal (ou uma busca) e retorna {\it sucesso} (ou, sim, ou verdadeiro, dependendo da preferência pessoal) se a busca tem sucesso ou {\it falha} (ou, não, ou falso...) se não.
 
-Como discutido acima, para provar um goal a partir de um programa é suficiente que tenhamos um algoritmo de unificação. Esse algoritmo recebe uma equação do tipo $T_1 = T_2$, e devolve uma substituição mais geral\marginpar{É importante que seja a mais geral, para não perdermos possíveis soluções} %COMMENT: como essa "nota lateral" nao deixa uma marca na coisa a que se refere, como no caso da nota de rodape, ficou estranho. Neste caso, acho que ficaria melhor a nota de rodape mesmo. Estas notas na margem ficam melhores quando voce faz nelas comentarios mais auto-contidos, que tem a ver com o que foi dito no texto principal que esta ao lado dela.
+Como discutido acima, para provar um goal a partir de um programa é suficiente que tenhamos um algoritmo de unificação. Esse algoritmo recebe uma equação do tipo $T_1 = T_2$, e devolve uma substituição mais geral\footnote{É importante que seja a mais geral, para não perdermos possíveis soluções}
 para as variáveis presentes, caso tal substituição exista, ou falha, caso contrário. O algoritmo que utilizaremos faz uso de uma pilha para armazenar as equações a serem resolvidas e de um espaço
 $\Gamma$ para armazenar a substituições:
 
