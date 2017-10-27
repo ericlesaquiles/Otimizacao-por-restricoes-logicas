@@ -56,9 +56,10 @@ Pode-se usar esse predicado para, entre outras coisas, decomposição e criaçã
   \item{\tt functor(F, tio, 2)} tem como solução \{F = tio\}.
 \end{enumerate}
 
-Note que, no exemplo 2, se o goal fosse {\tt functor(F, tio, N)?}, teríamos erro, já que o interpretador não consegue adivinhar a aridade de um funtor a partir do nome. Análogamente, {\tt functor(F, tio(a, b), N)?} resultaria em erro, já que {\tt functor} espera um átomo como segundo argumento, não um funtor composto. Mas, {\tt functor(tio, X, N)?} teria sucesso, com \{X = tio, N = 0\} (átomos são considerados funtores de aridade 0).
+Note que, no Exemplo 2, se o goal fosse {\tt functor(F, tio, N)?}, teríamos erro, já que o interpretador não consegue adivinhar a aridade de um funtor a partir do nome. Analogamente, %COMMENT: em todos os casos em que a palavra original era proparoxitona - e, por isso, acentuada - quando escreve o adverbio - com o "mente" no final - voce manteve o acento, mas esse acento desaparece.
+{\tt functor(F, tio(a, b), N)?} resultaria em erro, já que {\tt functor} espera um átomo como segundo argumento, não um funtor composto. Mas, {\tt functor(tio, X, N)?} teria sucesso, com \{X = tio, N = 0\} (átomos são considerados funtores de aridade 0).
 
-Similar a functor/3 é o arg/3: {\tt arg(N, F($X_1$, ..., $X_n$), Q)?} tem sucesso se o Nésimo argumento de F é o Q. Assim como functor, arg/3 é comumente usado para decomposição e criação de termos:
+Similar, a functor/3 é o arg/3: {\tt arg(N, F($X_1$, ..., $X_n$), Q)?} tem sucesso se o N-ésimo argumento de F é o Q. Assim como functor, arg/3 é comumente usado para decomposição e criação de termos:
 \begin{itemize}
   \item Para decompor um termo, arg/3 acha um argumento particular de um termo composto;
   \item Para criar um termo, ele instancia um argumento variável de um termo.
@@ -66,17 +67,17 @@ Similar a functor/3 é o arg/3: {\tt arg(N, F($X_1$, ..., $X_n$), Q)?} tem suces
 
 Por exemplo, {\tt arg(1, tio(a,b), X)?} tem sucesso com \{X = a\}, enquanto que {\tt arg(1, tio(X,b), a)?} tem sucesso com \{X = a\}.
 
-Exemplos um pouco mais interessantes são os seguintes (o símbolo de percentagem denota um comentário no código, enquanto que o underline denota uma variável anônima\marginpar{É uma variável a que não se dá nome. Assim, não se pode chamá-la depois: cada variável anônima é diferente.}):
+Exemplos um pouco mais interessantes são os seguintes (lembrando que o símbolo de percentagem denota um comentário no código, enquanto que o subescrito denota uma variável anônima\marginpar{É uma variável a que não se dá nome. Assim, não se pode chamá-la depois: cada variável anônima é diferente.}): %COMMENT: no capitulo 4 voce ja tinha explicado isso do _. Ou coloca um lembrando como eu coloquei, mas pode tirar a explicacao de que variaveis anonimas sao diferentes. Ou nem fala nada. Ja a porcentagem sendo um comentario, voce ja usou no capitulo 4, mas nao sei se explicou antes. Se nao explicou, eh melhor colocar essa explicacao na primeira vez que ele aparece. Ai aqui pode colocar um "lembrando" ou nao falar nada.
 
 \lstinputlisting[caption= Sub Termo]{../Exemplos/Cap6/prog1_subtermo.pl}
 
-\lstinputlisting[caption= Substitutu]{../Exemplos/Cap6/prog2_substitui.pl}
+\lstinputlisting[caption= Substituto]{../Exemplos/Cap6/prog2_substitui.pl}
 
-Outro predicado de inspeção de estrutura é o, assim chamado, \textit{univ}, escrito como {\tt =../2}\footnote{Predicados para acesso e construção de termos têm origem na família Prolog de Edinburgo (que tem se tornado o padrão de facto) e alguns dos nomes usados vêm de lá. A forma “=..” para univ vem do Prolog-10, onde era usado “,..” no lugar de “|” em listas ({\tt[a, b,.. Xs]} no lugar de {\tt [a, b|Xs]}).}. Um exemplo de seu uso é {\tt Termo =.. [f,a,b]?}, com o resultado \{Termo = f(a, b)\}.
+Outro predicado de inspeção de estrutura é o, assim chamado, \textit{univ}, escrito como {\tt =../2}\footnote{Predicados para acesso e construção de termos têm origem na família Prolog de Edinburgo (que tem se tornado o padrão de fato) e alguns dos nomes usados vêm de lá. A forma “=..” para \textit{univ} vem do Prolog-10, onde era usado “,..” no lugar de “|” em listas ({\tt[a, b,.. Xs]} no lugar de {\tt [a, b|Xs]}).}. Um exemplo de seu uso é {\tt Termo =.. [f,a,b]?}, com o resultado \{Termo = f(a, b)\}.
 O \textit{univ} pode ser usado de essencialmente duas formas diferentes:
 \begin{enumerate}
   \item Com um funtor ao lado esquerdo e uma váriavel no direito: a variável é unificada com {\tt [f|v]}, onde f é o funtor principal e V a lista de seus argumentos;
-  \item Com uma variável ao lado esq analisam os predicados.''uerdo e uma lista no direito: se a lista é {\tt [a, $b_1$, ..., $b_n$]}, a variável é unificada com {\tt a($b_1$, ..., $b_n$)}.
+  \item Com uma variável ao lado esquerdo e uma lista no direito: se a lista é {\tt [a, $b_1$, ..., $b_n$]}, a variável é unificada com {\tt a($b_1$, ..., $b_n$)}.
 \end{enumerate}
 
 O seguinte programa mostra um exemplo da utilidade de \textit{univ}:
@@ -85,20 +86,22 @@ O seguinte programa mostra um exemplo da utilidade de \textit{univ}:
 
 \subsection{Predicados de Meta-Programação}
 
-O predicado de meta-programação básico é o var/1: {\tt var{T}?} tem sucesso se T é uma variável não instnanciada, e falha caso contrário. Sua irmã, nonvar/1, funciona de maneira análoga. Por exemplo, {\tt var(a)?} e {\tt var([X|Xs])?} falham, enquanto que {\tt var(X)?} tem sucesso, se X é uma variável não instanciada.
+O predicado de meta-programação básico é o var/1: {\tt var{T}?} tem sucesso se T é uma variável não instanciada, e falha caso contrário. Sua irmã, nonvar/1, funciona de maneira análoga. Por exemplo, {\tt var(a)?} e {\tt var([X|Xs])?} falham, enquanto que {\tt var(X)?} tem sucesso, se X é uma variável não instanciada.
 
 Esse tipo de predicado é chamado meta-predicado: eles são ``predicados sobre predicados''. Como tais, podem prover grande flexibilidade a um programa lógico.
 
 
 \subsection{Operações Aritméticas}
 
+%COMMENT: uma parte do que esta aqui tambem ja foi explicada no capitulo 4. Nao sei se nao compensa inverter a ordem destes capitulos.
+
 Antes de continuarmos, será útil introduzirmos operações aritméticas. Primeiro, é importante notar que a atribuição de uma operação aritmética, no Prolog, funciona de maneira diferente da unificação. Ela é do tipo {\tt X is Op.}, onde {\tt Op} é uma operação com valores, do tipo a que estamos acostumados: 1 + 2, 3 * 8, (1 - 5)/4 + 33475, etc. É importante notar que operações aritméticas só podem ser feitas com números: A Op B, onde Op é  uma operação aritmética, resulta em erro se
 A ou B for uma variável ou uma constante não numérica. Além disso, is/2 não é simétrico: {\tt 5 + 4 is A} resulta em erro.
 
-Assim, vemos que o operador de adição, por exemplo, não aje da maneira como estamos acostumados: gostaríamos que {\tt 5 is A + 4} seja equivalente a {\tt A is 5 - 4}. Veremos mais tarde outras formas de contornarmos isso, mas, por ora, podemos lidar com isso por meio de predicados de meta-programação:
+Assim, vemos que o operador de adição, por exemplo, não age da maneira como estamos acostumados: gostaríamos que {\tt 5 is A + 4} seja equivalente a {\tt A is 5 - 4}. Veremos mais tarde outras formas de contornarmos isso, mas, por ora, podemos lidar com isso por meio de predicados de meta-programação:
 \\
 
-\lstinputlisting[caption= Map]{../Exemplos/Cap6/prog3_mais.pl}
+\lstinputlisting[caption= Mais]{../Exemplos/Cap6/prog3_mais.pl}
 
 
 
