@@ -52,9 +52,7 @@ diversas unificações infrutíferas antes de se chegar ao objetivo.
 
 Para lidar com isso é criado um \textbf{\textit{choice point}}\marginpar{\textbf{Choice point}} logo antes de se tentar uma unificação. Se a tentativa resulta em falha, o processo volta ao estado de antes da tentativa, no que chamamos de \textbf\textit{{backtracking}}\marginpar{\textbf{Backtracking}}, a possibilidade daquela unificação é eliminada e o processo continua. O goal falha quando todas as possibilidades foram eliminadas e tem sucesso quando não existirem mais unificações a serem feitas.
 
-Os \textit{choice points} são um ponto chave na execução de um programa lógico. A quantidade deles está diretamente relacionada com a eficiência do programa: quanto mais choice points, em geral, mais ineficiente o programa é. Assim, se o mesmo goal puder ser provado de mais de uma forma diferente, é necessária a criação de \textit{choice points} a mais, o que deve ser evitado. Da mesma forma, se existe mais de um resultado para uma computação (isto é, se o mesmo goal admite
-diversas substituições que resultam em sucesso)
-, a eliminação das opções a mais implicariam na eliminação de \textit{choice points}, o que seria vantajoso.
+Os \textit{choice points} são um ponto chave na execução de um programa lógico. A quantidade deles está diretamente relacionada com a eficiência do programa: quanto mais \textit{choice points}, em geral, mais ineficiente o programa é. Assim, se o mesmo goal puder ser provado de mais de uma forma diferente, é necessária a criação de \textit{choice points} a mais, o que deve ser evitado. Da mesma forma, se existe mais de um resultado para uma computação (isto é, se o mesmo goal admite diversas substituições que resultam em sucesso), a eliminação das opções a mais implicariam na eliminação de \textit{choice points}, o que seria vantajoso.
 
 A quantidade de \textit{choice points} tem muito a ver com a de ``axiomas'' (isto é, tem a ver com a quantidade de cláusulas e com tamanho do corpo das cláusulas). Geralmente, um programa com menos axiomas resulta em melhor legibilidade e maior eficiência. No entanto, alguns desses axiomas representam restrições que podem levar uma falha mais cedo na computação, o que, na prática, diminui a quantidade de \textit{choice points} (os que seriam criados, não houvesse essa
 falha, não serão mais) e de unificações
@@ -66,9 +64,9 @@ Como um exemplo de seu uso, considere o seguinte programa:
 
 \lstinputlisting[caption=Member]{../Exemplos/Cap4/prog1_member.pl}
 
-O underline ``\_'' representa uma \textbf{variável anônima}\marginpar{\textbf{Variável anônima}}. A utilizamos quando o nome daquela variável não é importante, o que acontece quando não a utilizarmos novamente (isso serve para não nos distrairmos com variáveis que não serão utilizadas: a variável anônima cumpre um papel meramente formal). Toda variável anônima é diferente.
+O símbolo ``\_'' representa uma \textbf{variável anônima}\marginpar{\textbf{Variável anônima}}. A utilizamos quando o nome daquela variável não é importante, o que acontece quando não a utilizarmos novamente (isso serve para não nos distrairmos com variáveis que não serão utilizadas: a variável anônima cumpre um papel meramente formal). Toda variável anônima é diferente.
 
-O goal {\tt member(X, Xs)?} resulta em sucesso se X é um elemento de Xs\footnote{Note que estamos assumindo tácitamente, neste programa e nos demais, que a ordem de execução é ``de cima para baixo, da direita para a esquerda'' (o interpretador ``enxerga'' primeiro a cláusula que aparece ``antes''), que é como as implementações usuais de Prolog funcionam}. Esse programa é usado primariamente de duas formas: para checar se um elemento é membro de uma lista; ou para gerar em X os elementos da lista. Por exemplo, para o goal {\tt member(X, [a, b, c])?}, X pode assumir o valor de a, b ou c.
+O goal {\tt member(X, Xs)?} resulta em sucesso se X é um elemento de Xs\footnote{Note que estamos assumindo tacitamente, neste programa e nos demais, que a ordem de execução é ``de cima para baixo, da direita para a esquerda'' (o interpretador ``enxerga'' primeiro a cláusula que aparece ``antes''), que é como as implementações usuais de Prolog funcionam.}. Esse programa é usado primariamente de duas formas: para checar se um elemento é membro de uma lista; ou para gerar em X os elementos da lista. Por exemplo, para o goal {\tt member(X, [a, b, c])?}, X pode assumir o valor de a, b ou c.
 
 Se a programadora quiser saber apenas se um certo X faz parte de uma certa lista Xs, ela pode usar o corte, ``cortando'' as demais soluções:
 
@@ -91,17 +89,18 @@ Onde o predicado fail/0 é um predicado do prolog que falha sempre.
 
 Similarmente, podemos, a partir do corte, gerar outras formas de controle, familiares a programadores de linguagens procedurais:
 
-\lstinputlisting[caption=Se entao se nao]{../Exemplos/Cap4/prog4_ifthenelse.pl}
+\lstinputlisting[caption=Se entao senao]{../Exemplos/Cap4/prog4_ifthenelse.pl}
 
 \lstinputlisting[caption=Ou]{../Exemplos/Cap4/prog5_or.pl}
 
-Perceba que, diferentemente do que ocorre em programas puramente lógicos\footnote{Você pode se perguntar se algum do programa nesse texto é puramente lógico. Alguns dos mais simples, como o \textit{Natural}, do capítulo 2, podem ser, mas a situação geral é que os programas que veremos são só ``meio que'' lógicos.}, a ordem das cláusulas e dos termos em cada cláusula podem ser fundamentais. Pode ser que, por exemplo, na cláusula {\tt p(a) :- b, c.}, b resulte em falha e c em um
+Perceba que, diferentemente do que ocorre em programas puramente lógicos\footnote{Você pode se perguntar se algum do programa nesse texto é puramente lógico. Alguns dos mais simples, como o \textit{Natural}, do Capítulo 2, %COMMENT: lembrar de colocar referencia ao capitulo, no lugar do "2". E sempre que for fazer referencia a um capitulo, secao, tabela, figura, codigo, etc, com o numero na sequencia, usa letra maiusculo. Por exemplo, "Capítulo 1", "Código 3", etc.
+podem ser, mas a situação geral é que os programas que veremos são só ``meio que'' lógicos.}, a ordem das cláusulas e dos termos em cada cláusula podem ser fundamentais. Pode ser que, por exemplo, na cláusula {\tt p(a) :- b, c.}, b resulte em falha e c em um
 processo interminável. Neste caso, a mudança de ordem seria fatal.
 
-Os programas acima demonstram uma possível forma de se definir, respectivamente, o ``se,então, se não'' e o ``Ou''\footnote{Na verdade, poderíamos pensar como o processo de backtracking como o nosso ``ou'' natural, mas às vezes pode ser conveniente usar um ``ou'' em uma cláusula, seja por efeito de legibilidade ou para evitar o backtracking.}, mas essas construções já existem no Prolog por padrão, como:
+Os programas acima demonstram uma possível forma de se definir, respectivamente, o ``se, então, senão'' e o ``Ou''\footnote{Na verdade, poderíamos pensar como o processo de \textit{backtracking} como o nosso ``ou'' natural, mas às vezes pode ser conveniente usar um ``ou'' em uma cláusula, seja por efeito de legibilidade ou para evitar o \textit{backtracking}.}, mas essas construções já existem no Prolog por padrão, como:
 
 \begin{itemize}
-  \item se, então, se não: {\tt A $->$ B ; R.} (lê-se: se A, então B, se não R);
+  \item se, então, senão: {\tt A $->$ B ; R.} (lê-se: se A, então B, senão R);
   \item ou: {\tt A ; B.} (lê-se: A ou B).
 \end{itemize}
 
