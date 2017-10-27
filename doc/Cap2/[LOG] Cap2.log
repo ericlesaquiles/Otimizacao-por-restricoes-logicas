@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  26 OCT 2017 16:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  27 OCT 2017 19:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -531,13 +531,94 @@ Underfull \hbox (badness 4217) in paragraph at lines 105--105
  []
 
 [2]
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.118   \item C
+                onstruímos a equação {\tt porta$\_$and(En1, En2, Sai) = p...
+
+? 
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.118   \item C
+                onstruímos a equação {\tt porta$\_$and(En1, En2, Sai) = p...
+
+? 
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.118   \item C
+                onstruímos a equação {\tt porta$\_$and(En1, En2, Sai) = p...
+
+? 
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 118.
 
- (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
+(/usr/share/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 118.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119   \item $
+               \Gamma$ = \{\};
+? 
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119   \item $
+               \Gamma$ = \{\};
+? 
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119   \item $
+               \Gamma$ = \{\};
+? 
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.121       \item �
+                   � realizado o \textit{pop} da equação {\tt porta$\_$and...
+
+? 
+
+Overfull \hbox (15.8361pt too wide) in paragraph at lines 118--121
+[]\OT1/cmr/m/n/10 Constru^^S^^Pmos a equa^^Xc~ao \OT1/cmtt/m/n/10 porta$[]$and(
+En1, En2, Sai) = porta$[]$and(En1,
+ []
+
 
 Overfull \hbox (39.0939pt too wide) in paragraph at lines 121--122
 [][]\OT1/cmr/m/n/10 E re-a-li-zado o \OT1/cmr/m/it/10 pop \OT1/cmr/m/n/10 da eq
@@ -621,7 +702,7 @@ sfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
 re/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on "[LOG] Cap2.pdf" (6 pages, 197291 bytes).
+Output written on "[LOG] Cap2.pdf" (6 pages, 195977 bytes).
 PDF statistics:
  83 PDF objects out of 1000 (max. 8388607)
  59 compressed objects within 1 object stream

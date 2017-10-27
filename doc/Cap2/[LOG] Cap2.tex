@@ -116,10 +116,10 @@ O processo de resolução, baseado no algoritmo visto no capítulo 1, é como se
 
 \begin{itemize}
   \item Construímos a equação {\tt porta$\_$and(En1, En2, Sai) = porta$\_$and(En1, En2, Saida)}, que é posta na pilha;
-  \item $\Gamma = \{\}$;
+  \item $\Gamma$ = \{\};
     \begin{enumerate}
       \item É realizado o \textit{pop} da equação {\tt porta$\_$and(En1, En2, Sai) = porta$\_$and(En1, En2, Saida)};
-      \item (Passos b.2 e b.3, três vezes sucessivamente) $\Gamma = \{Entrada1 = En1, Entrada2 = En2, Saida = Sai\}$; %QUESTION: por que aqui o conjunto Gamma esta entre $ e nos outros passos nao?
+      \item (Passos b.2 e b.3, três vezes sucessivamente) $\Gamma$ = \{Entrada1 = En1, Entrada2 = En2, Saida = Sai\}; %QUESTION: por que aqui o conjunto Gamma esta entre $ e nos outros passos nao?
       \item Construímos as seguintes equações e as colocamos na pilha:
         \begin{itemize}
           \item {\tt porta$\_$nand(En1, En2, X) = porta$\_$nand(Entrada10, Entrada20, Saida0)}\footnote{Os dois lados da equação, pertencendo a cláusulas diferentes, fazem uso de variáveis, a priori, diferentes. Assim, para evitar problemas, renomeamo-las.} e:
