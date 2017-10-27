@@ -50,13 +50,13 @@ Antes de prosseguirmos em outros aspectos da programação lógica, ocasionalmen
 \begin{definition}
   Usaremos a seguinte definição formal de lista\marginpar{\textbf{Lista}}:
   \begin{itemize}
-    \item {\tt .()} (o ``funtor .'') é uma lista\footnote{Na verdade, isso não é extritamente padrão e implementações diferentes podem usar funtores diferentes. Essa é outra razão para não usarmos essa definição na prática, mas sim a convenção seguinte. Apesar disso, é importante se lembrar que a lista não é, extritamente falando, diferente de um funtor.} (o que chamamos ``lista vazia'', é o mesmo que ``[]'' das seguintes convenções);
+    \item {\tt .()} (o ``funtor .'') é uma lista\footnote{Na verdade, isso não é estritamente padrão e implementações diferentes podem usar funtores diferentes. Essa é outra razão para não usarmos essa definição na prática, mas sim a convenção seguinte. Apesar disso, é importante se lembrar que a lista não é, estritamente falando, diferente de um funtor.} (o que chamamos ``lista vazia'', é o mesmo que ``[]'' das seguintes convenções);
     \item {\tt .(A, B)} é uma lista se B é uma lista
   \end{itemize}
   Como é chato ficar escrevendo coisas como {\tt.(A, .(B, C))} usaremos as seguinte convenções:
   \begin{itemize}
     \item {\tt [A,B]} é o mesmo que {\tt .(A, .(B, .()))};
-    \item {\tt [A]} é o mesmo que {\tt .(A, .())} (o funtor . é de aridade 2, a não ser quando não recebe arguentos);
+    \item {\tt [A]} é o mesmo que {\tt .(A, .())} (o funtor . é de aridade 2, a não ser quando não recebe argumentos);
     \item {\tt [A, B, C, ...]} é o mesmo que {\tt .(A, .(B, .(C, ...)))};
     \item {\tt [A|B]} indica que A é o primeiro elemento da lista e B é o resto da lista (B é uma lista).
   \end{itemize}
@@ -75,7 +75,8 @@ Para uma melhor compreensão, será instrutivo analisarmos o seguinte programa:
 \lstinputlisting[caption=Length]{../Exemplos/Cap3/prog2_length.pl}
 \label{lst:length}
 
-Mas antes, precisamos entender o que significa {\tt N is M + 1.}. Esse \textbf{is}\marginpar{\textbf{is}} é o operador de atribuição aritmético e ele não funciona como os demais predicados: para algo como {\tt A is B}, se B for uma constante numérica e A é uma variável, o comportamento é o esperado (A assume o valor de B); se não, ocorre erro. Disso segue que is/2 não é simétrico: por exemplo, {\tt A is 5} resulta em A = 5, mas {\tt 5 = A.}, onde A é uma variável, resulta em erro. Ademais, quando algum
+Mas antes, precisamos entender o que significa {\tt N is M + 1.}. Esse \textbf{is}\marginpar{\textbf{is}} é o operador de atribuição aritmético e ele não funciona como os demais predicados: para algo como {\tt A is B}, se B for uma constante numérica e A é uma variável, o comportamento é o esperado (A assume o valor de B); se não, ocorre erro. Disso segue que is/2 não é simétrico: por exemplo, {\tt A is 5} resulta em A = 5, mas {\tt 5 = A.}, %QUESTION: isso nao deveria ser 5 is A?
+onde A é uma variável, resulta em erro. Ademais, quando algum
 operador aritmético\footnote{Operadores aritméticos que temos à disposição são: $+/2, -/2, */2, //2, \wedge/2, -/1, abs/1, sin/1, cos/1, max/2, sqrt/1, \ll/1, \gg/1$. O funcionamento de muitos deles é claro pelo símbolo, o dos demais será explicado na medida que forem usados.} op é usado com is/2, o operador realiza a operação esperada: {\tt A is 2 + 3} e {\tt A is 10 - 8} resultam em A = 5, por exemplo. Vale notar que esse comportamento é diferente do =/2, por exemplo: o seguinte programa não tem o resultado esperado:
 % TODO arrumar << >>
 
@@ -92,15 +93,17 @@ operador aritmético\footnote{Operadores aritméticos que temos à disposição 
   \item $=</2$, de ``menor ou igual que'';
 \end{itemize}
 
-Voltando ao programa \ref{lst:length}. O goal {\tt length(Xs, N)?}, onde Xs é uma lista e N uma variável, resulta em N tomando o valor da quantidade de elementos de Xs (o seu ``tamanho'').  Mas, o goal {\tt length(Xs, N)?}, onde N é um número natural positivo e Xs uma variável resulta em erro ao chegar no trecho {\tt N is K + 1}, já que, como dito anteriormente, {\tt N is K}, onde N é um número, resulta em erro.
+Voltando ao programa \ref{lst:length}. %COMMENT: como na legenda dos programas fica escrito "codigo", acho que fica melhor ou chamar aqui de "codigo" em vez de "programa", ou chamar de "programa Append (Código 1)". Este vale para todas as referencias a programas.
+O goal {\tt length(Xs, N)?}, onde Xs é uma lista e N uma variável, resulta em N tomando o valor da quantidade de elementos de Xs (o seu ``tamanho'').  Mas, o goal {\tt length(Xs, N)?}, onde N é um número natural positivo e Xs uma variável resulta em erro ao chegar no trecho {\tt N is K + 1}, já que, como dito anteriormente, {\tt N is K}, onde N é um número, resulta em erro.
 
 Para o seguinte programa, esse já não é o caso.
 
 \lstinputlisting[caption=Length]{../Exemplos/Cap3/prog3_length2.pl}
-
+%QUESTION: neste codigo, a linha "len(X_S,K)." nao deveria ser "length(X_S,K)." 
 O goal {\tt length(Xs, N)?}, para esse programa, resulta em erro se N não for um número. Entretanto, se for um natural positivo, {\tt length(Xs, N)?} resulta em sucesso e Xs se torna uma lista de N elementos. Se Xs for uma lista e N um natural positivo, {\tt length(Xs, N)?} resulta em falha se Xs tem uma quantidade de elementos diferente de N e sucesso se Xs tem uma quantidade de elementos igual a N.
 
-Nota-se que, apesar dessa diferença, a leitura do programa é essencialmente a mesma. A diferença decorre da maneira como os operadores aritméticos funcionam em Prolog e leva a outras situações parecidas, o que eventualmente se tornará um incoveniente grande demais. Veremos como lidar com esse tipo de incoveniente de maneiras diferentes no capítulo de inspeção de estruturas e, depois, no de restrições lógicas.
+Nota-se que, apesar dessa diferença, a leitura do programa é essencialmente a mesma. A diferença decorre da maneira como os operadores aritméticos funcionam em Prolog e leva a outras situações parecidas, o que eventualmente se tornará um incoveniente grande demais. Veremos como lidar com esse tipo de incoveniente de maneiras diferentes no capítulo de inspeção de estruturas %COMMENT: colocar "(Capítulo x)".
+e, depois, no de restrições lógicas. %COMMENT: colocar "(Capítulo y)". Isso facilita para quem quiser procurar o capitulo.
 
 Agora, voltando rapidamente a um assunto discutido no capítulo passado, temos a definição de \textbf{lista completa}\marginpar{\textbf{lista completa}}:
 

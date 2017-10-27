@@ -115,21 +115,21 @@ Para obtermos um exemplo concreto, é útil termos o passo a passo do processo d
 O processo de resolução, baseado no algoritmo visto no capítulo 1, é como se segue:
 
 \begin{itemize}
-  \item Construimos a equação {\tt porta$\_$and(En1, En2, Sai) = porta$\_$and(En1, En2, Saida)}, que é posta na pilha;
+  \item Construímos a equação {\tt porta$\_$and(En1, En2, Sai) = porta$\_$and(En1, En2, Saida)}, que é posta na pilha;
   \item $\Gamma = \{\}$;
     \begin{enumerate}
       \item É realizado o \textit{pop} da equação {\tt porta$\_$and(En1, En2, Sai) = porta$\_$and(En1, En2, Saida)};
-      \item (Passos b.2 e b.3, três vezes sucessivamente) $\Gamma = \{Entrada1 = En1, Entrada2 = En2, Saida = Sai\}$;
-      \item Construimos as seguintes equações e as colocamos na pilha:
+      \item (Passos b.2 e b.3, três vezes sucessivamente) $\Gamma = \{Entrada1 = En1, Entrada2 = En2, Saida = Sai\}$; %QUESTION: por que aqui o conjunto Gamma esta entre $ e nos outros passos nao?
+      \item Construímos as seguintes equações e as colocamos na pilha:
         \begin{itemize}
-          \item {\tt porta$\_$nand(En1, En2, X) = porta$\_$nand(Entrada10, Entrada20, Saida0)}\footnote{Os dois lados da equação, pertencendo a cláusulas diferentes, fazem uso de variáveis, a priori, diferentes. Assim, para evitar problemas, renoeamo-las.} e:
+          \item {\tt porta$\_$nand(En1, En2, X) = porta$\_$nand(Entrada10, Entrada20, Saida0)}\footnote{Os dois lados da equação, pertencendo a cláusulas diferentes, fazem uso de variáveis, a priori, diferentes. Assim, para evitar problemas, renomeamo-las.} e:
           \item {\tt inversor(X, Sai) = }{\tt inversor(Entrada00, Saida00)};
         \end{itemize}
       \item
         \begin{enumerate}
           \item Realizamos um \textit{pop}, retirando a equação {\tt porta$\_$nand(En1, En2, X) = porta$\_$nand(Entrada10, Entrada20, Saida0)} da pilha;
-          \item $\Gamma$ += \{X = Saida0, Entrada10 = En1, Entrada20 = En2\}\footnote{Por conveniência, usaremos C += B, onde C e B são dois conjuntos, para denotar que C' = C $\cup$ B e posterior renomeação de C' para C.} \footnote{Não se esqueça que quando adicionamos uma substituição, também a fazemos na pilha e em $\Gamma$};
-          \item Construimos as seguintes equações e as colocamos na pilha:
+          \item $\Gamma$ += \{X = Saida0, Entrada10 = En1, Entrada20 = En2\}\footnote{Por conveniência, usaremos C += B, onde C e B são dois conjuntos, para denotar que C' = C $\cup$ B e posterior renomeação de C' para C.} \footnote{Não se esqueça que quando adicionamos uma substituição, também a fazemos na pilha e em $\Gamma$.};
+          \item Construímos as seguintes equações e as colocamos na pilha:
             \begin{itemize}
               \item {\tt transistor(En1, X0, X) = transistor(n3,n4,n2)};
               \item {\tt transistor(En2, ground, X0) = transistor(n5,ground,n4)};
@@ -147,7 +147,7 @@ O processo de resolução, baseado no algoritmo visto no capítulo 1, é como se
         \begin{enumerate}
           \item Realizamos um \textit{pop} da equação {\tt inversor(n2, Sai) = inversor(Entrada00, Saida00)};
           \item $\Gamma$ += \{Entrada00 = n2, Saida00 = Sai\};
-          \item Construimos as seguintes equações e as colocamos na pilha:
+          \item Construímos as seguintes equações e as colocamos na pilha:
             \begin{itemize}
               \item {\tt transistor(n2, ground, Sai) = transistor(n2,ground,n1)};
               \item {\tt resistor(energia, Sai) = resistor(energia,n1)};
