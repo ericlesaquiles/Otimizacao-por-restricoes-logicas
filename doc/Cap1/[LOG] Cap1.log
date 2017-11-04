@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  23 OCT 2017 13:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  3 NOV 2017 23:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**"./[LOG] Cap1.tex"
+**"[LOG] Cap1.tex"
 (./[LOG] Cap1.tex
 LaTeX2e <2017-04-15>
 Babel <3.12> and hyphenation patterns for 84 language(s) loaded.
@@ -448,12 +448,6 @@ File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
-(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2015/06/04 1.6 listings language file
-)
-(/usr/share/texmf-dist/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2015/06/04 1.6 listings language file
-)
 (/usr/share/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2015/03/04 v2.20.2
 \thm@style=\toks18
@@ -466,39 +460,62 @@ Package: amsthm 2015/03/04 v2.20.2
 \thm@headsep=\skip64
 \dth@everypar=\toks23
 )
-\c@definition=\count100
+(/usr/share/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/share/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen115
+\captionmargin@=\dimen116
+\captionwidth=\dimen117
+\caption@tempdima=\dimen118
+\caption@indent=\dimen119
+\caption@parindent=\dimen120
+\caption@hangindent=\dimen121
+)
+\c@ContinuedFloat=\count100
+Package caption Info: listings package is loaded.
+)
+(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+(/usr/share/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2015/06/04 1.6 listings language file
+)
+\c@definition=\count101
 
 
-Package amsthm Warning: Unknown theoremstyle `theorem' on input line 20.
+Package amsthm Warning: Unknown theoremstyle `theorem' on input line 18.
 
-\c@theorem=\count101
+\c@theorem=\count102
 (./[LOG] Cap1.aux)
 \openout1 = `"[LOG] Cap1.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count102
-\scratchdimen=\dimen115
+\scratchcounter=\count103
+\scratchdimen=\dimen122
 \scratchbox=\box36
-\nofMPsegments=\count103
-\nofMParguments=\count104
+\nofMPsegments=\count104
+\nofMParguments=\count105
 \everyMPshowfont=\toks24
-\MPscratchCnt=\count105
-\MPscratchDim=\dimen116
-\MPnumerator=\count106
-\makeMPintoPDFobject=\count107
+\MPscratchCnt=\count106
+\MPscratchDim=\dimen123
+\MPnumerator=\count107
+\makeMPintoPDFobject=\count108
 \everyMPtoPDFconversion=\toks25
 ) (/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -556,7 +573,9 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count108
+\c@lstlisting=\count109
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 
 (../Exemplos/Cap1/prog1_circuito.pl
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -564,7 +583,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 7.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 50--52
+Underfull \hbox (badness 10000) in paragraph at lines 49--51
 
  []
 
@@ -575,11 +594,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--52
 LaTeX Warning: Marginpar on page 2 moved.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 69.
+(Font)              <8> on input line 68.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 69.
+(Font)              <6> on input line 68.
 
-Overfull \hbox (0.51411pt too wide) in paragraph at lines 68--70
+Overfull \hbox (0.51411pt too wide) in paragraph at lines 67--69
 \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a[]; :::; a[]\OT1/cmr/m/n/1
 0 ) = \OML/cmm/m/it/10 q\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 b[]; :::; b[]\OT1/cmr
 /m/n/10 )$, dize-mos que $\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a
@@ -587,65 +606,53 @@ Overfull \hbox (0.51411pt too wide) in paragraph at lines 68--70
 mr/m/n/10 (\OML/cmm/m/it/10 b[]; :::; b[]\OT1/cmr/m/n/10 )$.
  []
 
-[2]
-Underfull \hbox (badness 5939) in paragraph at lines 79--79
-[][]\OT1/cmr/m/n/10 E im-por-tante
+[2] [3] [4] (../Exemplos/Cap1/prog2_encontra.pl)
+Underfull \hbox (badness 6173) in paragraph at lines 148--148
+[]\OT1/cmr/m/n/7 Figura 1: |Re-ti-rado de [http://cs-alb-pc3.massey.ac.nz/notes
+/59302/l01.html], acesso em
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
-\OT1/cmr/m/n/10 per-der-mos
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
-\OT1/cmr/m/n/10 poss^^S^^Pveis
- []
-
-[3] [4] (../Exemplos/Cap1/prog2_encontra.pl)
 <analogy.jpg, id=27, 1121.18875pt x 495.8525pt>
 File: analogy.jpg Graphic file (type jpg)
 <use analogy.jpg>
-Package pdftex.def Info: analogy.jpg  used on input line 147. on input line 147
+Package pdftex.def Info: analogy.jpg  used on input line 150. on input line 150
 .
-Package pdftex.def Info: Requested size: 345.0pt x 152.57777pt on input line 14
-7.
+Package pdftex.def Info: Requested size: 345.0pt x 152.57777pt on input line 15
+0.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 147--148
-[][] 
- []
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5 <./analogy.jpg>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 156.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 160.
 
- (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
+(/usr/share/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 156.
-
-(../Exemplos/Cap1/prog3_analogy.pl) [6] (../Exemplos/Cap1/prog4_testanalogy.pl)
-[7] [8] (./[LOG] Cap1.aux) ) 
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 160.
+ [5]
+(../Exemplos/Cap1/prog3_analogy.pl) [6 <./analogy.jpg>]
+(../Exemplos/Cap1/prog4_testanalogy.pl) [7] [8] (./[LOG] Cap1.aux) ) 
 Here is how much of TeX's memory you used:
- 4714 strings out of 492990
- 64217 string characters out of 6138688
- 154163 words of memory out of 5000000
- 8201 multiletter control sequences out of 15000+600000
+ 5773 strings out of 492990
+ 83432 string characters out of 6138688
+ 175283 words of memory out of 5000000
+ 9254 multiletter control sequences out of 15000+600000
  7847 words of font info for 28 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,8n,40p,700b,1128s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.p
-fb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/font
-s/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on "[LOG] Cap1.pdf" (8 pages, 222656 bytes).
+ 41i,8n,43p,685b,1126s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
+r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmtt10.pfb>
+Output written on "[LOG] Cap1.pdf" (8 pages, 228832 bytes).
 PDF statistics:
  84 PDF objects out of 1000 (max. 8388607)
  59 compressed objects within 1 object stream

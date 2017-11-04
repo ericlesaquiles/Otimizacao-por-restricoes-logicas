@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  23 OCT 2017 15:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  3 NOV 2017 15:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**"./[LOG] Cap6.tex"
+**"[LOG] Cap6.tex"
 (./[LOG] Cap6.tex
 LaTeX2e <2017-04-15>
 Babel <3.12> and hyphenation patterns for 84 language(s) loaded.
@@ -432,35 +432,6 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 69--69
-\OT1/cmr/m/n/10 a que n~ao
- []
-
-
-Underfull \hbox (badness 6316) in paragraph at lines 69--69
-\OT1/cmr/m/n/10 se d^^Sa nome.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 69--69
-\OT1/cmr/m/n/10 pode cham^^Sa-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 69--69
-\OT1/cmr/m/n/10 la de-pois:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 69--69
-\OT1/cmr/m/n/10 cada vari^^Savel
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 69--69
-\OT1/cmr/m/n/10 an^onima ^^Se
- []
-
 (../Exemplos/Cap6/prog1_subtermo.pl
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 15.
 
@@ -496,12 +467,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 98--100
 (../Exemplos/Cap6/prog3_mais.pl [4]) [5] (./[LOG] Cap6.aux) ) 
 Here is how much of TeX's memory you used:
  2537 strings out of 492990
- 31012 string characters out of 6138688
+ 31010 string characters out of 6138688
  129310 words of memory out of 5000000
  6102 multiletter control sequences out of 15000+600000
  7663 words of font info for 28 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,8n,40p,563b,1553s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,8n,40p,561b,1553s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
@@ -513,7 +484,7 @@ msfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
 are/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on "[LOG] Cap6.pdf" (5 pages, 143102 bytes).
+Output written on "[LOG] Cap6.pdf" (5 pages, 142813 bytes).
 PDF statistics:
  68 PDF objects out of 1000 (max. 8388607)
  48 compressed objects within 1 object stream

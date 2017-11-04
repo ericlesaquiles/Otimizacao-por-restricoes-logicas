@@ -1,29 +1,28 @@
 \documentclass{article}
+
 \usepackage[utf8]{inputenc}
 \usepackage{placeins}
-
 \usepackage{graphicx}
-
 \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 \usepackage{listings}
-\lstset{language=Prolog}
-\renewcommand{\lstlistingname}{Código}
-
 \usepackage{amsthm}
+\usepackage{caption}
 
-%\theoremstyle{definition}
+\lstset{language=Prolog}
+
+\captionsetup[figure]{font=scriptsize}
+
 \newtheorem{definition}{Definição}[section]
-
 \theoremstyle{remark}
 \newtheorem*{remark}{Observações}
-
 \theoremstyle{theorem}
 \newtheorem{theorem}{Teorema}[section]
 
 \setlength{\parskip}{.5em}
 
-
 \renewcommand\refname{Leituras adicionais}
+\renewcommand\figurename{Figura}
+\renewcommand{\lstlistingname}{Código}
 
 
 %
@@ -144,7 +143,12 @@ Gera-e-testa é um modelo comum para a resolução de vários problemas. Frequen
 
 O exemplo de programa gera-e-testa que usaremos é o ``ANALOGY''. Considere o problema de encontrar analogias geométricas, como o seguinte\footnote{Esse problema foi retirado da edição de 1942 do ``Teste psicológico para calouros de faculdade'', do conselho americano de educação \cite{evans}.}:\vspace{1cm}
 
-\includegraphics[width=\linewidth]{analogy}
+
+\begin{figure}[h]
+  \caption{Retirado de [http://cs-alb-pc3.massey.ac.nz/notes/59302/l01.html], acesso em 03/11/2017.}
+  \centering
+  \includegraphics[width=\linewidth]{analogy}
+\end{figure}
 
 \vspace{1cm}Um possível algoritmo para resolver esse problema é o seguinte:
 

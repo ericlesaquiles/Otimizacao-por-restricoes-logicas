@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  23 OCT 2017 15:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  3 NOV 2017 11:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**"./[LOG] Cap4.tex"
+**"[LOG] Cap4.tex"
 (./[LOG] Cap4.tex
 LaTeX2e <2017-04-15>
 Babel <3.12> and hyphenation patterns for 84 language(s) loaded.
@@ -1199,38 +1199,38 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 69--69
+Underfull \hbox (badness 10000) in paragraph at lines 67--67
 []\OT1/cmr/bx/n/10 Vari^^Savel
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 71.
+(Font)              <8> on input line 69.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 71.
+(Font)              <6> on input line 69.
 (../Exemplos/Cap4/prog2_member2.pl)
-Underfull \hbox (badness 10000) in paragraph at lines 80--80
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
 []\OT1/cmr/bx/n/10 Corte Ver-
  []
 
 (../Exemplos/Cap4/prog3_not.pl [2]) (../Exemplos/Cap4/prog4_ifthenelse.pl)
 (../Exemplos/Cap4/prog5_or.pl)
-Overfull \hbox (0.70886pt too wide) in paragraph at lines 98--100
+Overfull \hbox (0.70886pt too wide) in paragraph at lines 96--99
 []\OT1/cmr/m/n/10 Perceba que, di-fe-ren-te-mente do que ocorre em pro-gra-mas 
 pu-ra-mente l^^Sogicos[],
  []
 
 
-LaTeX Warning: Empty `thebibliography' environment on input line 112.
+LaTeX Warning: Empty `thebibliography' environment on input line 111.
 
 [3] (./[LOG] Cap4.aux) ) 
 Here is how much of TeX's memory you used:
  33017 strings out of 492990
- 736681 string characters out of 6138688
+ 736679 string characters out of 6138688
  796102 words of memory out of 5000000
  36178 multiletter control sequences out of 15000+600000
  534233 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,8n,69p,10366b,1559s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,8n,69p,10364b,1559s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texm
@@ -1242,7 +1242,7 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
 t10.pfb>
-Output written on "[LOG] Cap4.pdf" (3 pages, 136337 bytes).
+Output written on "[LOG] Cap4.pdf" (3 pages, 137440 bytes).
 PDF statistics:
  65 PDF objects out of 1000 (max. 8388607)
  47 compressed objects within 1 object stream
