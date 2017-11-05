@@ -75,8 +75,10 @@ restrição for muito complicada ou complexa. O problema de descobrir se uma res
 
 Esse tipo de constatação rápida já nos dá uma ideia do tipo de pergunta que precisaríamos fazer dado um domínio, assim como da variedade de tipos de restrição que existem, mesmo em um domínio.
 
-Por conveniência, daqui para frente, problemas de otimização serão chamados COP (de \textit{Constraint Optimization Problem}) e,  de satisfação de restrições, de CSP (de \textit{Constraint Satisfaction Problem}).
+Daqui para frente denotaremos problemas de otimização como COP (de \textit{Constraint Optimization Problem}),  de satisfação de restrições, de CSP (de \textit{Constraint Satisfaction Problem}) e, quando não for necessário fazer distinção, apenas CP. Até agora, temos lidado com CPs como contendo uma restrição, mas será conveniente lidar com eles como contendo uma conjunção de restrições:
 
+Se $x_0$ é um símbolo de restrição no domínio, junto de seus argumentos, diremos que é uma \textbf{restrição primitiva}. Uma \textbf{restrição composta} C é a conjunção de restrições primitivas: $x_0$, ..., $x_n$ (onde as vírgulas, como usual, são lidas como um \textit{e} lógico), onde $x_i$ é uma restrição primitiva. Assim, um COP é descrito por uma tupla (C, f), enquanto que um CSP é descrito por algum C, onde C é uma restrição composta. Daqui para frente nos referiremos a uma
+substituição nas variáveis de um CP que respeite às restrições como uma solução desse CP.
 
 \subsection{Árvores}
 Como você logo perceberá (ou talvez já o tenha percebido), já vimos restrições por árvores antes, elas só estavam um pouco disfarçadas.
@@ -231,18 +233,47 @@ Digamos que só o valor de X nessa restrição seja de interesse. Se tivermos qu
 Isso motiva a nossa definição de projeção:
 
 \begin{definition}
-  Dizemos que uma restrição $R_0$ em função das variáveis $X_0$ a $X_n$ é uma projeção\marginpar{\textbf{Projeção}} da restrição $R_1$, em função das variáveis $X_0$ a $X_m$, com m $>$ n, se para toda substituição em $X_0$ a $X_n$ tal que $R_0$ seja verdadeira, pode-se aumentar essa substituição, mantendo os valores de $X_0$ a $X_n$ e atribuindo valores às demais variáveis tal que $R_1$ seja verdadeira.
+  Uma substituição $\iota$ é dita uma solução parcial\marginpar{\textbf{Solução parcial}} de um CP, que chamaremos C, se existe alguma substituição $\rho$ tal que $\iota \cup \rho$ é uma solução de C.
+\end{definition}
+
+\begin{definition}
+  Dizemos que uma restrição $R_0$ em função das variáveis $X_0$ a $X_n$ é uma projeção\marginpar{\textbf{Projeção}} da restrição $R_1$, em função das variáveis $X_0$ a $X_m$, com m $>$ n, se toda solução de $R_0$ é uma solução parcial de $R_1$.
 \end{definition}
 
 Nem todo domínio admite projeções incondicionalmente. O domínio de árvores, por exmeplo, não admite: podemos fazer projeções em algumas restrições nesse domínio, mas não em todas.
 
 O \textit{branch and bound} funciona porque, ao fazer uma ramificação, o que se faz na verdade é uma projeção em uma ou mais variáveis.
 
-Não é difícil ver que a projeção é uma forma de simplificação. Dessa forma, podemos ver o \textit{branch and bound} simplismente como uma sequência de simplificações de tipos diferentes.
+Não é difícil ver que a projeção é uma forma de simplificação e, dessa forma, podemos ver o \textit{branch and bound} como uma sequência de simplificações de tipos diferentes.
+
+Simplificações e projeções têm um papel importante na resolução de CPs, então será útil termos uma definição mais rigorosa. Mas antes precisamos da noção de equivalência:
+
+\begin{definition}
+  Duas restrições\marginpar{\textbf{Restrições equivalentes}} $C_1$ e $C_2$ são equivalentes em relação ao conjunto de variáveis V, o que denotaremos por $C_1 \leftrightarrow C_2$, se toda solução de $C_1$ restrita a V é uma solução parcial de $C_2$ e se toda solução de $C_2$ restrita a V é uma solução parcial de $C_1$.
+\end{definition}
+
+\begin{definition}
+  Seja uma restrição composta C, var(X) o conjunto de variáveis de um CP qualquer X e o conjunto de variáveis de interesse inter(C) $\subset$ var(C), dizemos que C' é uma simplificação\marginpar{\textbf{Simplificação}} de C em inter(C) se inter(C) = var(C) e toda solução de C' é uma solução parcial de C.
+\end{definition}
+
+É interessante notar que, se dispomos de um algoritmo de simplificação nos moldes dessa definição, também dispomos de um algoritmo de solução: basta simplificar o CP em inter(C) = $\emptyset$.
+
+\subsection{Equivalência}
+
+  Para terminar esta seção, consideremos o problema de equivalência de CPs, o qual é fortemente ligado ao problema de implicação e de bi-implicação. Para tanto, voltamos à questão de normalização:
+
+  \begin{definition}
+    Seja \textit{simp} uma função que recebe um CP e um conjunto V de variáveis de interesse e retorna um CP, dizemos que \textit{simp} realiza um processo de \textbf{normalização canônica}\marginpar{\textbf{Normalização canônica}} em um dado domínio se para todo CP C no domínio e todo V $\subset$ var(C), simp(C,V) é uma simplificação de C e se $C_1 \leftrightarrow C_2 \Rightarrow simp(C_1,V) = simp(C_2,V)$.
+  \end{definition}
+
+  Com um normalizador canônico, conseguimos responder sem grandes dificuldades a questão de equivalência: dois CPs são equivalentes se a normalização canônica de cada um segundo suas variáveis for idêntica. Daí, também conseguimos saber se um CP implica o outro, ou se o outro implica o um.
+
+  O algoritmo de unificação dado no Capítulo 1 %TODO inserir o ref
+é um algoritmo de normalização, como já foi notado, mas não descreve um processo de normalização canônica, o que ocorre porque não tomamos cuidado suficiente com os nomes das variáveis.
+
+Como poderíamos transformá-lo em um processo de normalização canônica?
 
 
-
-%Por conveniência, se $x_0$ é um símbolo de restrição no domínio, junto de seus argumentos, diremos que é uma restrição primitiva. Uma restrição composta é a conjunção de restrições primitivas: $x_0$, ..., $x_n$ (onde as vírgulas, como usual, são lidas como um \textit{e} lógico), onde $x_i$ é uma restrição primitiva.
 
 
 

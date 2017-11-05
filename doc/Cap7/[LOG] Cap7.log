@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.8.20)  4 NOV 2017 18:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.5)  5 NOV 2017 18:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -919,68 +919,77 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Overfull \hbox (12.83388pt too wide) in paragraph at lines 86--87
+Overfull \hbox (12.83388pt too wide) in paragraph at lines 88--89
 [][]\OT1/cmr/m/n/10 Arvores s~ao co-mu-mente rep-re-sen-tadas na forma de di-a-
 gra-mas como os seguintes: 
  []
 
 
-Overfull \hbox (3.20097pt too wide) in paragraph at lines 100--100
+Overfull \hbox (3.20097pt too wide) in paragraph at lines 102--102
 []\OT1/cmr/bx/n/10 Normaliza^^Xc~ao 
  []
 
 [3]
-Overfull \hbox (6.62961pt too wide) in paragraph at lines 160--161
+Overfull \hbox (6.62961pt too wide) in paragraph at lines 162--163
 \OT1/cmtt/m/n/10 R1=13, R2=21\OT1/cmr/m/n/10 . Na propaga^^Xc~ao lo-cal, pode-m
 os con-sid-erar as arestas como ve^^S^^Pculos
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 205--205
+Underfull \hbox (badness 10000) in paragraph at lines 207--207
 []\OT1/cmr/bx/n/10 Busca por
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--205
+Underfull \hbox (badness 10000) in paragraph at lines 207--207
 \OT1/cmr/bx/n/10 Back-track-
  []
 
-
-Overfull \hbox (3.83405pt too wide) in paragraph at lines 208--210
+[5]
+Overfull \hbox (3.83405pt too wide) in paragraph at lines 210--212
 \OT1/cmr/m/n/10 prob-lema, usual-mente por al-gum mod-elo heur^^S^^Pstico, com 
 as ram-i-fica^^Xc~oes tomando
  []
 
-[5]
-Underfull \hbox (badness 4303) in paragraph at lines 215--215
+
+Underfull \hbox (badness 4303) in paragraph at lines 217--217
 []\OT1/cmr/bx/n/10 Branch and
  []
 
-[6] [7] (./[LOG] Cap7.aux) ) 
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 252--252
+[]\OT1/cmr/bx/n/10 Restri^^Xc~oes
+ []
+
+[7]
+Overfull \hbox (3.20097pt too wide) in paragraph at lines 266--266
+[]\OT1/cmr/bx/n/10 Normaliza^^Xc~ao
+ []
+
+[8] (./[LOG] Cap7.aux) ) 
 Here is how much of TeX's memory you used:
  15037 strings out of 492990
  290795 string characters out of 6138688
- 338357 words of memory out of 5000000
+ 335591 words of memory out of 5000000
  18318 multiletter control sequences out of 15000+600000
  8453 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,8n,56p,657b,1325s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/sha
-re/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-
-Output written on "[LOG] Cap7.pdf" (7 pages, 177345 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
+r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.p
+fb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on "[LOG] Cap7.pdf" (8 pages, 189220 bytes).
 PDF statistics:
- 83 PDF objects out of 1000 (max. 8388607)
- 60 compressed objects within 1 object stream
+ 86 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
