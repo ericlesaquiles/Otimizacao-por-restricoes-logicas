@@ -1,31 +1,6 @@
 \documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage[portuguese]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage{placeins}
 
-\usepackage{amsthm}
-\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
-
-\usepackage{listings}
-\lstset{language=Prolog}
-\renewcommand{\lstlistingname}{Código}
-
-\renewcommand\refname{Leituras adicionais}
-
-\newtheorem{definition}{Definição}[section]
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-
-\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
-
-\setlength{\parskip}{.5em}
-
-\usepackage{epigraph}
-\setlength\epigraphwidth{0.9\linewidth}
-\setlength\epigraphrule{0pt}
-
+\input{../header.tex}
 
 
 %
@@ -118,13 +93,13 @@ Regras\marginpar{\textbf{Regras}} são escritas como ${\tt p :- b_1, ..., b_n.}$
 
 Um programa lógico consiste em um conjunto de cláusulas. Um exemplo é o seguinte:\\
 
-\lstinputlisting[caption=Café]{../Exemplos/Cap0/prog1_cafe.pl}
+\lstinputlisting[caption=Café, style=prosty]{../Exemplos/Cap0/prog1_cafe.pl}
 
 Note que os nomes usados para os funtores são arbitrários. O seguinte programa tem essencialmente o mesmo significado\footnote{ Aqui, ``Essencialmente o mesmo'' significa ``o mesmo'', se não levarmos em conta os significados usuais dos nomes usados (em geral, levamos isso em conta).}:\\
 
-\lstinputlisting[caption=Queijo]{../Exemplos/Cap0/prog2_queijo.pl}
+\lstinputlisting[caption=Queijo, style=prosty]{../Exemplos/Cap0/prog2_queijo.pl}
 
-A maneira primária de se utilizar um programa lógico é por meio de buscas, às vezes também chamadas objetivos ou de \textbf{\textit{goals}}\marginpar{\textbf{Goal}} (daqui para frente preferiremos usar goals, sem itálico, que é a nomenclatura mais utilizada, exceto quando for conveniente utilizar ``busca'' ou ``objetivo''). Um goal é escrito como um fato e é o que se busca ``provar'' a partir do programa. Intuitivamente, pode-se pensar no programa lógico como um conjunto de axiomas e no goal como uma hipótese que se quer provar a partir desses axiomas. Assim, um
+A maneira primária de se utilizar um programa lógico é por meio de buscas, às vezes também chamadas objetivos ou de \textbf{\textit{goals}}\marginpar{\textbf{Goal, Busca, Objetivo}} (daqui para frente preferiremos usar goals, sem itálico, que é a nomenclatura mais utilizada, exceto quando for conveniente utilizar ``busca'' ou ``objetivo''). Um goal é escrito como um fato e é o que se busca ``provar'' a partir do programa. Intuitivamente, pode-se pensar no programa lógico como um conjunto de axiomas e no goal como uma hipótese que se quer provar a partir desses axiomas. Assim, um
 goal, relativo a algum programa, pode ter o status de sucesso, se ele pode ser provado a partir do programa, falha se não, ou, se foi um goal mal escrito, pode gerar um erro (isto é, o goal gera um erro quando não é ``compreensível'' a partir da gramática utilizada pelo interpretador). Mais especificamente, um goal é uma \textit{conjunção}\footnote{Isto é, uma sequência de proposições unidas por um \textit{e} lógico. Algo como $p_1$ e
   ... e $p_n$, onde os $p_i$ são proposições.}, escrita como \textit{$p_1,p_2,...,p_n.$}, onde cada vírgula pode ser lida como um \textit{e} lógico (assim, lê-se um goal como \textit{$p_1$ e $p_2$ e ... e
   $p_n.$}, onde $p_i$ é
@@ -142,7 +117,7 @@ Prolog padrão, assim como nas outras implementações conhecidas pelo autor, o 
 
 Para melhor compreensão, considere o seguinte programa:\\
 
-\lstinputlisting[caption=Árvore binária]{../Exemplos/Cap0/prog3_arvb.pl}
+\lstinputlisting[caption=Árvore binária, style=prosty]{../Exemplos/Cap0/prog3_arvb.pl}
 
 O goal {\tt $arvore\_b$(vazio)?} tem sucesso, já que é um dos fatos. O goal {\tt $arvore\_b$(arvore(raiz, vazio, vazio))?} também tem, já que {\tt $arvore\_b$(a, B, C)?} tem sucesso se $arvore\_b(A)$ e $arvore\_b(B)$ tiverem, o que ocorre. Perceba que, neste caso, o goal não tem sucesso segundo a primeira cláusula apenas e nem segundo a segunda. Ambas contribuem para a definição de $arvore\_b$.
 
@@ -150,7 +125,7 @@ Utilizamos a convenção de que termos capitalizados (isto é, com inicial maiú
 
 No geral, o que um programa lógico deveria fazer (isto é, o que a programadora tem em mente ao escrevê-lo) pode não ser a princípio claro. Numa tentativa de aliviar isso, usaremos aqui a convenção de usar nomes significativos, assumindo o significado usual (a não ser quando dito o contrário), para os elementos relevantes. Assim, por exemplo, o seguinte trecho:
 
-\lstinputlisting[caption=Pai e filho]{../Exemplos/Cap0/prog4_pai.pl}
+\lstinputlisting[caption=Pai e filho, style=prosty]{../Exemplos/Cap0/prog4_pai.pl}
 \label{lst:pai_filho}
 
 
