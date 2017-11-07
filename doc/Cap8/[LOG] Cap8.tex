@@ -12,7 +12,7 @@
 
 \section{Restrições passivas e implementações no Eclipse}
 
-Antes de sairmos por aí resolvendo CSPs e COPs, será útil termos a distinção entre restrições ativas e passivas. Resumidamente, restrições ativas podem alterar o estado das variáveis, enquanto que restrições passivas não podem. Por exemplo, {\tt r(a,X) = r(Y,b).} é uma restrição ativa: X precisa tomar o valor de b, e Y de a. Mas {\tt 4*X is Y + 2} é uma restrição passiva (ela é usada mais para testes, no espírito daquela ideia de ``gera-e-testa'' do Capítulo 1).
+Antes de sairmos por aí resolvendo CSPs e COPs, será útil termos a distinção entre restrições ativas e passivas. Resumidamente, restrições ativas podem alterar o estado das variáveis, enquanto que restrições passivas não podem e são mais usadas para fins de testes. Por exemplo, {\tt r(a,X) = r(Y,b).} é uma restrição ativa: X precisa tomar o valor de b, e Y de a. Mas {\tt 4*X < Y + 2} é uma restrição passiva.
 
 Por enquanto, nos preocuparemos mais com restrições passivas e veremos exemplos de sua utilização no sistema \eclipse. Valeria deixarmos aqui uma breve introdução à história desse sistema e uma explicação mais detalhada de porquê escolhemos usá-lo e não outro, mas nos contentamos em dizer que o \eclipse é uma expansão suficientemente completa do Prolog para lidar melhor com restrições. Não cabe darmos aqui uma detalhada mostra do que ele adiciona, mas convém falarmos brevemente
 sobre como alguns de seus iteradores funcionam, já que os usaremos extensivamente daqui em diante.
@@ -33,7 +33,7 @@ convencional) da seguinte forma: \textit{(iterador1 do (iterador 2 do ... (itera
 
 Já discutimos rapidamente a busca por \textit{backtracking} antes, agora veremos como implementá-la. Para tanto, precisamos decidir qual será o método de ramificação usado, qual a ordenação das variáveis e qual a ordenação dos valores de cada variável.
 
-O método de ramificação usado aqui será o \textit{labelling}. O próximo passo é decidir a ordem das variáveis. Isso pode ter um grande impacto na busca, apesar de a quantidade de folhas na árvore de busca continuar sendo a mesma para qualquer ordem: A diferença está na quantidade de nós internos na árvore. Por exemplo, para um CP nas variáveis X e Y, onde X pode tomar dois valores e Y pode tomar 3 valores diferentes, a quantidade de folhas na árvore de busca é 3$\times$4=12. Fazendo o \textit{labelling}
+O método de ramificação usado aqui será o \textit{labelling}. O próximo passo é decidir a ordem das variáveis. Isso pode ter um grande impacto na busca, apesar de a quantidade de folhas na árvore de busca continuar sendo a mesma para qualquer ordem: a diferença está na quantidade de nós internos na árvore. Por exemplo, para um CP nas variáveis X e Y, onde X pode tomar dois valores e Y pode tomar 3 valores diferentes, a quantidade de folhas na árvore de busca é 3$\times$4=12. Fazendo o \textit{labelling}
 do X antes do Y, temos dois nós internos, enquanto que, fazendo o \textit{labelling} do Y antes do X, temos três nós internos. A presença de maior quantidade de nós internos na árvore de busca torna a busca mais difícil, sendo razão razoável para que busquemos fazer antes o \textit{labeling} das variáveis com menor domínio. Veremos depois que, na presença de restrições ativas, a ordenação das variáveis pode ter grande uma influência no desempenho do algoritmo.
 
 Mencionamos que uma forma de descrever a escolha de valores de forma mais geral é por meio de alocação de crédito. Uma parte de um programa que implementa essa ideia é o seguinte, que assume que os valores de cada domínio já estão ordenados segundo uma preferência:
@@ -61,11 +61,11 @@ Nesse código, o {\tt fix(ceiling(AtuCredito/2))} retorna o maior inteiro menor 
     \item decval/1;
   \end{itemize}
 
-  O que define uma variável como não lógica é que seu valor não muda com o \textit{backtracking}. Além disso, variáveis não-lógicas não são capitalizadas e a única forma de mudar ou acessar o valor delas é por meio de um dos predicados acima. Segue uma implementação de nosso programa de busca que conta a quantidade de \textit{backtracks}:
+  O que define uma variável como não lógica é que seu valor não muda com o \textit{backtracking}. Além disso, variáveis não-lógicas não são capitalizadas e a única forma de mudar ou acessar o valor delas é por meio de um dos predicados acima. Segue uma implementação de nosso programa de busca que conta a quantidade de \textit{backtracks}\footnote{Esse once/1, usado no programa, definido como {\tt once(Goal) :- Goal, !.}}:
 
 \lstinputlisting[caption=Conta Backtracks, style=prosty]{../Exemplos/Cap8/prog5_busca3.pl}
 
-Esse programa explora a forma como é feito o \textit{backtracking} e, por isso, a ordem em que foi posta é crucial. Vale notar que ele não conta eventuais \textit{backtrackings} que ocorram em escolhe\_vars/3 ou escolhe\_vals/2, mas conta todos os demais backtrackings que ocorrem na busca, possibilitando contar a quantidade de nós na árvore.
+Esse programa explora a forma como é feito o \textit{backtracking} e, por isso, a ordem em que foi posta é crucial. Vale notar que ele conta todos os backtrackings que ocorrem na busca, possibilitando contar a quantidade de nós na árvore.
 
 Frequentemente, no entanto, pode ocorrer um \textit{backtrack} entre mais de um nível. Isso ocorre quando, logo depois de realizar um, é realizado outro \textit{backtrack}. Uma medida melhor de eficiência pode ser uma contagem de \textit{backtracks} que conta uma sequência ininterrupta como sendo apenas um. Um conta\_backtracks/0 que faz isso é dado a seguir:
 
@@ -94,7 +94,7 @@ Talvez se lembre do programa Ou Exclusivo do Capítulo 6. Com o uso de suspend/3
 
 \lstinputlisting[caption=Conta Backtracks Ininterrupto, style=prosty]{../Exemplos/Cap8/prog7_xor.pl}
 
-Note que, agora, nosso ou\_esclusivo/2 não é mais uma operação aritmética, agindo como um predicado relacional como os demais.
+Note que, agora, nosso ou\_exclusivo/2 não é mais uma operação aritmética, agindo como um predicado relacional como os demais.
 
 
 
