@@ -41,7 +41,7 @@
 
 Como vimos anteriormente, uma das ideias iniciais da programação lógica era de permitir à programadora expressar \textit{o que} o programa faz, sem ter que se preocupar muito em \textit{como} ele o faz, o que fazemos expressando a lógica do programa em termos de relações. Na maior parte dos paradigmas de programação usuais, há uma dificuldade em expressar essas relações, ou restrições\footnote{Estarmos tratando relação como sinônimo a restrição é um abuso de linguagem usado aqui por sua conveniência, mas é importante lembrar que são coisas diferentes.}, entre os objetos definidos no programa.
 
-Com a programação lógica, isso é um pouco aliviado. Por exemplo, se soubermos a gramática do Prolog, não é difícil ler o programa Member (copiado a seguir, para referência) como expressando uma relação que existe entre um termo X e um Xs se Xs puder ser escrito como {\tt[X|Xz]} %QUESTION: Nao eh Xs?
+Com a programação lógica, isso é um pouco aliviado. Por exemplo, se soubermos a gramática do Prolog, não é difícil ler o programa Member (copiado a seguir, para referência) como expressando uma relação que existe entre um termo X e um Xs se Xs puder ser escrito como {\tt[X|Xs]}
 ou, se for possível escrever Xs como {\tt [Y|Ys]} e X tiver a relação member com Ys.
 
 \lstinputlisting[caption=Member]{../Exemplos/Cap4/prog1_member.pl}
@@ -66,7 +66,7 @@ Definido o domínio, dada uma restrição, precisamos saber o que queremos dela.
   \begin{enumerate}
     \item Checar se a restrição é satisfazível (isto é, se existe alguma substituição para a qual a restrição é verdadeira);
     \item Encontrar uma substituição que respeite as restrições;
-    \item Otimizar a substituição encontrada por meio de uma função (comumente chamada \textbf{função custo} (apesar de muitas vezes não podermos interpretar essa função como algum ``custo'' de forma natural)\marginpar{\textbf{Função custo}}).
+    \item Otimizar a substituição encontrada por meio de uma função (comumente chamada \textbf{função custo} (apesar de muitas vezes não podermos interpretar essa função como algum ``custo'' de forma natural)\marginpar{\small  \textbf{Função custo}}).
   \end{enumerate}
 
   Claramente, se conseguimos (2), conseguimos (1) e, se conseguimos (2), conseguimos (1) e (2). Frequentemente, conseguir (1) será equivalente a conseguir (2), porque seguimos um método construtivo. Nem sempre, no entanto, conseguiremos (1). Sabemos, por exemplo, que no domínio dos Inteiros existem restrições que não se sabe se podem ser satisfeitas.
@@ -100,7 +100,7 @@ Como pode ver, é essencialmente a mesma representação que temos para um funto
 
 Um algoritmo muito próximo ao algoritmo de unificação, que vimos no Capítulo 1, serve para resolver restrições em árvore do tipo $T_1$ = $T_2$, onde $T_1$ e $T_2$ são árvores. É interessante notar que um algoritmo para resolução de restrições em árvores foi dado por Herbrand\cite{herbrand} de forma independente ao do algoritmo de unificação de Robinson.
 
-Vale notar também outro detalhe importante naquele algoritmo: ele realiza um procedimento que frequentemente fazemos ao buscar resolver um problema, isto é, transformando uma pergunta, potencialmente complicada e difícil, em uma trivial, para a qual sabe-se a resposta. Essa é uma instância de um processo de \textbf{normalização} \marginpar{\textbf{Normalização}}, isto é, um processo de transformar uma restrição em outra equivalente, mas mais tratável. Processos de normalização frequentemente
+Vale notar também outro detalhe importante naquele algoritmo: ele realiza um procedimento que frequentemente fazemos ao buscar resolver um problema, isto é, transformando uma pergunta, potencialmente complicada e difícil, em uma trivial, para a qual sabe-se a resposta. Essa é uma instância de um processo de \textbf{normalização} \marginpar{\small  \textbf{Normalização}}, isto é, um processo de transformar uma restrição em outra equivalente, mas mais tratável. Processos de normalização frequentemente
 exercem um papel importante. Voltaremos a esse tema depois.
 
 \subsection{Ideias de resolução}
@@ -110,7 +110,8 @@ Nossa discussão sobre problemas envolvendo restrições até agora foi uma disc
 
 \subsubsection{Propagação local}
 
-Propagação local é melhor explicada por um desenho:
+Propagação local é melhor explicada por um desenho. O grafo a seguir, que representa a modelagem de um circuito. As ``caixinhas'' representam as relações de restrições e, as ``bolinhas'', os dados ou variáveis. Por exemplo, uma ``caixinha de mais'' indica que as variáveis ou dados que entram por ela (o que é indicado pela seta) somadas devem ser iguais às variaveis, ou dados, de saída (indicado por outra seta).
+É importante notar que as setas não indicam a direção de propagação, só nos dão uma informação sobre as restrições:
 %COMMENT: antes de simplesmente passar para o grafo, acho que deveria colocar a restricao que ela representa e/ou explicar o que esse grafo quer dizer.
 
 \begin{center}
@@ -161,7 +162,7 @@ Propagação local é melhor explicada por um desenho:
 \end{center}
 
 
-Esse grafo é uma outra forma de representar a restrição {\tt V=V1, V=V2, V1=I1 $\times$R1, V2=I2$\times$R2, I=I1+I2}\footnote{Exemplo adaptado de \cite{marriot}, pág. 36.}. Considere as restrições adicionais de que {\tt V=8, R1=13, R2=21}. Na propagação local, podemos considerar as arestas como veículos das restrições, deixando-as passar de nó em nó de forma apropriada, passo a passo. Por exemplo, dadas as restrições acima, a restrição de V=8 pode ser propagada para V1=8, e teríamos:
+Esse grafo é uma outra forma de representar a restrição {\tt V=V1, V=V2, V1=I1 $\times$R1, V2=I2$\times$R2, I=I1+I2}\footnote{Exemplo adaptado de \cite{marriot}, pág. 36.}. Considere as restrições adicionais de que {\tt V=8, R1=6, R2=44}. Na propagação local, podemos considerar as arestas como veículos das restrições, deixando-as passar de nó em nó de forma apropriada, passo a passo. Por exemplo, dadas as restrições acima, a restrição de V=8 pode ser propagada para V1=8, e teríamos:
 
 
 \begin{center}
@@ -174,8 +175,8 @@ Esse grafo é uma outra forma de representar a restrição {\tt V=V1, V=V2, V1=I
     \node[main node] (V2) [below of= eq1]               {V2};
     \node[main node] (tm) [decision, below of=V1]       {*};
     \node[main node] (tm1)[decision, below of=V2]       {*};
-    \node[main node] (R1) [below left of=tm]            {13};
-    \node[main node] (R2) [below right of=tm1]          {21};
+    \node[main node] (R1) [below left of=tm]            {6};
+    \node[main node] (R2) [below right of=tm1]          {44};
     \node[main node] (I1) [below of=tm]                 {I1};
     \node[main node] (I2) [below of=tm1]                {I2};
     \node[main node] (pls)[decision, below right of=I1] {+};
@@ -198,9 +199,9 @@ Esse grafo é uma outra forma de representar a restrição {\tt V=V1, V=V2, V1=I
   \end{tikzpicture}
 \end{center}
 
-Disso, podemos continuar a propagação, obtendo I1 = 8/13. E assim vai.
+Disso, podemos continuar a propagação, obtendo I1 = 8/6. E assim vai.
 
-Propagação local funciona muito bem para resolver alguns problemas, mas simplesmente não consegue resolver outros. Por exemplo, considere a restrição {\tt A=B+2Z, A=3K-B, K=5, Z=7}. Propagação local detectaria que {\tt K=5} e {\tt Z=7}, mas não encontraria o valor de A ou B. Isso ocorre porque para tanto seria preciso fazer uso de mais de uma restrição por vez, o que a propagação local não faz.
+Propagação local funciona muito bem para resolver alguns problemas, mas simplesmente não consegue resolver outros. Por exemplo, considere a restrição {\tt A=B+2*Z, A=3*K-B, K=5, Z=7}. Propagação local detectaria que {\tt K=5} e {\tt Z=7}, mas não encontraria o valor de A ou B. Isso ocorre porque para tanto seria preciso fazer uso de mais de uma restrição por vez, o que a propagação local não faz.
 
 %COMMENT: Acho que precisa explicar melhor essa parte da propagacao. Talvez se melhorar a explicacao do que quer dizer o primeiro grafo ja seja suficiente.
 
@@ -208,7 +209,7 @@ Propagação local funciona muito bem para resolver alguns problemas, mas simple
 
 Propagação local pode ser uma técnica muito útil para resolver alguns problemas, e pode ficar mais poderosa ainda se combinada com uma estratégia de \textbf{ramificação}. A essa combinação chamaremos de busca \textit{top-down}.
 
-Intuitivamente, a propagação de restrições ajuda a transformar o problema em outro mais simples. O passo de ramificação serve, então, para partir o problema em problemas menores, aos quais poderemos aplicar a propagação de restrições novamente, seguido por outra ramificação, e assim vai, gerando uma árvore de busca. A forma padrão de busca top-down é chamada de \textbf{busca por \textit{backtracking}}\marginpar{\textbf{Busca por Backtracking}}. Essa forma de busca funciona simplesmente
+Intuitivamente, a propagação de restrições ajuda a transformar o problema em outro mais simples. O passo de ramificação serve, então, para partir o problema em problemas menores, aos quais poderemos aplicar a propagação de restrições novamente, seguido por outra ramificação, e assim vai, gerando uma árvore de busca. A forma padrão de busca top-down é chamada de \textbf{busca por \textit{backtracking}}\marginpar{\small \textbf{Busca por Backtracking}}. Essa forma de busca funciona simplesmente
 gerando a dita árvore e fazendo a travessia dela (frequentemente, faremos a travessia enquanto geramos a árvore, não depois). Vale notar que, na presença de propagação de restrições, ocasionalmente pode ser útil adicionar à escrita do problema restrições implícitas, que podem auxiliar na propagação.
 
 A forma mais comum de \textit{backtracking} começa ordenando as variáveis do problema, usualmente por algum modelo heurístico, com as ramificações tomando a forma de divisões no domínio de cada variável. Uma forma de fazer isso é a chamada marcação (ou, mais comumente, \textit{labelling}), que corresponde à ramificação do domínio de cada variável em seus elementos constituintes (o que só pode ser feito, é claro, quando o domínio for finito), assegurando que todos os valores de cada variável
@@ -218,7 +219,7 @@ A ordem de exploração das variáveis é, então, escolhida por meio de uma \te
 
 \subsection{Branch and Bound}
 
-Os métodos de busca discutidos anteriormente são apropriados para CSPs. Para COPs, precisaremos fazer algumas modificações. Uma opção é o \textit{\textbf{branch and bound}}\marginpar{\textbf{Branch and bound}}. Ele funciona da seguinte forma: em cada passo da busca em \textit{backtracking}, se f é a função custo, temos na variável Bound o valor do melhor custo até então (Bound pode ser inicializado com um valor simbolicamente equivalente a ``infinito'') e, a cada passo da busca, verificamos se o custo é ou não melhor do que Bound. Se for, o valor de Bound é atualizado.
+Os métodos de busca discutidos anteriormente são apropriados para CSPs. Para COPs, precisaremos fazer algumas modificações. Uma opção é o \textit{\textbf{branch and bound}}\marginpar{\small  \textbf{Branch and bound}}. Ele funciona da seguinte forma: em cada passo da busca em \textit{backtracking}, se f é a função custo, temos na variável Bound o valor do melhor custo até então (Bound pode ser inicializado com um valor simbolicamente equivalente a ``infinito'') e, a cada passo da busca, verificamos se o custo é ou não melhor do que Bound. Se for, o valor de Bound é atualizado.
 
 Existem algumas variações a esse algoritmo. Uma delas é a de adicionar a restrição de que f $<$ Bound\footnote{Estamos fazendo uso de um abuso de linguagem ao denotar o valor de f em uma substituição por f a fim de deixar a notação mais limpa.}, possibilitando a obtenção de cortes na árvore de busca.
 
@@ -238,11 +239,11 @@ Digamos que só o valor de X nessa restrição seja de interesse. Se tivermos qu
 Isso motiva a nossa definição de projeção:
 
 \begin{definition}
-  Uma substituição $\iota$ é dita uma solução parcial\marginpar{\textbf{Solução parcial}} de um CP, que chamaremos C, se existe alguma substituição $\rho$ tal que $\iota \cup \rho$ é uma solução de C.
+  Uma substituição $\iota$ é dita uma solução parcial\marginpar{\small  \textbf{Solução parcial}} de um CP, que chamaremos C, se existe alguma substituição $\rho$ tal que $\iota \cup \rho$ é uma solução de C.
 \end{definition}
 
 \begin{definition}
-  Dizemos que uma restrição $R_0$ em função das variáveis $X_0$ a $X_n$ é uma projeção\marginpar{\textbf{Projeção}} da restrição $R_1$, em função das variáveis $X_0$ a $X_m$, com m $>$ n, se toda solução de $R_0$ é uma solução parcial de $R_1$.
+  Dizemos que uma restrição $R_0$ em função das variáveis $X_0$ a $X_n$ é uma projeção\marginpar{\small  \textbf{Projeção}} da restrição $R_1$, em função das variáveis $X_0$ a $X_m$, com m $>$ n, se toda solução de $R_0$ é uma solução parcial de $R_1$.
 \end{definition}
 
 Nem todo domínio admite projeções incondicionalmente. O domínio de árvores, por exemplo, não admite: podemos fazer projeções em algumas restrições nesse domínio, mas não em todas.
@@ -254,12 +255,11 @@ Não é difícil ver que a projeção é uma forma de simplificação e, dessa f
 Simplificações e projeções têm um papel importante na resolução de CPs, então será útil termos uma definição mais rigorosa. Mas antes precisamos da noção de equivalência:
 
 \begin{definition}
-  Duas restrições\marginpar{\textbf{Restrições equivalentes}} $C_1$ e $C_2$ são equivalentes em relação ao conjunto de variáveis V, o que denotaremos por $C_1 \leftrightarrow C_2$, se toda solução de $C_1$ restrita a V é uma solução parcial de $C_2$ e se toda solução de $C_2$ restrita a V é uma solução parcial de $C_1$.
+  Duas restrições\marginpar{\small  \textbf{Restrições equivalentes}} $C_1$ e $C_2$ são equivalentes em relação ao conjunto de variáveis V, o que denotaremos por $C_1 \leftrightarrow C_2$, se toda solução de $C_1$ restrita a V é uma solução parcial de $C_2$ e se toda solução de $C_2$ restrita a V é uma solução parcial de $C_1$.
 \end{definition}
 
 \begin{definition}
-  Sejam uma restrição composta C, var(X) o conjunto de variáveis de um CP qualquer X %COMMENT: nao entendi esse "qualquer X"
-  e o conjunto de variáveis de interesse inter(C) $\subset$ var(C). Dizemos que C' é uma simplificação\marginpar{\textbf{Simplificação}} de C em inter(C) se inter(C) = var(C) e toda solução de C' é uma solução parcial de C.
+  Var(X) denota o conjunto de variáveis de um CP X qualquer. Sejam uma restrição composta C e o conjunto de variáveis de interesse inter(C) $\subset$ var(C). Dizemos que C' é uma simplificação\marginpar{\small  \textbf{Simplificação}} de C em inter(C) se inter(C) = var(C) e toda solução de C' é uma solução parcial de C.
 \end{definition}
 
 É interessante notar que, se dispomos de um algoritmo de simplificação nos moldes dessa definição, também dispomos de um algoritmo de solução: basta simplificar o CP em inter(C) = $\emptyset$.
@@ -269,7 +269,7 @@ Simplificações e projeções têm um papel importante na resolução de CPs, e
   Para terminar esta seção, consideremos o problema de equivalência de CPs, o qual é fortemente ligado ao problema de implicação e de bi-implicação. Para tanto, voltamos à questão de normalização:
 
   \begin{definition}
-    Seja \textit{simp} uma função que recebe um CP e um conjunto V de variáveis de interesse e retorna um CP. Dizemos que \textit{simp} realiza um processo de \textbf{normalização canônica}\marginpar{\textbf{Normalização canônica}} em um dado domínio se para todo CP C no domínio e todo V $\subset$ var(C), simp(C,V) é uma simplificação de C e se $C_1 \leftrightarrow C_2 \Rightarrow simp(C_1,V) = simp(C_2,V)$.
+    Seja \textit{simp} uma função que recebe um CP e um conjunto V de variáveis de interesse e retorna um CP. Dizemos que \textit{simp} realiza um processo de \textbf{normalização canônica}\marginpar{\small  \textbf{Normalização canônica}} em um dado domínio se para todo CP C no domínio e todo V $\subset$ var(C), simp(C,V) é uma simplificação de C e se $C_1 \leftrightarrow C_2 \Rightarrow simp(C_1,V) = simp(C_2,V)$.
   \end{definition}
 
   Com um normalizador canônico, conseguimos responder sem grandes dificuldades a questão de equivalência: dois CPs são equivalentes se a normalização canônica de cada um segundo suas variáveis for idêntica. Daí, também conseguimos saber se um CP implica o outro, ou se o outro implica o um.
