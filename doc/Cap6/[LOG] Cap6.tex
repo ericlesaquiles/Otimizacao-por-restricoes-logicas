@@ -67,7 +67,7 @@ Similar, a functor/3 é o arg/3: {\tt arg(N, F($X_1$, ..., $X_n$), Q)?} tem suce
 
 Por exemplo, {\tt arg(1, tio(a,b), X)?} tem sucesso com \{X = a\}, enquanto que {\tt arg(1, tio(X,b), a)?} tem sucesso com \{X = a\}.
 
-Exemplos um pouco mais interessantes são os seguintes (lembrando que o símbolo de percentagem denota um comentário no código, enquanto que o subescrito denota uma variável anônima\marginpar{É uma variável a que não se dá nome. Assim, não se pode chamá-la depois: cada variável anônima é diferente.}):
+Exemplos um pouco mais interessantes são os seguintes:
 
 \lstinputlisting[caption= Sub Termo]{../Exemplos/Cap6/prog1_subtermo.pl}
 
@@ -95,13 +95,14 @@ Esse tipo de predicado é chamado meta-predicado: eles são ``predicados sobre p
 
 %COMMENT: uma parte do que esta aqui tambem ja foi explicada no capitulo 4. Nao sei se nao compensa inverter a ordem destes capitulos.
 
-Antes de continuarmos, será útil introduzirmos operações aritméticas. Primeiro, é importante notar que a atribuição de uma operação aritmética, no Prolog, funciona de maneira diferente da unificação. Ela é do tipo {\tt X is Op.}, onde {\tt Op} é uma operação com valores, do tipo a que estamos acostumados: 1 + 2, 3 * 8, (1 - 5)/4 + 33475, etc. É importante notar que operações aritméticas só podem ser feitas com números: A Op B, onde Op é  uma operação aritmética, resulta em erro se
-A ou B for uma variável ou uma constante não numérica. Além disso, is/2 não é simétrico: {\tt 5 + 4 is A} resulta em erro.
+Antes de continuarmos, será útil introduzirmos operações aritméticas. Primeiro, é importante notar que a atribuição de uma operação aritmética, no Prolog, funciona de maneira diferente da unificação. Ela é do tipo {\tt X is A Op B.}, onde {\tt Op} é uma operação com valores aritméticos (que resulta em um valor aritmético) do tipo a que estamos acostumados: 1 + 2, 3 * 8, (1 - 5)/4 + 33475, etc, e A e B são valores.
+É importante notar que operações aritméticas só podem ser feitas com números: A Op B, onde Op é  uma operação aritmética, resulta em erro se A ou B for uma variável ou uma constante não numérica. Vale notar que is/2 não é simétrico: {\tt 5 + 4 is A} resulta em erro.
 
-Assim, vemos que o operador de adição, por exemplo, não age da maneira como estamos acostumados: gostaríamos que {\tt 5 is A + 4} seja equivalente a {\tt A is 5 - 4}. Veremos mais tarde outras formas de contornarmos isso, mas, por ora, podemos lidar com isso por meio de predicados de meta-programação:
+Assim, vemos que o operador de ou exclusivo (o xor), por exemplo, não age da maneira como estamos acostumados: gostaríamos que {\tt 1 is A xor 0} seja equivalente a {\tt A is 1}.
+Veremos mais tarde outras formas de contornarmos isso, mas, por ora, podemos lidar com isso por meio de predicados de meta-programação:
 \\
 
-\lstinputlisting[caption=Mais]{../Exemplos/Cap6/prog3_mais.pl}
+\lstinputlisting[caption=Ou Exclusivo]{../Exemplos/Cap6/prog3_xor.pl}
 
 
 \end{document}
