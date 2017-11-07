@@ -41,7 +41,8 @@
 
 Como vimos anteriormente, uma das ideias iniciais da programação lógica era de permitir à programadora expressar \textit{o que} o programa faz, sem ter que se preocupar muito em \textit{como} ele o faz, o que fazemos expressando a lógica do programa em termos de relações. Na maior parte dos paradigmas de programação usuais, há uma dificuldade em expressar essas relações, ou restrições\footnote{Estarmos tratando relação como sinônimo a restrição é um abuso de linguagem usado aqui por sua conveniência, mas é importante lembrar que são coisas diferentes.}, entre os objetos definidos no programa.
 
-Com a programação lógica, isso é um pouco aliviado. Por exemplo, se soubermos a gramática do Prolog, não é difícil ler o programa Member (copiado a seguir, para referência) como expressando uma relação que existe entre um termo X e um Xs se Xs puder ser escrito como {\tt[X|Xz]} ou, se for possível escrever Xs como {\tt [Y|Ys]} e X tiver a relação member com Ys.
+Com a programação lógica, isso é um pouco aliviado. Por exemplo, se soubermos a gramática do Prolog, não é difícil ler o programa Member (copiado a seguir, para referência) como expressando uma relação que existe entre um termo X e um Xs se Xs puder ser escrito como {\tt[X|Xz]} %QUESTION: Nao eh Xs?
+ou, se for possível escrever Xs como {\tt [Y|Ys]} e X tiver a relação member com Ys.
 
 \lstinputlisting[caption=Member]{../Exemplos/Cap4/prog1_member.pl}
 
@@ -56,34 +57,34 @@ mas precisaremos de algo mais poderoso se quisermos lidar com problemas mais com
 
 \subsection{Domínios}
 
-Restrições não se limita a restrições aritméticas. Existem vários tipos de restrições, cada um possivelmente agindo em diferentes domínos.
+Restrições não se limitam a restrições aritméticas. Existem vários tipos de restrições, cada uma possivelmente agindo em diferentes domínios.
 O domínio é o que determina as formas legítimas de restrição e o que elas significam. Restrições são escritas usando constantes (como 0, ou 1) e símbolos que agem como funções (como ``+'' ou ``-''). O domínio determina a sintaxe das restrições: quais símbolos de restrições podem ser usados, quais e quantos são os argumentos de cada símbolo e a ordem em que são escritos.
 
-Dois exemplos de domínios que conhecemos são o dos Reais e o dos Inteiros, com os símbolos de restrições usuais (isto é: ``+'', ``$<$'', etc.). Outros exemplos de domínios são o das Árvores e o dos Booleanos. São domínios de grande importância e, por isso, discorriremos momentaneamente um pouco sobre eles logo mais. Em se tratando de domínios aritméticos, a não ser quando dito o contrário, assumiremos que lidamos com o domínio dos Reais.
+Dois exemplos de domínios que conhecemos são o dos Reais e o dos Inteiros, com os símbolos de restrições usuais (isto é: ``+'', ``$<$'', etc.). Outros exemplos de domínios são o das Árvores e o dos Booleanos. São domínios de grande importância e, por isso, discorreremos momentaneamente um pouco sobre eles logo mais. Em se tratando de domínios aritméticos, a não ser quando dito o contrário, assumiremos que lidamos com o domínio dos Reais.
 
 Definido o domínio, dada uma restrição, precisamos saber o que queremos dela. Algumas das opções mais comuns são:
   \begin{enumerate}
-    \item Checar se a restrição é satisfazível (isto é, se existe alguma substituição para o qual a restrição é verdadeira);
+    \item Checar se a restrição é satisfazível (isto é, se existe alguma substituição para a qual a restrição é verdadeira);
     \item Encontrar uma substituição que respeite as restrições;
     \item Otimizar a substituição encontrada por meio de uma função (comumente chamada \textbf{função custo} (apesar de muitas vezes não podermos interpretar essa função como algum ``custo'' de forma natural)\marginpar{\textbf{Função custo}}).
   \end{enumerate}
 
-  Claramente, se conseguimos (2), conseguimos (1) e, se conseguimos (2), conseguimos (1) e (2). Frequentemente, conseguir (1) será equivalente a conseguir (2), porque seguimos um método construtivo. Nem sempre, no entanto, conseguiremos (1). Sabemos, por exemplo, que no domínio dos inteiros existem restrições que não se sabe se podem ser satisfeitas.
+  Claramente, se conseguimos (2), conseguimos (1) e, se conseguimos (2), conseguimos (1) e (2). Frequentemente, conseguir (1) será equivalente a conseguir (2), porque seguimos um método construtivo. Nem sempre, no entanto, conseguiremos (1). Sabemos, por exemplo, que no domínio dos Inteiros existem restrições que não se sabe se podem ser satisfeitas.
 
   Ou talvez possamos, a princípio, dizer se a restrição em um domínio seja satisfazível, mas na prática isso se torne computacionalmente inviável se a
-restrição for muito complicada ou complexa. O problema de descobrir se uma restrição booleana pode ou não ser satisfeita (mais conhecido como SAT, de \textit{Propositional Satisfiability Testing}), é um famoso problema NP-difícil e ainda hoje um tema de ativo pesquisa (veja, por exemplo, \cite{sat}).
+restrição for muito complicada ou complexa. O problema de descobrir se uma restrição booleana pode ou não ser satisfeita (mais conhecido como SAT, de \textit{Propositional Satisfiability Testing}), é um famoso problema NP-difícil e ainda hoje um tema de ativa pesquisa (veja, por exemplo, \cite{sat}).
 
 Esse tipo de constatação rápida já nos dá uma ideia do tipo de pergunta que precisaríamos fazer dado um domínio, assim como da variedade de tipos de restrição que existem, mesmo em um domínio.
 
-Daqui para frente denotaremos problemas de otimização como COP (de \textit{Constraint Optimization Problem}),  de satisfação de restrições, de CSP (de \textit{Constraint Satisfaction Problem}) e, quando não for necessário fazer distinção, apenas CP. Até agora, temos lidado com CPs como contendo uma restrição, mas será conveniente lidar com eles como contendo uma conjunção de restrições:
+Daqui para frente denotaremos problemas de otimização como COP (de \textit{Constraint Optimization Problem}),  de satisfação de restrições como CSP (de \textit{Constraint Satisfaction Problem}) e, quando não for necessário fazer distinção, apenas CP. Até agora, temos lidado com CPs como contendo uma restrição, mas será conveniente lidar com eles como contendo uma conjunção de restrições:
 
-Se $x_0$ é um símbolo de restrição no domínio, junto de seus argumentos, diremos que é uma \textbf{restrição primitiva}. Uma \textbf{restrição composta} C é a conjunção de restrições primitivas: $x_0$, ..., $x_n$ (onde as vírgulas, como usual, são lidas como um \textit{e} lógico), onde $x_i$ é uma restrição primitiva. Assim, um COP é descrito por uma tupla (C, f), enquanto que um CSP é descrito por algum C, onde C é uma restrição composta. Daqui para frente nos referiremos a uma
+Se $x_0$ é um símbolo de restrição no domínio, junto de seus argumentos, diremos que é uma \textbf{restrição primitiva}. Uma \textbf{restrição composta} C é a conjunção de restrições primitivas: $x_0$, ..., $x_n$ (em que as vírgulas, como usual, são lidas como um \textit{e} lógico), em que $x_i$ é uma restrição primitiva. Assim, um COP é descrito por uma tupla (C, f), enquanto que um CSP é descrito por algum C, em que C é uma restrição composta. Daqui para frente nos referiremos a uma
 substituição nas variáveis de um CP que respeite às restrições como uma solução desse CP.
 
 \subsection{Árvores}
 Como você logo perceberá (ou talvez já o tenha percebido), já vimos restrições por árvores antes, elas só estavam um pouco disfarçadas.
 
-Um \textbf{construtor de árvore} é uma sequência de caracteres começando com uma caractere minúsculo. Definimos uma árvore recursivamente como: uma constante é uma árvore (de altura 1); um construtor de árvore com um conjunto de n $\geq$ 1 árvores é uma árvore.
+Um \textbf{construtor de árvore} é uma sequência de caracteres começando com um caractere minúsculo. Definimos uma árvore recursivamente como: uma constante é uma árvore (de altura 1); um construtor de árvore com um conjunto de n $\geq$ 1 árvores é uma árvore.
 
 Árvores são comumente representadas na forma de diagramas como os seguintes:
 
@@ -91,15 +92,15 @@ Um \textbf{construtor de árvore} é uma sequência de caracteres começando com
 
 ou
 
-\Tree[ .{café da manhã} [.café canela açucar ] {pão de queijo} [.pão queijo ] goiabada ]
+\Tree[ .{café da manhã} [.café canela açúcar ] {pão de queijo} [.pão queijo ] goiabada ]
 
 Que podem ser reescritos, de forma mais compacta como {\tt cons(1, cons(2, cons(3, 4)))}\footnote{A leitora de olhos afiados vai notar que é mais ou menos assim que representamos listas, trocando o ``cons'' pelo ``.''.} e
-{\tt café da manhã(café(canela, açucar), pão de queijo, pão(queijo), goiabada)}\footnote{Estamos usando caracteres especiais aqui para fins de expressividade, mas seu uso em códigos de computador deve ser evitado.}.
+{\tt café da manhã(café(canela, açúcar), pão de queijo, pão(queijo), goiabada)}\footnote{Estamos usando caracteres especiais aqui para fins de expressividade, mas seu uso em códigos de computador deve ser evitado.}.
 Como pode ver, é essencialmente a mesma representação que temos para um funtor (junto com seus argumentos): funtores são árvores, árvores são funtores (neste contexto).
 
 Um algoritmo muito próximo ao algoritmo de unificação, que vimos no Capítulo 1, serve para resolver restrições em árvore do tipo $T_1$ = $T_2$, onde $T_1$ e $T_2$ são árvores. É interessante notar que um algoritmo para resolução de restrições em árvores foi dado por Herbrand\cite{herbrand} de forma independente ao do algoritmo de unificação de Robinson.
 
-Vale notar também outro detalhe importante naquele algoritmo: ele realiza um procedimento que frequentemente fazemos ao buscar resolver um problema, isto é, transformando uma pergunta, potencialmente complicada e difícil, em uma trivial, para o qual sabe-se a resposta. Essa é uma instância de um processo de \textbf{normalização} \marginpar{\textbf{Normalização}}, isto é, um processo de transformar uma restrição em outra equivalente, mas mais tratável. Processos de normalização frequentemente
+Vale notar também outro detalhe importante naquele algoritmo: ele realiza um procedimento que frequentemente fazemos ao buscar resolver um problema, isto é, transformando uma pergunta, potencialmente complicada e difícil, em uma trivial, para a qual sabe-se a resposta. Essa é uma instância de um processo de \textbf{normalização} \marginpar{\textbf{Normalização}}, isto é, um processo de transformar uma restrição em outra equivalente, mas mais tratável. Processos de normalização frequentemente
 exercem um papel importante. Voltaremos a esse tema depois.
 
 \subsection{Ideias de resolução}
@@ -110,6 +111,7 @@ Nossa discussão sobre problemas envolvendo restrições até agora foi uma disc
 \subsubsection{Propagação local}
 
 Propagação local é melhor explicada por um desenho:
+%COMMENT: antes de simplesmente passar para o grafo, acho que deveria colocar a restricao que ela representa e/ou explicar o que esse grafo quer dizer.
 
 \begin{center}
   \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, thick,main node/.style={circle,draw,font=\sffamily\bfseries}]
@@ -200,6 +202,8 @@ Disso, podemos continuar a propagação, obtendo I1 = 8/13. E assim vai.
 
 Propagação local funciona muito bem para resolver alguns problemas, mas simplesmente não consegue resolver outros. Por exemplo, considere a restrição {\tt A=B+2Z, A=3K-B, K=5, Z=7}. Propagação local detectaria que {\tt K=5} e {\tt Z=7}, mas não encontraria o valor de A ou B. Isso ocorre porque para tanto seria preciso fazer uso de mais de uma restrição por vez, o que a propagação local não faz.
 
+%COMMENT: Acho que precisa explicar melhor essa parte da propagacao. Talvez se melhorar a explicacao do que quer dizer o primeiro grafo ja seja suficiente.
+
 \subsection{Busca Top-Down}
 
 Propagação local pode ser uma técnica muito útil para resolver alguns problemas, e pode ficar mais poderosa ainda se combinada com uma estratégia de \textbf{ramificação}. A essa combinação chamaremos de busca \textit{top-down}.
@@ -210,12 +214,11 @@ gerando a dita árvore e fazendo a travessia dela (frequentemente, faremos a tra
 A forma mais comum de \textit{backtracking} começa ordenando as variáveis do problema, usualmente por algum modelo heurístico, com as ramificações tomando a forma de divisões no domínio de cada variável. Uma forma de fazer isso é a chamada marcação (ou, mais comumente, \textit{labelling}), que corresponde à ramificação do domínio de cada variável em seus elementos constituintes (o que só pode ser feito, é claro, quando o domínio for finito), assegurando que todos os valores de cada variável
 serão explorados. A marcação pode tornar um método de busca incompleto em um completo (isto é, um método que pode não encontrar uma solução quando ela existe em um que sempre encontra alguma solução se ela existe).
 
-A ordem em exploração das variáveis é, então, escolhida por meio de uma \textbf{heurística de escolha de valor}. Frequentemente não será viável termos um método de busca completo, então é essencial que foquemos a nossa atenção nos valores que parecem mais promissores. Esse ``foco de atenção'' pode frequentemente ser descrito na forma de uma política de alocação de crédito, fornecendo maior crédito às escolhas aparentemente mais promissoras.
+A ordem de exploração das variáveis é, então, escolhida por meio de uma \textbf{heurística de escolha de valor}. Frequentemente não será viável termos um método de busca completo, então é essencial que foquemos a nossa atenção nos valores que parecem mais promissores. Esse ``foco de atenção'' pode frequentemente ser descrito na forma de uma política de alocação de crédito, fornecendo maior crédito às escolhas aparentemente mais promissoras.
 
 \subsection{Branch and Bound}
 
-Os métodos de busca discutidos anteriormente são apropriados para CSPs. Para COPs, precisaremos fazer algumas modificações. Uma opção é o \textit{\textbf{branch and bound}}\marginpar{\textbf{Branch and bound}}. Ele funciona da seguinte forma: em cada passo da busca em \textit{backtracking}, se f é a função custo, temos na variável Bound o valor do melhor custo até então (Bound pode ser inicializado com um valor simbólicamente equivalente a ``infinito'') e, a cada passo da busca, checamos
-se o custo é ou não melhor do que Bound. Se for, o valor de Bound é atualizado.
+Os métodos de busca discutidos anteriormente são apropriados para CSPs. Para COPs, precisaremos fazer algumas modificações. Uma opção é o \textit{\textbf{branch and bound}}\marginpar{\textbf{Branch and bound}}. Ele funciona da seguinte forma: em cada passo da busca em \textit{backtracking}, se f é a função custo, temos na variável Bound o valor do melhor custo até então (Bound pode ser inicializado com um valor simbolicamente equivalente a ``infinito'') e, a cada passo da busca, verificamos se o custo é ou não melhor do que Bound. Se for, o valor de Bound é atualizado.
 
 Existem algumas variações a esse algoritmo. Uma delas é a de adicionar a restrição de que f $<$ Bound\footnote{Estamos fazendo uso de um abuso de linguagem ao denotar o valor de f em uma substituição por f a fim de deixar a notação mais limpa.}, possibilitando a obtenção de cortes na árvore de busca.
 
@@ -230,6 +233,8 @@ Digamos que só o valor de X nessa restrição seja de interesse. Se tivermos qu
 \noindenté a única cláusula contribuindo para a definição de {\tt uma$\_$restrição$\_$qualquer(X, Y, Z)}, temos então que X $>$ 0
 é a única restrição que nos é de interesse, uma vez que é a restrição de em função de X mais simples que é compatível com a restrição original, no sentido de que a partir de qualquer substituição tal que X $>$ 0 podemos aumentar essa substituição com valores de Y e Z de modo a respeitar a restrição original.
 
+%COMMENT: acho que o texto todo vai ficar mais bonito se aquelas anotacoes nas margens ficaram com a letra um pouco menor - agora eles estao com um espacamentos grandes.
+
 Isso motiva a nossa definição de projeção:
 
 \begin{definition}
@@ -240,7 +245,7 @@ Isso motiva a nossa definição de projeção:
   Dizemos que uma restrição $R_0$ em função das variáveis $X_0$ a $X_n$ é uma projeção\marginpar{\textbf{Projeção}} da restrição $R_1$, em função das variáveis $X_0$ a $X_m$, com m $>$ n, se toda solução de $R_0$ é uma solução parcial de $R_1$.
 \end{definition}
 
-Nem todo domínio admite projeções incondicionalmente. O domínio de árvores, por exmeplo, não admite: podemos fazer projeções em algumas restrições nesse domínio, mas não em todas.
+Nem todo domínio admite projeções incondicionalmente. O domínio de árvores, por exemplo, não admite: podemos fazer projeções em algumas restrições nesse domínio, mas não em todas.
 
 O \textit{branch and bound} funciona porque, ao fazer uma ramificação, o que se faz na verdade é uma projeção em uma ou mais variáveis.
 
@@ -253,7 +258,8 @@ Simplificações e projeções têm um papel importante na resolução de CPs, e
 \end{definition}
 
 \begin{definition}
-  Seja uma restrição composta C, var(X) o conjunto de variáveis de um CP qualquer X e o conjunto de variáveis de interesse inter(C) $\subset$ var(C), dizemos que C' é uma simplificação\marginpar{\textbf{Simplificação}} de C em inter(C) se inter(C) = var(C) e toda solução de C' é uma solução parcial de C.
+  Sejam uma restrição composta C, var(X) o conjunto de variáveis de um CP qualquer X %COMMENT: nao entendi esse "qualquer X"
+  e o conjunto de variáveis de interesse inter(C) $\subset$ var(C). Dizemos que C' é uma simplificação\marginpar{\textbf{Simplificação}} de C em inter(C) se inter(C) = var(C) e toda solução de C' é uma solução parcial de C.
 \end{definition}
 
 É interessante notar que, se dispomos de um algoritmo de simplificação nos moldes dessa definição, também dispomos de um algoritmo de solução: basta simplificar o CP em inter(C) = $\emptyset$.
@@ -263,7 +269,7 @@ Simplificações e projeções têm um papel importante na resolução de CPs, e
   Para terminar esta seção, consideremos o problema de equivalência de CPs, o qual é fortemente ligado ao problema de implicação e de bi-implicação. Para tanto, voltamos à questão de normalização:
 
   \begin{definition}
-    Seja \textit{simp} uma função que recebe um CP e um conjunto V de variáveis de interesse e retorna um CP, dizemos que \textit{simp} realiza um processo de \textbf{normalização canônica}\marginpar{\textbf{Normalização canônica}} em um dado domínio se para todo CP C no domínio e todo V $\subset$ var(C), simp(C,V) é uma simplificação de C e se $C_1 \leftrightarrow C_2 \Rightarrow simp(C_1,V) = simp(C_2,V)$.
+    Seja \textit{simp} uma função que recebe um CP e um conjunto V de variáveis de interesse e retorna um CP. Dizemos que \textit{simp} realiza um processo de \textbf{normalização canônica}\marginpar{\textbf{Normalização canônica}} em um dado domínio se para todo CP C no domínio e todo V $\subset$ var(C), simp(C,V) é uma simplificação de C e se $C_1 \leftrightarrow C_2 \Rightarrow simp(C_1,V) = simp(C_2,V)$.
   \end{definition}
 
   Com um normalizador canônico, conseguimos responder sem grandes dificuldades a questão de equivalência: dois CPs são equivalentes se a normalização canônica de cada um segundo suas variáveis for idêntica. Daí, também conseguimos saber se um CP implica o outro, ou se o outro implica o um.
@@ -272,7 +278,7 @@ Simplificações e projeções têm um papel importante na resolução de CPs, e
 é um algoritmo de normalização, como já foi notado, mas não descreve um processo de normalização canônica. Isso ocorre porque não tomamos cuidado suficiente com os nomes das variáveis.
 
 Como poderíamos transformá-lo em um processo de normalização canônica?
-
+%COMMENT: eu colocaria alguma coisa antes dessa pergunta. Tipo "fica a questao:", ou "Surge a pergunta:", ou "Exercicio:". Porque senao parece que vai escrever mais alguma coisa depois dela.
 
 
 
