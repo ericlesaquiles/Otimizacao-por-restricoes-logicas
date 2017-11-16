@@ -110,9 +110,9 @@ Nossa discussão sobre problemas envolvendo restrições até agora foi uma disc
 
 \subsubsection{Propagação local}
 
-Propagação local é melhor explicada por um desenho. O grafo a seguir, que representa a modelagem de um circuito. As ``caixinhas'' representam as relações de restrições e, as ``bolinhas'', os dados ou variáveis. Por exemplo, uma ``caixinha de mais'' indica que as variáveis ou dados que entram por ela (o que é indicado pela seta) somadas devem ser iguais às variaveis, ou dados, de saída (indicado por outra seta).
+Propagação local é melhor explicada por um desenho. O grafo a seguir representa a modelagem de um circuito. %QUESTION: eletrico? 
+As ``caixinhas'' representam as relações de restrições e as ``bolinhas'', os dados ou variáveis. Por exemplo, uma ``caixinha'' com sinal de adição indica que as variáveis ou dados que entram por ela (o que é indicado pela seta) somadas devem ser iguais às variaveis, ou dados, de saída (indicado por outra seta).
 É importante notar que as setas não indicam a direção de propagação, só nos dão uma informação sobre as restrições:
-%COMMENT: antes de simplesmente passar para o grafo, acho que deveria colocar a restricao que ela representa e/ou explicar o que esse grafo quer dizer.
 
 \begin{center}
   \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm, thick,main node/.style={circle,draw,font=\sffamily\bfseries}]
@@ -162,7 +162,7 @@ Propagação local é melhor explicada por um desenho. O grafo a seguir, que rep
 \end{center}
 
 
-Esse grafo é uma outra forma de representar a restrição {\tt V=V1, V=V2, V1=I1 $\times$R1, V2=I2$\times$R2, I=I1+I2}\footnote{Exemplo adaptado de \cite{marriot}, pág. 36.}. Considere as restrições adicionais de que {\tt V=8, R1=6, R2=44}. Na propagação local, podemos considerar as arestas como veículos das restrições, deixando-as passar de nó em nó de forma apropriada, passo a passo. Por exemplo, dadas as restrições acima, a restrição de V=8 pode ser propagada para V1=8, e teríamos:
+Esse grafo é uma outra forma de representar a restrição {\tt V=V1, V=V2, V1=I1*R1, V2=I2*R2, I=I1+I2}\footnote{Exemplo adaptado de \cite{marriot}, pág. 36.}. Considere as restrições adicionais de que {\tt V=8, R1=6, R2=44}. Na propagação local, podemos considerar as arestas como veículos das restrições, deixando-as passar de nó em nó de forma apropriada, passo a passo. Por exemplo, dadas as restrições acima, a restrição de {\tt V=8} pode ser propagada para {\tt V1=8}, e teríamos:
 
 
 \begin{center}
@@ -199,11 +199,9 @@ Esse grafo é uma outra forma de representar a restrição {\tt V=V1, V=V2, V1=I
   \end{tikzpicture}
 \end{center}
 
-Disso, podemos continuar a propagação, obtendo I1 = 8/6. E assim vai.
+Disso, podemos continuar a propagação, obtendo {\tt I1 = 8/6}. E assim vai.
 
 Propagação local funciona muito bem para resolver alguns problemas, mas simplesmente não consegue resolver outros. Por exemplo, considere a restrição {\tt A=B+2*Z, A=3*K-B, K=5, Z=7}. Propagação local detectaria que {\tt K=5} e {\tt Z=7}, mas não encontraria o valor de A ou B. Isso ocorre porque para tanto seria preciso fazer uso de mais de uma restrição por vez, o que a propagação local não faz.
-
-%COMMENT: Acho que precisa explicar melhor essa parte da propagacao. Talvez se melhorar a explicacao do que quer dizer o primeiro grafo ja seja suficiente.
 
 \subsection{Busca Top-Down}
 
@@ -233,8 +231,6 @@ Digamos que só o valor de X nessa restrição seja de interesse. Se tivermos qu
 
 \noindenté a única cláusula contribuindo para a definição de {\tt uma$\_$restrição$\_$qualquer(X, Y, Z)}, temos então que X $>$ 0
 é a única restrição que nos é de interesse, uma vez que é a restrição de em função de X mais simples que é compatível com a restrição original, no sentido de que a partir de qualquer substituição tal que X $>$ 0 podemos aumentar essa substituição com valores de Y e Z de modo a respeitar a restrição original.
-
-%COMMENT: acho que o texto todo vai ficar mais bonito se aquelas anotacoes nas margens ficaram com a letra um pouco menor - agora eles estao com um espacamentos grandes.
 
 Isso motiva a nossa definição de projeção:
 
