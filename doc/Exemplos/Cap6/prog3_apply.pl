@@ -1,6 +1,6 @@
 % map(P, Xs, Ys) :-
 %   Ys eh o resultado de se aplicar P a cada elemento de Xs
-%   se P for uma P/n para n > 1, Xs precisa ser uma lista de listas
+%   se P for P/n para n > 1, Xs precisa ser uma lista de listas
 %
 % map/3 usa apply/2 como auxiliar
 %
