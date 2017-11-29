@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.5)  7 NOV 2017 19:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  29 NOV 2017 13:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **"[LOG] Cap7.tex"
 (./[LOG] Cap7.tex
 LaTeX2e <2017-04-15>
-Babel <3.12> and hyphenation patterns for 84 language(s) loaded.
+Babel <3.15> and hyphenation patterns for 84 language(s) loaded.
 (/usr/share/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texmf-dist/tex/latex/base/size10.clo
@@ -936,56 +936,86 @@ Underfull \hbox (badness 10000) in paragraph at lines 212--212
  []
 
 [6]
-Overfull \hbox (3.83405pt too wide) in paragraph at lines 215--217
+Underfull \hbox (badness 10000) in paragraph at lines 216--216
+[]\OT1/cmr/bx/n/10 M^^Setodo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--216
+\OT1/cmr/bx/n/10 de busca
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--216
+\OT1/cmr/bx/n/10 in-com-ple-to/-
+ []
+
+
+Overfull \hbox (3.83405pt too wide) in paragraph at lines 215--218
 \OT1/cmr/m/n/10 prob-lema, usual-mente por al-gum mod-elo heur^^S^^Pstico, com 
 as ram-i-fica^^Xc~oes tomando
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 222--222
+Underfull \hbox (badness 10000) in paragraph at lines 223--223
 []\OT1/cmr/bx/n/9 Branch and
  []
 
 [7]
-Underfull \hbox (badness 6284) in paragraph at lines 242--242
+Underfull \hbox (badness 6284) in paragraph at lines 243--243
 []\OT1/cmr/bx/n/9 Solu^^Xc~ao par-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 258--258
+Underfull \hbox (badness 10000) in paragraph at lines 259--259
 []\OT1/cmr/bx/n/9 Restri^^Xc~oes
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 272--272
+Underfull \hbox (badness 10000) in paragraph at lines 273--273
 []\OT1/cmr/bx/n/9 Normaliza^^Xc~ao
  []
 
-[9] (./[LOG] Cap7.aux) ) 
+
+Overfull \hbox (1.82474pt too wide) in paragraph at lines 286--290
+\OT1/cmr/m/n/10 stri^^Xc~oes nos mais di-ver-sos paradig-mas de pro-grama^^Xc~a
+o. No en-tanto, pro-grama^^Xc~ao
+ []
+
+
+Overfull \hbox (7.69392pt too wide) in paragraph at lines 297--300
+[]\OT1/cmr/m/n/10 Assim, uma lin-guagem de pro-grama^^Xc~ao l^^Sogica \OT1/cmr/
+m/it/10 vanilla \OT1/cmr/m/n/10 se-ria uma $\OML/cmm/m/it/10 CLP\OT1/cmr/m/n/10
+ ([]\OML/cmm/m/it/10 rvore\OT1/cmr/m/n/10 )$,
+ []
+
+[9] [10] (./[LOG] Cap7.aux) ) 
 Here is how much of TeX's memory you used:
- 15041 strings out of 492990
- 290831 string characters out of 6138688
- 338650 words of memory out of 5000000
- 18320 multiletter control sequences out of 15000+600000
- 9060 words of font info for 32 fonts, out of 8000000 for 9000
+ 15045 strings out of 492985
+ 290868 string characters out of 6138637
+ 338695 words of memory out of 5000000
+ 18328 multiletter control sequences out of 15000+600000
+ 9412 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,8n,56p,657b,1325s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
-pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
-/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on "[LOG] Cap7.pdf" (9 pages, 201641 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmssbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmtt10.pfb>
+Output written on "[LOG] Cap7.pdf" (10 pages, 226330 bytes).
 PDF statistics:
- 93 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
+ 104 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

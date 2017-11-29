@@ -213,7 +213,8 @@ Intuitivamente, a propagação de restrições ajuda a transformar o problema em
 gerando a dita árvore e fazendo a travessia dela (frequentemente, faremos a travessia enquanto geramos a árvore, não depois). Vale notar que, na presença de propagação de restrições, ocasionalmente pode ser útil adicionar à escrita do problema restrições implícitas, que podem auxiliar na propagação.
 
 A forma mais comum de \textit{backtracking} começa ordenando as variáveis do problema, usualmente por algum modelo heurístico, com as ramificações tomando a forma de divisões no domínio de cada variável. Uma forma de fazer isso é a chamada marcação (ou, mais comumente, \textit{labelling}), que corresponde à ramificação do domínio de cada variável em seus elementos constituintes (o que só pode ser feito, é claro, quando o domínio for finito), assegurando que todos os valores de cada variável
-serão explorados. A marcação pode tornar um método de busca incompleto em um completo (isto é, um método que pode não encontrar uma solução quando ela existe em um que sempre encontra alguma solução se ela existe).
+serão explorados. A marcação pode tornar um \textbf{método de busca incompleto}\marginpar{\textbf{Método de busca incompleto/completo}}
+em um completo (isto é, um método que pode não encontrar uma solução quando ela existe em um que sempre encontra alguma solução se ela existe).
 
 A ordem de exploração das variáveis é, então, escolhida por meio de uma \textbf{heurística de escolha de valor}. Frequentemente não será viável termos um método de busca completo, então é essencial que foquemos a nossa atenção nos valores que parecem mais promissores. Esse ``foco de atenção'' pode frequentemente ser descrito na forma de uma política de alocação de crédito, fornecendo maior crédito às escolhas aparentemente mais promissoras.
 
@@ -280,7 +281,22 @@ Simplificações e projeções têm um papel importante na resolução de CPs, e
 Como poderíamos transformá-lo em um processo de normalização canônica?
 %COMMENT: eu colocaria alguma coisa antes dessa pergunta. Tipo "fica a questao:", ou "Surge a pergunta:", ou "Exercicio:". Porque senao parece que vai escrever mais alguma coisa depois dela.
 
+\subsection{Programação por restrições lógicas}
 
+Programação por restrições não precisa, a princípio, ser realizada com programação lógica. De fato, existem implementações de
+programação por restrições nos mais diversos paradigmas de programação. No entanto, programação lógica parece ser o paradigma mais natural
+para ser tomado base para programação por restrições. Um primeiro motivo já deve ser claro, nomeadamente que programação lógica é feita com base em um tipo importante de restrição, a em árvores, o que dá à programação lógica e, por extensão, à programação
+por restrições lógicas, o poder de uma linguagem de programação completa.
+
+Mais no geral, no entanto, programação por restrições lógicas não se refere a uma linguagem ou paradigma, mas a um conjunto
+de linguagens. Cada uma dessas linguagens trabalha com um esquema diferente, o qual é determinado pelo domínio,
+pelos simplificadores de restrição e pelos resolvedores com que trabalha. Mais no geral, dado um domínio $D$,
+uma linguagem nesse conjunto, dita $CLP(D)$, é uma com simplificadores e resolvedores no domínio $D$.
+Exemplos são $CLP(\Re)$, no domínio dos números reais e $CLP(FD)$\footnote{FD vem de \textit{Finite Domains}}, em domínios finitos.
+
+Assim, uma linguagem de programação lógica \textit{vanilla} seria uma $CLP(\acute{A}rvore)$, onde as únicas restrições primitivas são igualdade e desigualdade (apesar de que desigualdade só está presente de forma implícita e pode ser implementada com base no símbolo de igualdade).
+Na realidade, cada $CLP(D)$ é feito com base no $CLP(\acute{A}rvore)$ permitindo que as folhas sejam elementos em D e, eventualmente, tomando a adição de restrições e simplificadores e resolvedores específicos\footnote{Um exemplo de $CLP(D)$ em um $D$ algo mais exótico pode ser encontrado em \cite{besik} e o de um $CLP$ que foge do esquema $CLP(D)$ em \cite{margarida}}. Prolog III, por exemplo, faz uso de um tipo de Simplex para a resolução
+de problemas de otimização com restrições lineares.
 
 
 
@@ -294,6 +310,12 @@ Como poderíamos transformá-lo em um processo de normalização canônica?
 
     \bibitem{marriot}
       Marriott, Kim; Peter J. Stuckey (1998), ``Programming with constraints: An introduction'' [S.l.]: MIT Press.
+
+    \bibitem{besik}
+      Dundua, Besik; Florido Mário; Kutsia Temur; Marin, Mircea (2015), ``CLP(H): Constraint Logic Programming for Hedges'',  	arXiv:1503.00336.
+
+    \bibitem{margarida}
+      Mamede, Margarida; Monteiro Luís (1992), ``A Constraint Logic Programming Scheme for Taxonomic Reasoning''.
 
   \end{thebibliography}
 
