@@ -1,0 +1,178 @@
+\documentclass{article}
+
+\input{../header.tex}
+
+\begin{document}
+
+\section{Propagação de restrições em domínios finitos}
+
+Nesta seção trabalharemos primariamente com restrições em domínios finitos.
+Domínios finitos são importantes porque costumam ser bons para modelar
+decisões, o que é algo com que gostaríamos que o computador ajudasse.
+
+Um exemplo simples e bem conhecido é o problema de coloração de um mapa: dado um conjunto finito (digamos, igual a 5) de cores, precisamos colorir um mapa (digamos, o mapa do Cazaquistão) de modo que nenhuma das regiões do mapa receba a mesma cor que outra região com que faça fronteira\footnote{Acontece que esse problema é essencialmente o mesmo que as companhias de aviação tem para alocar seu tráfico aéreo.}.
+Outro exemplo bem conhecido é o do ``casamento a moda antiga'' (menos popularmente conhecido como o ``problema da correspondência bipartida'').
+Nesse problema, temos um conjunto de homens, um de mulheres a relação de restrição {\tt gosta/2}, que existe quando um indivíduo $i$ gosta de outro $j$.
+O problema é separar esses grupos de homens e mulheres em casais que se gostam.
+
+Esses dois exemplos tem a particularidade de terem restrições primitivas binárias e, por isso, são chamados de CSPs binários. Um ponto interessante em CSPs binários é que sempre podem ser representados como um grafo não direcionado:
+  cada variável (cada indivíduo no segundo exemplo ou cada região do Cazaquistão no primeiro) é representada como um nó e cada restrição como um arco entre suas variáveis\footnote{No geral, restrições CSPs em restrições n-árias podem ser representados como um multi-grafo.}.
+
+  Em particular, problemas como os de roteamento e criação de cronogramas
+  costumam ser facilmente expressos como CPs em domínio finito, o que indica a sua importância comercial.
+
+  Essa classe de problemas foi estudada por diferentes comunidades científicas.
+  A comunidade de Inteligênica Artificial desenvolvou técnicas de consistência
+por arco e por nó, para CSPs, a comunidade de programação por restrições desenvolveu  técnicas de propagação de limites e a comunidade de pesquisas
+operacionais desenvolveu técnicas de programação inteira.
+
+\subsection{Consistência por nó e por arco}
+
+Resolução de CSPs por consistência por nó e por arco acontece em tempo polinomial
+(mas, possívelmente, de forma incompleta)\footnote{Mas ela, assim como as demais formas de consistência vistas aqui
+ pode ser usada em conjunto com \textit{backtracking}, gerando um resolvedor completo.}.
+A ideia aqui é diminuir os domínios das variáveis,
+transformando o problema em outro equivalente (com as mesmas soluções).
+Se o domínio de alguma variável for vazio, é o fim do CSP.
+
+Essa forma de resolução é dita ser baseada em consistência, porque ele
+funciona propagando informações dos domínios de cada variável para
+os demais, tornando-os ``consistentes'' entre si.
+
+\begin{definition}
+  Uma restrição $r/n$ é dita \textbf{consistente por nó}\marginpar{\textbf{Consistente por nó}} com um domínio D
+  se $n > 1$ ou, $X$ sendo for uma variável de $r$, se para cada $d$ no domínio
+  de $X$ {\tt  X=d,r(X).} resulta em sucesso.
+  Uma restrição composta é dita consistente por nó se cada uma de suas restrições
+  primitivas o é.
+\end{definition}
+
+\begin{definition}
+  Uma restrição $r/n$ é dita \textbf{consistente por arco}\marginpar{\textbf{Consistente por arco}} se
+  $n \neq 2$ ou, se $r$ é uma restrição nas variáveis $X$ e $Y$ e se $D_x$ é o domínio de $X$ e $D_y$ o
+  de $Y$, então $x \in D_x \Rightarrow \exists y \in D_y : X=x, Y=y, r(X,Y).$ resulta em sucesso.
+  Uma restrição composta é dita consistente por arco se cada uma de suas restrições primitivas o é.
+\end{definition}
+
+Essas noções de consistência são noções fracas no sentido de que um CSP pode não ser satisfazível
+e ainda manter consistência por arco e por nó.
+
+Não é difícil escrever um código para manter consistêncai por arco e por nós. A seguir segue um exemplo. Ele é para fins
+demonstrativos: para algoritmos mais eficientes veja \cite{tsang}. O {\tt apply/2} usado foi definido no Capítulo 6.
+
+\lstinputlisting[caption=Consistência por nó, style=prosty]{../Exemplos/Cap9/node_consistency.pl}\label{lst:no_consistency}
+\vspace{2cm}
+
+\lstinputlisting[caption=Consistência por arco, style=prosty]{../Exemplos/Cap9/arc_consistency.pl}\label{lst:arc_consistency}
+
+\subsection{Consistência por limites\footnote{Mais conhecido como \textit{bounds consistency}}}
+
+As noções de consistência desenvolvidas acima funcionam bem para restrições em uma ou duas variáveis,
+mas se quisermos usar algo do tipo para mais variáveis, precisaremos generalizar um pouco:
+
+\begin{definition}
+  Uma restrição $r/n$ nas variáveis $X_1$, ..., $X_n$ é dita \textbf{consistente por hiper-arco}\marginpar{\textbf{Consistente por hiper-arco}}
+  se para cada $x_i$ no domínio de $X_i$, existem $x_j$ nos domínios de $X_j$ tal que
+  $X_i = x_i, X_j = x_j$  $\forall j: 1 \geq j \leq n$, $j \neq i$.
+  Uma restrição composta é dita consistente por hiper-arco se cada uma de suas restrições o é.
+\end{definition}
+
+Infelizmente, manter a consistência por hiper-arco é algo caro demais para se fazer em um problema geral. Para
+encontrarmos uma nova checagem de consistência realmente útil, precisaremos restringir o domínio com que lidamos.
+
+Dizemos que um CSP é aritmético\marginpar{\textbf{CSP aritmético}} se o domínio de cada variável é uma união
+finita de intervalos finitos de números inteiros e se as restrições são aritméticas. Muitos CSPs podem ser modelados como aritméticos de forma natural, e muitos outros podem ser transformados em CSPs aritméticos por uma mudança de variáveis.
+Por exemplo, se o problema tem a ver com escolhas, uma mudança de variáveis natural é denotar cada escolha por um número. No problema da
+coloração do mapa do Cazaquistão (mencionado acima), ao invés de denotar as cores como ``vermelho'', ``azul'', etc., podemos denotá-las como ``1'', ``2'', etc., obtendo resultados equivalentes.
+
+Lidando com CSPs aritméticos, podemos definir a noção de \textbf{consistência por limites}. A ideia é limitar o domínio
+de uma variável por limites inferiores e superiores. As sequintes convenções de notação serão convenientes:
+
+\begin{itemize}
+  \item $min_D(X)$ := $x: y \geq x \forall y \in D$;
+  \item $max_D(X)$ := $x: y \leq x \forall y \in D$.
+\end{itemize}
+
+\begin{definition}
+  Uma restrição $r/n$ nas variáveis $X_1$, ..., $X_n$ é dita consistente por limites\marginpar{\textbf{Consistente por limites}}
+  se
+  \begin{itemize}
+    \item Para cada $x_i$ variável de $r/n$, existem valores reais $x_1$, ..., $x_n$ tal que $min_D(x_j) \geq x_j \leq max_D(x_j)$
+          e $X_i = min_D(X_i), X_j = x_j$ $\forall j \neq i$ é uma solução de r e
+    \item Outros valores reais $x_1$, ..., $x_n$ tal que $min_D(x_j) \geq x_j \leq max_D(x_j)$
+          e $X_i = max_D(X_i), X_j = x_j$ $\forall j \neq i$ é uma solução de r e
+  \end{itemize}
+  Uma restrição composta é dita consistente por limites se cada uma de suas restrições o é.
+\end{definition}
+
+Um método eficiente, que é uma \textbf{regra de propagação} pode ser eleborado a partir
+de uma constatação ilustrada no seguinte exemplo:
+
+Considere a restrição {\tt X = Z + Y}. Ela pode ser escrita nas formas
+\[
+  X = Z + Y \text{, } Y = X - Y \text{, } Z = X - Y
+\]
+
+Podemos ver que:
+\begin{gather}
+  X \geq min_D(Y)+min_D(Z),  X \leq max_D(Y) + max_D(Z)\\
+  Y \geq min_D(Y)+min_D(Z),  Y \leq max_D(Y) + max_D(Z)\\
+  Z \geq min_D(Y)+min_D(Z),  Z \leq max_D(Y) + max_D(Z)
+\end{gather}
+
+Podemos usar essa observação para tentar diminuir os domínios de X, Y e Z. Com essa ideia, obtemos o seguinte programa:
+
+\lstinputlisting[caption=Busca, style=prosty]{../Exemplos/Cap9/bounds_consistency.pl}\label{lst:bounds}
+
+Observações semelhantes podem ser feitas para outros tipos de restrições aritméticas. Para restrições do tipo $X \neq Z$ e $X  \neq min(Z, Y)$, isso é especialmente simples de ser feito. Para restrições  não lineares do tipo $X < Z\times Y$, isso pode ser
+custoso se $Z$ e $Y$ podem assumir valores positivos e negativos, mas ainda pode ser feito.
+
+Como é meio chato escrever uma regra para cada caso de restrição dessas para a manutenção de consistência por limites, o que é
+mais usual é que um sistema que ofereça esse tipo de consistência suporte apenas uma quantidade reduzida dessas restrições,
+sendo as demais transformadas em versões equivalentes às quais essas restrições se apliquem, o que não é difícil de se fazer.
+Isso está sujeito ao potencial incoveniente de que restrições equivalentes mas escritas de formas diferentes podem oferecer
+oportunidades diferentes para a diminuição de domínio de cada restrição e a reescrita pode um domínio que poderia originalmente ser
+grandemente simplificado, sofra apenas uma pequena alteração.
+
+Apesar disso, a aplicação de consistência por limites frequentemente é útil. Um programa que realiza essa aplicação é simples
+de se fazer: ele toma cada restrição primitiva e os domínios de suas respectivas variáveis e aplica um algo como o mostrado no
+código \ref{lst:bounds}. Assim, temos um mecanismo de busca incompleto. Torná-lo um mecanismo completo é simples e pode ser feito
+com a adição do backtracking.
+
+
+\subsection{Consistência generalizada e complexa}
+
+Consistência por limites também podem ser aplicadas a restrições em duas ou em uma variável, mas, nesse caso, consistência por
+arco ou por nó costumam resultar em diminuição maior nos domínios. Um problema geral, no entanto, pode ser composto por uma
+combinação de restrições de diferente aridade, tornando vantajosa a aplicação de diferentes noções de consistência.
+
+No entanto, um potencial problema com abordagens baseadas em consistência é que elas consideram apenas uma ou um pequeno número de
+restrições e variáveis por vez, enquanto que frequentemente muitas restrições e variáveis oferecem informações sobre as demais.
+
+Tome por exemplo a seguinte restrição {\tt X $\neq$ Y, Y $\neq$ Z}, que é equivalente a dizer que as variáveis X, Y e Z são todas
+diferentes. Dos métodos de consistência que vimos, o mais indicado a essa restrição é o de consistência em arco, já que $\neq$ é
+de aridade 2. Mas esse método é muito fraco para restrições de desigualdade, o que significa que, na prática, resolver isso
+por \textit{backtraking}, que tem um crescimento assintótico exponencial.% TODO adicionar exemplo
+
+Essa dificuldade decorre de não usarmos que o domínio de cada variável, nesse caso, oferece informações sobre os domínios das
+demais. Essa restrição é tão usada que recebeu um nome especial e em vários sistemas CLP é denotada {\tt all\_diferent/1}.
+Restrições que fazem uso da informação no domínio de muitas variáveis para realizar a atualização de cada domínio são
+chamadas \textbf{restrições complexas}. No cado do \textit{alldifferent/1}, podemos notar que essa restrição é equivalente ao
+supra-mencionado problema de correspondência bipartida e que existem algoritmos eficientes para lidar com ele.
+
+
+
+
+
+
+  \begin{thebibliography}{1}
+
+    \bibitem{tsang}
+      E. Tsang (1930), ``Foundations of Constraint Satisfaction'', Academic Press.
+
+  \end{thebibliography}
+
+
+
+
+\end{document}
