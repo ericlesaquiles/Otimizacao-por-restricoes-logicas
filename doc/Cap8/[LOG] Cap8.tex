@@ -2,8 +2,6 @@
 
 \input{../header.tex}
 
-\newcommand{\eclipse}{$ECL^iPS^e$}
-
 %
 % TODO: revisar esta seção!
 %
@@ -40,8 +38,8 @@ Mencionamos que uma forma de descrever a escolha de valores de forma mais geral 
 
 \lstinputlisting[caption=Busca, style=prosty]{../Exemplos/Cap8/prog2_busca2.pl}
 
-Ele assume que Lista é uma lista de pares variável-domínio e precisa ser completada pelas escolhas de escolhe\_var/3 e compartilha\_credito/3. O seguinte exemplo de compartilha\_credito/3 corresponde à escolha dos N primeiros valores, se N for menor %QUESTION: o que quer dizer ser "menor do que o dominio"?
-que o domínio; ou do domínio inteiro, %QUESTION:todo o dominio? Inteiro da a impressao de numero inteiro.
+Ele assume que Lista é uma lista de pares variável-domínio e precisa ser completada pelas escolhas de $escolhe\_var/3$ e $compartilha\_credito/3$. O seguinte exemplo de $compartilha\_credito/3$ corresponde à escolha dos N primeiros valores, se N for menor
+que o tamanho do domínio; ou do domínio todo,
 caso contrário:
 
 \lstinputlisting[caption=Compartilha, style=prosty]{../Exemplos/Cap8/prog3_partilha.pl}
@@ -69,7 +67,7 @@ Nesse código, o {\tt fix(ceiling(AtuCredito/2))} retorna o maior inteiro menor 
 
 Esse programa explora a forma como é feito o \textit{backtracking} e, por isso, a ordem em que foi posta é crucial. Vale notar que ele conta todos os backtrackings que ocorrem na busca, possibilitando contar a quantidade de nós na árvore.
 
-Frequentemente, no entanto, pode ocorrer um \textit{backtracking} entre mais de um nível. Isso ocorre quando, logo depois de realizar um, é realizado outro \textit{backtracking}. Uma medida melhor de eficiência pode ser uma contagem de \textit{backtrackings} que conta uma sequência ininterrupta como sendo apenas um. Um conta\_backtracks/0 que faz isso é dado a seguir:
+Frequentemente, no entanto, pode ocorrer um \textit{backtracking} entre mais de um nível. Isso ocorre quando, logo depois de realizar um, é realizado outro \textit{backtracking}. Uma medida melhor de eficiência pode ser uma contagem de \textit{backtrackings} que conta uma sequência ininterrupta como sendo apenas um. Um $conta\_backtracking/0$ que faz isso é dado a seguir:
 
 \lstinputlisting[caption=Conta Backtrackings Ininterruptos, style=prosty]{../Exemplos/Cap8/prog6_conta_backtrack.pl}
 
@@ -84,7 +82,7 @@ Essa biblioteca também lida com restrições booleanas (para as quais os valore
 
 Uma delas é por meio do \textit{range}: {\tt suspend(X :: 2..10).}, ou {\tt suspend(X \#:: 2..10).}  %QUESTION: nao eh $ wm vez de #?
 que gera uma variável X cujo valor é restrito ao intervalo de inteiros entre 2 e 10. Se a biblioteca já estiver carregada, que é o que assumiremos daqui para frente, essa restrição pode ser escrita como {\tt X :: 2..10.}. %QUESTION: nao falta um $?
-Se quisermos usar intervalos reais, podemos escrever algo como {\tt X \$:: 2..10.}.
+Se quisermos usar intervalos reais no lugar de intervalos de inteiros (que é o padrão), podemos escrever algo como {\tt X \$:: 2..10.}.
 Alternativamente, pode-se usar a restrição integers/1 ou reals/1 para restringir a variável ou lista de variáveis a assumir valores nos inteiros ou reais, respectivamente.
 
 

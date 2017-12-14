@@ -151,28 +151,28 @@ twice(Q) :-
   getval(n, 2), !.
 
 
-% search(List, Backtracks) :-
-%   a search which counts the number of backtracks
+% search(List, Backtrackings) :-
+%   a search which counts the number of backtrackings
 %
-search(List, Backtracks) :-
-  init_backtracks,
+search(List, Backtrackings) :-
+  init_backtrackings,
   ( fromto(List, Vars, Rest, []),
   do
     choose_vars(Vars, Var-Domain, Rest),
     choose_vals(Domain, Val),
     Var = Val,
-    count_backtracks
+    count_backtrackings
   ),
-  get_backtracks(Backtracks).
+  get_backtrackings(Backtrackings).
 
-init_backtracks :-
-  setval(backtracks, 0).
+init_backtrackings :-
+  setval(backtrackings, 0).
 
-get_backtracks(B) :-
-  getval(backtracks, B).
+get_backtrackings(B) :-
+  getval(backtrackings, B).
 
-count_backtracks :-
-  on_backtracking(incval(backtracks)).
+count_backtrackings :-
+  on_backtracking(incval(backtrackings)).
 
 on_backtracking(_).
 on_backtracking(Q) :-

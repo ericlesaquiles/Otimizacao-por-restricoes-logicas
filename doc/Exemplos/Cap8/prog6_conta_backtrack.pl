@@ -1,6 +1,6 @@
-conta_backtracks :-
+conta_backtrackings :-
   setval(single_step,true).
-conta_backtracks :-
+conta_backtrackings :-
   getval(single_step,true),
-  incval(backtracks),
+  incval(backtrackings),
   setval(single_step,false).
