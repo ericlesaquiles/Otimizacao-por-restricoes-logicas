@@ -1,5 +1,5 @@
-% consistente_por_no([Dominios-Restricoes|DsRs],
-%                    [NovosDominios-Restricoes|DnsRs]) :-
+% consistente_por_no([Dominio-Restricao|DsRs],
+%                    [NovosDominio-Restricao|DnsRs]) :-
 %   NovosDominios sao consistentes por no com suas respectivas restricoes
 %
 
