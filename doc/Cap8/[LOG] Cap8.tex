@@ -80,14 +80,14 @@ em que o \$ indica que a restrição é usada tal como na biblioteca \textit{sus
 
 Essa biblioteca também lida com restrições booleanas (para as quais os valores de variáveis são 0 ou 1 e os símbolos de restrições são tais como or/2, and/2, neg/1 e $=>$/2, de implicação) e permite a declaração de variáveis de formas distintas.
 
-Uma delas é por meio do \textit{range}: {\tt suspend(X :: 2..10).}, ou {\tt suspend(X \#:: 2..10).}  %QUESTION: nao eh $ wm vez de #?
+Uma delas é por meio do \textit{range}: {\tt suspend(X :: 2..10).}, ou {\tt suspend(X \#:: 2..10).}  %QUESTION: nao eh $ um vez de #?
 que gera uma variável X cujo valor é restrito ao intervalo de inteiros entre 2 e 10. Se a biblioteca já estiver carregada, que é o que assumiremos daqui para frente, essa restrição pode ser escrita como {\tt X :: 2..10.}. %QUESTION: nao falta um $?
 Se quisermos usar intervalos reais no lugar de intervalos de inteiros (que é o padrão), podemos escrever algo como {\tt X \$:: 2..10.}.
 Alternativamente, pode-se usar a restrição integers/1 ou reals/1 para restringir a variável ou lista de variáveis a assumir valores nos inteiros ou reais, respectivamente.
 
 
 
-A biblioteca \textit{suspend} também permite a criação de suspensões arbitrárias pelo usuário a partir de suspend/3. O primeiro argumento de suspend/3 indica a restrição a ser suspensa, o segundo indica a prioridade da suspensão (o que nos dá a ordem de execução de restrições que deixam a suspensão juntas) e o terceiro a condição de saída da suspensao, escrito como {\tt Termo -> Condicao} (dizendo que na ocorrência da Condicao, em relação a Termo, a restrição deixa a suspensão), em que ``Condicao'' geralmente é \textit{inst}, indicando que o Termo é instanciado.
+A biblioteca \textit{suspend} também permite a criação de suspensões arbitrárias pelo usuário a partir de suspend/3. O primeiro argumento de suspend/3 indica a restrição a ser suspensa, o segundo indica a prioridade da suspensão (o que nos dá a ordem de execução de restrições que deixam a suspensão juntas) e o terceiro a condição de saída da suspensão, escrito como {\tt Termo -> Condicao} (dizendo que na ocorrência da Condicao, em relação a Termo, a restrição deixa a suspensão), em que ``Condicao'' geralmente é \textit{inst}, indicando que o Termo é instanciado.
 Um exemplo é {\tt suspend(X =:= 21, 2, X -> inst)}, indicando que a restrição de que X =:= 21 está em estado de suspensão até que X seja instanciada.
 
 Talvez se lembre do programa Ou Exclusivo do Capítulo 6. Com o uso de suspend/3, podemos reimplementá-lo sem recorrer ao \textit{backtracking}:
