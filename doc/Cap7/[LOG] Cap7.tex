@@ -281,17 +281,17 @@ Como poderíamos transformá-lo em um processo de normalização canônica?
 
 Programação por restrições não precisa, a princípio, ser realizada com programação lógica. De fato, existem implementações de
 programação por restrições nos mais diversos paradigmas de programação. No entanto, programação lógica parece ser o paradigma mais natural
-para ser tomado base para programação por restrições. Um primeiro motivo já deve ser claro, nomeadamente que programação lógica é feita com base em um tipo importante de restrição, a em árvores, o que dá à programação lógica e, por extensão, à programação
+para ser tomado como base para programação por restrições. Um primeiro motivo já deve ser claro, nomeadamente que programação lógica é feita com base em um tipo importante de restrição, a em árvores, o que dá à programação lógica e, por extensão, à programação
 por restrições lógicas, o poder de uma linguagem de programação completa.
 
 Mais no geral, no entanto, programação por restrições lógicas não se refere a uma linguagem ou paradigma, mas a um conjunto
 de linguagens. Cada uma dessas linguagens trabalha com um esquema diferente, o qual é determinado pelo domínio,
 pelos simplificadores de restrição e pelos resolvedores com que trabalha. Mais no geral, dado um domínio $D$,
 uma linguagem nesse conjunto, dita $CLP(D)$, é uma com simplificadores e resolvedores no domínio $D$.
-Exemplos são $CLP(\Re)$, no domínio dos números reais e $CLP(FD)$\footnote{FD vem de \textit{Finite Domains}}, em domínios finitos.
+Exemplos são $CLP(\Re)$, no domínio dos números reais, e $CLP(FD)$\footnote{FD vem de \textit{Finite Domains}.}, em domínios finitos.
 
-Assim, uma linguagem de programação lógica \textit{vanilla} seria uma $CLP(\acute{A}rvore)$, onde as únicas restrições primitivas são igualdade e desigualdade (apesar de que desigualdade só está presente de forma implícita e pode ser implementada com base no símbolo de igualdade).
-Na realidade, cada $CLP(D)$ é feito com base no $CLP(\acute{A}rvore)$ permitindo que as folhas sejam elementos em D e, eventualmente, tomando a adição de restrições e simplificadores e resolvedores específicos\footnote{Um exemplo de $CLP(D)$ em um $D$ algo mais exótico pode ser encontrado em \cite{besik} e o de um $CLP$ que foge do esquema $CLP(D)$ em \cite{margarida}}. Prolog III, por exemplo, faz uso de um tipo de Simplex para a resolução
+Assim, uma linguagem de programação lógica \textit{vanilla} seria uma $CLP(\acute{A}rvore)$, na qual as únicas restrições primitivas são igualdade e desigualdade (apesar de que desigualdade só está presente de forma implícita e pode ser implementada com base no símbolo de igualdade).
+Na realidade, cada $CLP(D)$ é feito com base no $CLP(\acute{A}rvore)$ permitindo que as folhas sejam elementos em $D$ e, eventualmente, tomando a adição de restrições e simplificadores e resolvedores específicos\footnote{Um exemplo de $CLP(D)$ em um $D$ algo mais exótico pode ser encontrado em \cite{besik} e o de um $CLP$ que foge do esquema $CLP(D)$ em \cite{margarida}.}. Prolog III, por exemplo, faz uso de um tipo de Simplex para a resolução
 de problemas de otimização com restrições lineares.
 
 
