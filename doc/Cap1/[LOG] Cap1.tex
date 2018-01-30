@@ -1,28 +1,8 @@
 \documentclass{article}
 
-\usepackage[utf8]{inputenc}
-\usepackage{placeins}
-\usepackage{graphicx}
-\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
-\usepackage{listings}
-\usepackage{amsthm}
-\usepackage{caption}
+\input{../header.tex}
 
-\lstset{language=Prolog}
-
-\captionsetup[figure]{font=scriptsize}
-
-\newtheorem{definition}{Definição}[section]
-\theoremstyle{remark}
-\newtheorem*{remark}{Observações}
-\theoremstyle{theorem}
-\newtheorem{theorem}{Teorema}[section]
-
-\setlength{\parskip}{.5em}
-
-\renewcommand\refname{Leituras adicionais}
 \renewcommand\figurename{Figura}
-\renewcommand{\lstlistingname}{Código}
 
 
 %
@@ -32,12 +12,17 @@
 \begin{document}
 \section{Modelo Computacional de Programas Lógicos}
 
-Considere o seguinte programa:
+Considere o seguinte código:
 
 
-\lstinputlisting[caption=Circuito]{../Exemplos/Cap1/prog1_circuito.pl}
+\lstinputlisting[caption=Circuito]{../Exemplos/Cap1/prog1_circuito.pl}\label{lst:circuit}
 
-Qual será o resultado do goal {\tt porta\_and(Entrada1, Entrada2, Saida)?}, a leitora pode se perguntar. Mais do que isso, ela pode se perguntar ``Será que, dado um programa qualquer e um goal qualquer dá para ``calcular'' o resultado do goal?''. Te convido a refletir por alguns momentos sobre essa questão.
+A leitora pode se perguntar qual o resultado do seguinte goal:
+
+{\tt porta\_and(Entrada1, Entrada2, Saida)?}
+
+ Mais do que isso, ela pode se perguntar ``Será que, dado um programa qualquer e um goal qualquer dá para ``calcular'' o resultado
+ do goal?''. Será instrutivo refletir por alguns momentos sobre essa questão.
 
 %Note que, como o goal consiste contém variáveis (lembre-se que o que for capitalizado em programas lógicos denota uma variável), um resultado não é só \textit{sucesso} ou \textit{falha}, mas
 %também, possivelmente, uma substituição para valores das variáveis (isto é, valores para as variáveis tal que o goal tenha sucesso).
@@ -46,17 +31,20 @@ A leitora pode imaginar que, se houvesse muitos programas com goals de resultado
 
 Se o goal estiver expresso no programa apenas como um fato base, prová-lo é fácil: só precisamos checar se algum dos fatos é igual ao goal. Mas, se o goal conter alguma variável ou só puder ser provado através de alguma regra, que é o caso geral, a situação fica mais complicada.
 
-Se o goal conter variáveis, para prová-lo o que precisamos é encontrar uma \textbf{substituição} para cada uma delas de forma que cada um dos termos do goal seja logicamente consistente com o programa. Aqui o que queremos dizer com ``substituição'' é que a variável toma o valor de um outro termo. Uma forma de pensar sobre isso é que, antes da substituição, a variável ``tem uma vida só sua'' (ou, é irrestrita) e que, depois, sua vida é, na verdade, ``a vida de
-outro'' (ou, é restrita). Mais precisamente, temos:\\
+Se o goal contiver variáveis, para prová-lo o que precisamos é encontrar uma \definicao{substituição} para cada uma delas de forma
+que cada um dos termos do goal seja logicamente consistente com o programa. Aqui o que queremos dizer com ``substituição'' é que a
+variável toma o valor de um outro termo. Uma forma de pensar sobre isso é que, antes da substituição, a variável ``tem uma vida só
+sua'' (é irrestrita) e que, depois, sua vida é, na verdade, ``a vida de
+outro'' (é restrita). Mais precisamente, temos:\\
 
-\begin{definition} Dado um termo {\it p($a_1$, ..., $a_n$)}, onde os $a_j$, para $j \in J$, $J$ algum conjunto indexador, são variáveis, uma substituição\marginpar{\textbf{Substituição}} é um conjunto $\iota$ de \textit{unificações}\marginpar{\textbf{Unificação}}, escritas como $a_i = k_j$, onde $k_j$ é uma variável ou um termo atômico e ``='' denota que $a_i$ é idêntica a $k_j$ e dizemos que $a_i$ é unificado com $k_j$.
+\begin{definition} Dado um termo {\it p($a_1$, ..., $a_n$)}, onde os $a_j$, para $j \in J$, $J$ algum conjunto indexador, são variáveis, uma substituição\marginpar{\textbf{Substituição}} é um conjunto $\iota$ de \textit{unificações}\marginpar{\textbf{Unificação}}, escritas como $a_i = k_j$, onde $k_j$ é uma variável ou um termo atômico e ``='' indica que $a_i$ é idêntica a $k_j$ e dizemos que $a_i$ é unificado com $k_j$.
   Uma substituição $\iota$ sobre um programa P é escrita P$\iota$.
 \end{definition}
 
 \begin{remark}
   \hfill
   \begin{enumerate}
-    \item Ao realizar uma substituição $\iota$ em um programa P, o resultado é ou programa P$\iota$, sobre o qual podemos fazer outras substiuições.
+    \item Ao realizar uma substituição $\iota$ sobre um programa P, o resultado é ou programa P$\iota$, sobre o qual podemos, em particular, fazer outras substituições;
     \item A relação ``$A = B$'' deve ser entendida como usado em álgebra (isto é, como denotando uma relação simétrica de igualdade entre $A$ e $B$) e não como geralmente usado em programação, como um operador de atribuição assimétrico (onde $A = b$ não é o mesmo que $b = A$);
     \item O símbolo ``='' expressa a relação de dois termos serem idênticos;
     \item Essa relação é transitiva: se A, B e C são variáveis e se $A = B$ e $B = C$, então $A = C$ (se A é idêntico a B e B é idêntico a C, então A é idêntico a C);
@@ -64,19 +52,19 @@ outro'' (ou, é restrita). Mais precisamente, temos:\\
   \end{enumerate}
 \end{remark}
 
-Se temos que existe alguma substituição $\iota$ (possívelmente vazia) para que $p(a_1, ..., a_n) = q(b_1, ..., b_n)$, dizemos que  $p(a_1, ..., a_n)$ é unificável com $q(b_1, ..., b_n)$. ``='' é o \textbf{símbolo de unificação}\footnote{Ou, dependendo do contexto, de substituição, mas isso não deve alterar a compreensão do texto. Vale notar duas coisas: primeiro que esse símbolo é usado em programação lógica com a interpretação aqui dada; segundo, veremos depois mais
-  predicados do tipo ``a op b'', onde op é o operador (no caso, op é =/2). Predicados desse tipo são chamados de infixos. Todo predicado infixo também pode ser usado no formato prefixo (como =(a, b) ) e predicados infixos também podem ser definidos pelo programador, mas não investigaremos isso mais muito a fundo por enquanto.}.
+Se temos que existe alguma substituição $\iota$ (possívelmente vazia) para que $p(a_1, ..., a_n) = q(b_1, ..., b_n)$, dizemos que  $p(a_1, ..., a_n)$ é unificável com $q(b_1, ..., b_n)$. ``='' é o \textbf{símbolo de unificação}\footnote{Veremos depois mais
+  predicados do tipo ``a op b'', onde op é o operador (no caso, op é =/2). Predicados desse tipo são chamados de infixos. Todo predicado infixo também pode ser usado no formato prefixo (como =(a, b) ) e predicados infixos também podem ser definidos pelo programador, como já mencionado anteriormente.}.
 
 Todas as substituições são iguais, mas algumas são mais iguais que outras. Em particular, dado um programa P e substituições $\iota$ e $\nu$, se existe alguma substituição $\eta$ tal que $(P\iota)\eta = P \nu$, dizemos que $\iota$ é uma substituição mais geral do que $\nu$. A substituição mais geral será de especial importância. %QUESTION: o que significa $P\iota\eta$?
 
-Agora podemos expressar nosso objetivo de provar o goal a partir do programa como o de achar uma substituição tal que cada termo do goal seja unificável com alguma cláusula do programa. Mais precisamente, um goal é provado a partir do programa se é possível unificar cada termo do goal com alguma cláusula do programa de forma a preservar a consistência das regras. O processo pelo qual esse objetivo é realizado é chamado \textbf{processo de resolução}.
+Agora podemos expressar nosso objetivo de provar o goal a partir do programa como o de achar uma substituição tal que cada termo do goal seja unificável com alguma cláusula do programa. Mais precisamente, um goal é provado a partir do programa se é possível unificar cada termo do goal com alguma cláusula do programa de forma a preservar a consistência das cláusulas. O processo pelo qual esse objetivo é realizado é chamado \textbf{processo de resolução}.
 
-Unificação exerce um papel fundamental na programação lógica. Na prática, ele resume processos de atribuição de valores, gerenciamento de memória, invocação de funções e passagem de valores, entre outros. O primeiro estudo formal sobre unificação é devido a John A. Robinson \cite{robinson}, que depois de provar que existe um algoritmo de unificação, gerou o primeiro de que temos conhecimento.
+Unificação exerce um papel fundamental na programação lógica. Na prática, ele resume processos de atribuição de valores, gerenciamento de memória, invocação de funções e passagem de valores, entre outros. O primeiro estudo formal sobre unificação é devido a John A. Robinson \cite{robinson}, que depois de montar um algoritmo de unificação, gerou o primeiro de que temos conhecimento.
 
 O algoritmo dele é um tanto ineficiente e não será estudado aqui. Usaremos um mais prático no lugar. Antes, vale lembrar que um programa lógico é um conjunto de regras que recebe um goal (ou uma busca) e retorna {\it sucesso} (ou, sim, ou verdadeiro, dependendo da preferência pessoal) se a busca tem sucesso ou {\it falha} (ou, não, ou falso...) se não.
 
 Como discutido acima, para provar um goal a partir de um programa é suficiente que tenhamos um algoritmo de unificação. Esse algoritmo recebe uma equação do tipo $T_1 = T_2$, e devolve uma substituição mais geral\footnote{É importante que seja a mais geral, para não perdermos possíveis soluções}
-para as variáveis presentes, caso tal substituição exista, ou falha, caso contrário. O algoritmo que utilizaremos faz uso de uma pilha para armazenar as equações a serem resolvidas e de um espaço
+para as variáveis presentes caso tal substituição exista, ou falha, caso contrário. O algoritmo que utilizaremos faz uso de uma pilha para armazenar as sub-equações a serem resolvidas e de um espaço
 $\Gamma$ para armazenar a substituições:
 
 \begin{itemize}
@@ -110,13 +98,13 @@ $\Gamma$ para armazenar a substituições:
 Intuitivamente, esse algoritmo tenta provar a equação de forma construtiva: isto é, tenta construir uma solução por meio de substituições e, se não chegar a uma contradição, termina com sucesso, ``devolvendo'' (não no sentido de uma função que devolve um valor, mas no de ``mostrar'' ao usuário do programa) a substituição realizada.
 
 Para provar um goal G, escolhemos não-deterministicamente\footnote{No geral, podem existir várias escolhas possíveis e pode ser que, por algumas sequências de escolhas de cláusulas, nunca chegemos a uma prova do goal, apesar de ele ser deduzível a partir de outras cláusulas. Quando dizemos que a escolha é não-determinística, queremos dizer que, se existem conjuntos de escolhas que provam o goal, um desses conjuntos é escolhido (a escolha é feita entre as cláusulas que podem provar o
-  goal, o que significa que, se ele é provável, ele é provado). Na prática, isso pode ser implementado apenas aproximadamente, mas, ainda assim, é uma abstração importante e leva a aplicações interessantes, como as da assim chamada \textit{programação não-determinística}.} a cabeça de uma cláusula T do programa, construímos uma equação do tipo $G = T$ e aplicamos o algoritmo acima. Caso ele devolva sucesso, fazemos o mesmo com cada termo do corpo da cláusula. Caso devolva falha, seleciona-se outra cláusula e é realizado o mesmo processo, até que não haja mais cláusulas a serem selecionadas, quando o goal retorna falha.
+  goal, o que significa que, se ele é provável, ele é provado). Na prática, isso pode ser implementado apenas aproximadamente, mas, ainda assim, é uma abstração importante e leva a aplicações interessantes, como as da assim chamada \textit{programação não-determinística}. Mas tome cuidado: algumas fontes usam esse mesmo termo para se referir a situações nas quais o programa tem, a princípio, mais de uma ``escolha''.} a cabeça de uma cláusula T do programa, construímos uma equação do tipo $G = T$ e aplicamos o algoritmo acima. Caso ele devolva sucesso, fazemos o mesmo com cada termo do corpo da cláusula. Caso devolva falha, seleciona-se outra cláusula e é realizado o mesmo processo, até que não haja mais cláusulas a serem selecionadas, quando o goal retorna falha.
 
 O passo 2.b do algoritmo merece uma explicação um pouco mais detalhada. Ele diz implicitamente que x não é unificável com algum $y(a_1, ...,x, ...a_n)$, isto é, com algum funtor que tome x como argumento. Pode parecer estranho a princípio, mas a estranheza some se se lembrar que funtor não é função: um funtor representa uma estrutura primariamente simbólica. Sem essa condição, se x = y($a_1$, ..., x, ..., $a_n$), então x = y($a_1$, ...,y($a_1$, ..., x, ..., $a_n$) , ...,
 $a_n$) = y($a_1$, ...,y($a_1$, ...,y($a_1$, ...,y($a_1$,
 ...,x, ..., $a_n$) , ..., $a_n$) , ..., $a_n$) , ..., $a_n$) em um ciclo sem fim. Com um processo desses, não dá para provar um goal e, portanto, é devolvida falha.
 
-Para entender melhor, tome o exemplo do código Circuito, no início deste capítulo, e suponha que àquele código é submetido o goal {\tt resistor(energia, n1)?}. O algoritmo é aplicado como se segue:
+Para entender melhor, tome o exemplo do código \ref{lst:circuit}, no início deste capítulo, e suponha que àquele código é submetido o goal {\tt resistor(energia, n1)?}. O algoritmo é aplicado como se segue:
 
   \begin{enumerate}
     \item Tentaremos a unificação do goal com a cláusula na primeira linha do programa: a equação resistor(energia, n1) = resistor(energia, n1) é posta na pilha;
@@ -155,24 +143,24 @@ O exemplo de programa gera-e-testa que usaremos é o ``ANALOGY''. Considere o pr
 \begin{enumerate}
   \item Ache uma operação que relaciona os objetos\footnote{Usaremos ``objeto'' como um termo geral para nos referir a algo a que não queremos nos dar ao trabalho de definir rigorosamente.} para os quais conhecemos a relação ``is\_to'';
   \item Aplique essa operação no objeto dado para gerar um outro objeto;
-  \item Cheque se o objeto gerado está entre as opções listadas
+  \item Cheque se o objeto gerado está entre as opções listadas:
     \begin{itemize}
       \item Se não estiver, volte ao passo (1);
-      \item Caso contrário, termine;
+      \item Caso contrário, termine.
     \end{itemize}
 \end{enumerate}
 
 No problema específico mostrado, podemos ver que, na primeira linha, a relação entre o primeiro diagrama e o segundo é que o segundo é o primeiro quando se retira a figura no centro. Assim, uma resposta ao problema seria encontrar um diagrama na segunda linha que corresponda ao terceiro da primeira menos a figura do centro (isto é, um círculo dentro de um quadrado, o diagrama 4 na segunda linha).
 
-O programa a seguir implementa esses passos em um programa lógico\footnote{O ``='' usado nesse programa é uma relação de identidade: A = B $\Leftrightarrow$ A é idêntico a B. Para mais detalhes, considere fazer uma visita ao próximo capítulo.}:
+O programa a seguir implementa esses passos em um programa lógico\footnote{O ``='' usado nesse programa é o mesmo da ``substituição'' mencionada acima e é a relação de identidade: A = B $\Leftrightarrow$ A é idêntico a B.}:
 
 \lstinputlisting[caption=Analogy]{../Exemplos/Cap1/prog3_analogy.pl}
 
 Esse programa é muito específico: ele toma a analogia entre apenas dois objetos e, a partir disso, cria uma analogia com um terceiro. Uma generalização é possível, mas, para nossos propósitos, isso é o suficiente.
 
-Para que ele funcione, a maneira como os diagramas são representados é fundamental. Estando representados apropriadamente, match/3 nos dá a operação que relaciona um objeto A com um B. Com isso em mãos, só precisamos aplicar a mesma operação ao termo C, por meio de match/2, achando X, o objeto que queriamos. Vale ressaltar que match/2 está sendo usado de duas maneiras diferentes\footnote{Esse tipo de comentário provem de uma leitura procedural: do ponto de
+Para que ele funcione, a maneira como os diagramas são representados é fundamental. Estando representados apropriadamente, match/3 nos dá a operação que relaciona um objeto A com um B. Com isso em mãos, só precisamos aplicar a mesma operação ao termo C, por meio de match/2, achando X, o objeto que queríamos. Vale ressaltar que match/2 está sendo usado de duas maneiras diferentes\footnote{Esse tipo de comentário provém de uma leitura procedural: do ponto de
   vista estritamente lógico, match/2 apenas expressa uma relação, que pode ser verdadeira ou falsa (isto é, pode existir ou não existir). Pensar do ponto de vista lógico é conveniente para fazermos programas mais elegantes e gerais, mas, sem uma leitura procedural adequada, não conseguiriamos trabalhar com alguns dos programas que veremos mais para frete.}: para encontrar a relação entre dois termos e para ``fabricar'' um termo com uma relação
-desejada. O predicado member/2 ainda não foi explicado, e só o será posteriormente: por enquanto, é suficiente assumir que {\tt member(A, B)} expressa a relação de, de alguma maneira (por enquanto) misteriosa A fazer parte de B (no caso, de C fazer parte de Answers)\footnote{Caso o mistério te incomode, considere fazer uma visita ao Capítulo 3.}.
+desejada. O predicado member/2 ainda não foi explicado, e só o será melhor entendido posteriormente: por enquanto, é suficiente assumir que {\tt member(A, B)} se B for uma lista (essa coisa entre colchetes, que será explicada adiante) da qual A faz parte (no caso, de C fazer parte de Answers)\footnote{Caso o mistério te incomode, considere fazer uma visita ao Capítulo 3.}.
 
 Caso esteja se perguntando qual a relação com o modelo do gera-e-testa discutido anteriormente: o primeiro \textit{match} ajuda o segundo a gerar o \textit{member} testa se o resultado é válido.
 

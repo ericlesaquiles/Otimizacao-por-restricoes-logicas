@@ -5,5 +5,4 @@
 lenght([X|Xs], N) :-
   length(Xs, K),
   N is 1 + K.
-
 length([], 0).

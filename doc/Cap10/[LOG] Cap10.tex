@@ -1,0 +1,17 @@
+\documentclass{article}
+
+\input{../header.tex}
+
+\begin{document}
+
+\section{Restrições ativas}
+
+Regras de propagação como as vistas no capítulo passado possibilitam o que é chamado ``restrição ativa''. Se essas regras de
+propagação, tínhamos que buscar a solução de nossos problemas ``na mão'', isto é, por aquele método primitivo de testar cada
+solução e dascartar as que falham. Isso ainda era verdade com o uso da bilioteca \textit{suspend}. Considere, por exemplo, a restrição {\tt suspend:(X or Y), X = 0.}. Essa restrição tem a solução ${X=0,Y=1}$, mas, na forma como está escrita, a restrição
+não nos permite encontrar essa solução ({\tt X or Y} estará suspenso até que Y receba um valor, o que não acontece, já que $or/2$
+só lida com variáveis instanciadas). Existem, no entanto, no \eclipse, bibliotecas que lidam com a restrição de forma ``ativa''
+(isto é, fazem uso de propagações). Veremos como lidar com duas delas momentaneamente, a {\it sd} e a {\it ic}.
+
+
+\end{document}
