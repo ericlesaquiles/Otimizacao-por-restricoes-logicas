@@ -1,36 +1,6 @@
 \documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{placeins}
 
-\usepackage{listings}
-\lstset{language=Prolog}
-\renewcommand{\lstlistingname}{Código}
-
-\usepackage{amsthm}
-
-\usepackage{qtree}
-\usepackage{tikz}
-
-
-
-%\theoremstyle{definition}
-\newtheorem{definition}{Definição}[section]
-\renewcommand\refname{Leituras adicionais}
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-
-\theoremstyle{theorem}
-\newtheorem{theorem}{Teorema}[section]
-
-\usetikzlibrary{shapes.geometric, arrows}
-\tikzstyle{decision} = [diamond, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=green!30]
-\tikzstyle{arrow} = [thick,->,>=stealth]
-
-\setlength{\parskip}{.5em}
-
-
-
+\input{../header.tex}
 
 %
 % TODO: revisar esta seção!
@@ -110,7 +80,7 @@ Nossa discussão sobre problemas envolvendo restrições até agora foi uma disc
 
 \subsubsection{Propagação local}
 
-Propagação local é melhor explicada por um desenho. O grafo a seguir representa a modelagem de um circuito. %QUESTION: eletrico? 
+Propagação local é melhor explicada por um desenho. O grafo a seguir representa a modelagem de um circuito. %QUESTION: eletrico?
 As ``caixinhas'' representam as relações de restrições e as ``bolinhas'', os dados ou variáveis. Por exemplo, uma ``caixinha'' com sinal de adição indica que as variáveis ou dados que entram por ela (o que é indicado pela seta) somadas devem ser iguais às variaveis, ou dados, de saída (indicado por outra seta).
 É importante notar que as setas não indicam a direção de propagação, só nos dão uma informação sobre as restrições:
 

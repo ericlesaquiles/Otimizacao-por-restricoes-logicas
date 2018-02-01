@@ -1,5 +1,5 @@
 % subtermo(Sub, termo) :-
-%   Sub eh um subtermo de termo
+%   Sub eh um termo que aparece em termo
 %
 
 subtermo(Termo, Termo).
