@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  1 FEB 2018 12:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  19 FEB 2018 15:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1281,30 +1281,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 48--51
 
  []
 
-(../Exemplos/Cap3/prog2_length.pl
-
-! Package inputenc Error: Unicode char �\lst@FillFixed@ (U+5A9)
-(inputenc)                not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.2 %   N é 
-             a quantidade de elementos na lista Xs
-? 
-
-! Package inputenc Error: Keyboard character used is undefined
-(inputenc)                in inputencoding `utf8'.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.2 %   N é 
-             a quantidade de elementos na lista Xs
-? 
-[1
+(../Exemplos/Cap3/prog2_length.pl [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
 Underfull \hbox (badness 10000) in paragraph at lines 60--60
@@ -1384,8 +1361,8 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 (../Exemplos/Cap3/progn_normalized_sum.pl [7]) [8] [9] (./[LOG] Cap3.aux) ) 
 Here is how much of TeX's memory you used:
  35533 strings out of 492985
- 780396 string characters out of 6138637
- 818818 words of memory out of 5000000
+ 780380 string characters out of 6138637
+ 817826 words of memory out of 5000000
  38669 multiletter control sequences out of 15000+600000
  535997 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1404,7 +1381,7 @@ are/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmtt10.pfb>
-Output written on "[LOG] Cap3.pdf" (9 pages, 202753 bytes).
+Output written on "[LOG] Cap3.pdf" (9 pages, 202773 bytes).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)
  70 compressed objects within 1 object stream

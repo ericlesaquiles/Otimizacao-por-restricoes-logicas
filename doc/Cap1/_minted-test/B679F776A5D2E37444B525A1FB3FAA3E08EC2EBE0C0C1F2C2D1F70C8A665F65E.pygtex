@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{resistor}\PYG{p}{(}\PYG{l+s+sAtom}{energia}\PYG{p}{,}\PYG{l+s+sAtom}{n1}\PYG{p}{).}
+\PYG{n+nf}{resistor}\PYG{p}{(}\PYG{l+s+sAtom}{energia}\PYG{p}{,}\PYG{l+s+sAtom}{n2}\PYG{p}{).}
+\PYG{n+nf}{transistor}\PYG{p}{(}\PYG{l+s+sAtom}{n2}\PYG{p}{,}\PYG{l+s+sAtom}{ground}\PYG{p}{,}\PYG{l+s+sAtom}{n1}\PYG{p}{).}
+\PYG{n+nf}{transistor}\PYG{p}{(}\PYG{l+s+sAtom}{n3}\PYG{p}{,}\PYG{l+s+sAtom}{n4}\PYG{p}{,}\PYG{l+s+sAtom}{n2}\PYG{p}{).}
+\PYG{n+nf}{transistor}\PYG{p}{(}\PYG{l+s+sAtom}{n5}\PYG{p}{,}\PYG{l+s+sAtom}{ground}\PYG{p}{,}\PYG{l+s+sAtom}{n4}\PYG{p}{).}
+
+\PYG{n+nf}{inversor}\PYG{p}{(}\PYG{n+nv}{Entrada}\PYG{p}{,} \PYG{n+nv}{Saida}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{transistor}\PYG{p}{(}\PYG{n+nv}{Entrada}\PYG{p}{,} \PYG{l+s+sAtom}{ground}\PYG{p}{,} \PYG{n+nv}{Saida}\PYG{p}{),}
+  \PYG{n+nf}{resistor}\PYG{p}{(}\PYG{l+s+sAtom}{energia}\PYG{p}{,} \PYG{n+nv}{Saida}\PYG{p}{).}
+
+\PYG{n+nf}{porta\PYGZus{}nand}\PYG{p}{(}\PYG{n+nv}{Entrada1}\PYG{p}{,} \PYG{n+nv}{Entrada2}\PYG{p}{,} \PYG{n+nv}{Saida}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{transistor}\PYG{p}{(}\PYG{n+nv}{Entradal}\PYG{p}{,} \PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{Saida}\PYG{p}{),}
+  \PYG{n+nf}{transistor}\PYG{p}{(}\PYG{n+nv}{Entrada2}\PYG{p}{,} \PYG{l+s+sAtom}{ground}\PYG{p}{,} \PYG{n+nv}{X}\PYG{p}{),}
+  \PYG{n+nf}{resistor}\PYG{p}{(}\PYG{l+s+sAtom}{energia}\PYG{p}{,} \PYG{n+nv}{Saida}\PYG{p}{).}
+
+\PYG{n+nf}{porta\PYGZus{}and}\PYG{p}{(}\PYG{n+nv}{Entrada1}\PYG{p}{,} \PYG{n+nv}{Entrada2}\PYG{p}{,} \PYG{n+nv}{Saida}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{porta\PYGZus{}nand}\PYG{p}{(}\PYG{n+nv}{Entrada1}\PYG{p}{,} \PYG{n+nv}{Entrada2}\PYG{p}{,} \PYG{n+nv}{X}\PYG{p}{),}
+  \PYG{n+nf}{inversor}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{Saida}\PYG{p}{).}
+\end{Verbatim}

@@ -1,0 +1,43 @@
+This is LuaTeX, Version 1.0.4 (TeX Live 2017/Arch Linux)  (format=luatex 2017.11.24)  16 FEB 2018 15:08
+ restricted system commands enabled.
+**header.tex
+(./header.tex
+! Undefined control sequence.
+l.1 \usepackage
+             [utf8]{inputenc}
+? 
+! Interruption.
+<to be read again> 
+[
+l.1 \usepackage[
+              utf8]{inputenc}
+? 
+! Undefined control sequence.
+l.2 \usepackage
+             {placeins}
+? 
+! Undefined control sequence.
+l.3 \usepackage
+             {graphicx}
+? 
+! Interruption.
+<to be read again> 
+{
+l.3 \usepackage{
+              graphicx}
+? 
+! Undefined control sequence.
+l.4 \usepackage
+             [ruled,vlined,linesnumbered]{algorithm2e}
+? 
+! Undefined control sequence.
+l.5 \usepackage
+             {listings}
+? X
+
+warning  (pdf backend): no pages of output.
+
+PDF statistics: 0 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 131072)
+ 1 words of extra memory for PDF output out of 10000 (max. 100000000)
+

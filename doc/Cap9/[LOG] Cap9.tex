@@ -16,20 +16,20 @@ Nesse problema, temos um conjunto de homens, um de mulheres a relação {\tt gos
 O problema é separar esses grupos de homens e mulheres em casais que se gostam.
 
 Esses dois exemplos tem a particularidade de terem restrições primitivas binárias e, por isso, são chamados de CSPs binários. Um ponto interessante em CSPs binários é que sempre podem ser representados como um grafo não direcionado:
-  cada variável (cada indivíduo no segundo exemplo ou cada região do Cazaquistão, no primeiro) é representada como um nó e cada restrição como um arco entre suas variáveis. Mais em geral, restrições n-árias CSPs podem ser representados como um multi-grafo (isto é, um grafo em que podem existir mais de uma aresta entre dois vértices).
+  cada variável (cada indivíduo no segundo exemplo ou cada região do Cazaquistão, no primeiro) é representada como um nó e cada restrição como um arco entre suas variáveis. Mais em geral, restrições n-árias CSPs podem ser representados como um multigrafo (isto é, um grafo em que podem existir mais de uma aresta entre dois vértices).
 
   Em particular, problemas como os de roteamento e criação de cronogramas
   costumam ser facilmente expressos como CPs em domínio finito, o que indica sua importância comercial.
 
   Sendo de uso tão amplo, essa classe de problemas (a de CPs em domínios finitos) foi estudada por diferentes comunidades
-científicas. A comunidade de Inteligênica Artificial desenvolvou técnicas de consistência por arco e por nó, para CSPs, a
+científicas. A comunidade de Inteligência Artificial desenvolveu técnicas de consistência por arco e por nó, para CSPs, a
 comunidade de programação por restrições desenvolveu técnicas de propagação de limites e a comunidade de pesquisas
 operacionais desenvolveu técnicas de programação inteira. Daremos uma olhada em cada uma dessas abordagens a seguir.
 
 \subsection{Consistência por nó e por arco}
 
 Resolução de CSPs por consistência por nó e por arco acontece em tempo polinomial
-(mas, possívelmente, de forma incompleta)\footnote{Mas ela, assim como as demais formas de consistência vistas aqui
+(mas, possivelmente, de forma incompleta)\footnote{Mas ela, assim como as demais formas de consistência vistas aqui
  pode ser usada em conjunto com \textit{backtracking}, gerando um resolvedor completo.}.
 A ideia aqui é diminuir os domínios das variáveis,
 transformando o problema em outro equivalente (com as mesmas soluções).
@@ -56,8 +56,8 @@ para os demais, tornando-os, em algum sentido, ``consistentes'' entre si.
 Essas noções de consistência são noções fracas no sentido de que um CSP pode não ser satisfazível
 e ainda manter consistência por arco e por nó.
 
-Não é difícil escrever um código para manter consistêncai por arco e por nós. A seguir segue um exemplo. Ele é para fins
-demonstrativos: para algoritmos mais eficientes veja \cite{tsang}. O funtor {\tt apply/2} é o definido no Capítulo 6.
+Não é difícil escrever um código para manter consistência por arco e por nós. A seguir segue um exemplo. Ele é para fins
+demonstrativos: para algoritmos mais eficientes veja \cite{tsang}. O functor {\tt apply/2} é o definido no Capítulo 6.
 
 \lstinputlisting[caption=Consistência por nó, style=prosty]{../Exemplos/Cap9/node_consistency.pl}\label{lst:no_consistency}
 \vspace{2cm}
@@ -88,7 +88,7 @@ Por exemplo, se o problema tem a ver com escolhas, uma mudança de variáveis na
 coloração do mapa do Cazaquistão, por exemplo, ao invés de denotar as cores como ``vermelho'', ``azul'', etc., podemos denotá-las como ``1'', ``2'', etc., obtendo resultados equivalentes.
 
 Lidando com CSPs aritméticos, podemos definir a noção de \textbf{consistência por limites}. A ideia é limitar o domínio
-de uma variável por limites inferiores e superiores. As sequintes convenções de notação serão convenientes:
+de uma variável por limites inferiores e superiores. As seguintes convenções de notação serão convenientes:
 
 \begin{itemize}
   \item $min_D(X)$ := algum $x: y \geq x \forall$ $y \in D$;
@@ -103,7 +103,7 @@ de uma variável por limites inferiores e superiores. As sequintes convenções 
   Uma restrição composta é dita consistente por limites se cada uma de suas restrições o é.
 \end{definition}
 
-Um método eficiente, dito uma \textbf{regra de propagação} pode ser eleborado a partir
+Um método eficiente, dito uma \textbf{regra de propagação} pode ser elaborado a partir
 de uma constatação ilustrada no seguinte exemplo:
 
 Considere a restrição {\tt X = Z + Y}. Ela pode ser escrita nas formas
@@ -128,7 +128,7 @@ especialmente complicado, ainda mais se $Z$ e $Y$ puderem assumir valores positi
 Como é meio chato escrever uma regra para cada caso de restrição dessas para a manutenção de consistência por limites, o que é
 mais usual em um sistema que ofereça esse tipo de consistência é que suporte apenas uma quantidade reduzida dessas restrições,
 sendo as demais transformadas em versões equivalentes às quais essas restrições se apliquem, o que não é difícil de se fazer.
-Isso está sujeito ao potencial incoveniente de que restrições equivalentes mas escritas de formas diferentes podem oferecer
+Isso está sujeito ao potencial inconveniente de que restrições equivalentes mas escritas de formas diferentes podem oferecer
 oportunidades diferentes para a diminuição de domínio de cada restrição e a reescrita pode tornar um domínio que poderia
 originalmente ser grandemente simplificado, em um que sofra apenas uma pequena alteração.
 
@@ -156,11 +156,11 @@ Essa dificuldade decorre de não usarmos que o domínio de cada variável, nesse
 demais. Essa restrição é tão usada que recebeu o nome especial de {\tt alldiferent/1}\footnote{Na verdade, a aridade dessa restrição pode ser arbitrária, mas, por simplicidade, assumimos que as variáveis que devem ser diferentes entre si estão organizadas em uma lista, tornando a aridade igual a um.} em vários sistemas CLP e é, talvez, a restrição mais estudada.
 Restrições que fazem uso da informação no domínio de muitas variáveis para realizar a atualização de cada domínio são
 chamadas \textbf{restrições complexas}. No cado do \textit{alldifferent/1}, podemos notar que essa restrição é equivalente ao
-supra-mencionado problema de correspondência bipartida e que existem algoritmos eficientes para lidar com ele.
+supramencionado problema de correspondência bipartida e que existem algoritmos eficientes para lidar com ele.
 
 Assim como nas restrições vistas anteriormente, os domínios das variáveis em alldifferent/1 são importantes na decisão de como
 resolvê-la. Em particular, se as variáveis são inteiras um algoritmo de propagação baseado em consistência por limites atinge
-um bom desempenho. Se as variáveis não são inteiras, no entanto, uma algoritmos baseados em consistência por híper-arco
+um bom desempenho. Se as variáveis não são inteiras, no entanto, uma algoritmos baseados em consistência por hiper-arco
 podem ser usados. A seguir é apresentada os fundamentos de um tal algoritmo. Esse material é baseado em \cite{basileos}.
 
 \subsubsection{Alldifferent}
@@ -181,9 +181,9 @@ palavras, M é um pareamento em G se os vértices em (V,M) tem no máximo grau 1
 \end{definition}
 
 A teoria de pareamento é relevante para nosso problema porque, para qualquer restrição $r/n$ com variáveis $X_j$, de domínios
-$D_j$, a informação de que $X_j \in D_j$ pode ser expressa por um grafo bipartido $(\cup_{j=1}^nX_i\cup(\cup_{i=1}^nD_i),E)$, onde $(X_i,d) \in E \Leftrightarrow d \in D_i$. Esse grafo é conhecido como \textbf{grafo valor} e pode ser construido em tempo polinomial.
+$D_j$, a informação de que $X_j \in D_j$ pode ser expressa por um grafo bipartido $(\cup_{j=1}^nX_i\cup(\cup_{i=1}^nD_i),E)$, onde $(X_i,d) \in E \Leftrightarrow d \in D_i$. Esse grafo é conhecido como \textbf{grafo valor} e pode ser construído em tempo polinomial.
 
-É fácil verque a restrição $alldifferent/n$ tem solução se e somente se existe um pareamento máximo de tamanho n em seu grafo valor. Incidentalmente, existe um algoritmo que, dado um grafo, encontra um pareamento máximo em $O(\sqrt[2]{|X|}\times|E|)$.
+É fácil ver que a restrição $alldifferent/n$ tem solução se e somente se existe um pareamento máximo de tamanho n em seu grafo valor. Incidentalmente, existe um algoritmo que, dado um grafo, encontra um pareamento máximo em $O(\sqrt[2]{|X|}\times|E|)$.
 
 Ademais, dado um pareamento máximo, existem algoritmos eficientes que tornam $alldifferent/n$ hiper arco consistente (cada aresta em um pareamento máximo corresponde a uma atribuição de valor a uma variável da restrição).
 
@@ -213,12 +213,12 @@ dado G=(V,A), nas arestas em A que são pareadas com P a aresta é orientada das
 Assim, podemos fazer uso do seguinte:
 
 \begin{theorem}
-  Todo circuito direcionado de G' tem comprimento par e corresponde a um circuito alternante par de G. Além disso, todo caminho em G' que for ímpar pode ser extendido em um caminho par, que corresponde a um caminho alternante par de G começando em um vértice livre.
+  Todo circuito direcionado de G' tem comprimento par e corresponde a um circuito alternante par de G. Além disso, todo caminho em G' que for ímpar pode ser estendido em um caminho par, que corresponde a um caminho alternante par de G começando em um vértice livre.
 \end{theorem}
 
-Para achar os caminhos procurados, podemos, então determinar os componentes fortemente conectados de G', assim como oscaminhos direcionados em G' começando num vértice livre.
+Para achar os caminhos procurados, podemos, então determinar os componentes fortemente conectados de G', assim como os caminhos direcionados em G' começando num vértice livre.
 
-Um resumo do algoritmo é como se segue\footnote{Tem algumas sutilezas nele não comentadas aqui. Para saber mais, veja a bibliografia (em particular, \cite{basileos} e, em \cite{cristo}, o capítulo \textit{Algorithms for matching})}:
+Um resumo do algoritmo é como se segue\footnote{Tem algumas sutilezas nele não comentadas aqui. Para saber mais, veja a bibliografia (em particular, \cite{basileos} e, em \cite{cristo}, o Capítulo \textit{Algorithms for matching})}:
 
 \begin{enumerate}
   \item É dada a restrição {\tt alldifferent(X)}, onde $X = [X_1,$ ..., $X_n]$;
@@ -226,7 +226,7 @@ Um resumo do algoritmo é como se segue\footnote{Tem algumas sutilezas nele não
   \item Computamos algum pareamento máximo de G, P;
   \item Se $|P| < |X|$, falha;
   \item Caso contrário, construa G';
-  \item Marque as arestas de G' que corresponden a arestas de G pertencentes a P como consistentes;
+  \item Marque as arestas de G' que correspondem a arestas de G pertencentes a P como consistentes;
   \item Encontre os componentes fortemente conectados de G' e marque as arestas nesses componentes como consistentes;
   \item Encontre os caminhos direcionados que começam em um vértice livre e marque suas arestas como consistentes;
   \item Para cada aresta de G' não marcada como consistente, remova a aresta correspondente em G.
@@ -267,7 +267,7 @@ Para entender esse conceito um pouco melhor, considere a seguinte situação (re
 
 Digamos que existem dois irmãos gêmeos, um que só diz a verdade e outro que só mente. Além disso, o primeiro irmão, que só diz a
 verdade também tem uma crença perfeita do que é ou não verdade (isto é, todas as proposições que são verdadeiras ele crê serem
-verdade e análogamente o contrário). Em contra-partida, o outro irmão tem uma crença completamente imperfeita do que é verdade
+verdade e analogamente o contrário). Em contrapartida, o outro irmão tem uma crença completamente imperfeita do que é verdade
 (o que é verdade ele crê não o ser e analogamente o contrário). O interessante é que, ao serem feitos a mesma pergunta,
 os dois irmãos dariam a mesma resposta. Considerando essa situação e tendo em mente que o irmão mentiroso o deve dinheiro,
 um logicista pergunta a um outro ``Você acha que é possível, fazendo perguntas de sim ou não, descobrir se um irmão é o mentiroso ou o verdadeiro?'', ao que ele responde ``Claramente não, já que eles dariam as mesmas respostas às mesmas questões''.

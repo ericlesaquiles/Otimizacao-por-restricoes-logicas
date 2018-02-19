@@ -1,5 +1,5 @@
 % length(Xs, N) :-
-%   N é a quantidade de elementos na lista Xs
+%   N eh a quantidade de elementos na lista Xs
 %
 
 lenght([X|Xs], N) :-

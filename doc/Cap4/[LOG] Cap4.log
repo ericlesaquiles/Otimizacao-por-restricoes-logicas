@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  30 JAN 2018 15:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  19 FEB 2018 15:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -542,13 +542,7 @@ Package: epigraph 2009/09/02 v1.5c typesetting epigraphs
 \epigraphwidth=\skip70
 \epigraphrule=\skip71
 )
-\c@definition=\count113
-
-
-Package amsthm Warning: Unknown theoremstyle `theorem' on input line 16.
-
-\c@theorem=\count114
-) (/usr/share/texmf-dist/tex/latex/forest/forest.sty
+(/usr/share/texmf-dist/tex/latex/forest/forest.sty
 Package: forest 2017/07/14 v2.1.5 Drawing (linguistic) trees
 
 (/usr/share/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
@@ -593,10 +587,10 @@ Package: pgfsys 2014/07/09 v3.0.1a (rcs-revision 1.48)
 \pgf@yc=\dimen140
 \w@pgf@writea=\write3
 \r@pgf@reada=\read1
-\c@pgf@counta=\count115
-\c@pgf@countb=\count116
-\c@pgf@countc=\count117
-\c@pgf@countd=\count118
+\c@pgf@counta=\count113
+\c@pgf@countb=\count114
+\c@pgf@countc=\count115
+\c@pgf@countd=\count116
 \t@pgf@toka=\toks33
 \t@pgf@tokb=\toks34
 \t@pgf@tokc=\toks35
@@ -614,8 +608,8 @@ File: pgfsys-common-pdf.def 2013/10/10  (rcs-revision 1.13)
 )))
 (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2013/09/09  (rcs-revision 1.9)
-\pgfsyssoftpath@smallbuffer@items=\count119
-\pgfsyssoftpath@bigbuffer@items=\count120
+\pgfsyssoftpath@smallbuffer@items=\count117
+\pgfsyssoftpath@bigbuffer@items=\count118
 )
 (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2006/10/16  (rcs-revision 1.4)
@@ -645,7 +639,7 @@ Package: pgfcore 2010/04/11 v3.0.1a (rcs-revision 1.7)
 (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen141
-\pgfmath@count=\count121
+\pgfmath@count=\count119
 \pgfmath@box=\box39
 \pgfmath@toks=\toks36
 \pgfmath@stack@operand=\toks37
@@ -662,7 +656,7 @@ x) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex)
 (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex)
 (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics
 .code.tex))) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count122
+\c@pgfmathroundto@lastzeros=\count120
 )) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2013/10/07  (rcs-revision 1.27)
 \pgf@picminx=\dimen142
@@ -694,7 +688,7 @@ File: pgfcorescopes.code.tex 2015/05/08  (rcs-revision 1.46)
 \pgfpic=\box40
 \pgf@hbox=\box41
 \pgf@layerbox@main=\box42
-\pgf@picture@serial@count=\count123
+\pgf@picture@serial@count=\count121
 )
 (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2014/11/02  (rcs-revision 1.12)
@@ -722,7 +716,7 @@ File: pgfcorearrows.code.tex 2015/05/14  (rcs-revision 1.43)
 (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2013/07/15  (rcs-revision 1.15)
 \pgf@max=\dimen165
-\pgf@sys@shading@range@num=\count124
+\pgf@sys@shading@range@num=\count122
 )
 (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2013/07/15  (rcs-revision 1.18)
@@ -774,7 +768,7 @@ Package: tikz 2015/08/07 v3.0.1a (rcs-revision 1.151)
 (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.te
 x
 File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.1a (rcs-revision 1.20)
-\pgf@plot@mark@count=\count125
+\pgf@plot@mark@count=\count123
 \pgfplotmarksize=\dimen170
 )
 \tikz@lastx=\dimen171
@@ -787,17 +781,17 @@ File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.1a (rcs-revision 1.20)
 \tikz@figbox@bg=\box46
 \tikz@tempbox=\box47
 \tikz@tempbox@bg=\box48
-\tikztreelevel=\count126
-\tikznumberofchildren=\count127
-\tikznumberofcurrentchild=\count128
-\tikz@fig@count=\count129
+\tikztreelevel=\count124
+\tikznumberofchildren=\count125
+\tikznumberofcurrentchild=\count126
+\tikz@fig@count=\count127
  (/usr/share/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
-\pgfmatrixcurrentrow=\count130
-\pgfmatrixcurrentcolumn=\count131
-\pgf@matrix@numberofcolumns=\count132
+\pgfmatrixcurrentrow=\count128
+\pgfmatrixcurrentcolumn=\count129
+\pgf@matrix@numberofcolumns=\count130
 )
-\tikz@expandcount=\count133
+\tikz@expandcount=\count131
 
 (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
 topaths.code.tex
@@ -885,7 +879,7 @@ File: tikzlibrarycalc.code.tex 2013/07/15 v3.0.1a (rcs-revision 1.9)
 )
 (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryintersections.code.t
 ex (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex)
-\pgf@intersect@solutions=\count134
+\pgf@intersect@solutions=\count132
 )
 (/usr/share/texmf-dist/tex/latex/pgfopts/pgfopts.sty
 Package: pgfopts 2014/07/10 v2.1a LaTeX package options with pgfkeys
@@ -894,7 +888,7 @@ Package: pgfopts 2014/07/10 v2.1a LaTeX package options with pgfkeys
 )
 (/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2017/01/02 v2.4 e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count135
+\etb@tempcnta=\count133
 )
 (/usr/share/texmf-dist/tex/latex/elocalloc/elocalloc.sty
 Package: elocalloc 2016/12/15 v0.03 local allocation for LaTeX 2015+ (DPC)
@@ -911,18 +905,18 @@ Package: expl3 2017/11/14 L3 programming layer (loader)
 
 (/usr/share/texmf-dist/tex/latex/l3kernel/expl3-code.tex
 Package: expl3 2017/11/14 L3 programming layer (code)
-\c_max_int=\count136
-\l_tmpa_int=\count137
-\l_tmpb_int=\count138
-\g_tmpa_int=\count139
-\g_tmpb_int=\count140
-\g__intarray_font_int=\count141
-\g__prg_map_int=\count142
-\c_log_iow=\count143
-\l_iow_line_count_int=\count144
-\l__iow_line_target_int=\count145
-\l__iow_one_indent_int=\count146
-\l__iow_indent_int=\count147
+\c_max_int=\count134
+\l_tmpa_int=\count135
+\l_tmpb_int=\count136
+\g_tmpa_int=\count137
+\g_tmpb_int=\count138
+\g__intarray_font_int=\count139
+\g__prg_map_int=\count140
+\c_log_iow=\count141
+\l_iow_line_count_int=\count142
+\l__iow_line_target_int=\count143
+\l__iow_one_indent_int=\count144
+\l__iow_indent_int=\count145
 \c_zero_dim=\dimen177
 \c_max_dim=\dimen178
 \l_tmpa_dim=\dimen179
@@ -941,77 +935,77 @@ Package: expl3 2017/11/14 L3 programming layer (code)
 \l_tmpb_muskip=\muskip14
 \g_tmpa_muskip=\muskip15
 \g_tmpb_muskip=\muskip16
-\l_keys_choice_int=\count148
-\c__fp_leading_shift_int=\count149
-\c__fp_middle_shift_int=\count150
-\c__fp_trailing_shift_int=\count151
-\c__fp_big_leading_shift_int=\count152
-\c__fp_big_middle_shift_int=\count153
-\c__fp_big_trailing_shift_int=\count154
-\c__fp_Bigg_leading_shift_int=\count155
-\c__fp_Bigg_middle_shift_int=\count156
-\c__fp_Bigg_trailing_shift_int=\count157
-\c__fp_rand_size_int=\count158
-\c__fp_rand_four_int=\count159
-\c__fp_rand_eight_int=\count160
-\l__sort_length_int=\count161
-\l__sort_min_int=\count162
-\l__sort_top_int=\count163
-\l__sort_max_int=\count164
-\l__sort_true_max_int=\count165
-\l__sort_block_int=\count166
-\l__sort_begin_int=\count167
-\l__sort_end_int=\count168
-\l__sort_A_int=\count169
-\l__sort_B_int=\count170
-\l__sort_C_int=\count171
-\l__tl_build_start_index_int=\count172
-\l__tl_build_index_int=\count173
-\l__tl_analysis_normal_int=\count174
-\l__tl_analysis_index_int=\count175
-\l__tl_analysis_nesting_int=\count176
-\l__tl_analysis_type_int=\count177
-\l__regex_internal_a_int=\count178
-\l__regex_internal_b_int=\count179
-\l__regex_internal_c_int=\count180
-\l__regex_balance_int=\count181
-\l__regex_group_level_int=\count182
-\l__regex_mode_int=\count183
-\c__regex_cs_in_class_mode_int=\count184
-\c__regex_cs_mode_int=\count185
-\l__regex_catcodes_int=\count186
-\l__regex_default_catcodes_int=\count187
-\c__regex_catcode_D_int=\count188
-\c__regex_catcode_S_int=\count189
-\c__regex_catcode_L_int=\count190
-\c__regex_catcode_O_int=\count191
-\c__regex_catcode_A_int=\count192
-\c__regex_all_catcodes_int=\count193
-\l__regex_show_lines_int=\count194
-\l__regex_min_state_int=\count195
-\l__regex_max_state_int=\count196
-\l__regex_left_state_int=\count197
-\l__regex_right_state_int=\count198
-\l__regex_capturing_group_int=\count199
-\l__regex_min_pos_int=\count266
-\l__regex_max_pos_int=\count267
-\l__regex_curr_pos_int=\count268
-\l__regex_start_pos_int=\count269
-\l__regex_success_pos_int=\count270
-\l__regex_curr_char_int=\count271
-\l__regex_curr_catcode_int=\count272
-\l__regex_last_char_int=\count273
-\l__regex_case_changed_char_int=\count274
-\l__regex_curr_state_int=\count275
-\l__regex_step_int=\count276
-\l__regex_min_active_int=\count277
-\l__regex_max_active_int=\count278
-\l__regex_replacement_csnames_int=\count279
-\l__regex_match_count_int=\count280
-\l__regex_min_submatch_int=\count281
-\l__regex_submatch_int=\count282
-\l__regex_zeroth_submatch_int=\count283
-\g__debug_trace_regex_int=\count284
+\l_keys_choice_int=\count146
+\c__fp_leading_shift_int=\count147
+\c__fp_middle_shift_int=\count148
+\c__fp_trailing_shift_int=\count149
+\c__fp_big_leading_shift_int=\count150
+\c__fp_big_middle_shift_int=\count151
+\c__fp_big_trailing_shift_int=\count152
+\c__fp_Bigg_leading_shift_int=\count153
+\c__fp_Bigg_middle_shift_int=\count154
+\c__fp_Bigg_trailing_shift_int=\count155
+\c__fp_rand_size_int=\count156
+\c__fp_rand_four_int=\count157
+\c__fp_rand_eight_int=\count158
+\l__sort_length_int=\count159
+\l__sort_min_int=\count160
+\l__sort_top_int=\count161
+\l__sort_max_int=\count162
+\l__sort_true_max_int=\count163
+\l__sort_block_int=\count164
+\l__sort_begin_int=\count165
+\l__sort_end_int=\count166
+\l__sort_A_int=\count167
+\l__sort_B_int=\count168
+\l__sort_C_int=\count169
+\l__tl_build_start_index_int=\count170
+\l__tl_build_index_int=\count171
+\l__tl_analysis_normal_int=\count172
+\l__tl_analysis_index_int=\count173
+\l__tl_analysis_nesting_int=\count174
+\l__tl_analysis_type_int=\count175
+\l__regex_internal_a_int=\count176
+\l__regex_internal_b_int=\count177
+\l__regex_internal_c_int=\count178
+\l__regex_balance_int=\count179
+\l__regex_group_level_int=\count180
+\l__regex_mode_int=\count181
+\c__regex_cs_in_class_mode_int=\count182
+\c__regex_cs_mode_int=\count183
+\l__regex_catcodes_int=\count184
+\l__regex_default_catcodes_int=\count185
+\c__regex_catcode_D_int=\count186
+\c__regex_catcode_S_int=\count187
+\c__regex_catcode_L_int=\count188
+\c__regex_catcode_O_int=\count189
+\c__regex_catcode_A_int=\count190
+\c__regex_all_catcodes_int=\count191
+\l__regex_show_lines_int=\count192
+\l__regex_min_state_int=\count193
+\l__regex_max_state_int=\count194
+\l__regex_left_state_int=\count195
+\l__regex_right_state_int=\count196
+\l__regex_capturing_group_int=\count197
+\l__regex_min_pos_int=\count198
+\l__regex_max_pos_int=\count199
+\l__regex_curr_pos_int=\count266
+\l__regex_start_pos_int=\count267
+\l__regex_success_pos_int=\count268
+\l__regex_curr_char_int=\count269
+\l__regex_curr_catcode_int=\count270
+\l__regex_last_char_int=\count271
+\l__regex_case_changed_char_int=\count272
+\l__regex_curr_state_int=\count273
+\l__regex_step_int=\count274
+\l__regex_min_active_int=\count275
+\l__regex_max_active_int=\count276
+\l__regex_replacement_csnames_int=\count277
+\l__regex_match_count_int=\count278
+\l__regex_min_submatch_int=\count279
+\l__regex_submatch_int=\count280
+\l__regex_zeroth_submatch_int=\count281
+\g__debug_trace_regex_int=\count282
 \c_empty_box=\box69
 \l_tmpa_box=\box70
 \l_tmpb_box=\box71
@@ -1055,20 +1049,20 @@ Package: expl3 2017/11/14 L3 programming layer (code)
 )
 (/usr/share/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
 File: l3pdfmode.def 2017/03/18 v L3 Experimental driver: PDF mode
-\l__driver_color_stack_int=\count285
+\l__driver_color_stack_int=\count283
 \l__driver_tmp_box=\box84
 ))
 Package: xparse 2017/11/14 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count286
-\g__xparse_grabber_int=\count287
-\l__xparse_m_args_int=\count288
-\l__xparse_mandatory_args_int=\count289
-\l__xparse_v_nesting_int=\count290
+\l__xparse_current_arg_int=\count284
+\g__xparse_grabber_int=\count285
+\l__xparse_m_args_int=\count286
+\l__xparse_mandatory_args_int=\count287
+\l__xparse_v_nesting_int=\count288
 )
 (/usr/share/texmf-dist/tex/latex/inlinedef/inlinedef.sty
 Package: inlinedef 2008/07/10 v1.0 Inlined expansions within definitions
 \ID@toks=\toks43
-\ID@count=\count291
+\ID@count=\count289
 )
 \ID@usercommands=\toks44
 .................................................
@@ -1081,26 +1075,26 @@ Package: inlinedef 2008/07/10 v1.0 Inlined expansions within definitions
 . 
 . Defining command \ProvidesForestLibrary with sig. 'm O{}' on line 176.
 .................................................
-\safeloop@depth=\count292
-\safeRKloop@depth=\count293
+\safeloop@depth=\count290
+\safeRKloop@depth=\count291
 \forest@temp@dimen=\dimen264
-\forest@temp@count=\count294
-\forest@n=\count295
-\forest@temp@global@count=\count296
+\forest@temp@count=\count292
+\forest@n=\count293
+\forest@temp@global@count=\count294
 \forest@temp@toks=\toks45
-\forest@temparray@M=\count297
-\forest@temparray@N=\count298
-\forest@global@temparray@M=\count299
-\forest@global@temparray@N=\count300
-\forest@isnum@count=\count301
-\forest@isdim@nonintpart=\count302
+\forest@temparray@M=\count295
+\forest@temparray@N=\count296
+\forest@global@temparray@M=\count297
+\forest@global@temparray@N=\count298
+\forest@isnum@count=\count299
+\forest@isdim@nonintpart=\count300
 \forest@isdim@dimen=\dimen265
-\forest@sort@m=\count303
-\forest@sort@k=\count304
-\forest@sort@p=\count305
+\forest@sort@m=\count301
+\forest@sort@k=\count302
+\forest@sort@p=\count303
 \bracket@content=\toks46
 \bracket@afterthought=\toks47
-\forest@node@maxid=\count306
+\forest@node@maxid=\count304
 .................................................
 . LaTeX info: "xparse/define-command"
 . 
@@ -1112,15 +1106,15 @@ Package: inlinedef 2008/07/10 v1.0 Inlined expansions within definitions
 . Defining command \forestdebugtypeouttree with sig. 'd() O{\forest@cn }' on
 . line 2348.
 .................................................
-\forest@process@left@M=\count307
-\forest@process@left@N=\count308
-\forest@process@right@M=\count309
-\forest@process@right@N=\count310
-\forest@process@saved@M=\count311
-\forest@process@saved@N=\count312
-\forest@process@result@M=\count313
-\forest@process@result@N=\count314
-\forest@process@n=\count315
+\forest@process@left@M=\count305
+\forest@process@left@N=\count306
+\forest@process@right@M=\count307
+\forest@process@right@N=\count308
+\forest@process@saved@M=\count309
+\forest@process@saved@N=\count310
+\forest@process@result@M=\count311
+\forest@process@result@N=\count312
+\forest@process@n=\count313
 \forest@nodewalk@branch@toks=\toks48
 \forest@nodewalk@shortsteps@resolution=\toks49
 \forest@do@dynamics=\toks50
@@ -1145,28 +1139,20 @@ Package: inlinedef 2008/07/10 v1.0 Inlined expansions within definitions
 . 
 . Defining command \Forest with sig. 's D(){} m' on line 8515.
 .................................................
-\forest@externalize@max@outer@n=\count316
-\forest@externalize@inner@n=\count317
+\forest@externalize@max@outer@n=\count314
+\forest@externalize@inner@n=\count315
 )
 (/usr/share/texmf-dist/tex/latex/forest/forest-lib-linguistics.sty
 Package: forest-lib-linguistics 2017/07/14 v0.1.2
 \standardnodestrutbox=\box86
 )
-(./[LOG] Cap4.aux
+\c@definition=\count316
 
-! Package babel Error: Unknown language `portuguese'. Either you have
-(babel)                misspelled its name, it has not been installed,
-(babel)                or you requested it in a previous run. Fix its name,
-(babel)                install it or just rerun the file, respectively.
 
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4 \select@language{portuguese}
-                                
-? 
-)
+Package amsthm Warning: Unknown theoremstyle `theorem' on input line 17.
+
+\c@theorem=\count317
+) (./[LOG] Cap4.aux)
 \openout1 = `"[LOG] Cap4.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
@@ -1254,12 +1240,10 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
-ABD: EveryShipout initializing macros
-Overfull \hbox (0.78435pt too wide) in paragraph at lines 22--22
-[]\OT1/cmr/bx/n/10 Backtracking 
- []
+ABD: EveryShipout initializing macros [1
 
-(../Exemplos/Cap4/prog1_member.pl
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (../Exemplos/Cap4/prog1_me
+mber.pl
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1.
 
 (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
@@ -1267,53 +1251,48 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1.
-) [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+)
 Underfull \hbox (badness 10000) in paragraph at lines 36--36
-[]\OT1/cmr/bx/n/10 Vari^^Savel
+[]\OT1/cmr/bx/n/9 vari^^Savel
  []
 
 (../Exemplos/Cap4/prog2_member2.pl)
-Underfull \hbox (badness 10000) in paragraph at lines 47--47
-[]\OT1/cmr/bx/n/10 Corte Ver-
+Underfull \hbox (badness 10000) in paragraph at lines 50--50
+[]\OT1/cmr/bx/n/9 corte ver-
  []
 
 [2] (../Exemplos/Cap4/prog3_not.pl) (../Exemplos/Cap4/prog4_ifthenelse.pl)
 (../Exemplos/Cap4/prog5_or.pl)
-Overfull \hbox (0.70886pt too wide) in paragraph at lines 65--68
+Overfull \hbox (0.70886pt too wide) in paragraph at lines 68--71
 []\OT1/cmr/m/n/10 Perceba que, difer-ente-mente do que ocorre em pro-gra-mas pu
 -ra-mente l^^Sogicos[],
  []
 
 
-LaTeX Warning: Empty `thebibliography' environment on input line 80.
-
-
-Package caption Warning: Unused \captionsetup[figure] on input line 11.
+Package caption Warning: Unused \captionsetup[figure] on input line 12.
 See the caption package documentation for explanation.
 
 [3] (./[LOG] Cap4.aux) ) 
 Here is how much of TeX's memory you used:
- 34104 strings out of 492985
- 755507 string characters out of 6138637
- 809396 words of memory out of 5000000
- 37261 multiletter control sequences out of 15000+600000
- 535137 words of font info for 39 fonts, out of 8000000 for 9000
+ 34107 strings out of 492985
+ 755516 string characters out of 6138637
+ 810403 words of memory out of 5000000
+ 37263 multiletter control sequences out of 15000+600000
+ 535385 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,8n,69p,10366b,1221s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,8n,69p,10388b,1221s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pf
-b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
-t10.pfb>
-Output written on "[LOG] Cap4.pdf" (3 pages, 136875 bytes).
+r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
+/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10
+.pfb>
+Output written on "[LOG] Cap4.pdf" (3 pages, 141058 bytes).
 PDF statistics:
  65 PDF objects out of 1000 (max. 8388607)
  47 compressed objects within 1 object stream

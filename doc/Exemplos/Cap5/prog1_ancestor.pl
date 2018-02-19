@@ -13,4 +13,5 @@ filhx(julia_drusilla, caesonia).
 filhx(nero, agrippina).           # Nero
 filhx(nero, gnaeus_ahenobarbus).
 
+ancestral(A, B) := filhx(B, A), !.
 ancestral(A, B) := filhx(B, C), ancestral(A,C).

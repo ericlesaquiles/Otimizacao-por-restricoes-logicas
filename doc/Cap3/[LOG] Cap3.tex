@@ -22,7 +22,7 @@
 
 \section{Listas}
 
-Antes de prosseguirmos em outros aspectos da programação lógica, ocasionalmente será util sabermos trabalhar com \definicao{listas}:
+Antes de prosseguirmos em outros aspectos da programação lógica, ocasionalmente será útil sabermos trabalhar com \definicao{listas}:
 
 \begin{definition}
   Usaremos a seguinte definição formal de lista:
@@ -57,13 +57,13 @@ Para uma melhor compreensão, será instrutivo analisarmos o seguinte programa:
 Mas antes, precisamos entender o que significa \codigo{N is M + 1.}. Esse \definicao{is} é o operador de atribuição aritmético e ele não funciona como os demais predicados: para algo como \codigo{A is B}, se B for uma constante numérica e A é uma variável, o comportamento é o esperado (A assume o valor de B); se \var{A} for uma constante numérica e \var{B} for outra constantes, ocorre falha. Em outras ocasiões, ocorre erro.
 Disso segue que is/2 não é simétrico: por exemplo, \codigo{A is 5} resulta em A = 5, mas \codigo{5 is A.},
 onde A é uma variável não instanciada, resulta em erro. Ademais, quando algum
-operador aritmético\footnote{Operadores aritméticos que temos à disposição são: $+/2, -/2, */2, //2, \wedge/2, -/1, abs/1, sin/1, cos/1, max/2, sqrt/1, <</1, \gg/1$. O funcionamento de muitos deles é claro pelo símbolo, o dos demais será explicado na medida que forem usados.} \textit{op} é usado com is/2, o operador realiza a operação esperada: \codigo{A is 2 + 3} e \codigo{A is 10 - 8} resultam em A = 5, por exemplo. Vale notar que esse comportamento é diferente do =/2, por exemplo: o seguinte
+operador aritmético\footnote{Operadores aritméticos que temos à disposição são: $+/2, -/2, */2, //2, \wedge/2, -/1, abs/1, sin/1, cos/1, max/2, sqrt/1, <</1, \gg/1$. O funcionamento de muitos deles é claro pelo símbolo, o dos demais será explicado na medida que forem usados.} \technical{op} é usado com is/2, o operador realiza a operação esperada: \codigo{A is 2 + 3} e \codigo{A is 10 - 8} resultam em A = 5, por exemplo. Vale notar que esse comportamento é diferente do =/2, por exemplo: o seguinte
 programa pode não ter o resultado intuitivamente esperado:
 % TODO arrumar << >>
 
 \lstinputlisting[caption=Length]{../Exemplos/Cap3/prog3_length1.pl}
 
-\noindent Intuitivamente, esperaríamos que o \var{N} fosse unificado, por um processo recursivo, com o número correspondente ao tamanho da lista. Isso não ocorre, porque =/2 tem um efeito puramente simbólico e não realiza operações aritméticas: o que teríamos em \var{N} seria algo como uma \textit{string} de símbolos \str{1+(1+(1+0))}, ao invés da avaliação dessa \foreign{string}, ou seja, 3.
+\noindent Intuitivamente, esperaríamos que o \var{N} fosse unificado, por um processo recursivo, com o número correspondente ao tamanho da lista. Isso não ocorre, porque =/2 tem um efeito puramente simbólico e não realiza operações aritméticas: o que teríamos em \var{N} seria algo como uma \technical{string} de símbolos \str{1+(1+(1+0))}, ao invés da avaliação dessa \foreign{string}, ou seja, 3.
 
 Outro exemplo é o do operador ou exclusivo (o \technical{xor}), que também  não age da maneira como estamos acostumados: gostaríamos que \codigo{1 is A xor 0} seja equivalente a \codigo{A is 1}.
 Veremos mais tarde outras formas de contornarmos isso. Por ora, podemos lidar com isso por meio de predicados de meta-programação
@@ -95,7 +95,7 @@ Para o seguinte programa, esse já não é o caso.
 
 O goal \codigo{length(Xs, N)?}, para esse programa, resulta em erro se N não for um número. Entretanto, se for um natural positivo, \codigo{length(Xs, N)?} resulta em sucesso e Xs se torna uma lista de N elementos. Se Xs for uma lista e N um natural positivo, \codigo{length(Xs, N)?} resulta em falha se Xs tem uma quantidade de elementos diferente de N e sucesso se Xs tem uma quantidade de elementos igual a N.
 
-Nota-se que, apesar dessa diferença procedural, a leitura declarativa do programa é essencialmente a mesma. A diferença decorre da maneira como os operadores aritméticos funcionam em Prolog e leva a outras situações parecidas, o que eventualmente se tornará um incoveniente grande demais. Veremos como lidar com esse tipo de incoveniente de maneiras diferentes no capítulo de inspeção de estruturas %COMMENT: colocar "(Capítulo x)".
+Nota-se que, apesar dessa diferença procedural, a leitura declarativa do programa é essencialmente a mesma. A diferença decorre da maneira como os operadores aritméticos funcionam em Prolog e leva a outras situações parecidas, o que eventualmente se tornará um incoveniente grande demais. Veremos como lidar com esse tipo de incoveniente de maneiras diferentes no Capítulo de inspeção de estruturas %COMMENT: colocar "(Capítulo x)".
 e, depois, no de restrições lógicas. %COMMENT: colocar "(Capítulo y)". Isso facilita para quem quiser procurar o capitulo.
 
 \subsubsection{Flattening}
@@ -112,7 +112,7 @@ se \var{A} for um funtor de aridade zero).
 
 \subsubsection{Lista Completa}
 
-Agora, voltando rapidamente a um assunto discutido no capítulo passado, temos a definição de \definicao{lista completa}:
+Agora, voltando rapidamente a um assunto discutido no Capítulo passado, temos a definição de \definicao{lista completa}:
 
 \begin{definition} Uma lista \var{L} é completa se toda instância L$\iota$ satisfaz a definição de lista dada. Se existem instâncias que não a satisfazem, ela é dita incompleta.
 \end{definition}
@@ -132,7 +132,7 @@ poderíamos definir um funtor tal como lista\_diff/2, o que seria potencialmente
 mais conveniente pelo momento. Se eficiência for uma preocupação, termos como \codigo{Ys$\setminus$Xs} poderiam ser substituídos automaticamente por outro funtor apropriado.
 
 É importante notar que qualquer lista \var{L} pode ser trivialmente representada na forma de lista de diferença como \codigo{L$\setminus$[]}. Fazer a concatenação de uma lista de diferença \codigo{Ys$\setminus$Xs} com uma \codigo{Zs$\setminus$Ws}
-só é possível quando \var{Xs} seja unificavel com \var{Zs}, sendo, nessa ocasião, ditas \definicao{listas compatíveis}  e, nesse caso, resulta na lista de diferença \codigo{Zs$\setminus$Xs}. Esse fato é capturado no seguinte código:
+só é possível quando \var{Xs} seja unificável com \var{Zs}, sendo, nessa ocasião, ditas \definicao{listas compatíveis}  e, nesse caso, resulta na lista de diferença \codigo{Zs$\setminus$Xs}. Esse fato é capturado no seguinte código:
 
 \lstinputlisting[caption=Append DL]{../Exemplos/Cap3/prog5_concatenate_diff.pl}\label{lst:append_dl}
 
@@ -152,7 +152,7 @@ Perceba agora que o passo em que usamos append\_dl/2, no código \ref{lst:flatte
 sua definição e é o contrário de \technical{folding}, que consiste na substituição do corpo de uma cláusula por sua cabeça. Essas
 transformações são úteis na otimização de código e para outras coisas, que fogem do nosso escopo atual.
 
-Vistos os exemplos de listas de diferença dados, é justo dizer que a ideia de estruturas de diferença parecem boas e nos perguntar se ela não é generalizavel
+Vistos os exemplos de listas de diferença dados, é justo dizer que a ideia de estruturas de diferença parecem boas e nos perguntar se ela não é generalizável
 para tipos de dados diferentes de listas. Para tanto, precisamos desenvolver uma representação um pouco melhor de o que a lista é
 e como ela funciona. Uma lista, como a definimos acima, é uma forma de representar uma árvore. Por exemplo, a lista \codigo{[a,b,c]} se parece com:
 
@@ -290,7 +290,7 @@ onde \var{S1} e \var{S2} são somas normalizadas incompletas. Nesse contexto, o 
 
 \noindent O goal \codigo{Normalize(Exp, Norm)} tem sucesso se \var{Norm} é a versão normalizada da expressão \var{Exp}.
 Perceba a semelhança entre esse normalizador e o flatten/2: a transformação feita na árvore é essencialmente a mesma. De uma
-expressão \codigo{A+B}, é como se tivessemos normalizado \var{A}, normalizado \var{B} e, então, concatenado o
+expressão \codigo{A+B}, é como se tivéssemos normalizado \var{A}, normalizado \var{B} e, então, concatenado o
 resultado (como seria uma operação de concatenação de ``somas de diferença''?).
 
 Fica como exercício a seguinte questão: qual seria o comportamento esperado nas operações usuais de listas de diferença

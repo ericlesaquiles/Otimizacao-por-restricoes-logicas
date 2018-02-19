@@ -1,5 +1,7 @@
 \documentclass{article}
 
+\usepackage{minted}
+
 \input{../header.tex}
 
 
@@ -9,7 +11,8 @@
 Considere o seguinte código:
 
 
-\lstinputlisting[caption=Circuito]{../Exemplos/Cap1/prog1_circuito.pl}\label{lst:circuit}
+%\lstinputlisting[caption=Circuito]{../Exemplos/Cap1/prog1_circuito.pl}\label{lst:circuit}
+\inputminted{prolog}{../Exemplos/Cap1/prog1_circuito.pl}
 
 A leitora pode se perguntar qual o resultado do seguinte goal:
 
@@ -26,7 +29,7 @@ A leitora pode imaginar que, se houvesse muitos programas com goals de resultado
 Se o goal estiver expresso no programa apenas como um fato base, prová-lo é fácil: só precisamos checar se algum dos fatos é igual ao goal. Mas, se o goal contiver alguma variável ou só puder ser provado através de alguma regra, que é o caso geral, a situação fica mais complicada.
 
 Se o goal contiver variáveis, para prová-lo o que precisamos é encontrar uma substituição para cada uma delas de forma
-que cada um dos termos do goal seja logicamente consistente com o programa. Aqui o que queremos dizer com ``substituição'' é que em todo lugar em que a variável aparecer, ela é substutuída por um outro termo (substituição essa que pode ser desfeita no processo de \technical{backtracking}, a ser descrito posteriormente).
+que cada um dos termos do goal seja logicamente consistente com o programa. Aqui o que queremos dizer com ``substituição'' é que em todo lugar em que a variável aparecer, ela é substituída por um outro termo (substituição essa que pode ser desfeita no processo de \technical{backtracking}, a ser descrito posteriormente).
 Uma forma de pensar sobre isso é que, antes da substituição, a variável ``tem uma vida só
 sua'', sendo irrestrita, e que, depois, sua vida é, na verdade, ``a vida de
 outro'', ou seja, é, em algum sentido, restrita. Mais precisamente, temos:\\
@@ -48,7 +51,7 @@ outro'', ou seja, é, em algum sentido, restrita. Mais precisamente, temos:\\
   \end{enumerate}
 \end{remark}
 
-Se temos que existe alguma substituição $\iota$ (possívelmente vazia) para que $p(a_1, ..., a_n) = q(b_1, ..., b_n)$, dizemos que  $p(a_1, ..., a_n)$ é unificável com $q(b_1, ..., b_n)$. ``='' é o \definicao{símbolo de unificação}\footnote{Veremos depois mais
+Se temos que existe alguma substituição $\iota$ (possivelmente vazia) para que $p(a_1, ..., a_n) = q(b_1, ..., b_n)$, dizemos que  $p(a_1, ..., a_n)$ é unificável com $q(b_1, ..., b_n)$. ``='' é o \definicao{símbolo de unificação}\footnote{Veremos depois mais
   predicados do tipo ``a op b'', onde op é o operador (no caso, op é =/2). Predicados desse tipo são chamados de infixos. Todo predicado infixo também pode ser usado no formato prefixo (como =(a, b) ) e predicados infixos também podem ser definidos pelo programador, como já mencionado anteriormente.}.
 
   Convém notar aqui que, em Prolog, funtores são \enphasis{cidadãos de primeira classe}, o que significa que compartilham o
@@ -57,7 +60,7 @@ Se temos que existe alguma substituição $\iota$ (possívelmente vazia) para qu
   Normalmente, quando lidando com outros tipos de linguagens, também seria dito que:
 
   \begin{enumerate}
-    \item Cidadãos de primeira clase podem ser retornados por funções e passados como argumentos a elas e
+    \item Cidadãos de primeira classe podem ser retornados por funções e passados como argumentos a elas e
     \item Que podem ser incorporados em estruturas de dados.
   \end{enumerate}
 
@@ -109,15 +112,15 @@ $\Gamma$ para armazenar a substituições:
 
 Intuitivamente, esse algoritmo tenta provar a equação de forma construtiva: isto é, tenta construir uma solução por meio de substituições e, se não chegar a uma contradição, termina com sucesso, ``devolvendo'' (não no sentido de uma função que devolve um valor, mas no de ``mostrar'' ao usuário do programa) a substituição realizada.
 
-Para provar um goal G, escolhemos não-deterministicamente\footnote{No geral, podem existir várias escolhas possíveis e pode ser que, por algumas sequências de escolhas de cláusulas, nunca chegemos a uma prova do goal, apesar de ele ser deduzível a partir de outras escolhas de cláusulas. Quando dizemos que a escolha é não-determinística, queremos dizer que, se existem mais de um conjuntos de escolhas que provam o goal, um desses conjuntos é escolhido (a escolha é feita entre as cláusulas que podem provar o
-  goal, o que significa que, se ele é provável, ele é provado). Na prática, isso pode ser implementado apenas aproximadamente.  Ainda assim, é uma abstração importante e leva a aplicações interessantes, na assim chamada, \enphasis{programação não-determinística}. Em situações mais práticas, também podemos usar esse mesmo termo para nos referir a situações nas quais o programa tem, a princípio, mais de uma ``escolha'' (se não há escolhas, dizemos que o contexto é determinístico).} a cabeça de uma cláusula T do
+Para provar um goal G, escolhemos não-deterministicamente\footnote{No geral, podem existir várias escolhas possíveis e pode ser que, por algumas sequências de escolhas de cláusulas, nunca cheguemos a uma prova do goal, apesar de ele ser deduzível a partir de outras escolhas de cláusulas. Quando dizemos que a escolha é não-determinística, queremos dizer que, se existem mais de um conjuntos de escolhas que provam o goal, um desses conjuntos é escolhido (a escolha é feita entre as cláusulas que podem provar o
+  goal, o que significa que, se ele é provável, ele é provado). Na prática, isso pode ser implementado apenas aproximadamente.  Ainda assim, é uma abstração importante e leva a aplicações interessantes, na assim chamada, \enphasis{programação não-determinística}. Em outros contextos, também podemos usar esse mesmo termo para nos referir a situações nas quais o programa tem, a princípio, mais de uma ``escolha'' (se não há ``escolhas'', dizemos que o contexto é determinístico).} a cabeça de uma cláusula T do
 programa, construímos uma equação do tipo \codigo{G = T} e aplicamos o algoritmo acima. Caso ele devolva sucesso, fazemos o mesmo com cada termo do corpo da cláusula. Caso devolva falha, seleciona-se outra cláusula e é realizado o mesmo processo, até que não haja mais cláusulas a serem selecionadas, quando o goal retorna falha.
 
 O passo 2.b do algoritmo merece uma explicação um pouco mais detalhada. Ele diz implicitamente que x não é unificável com algum \codigo{y(a\_1, ...,x, ...a\_n)}, isto é, com algum funtor que tome x como argumento. Pode parecer estranho a princípio, mas a estranheza some se se lembrar que funtor não é função: um funtor representa uma estrutura primariamente simbólica. Sem essa condição, se \codigo{X = y(a\_1, ..., X, ..., a\_n)}, então \codigo{X = y(a\_1, ...,y(a\_1, ..., x, ..., a\_n), ...,
 a\_n) = y(a\_1, ..., y(a\_1, ...,y(a\_1, ...,y(a\_1,
 ...,x, ..., a\_n), ..., a\_n) , ..., a\_n) , ..., a\_n)} em um ciclo sem fim. Com um processo desses, não dá para provar um goal e, portanto, é devolvida falha.
 
-Para entender melhor, tome o exemplo do código \ref{lst:circuit}, no início deste capítulo, e suponha que àquele código é submetido o goal \codigo{resistor(energia, n1)?} O algoritmo é aplicado como se segue:
+Para entender melhor, tome o exemplo do código \ref{lst:circuit}, no início deste Capítulo, e suponha que àquele código é submetido o goal \codigo{resistor(energia, n1)?} O algoritmo é aplicado como se segue:
 
   \begin{enumerate}
     \item Tentaremos a unificação do goal com a cláusula na primeira linha do programa: a equação \codigo{resistor(energia, n1) = resistor(energia, n1)} é posta na pilha;
@@ -136,9 +139,10 @@ Para entender melhor, tome o exemplo do código \ref{lst:circuit}, no início de
 
   Imagine que você se encontra em uma situação problemática e gostaria de resolver o problema. Um procedimento possível é gerar uma provável solução e, então, testar se ela de fato resolve o problema. Se formos traduzir isso para programação lógica, teríamos algo como:
 
-\lstinputlisting[caption=Encontra]{../Exemplos/Cap1/prog2_encontra.pl}
+%\lstinputlisting[caption=Encontra]{../Exemplos/Cap1/prog2_encontra.pl}
+\inputminted{prolog}{../Exemplos/Cap1/prog2_encontra.pl}
 
-Para algum \enphasis{gera} e algum \enphasis{testa}. A hipótese de não-determinismo está na esperança de que será gerada uma solução que passa no teste, o que não é, a princípio, claro ser possível. Na prática, isso seria aproximadamente resolvido com o artifício do \foreign{backtracking}, que veremos posteriormente.
+Para algum \enphasis{gera} e algum \enphasis{testa}. A hipótese de não-determinísmo está na esperança de que será gerada uma solução que passa no teste, o que não é, a princípio, claro ser possível. Na prática, isso seria aproximadamente resolvido com o artifício do \foreign{backtracking}, que veremos posteriormente.
 
 Gera-e-testa é um modelo comum para a resolução de vários problemas. Frequentemente, no entanto, o \enphasis{testa} está mesclado com o \enphasis{gera}, de modo a tornar o procedimento mais eficiente\footnote{Na verdade, em geral, tenta-se pôr o teste tão dentro do gerador quanto possível, levando a um gasto menor de tempo de processamento com soluções inúteis.}. Muitas vezes a programadora não precisa se preocupar com isso, tornando essa uma abstração útil. Talvez isso fique mais claro com o seguinte exemplo.
 
@@ -166,19 +170,21 @@ No problema específico mostrado, podemos ver que, na primeira linha, a relaçã
 
 O programa a seguir implementa esses passos em um programa lógico\footnote{O ``='' usado nesse programa é o mesmo da ``substituição'' mencionada acima e é a relação de identidade: A = B $\Leftrightarrow$ A é idêntico a B.}:
 
-\lstinputlisting[caption=Analogy]{../Exemplos/Cap1/prog3_analogy.pl}
+%\lstinputlisting[caption=Analogy]{../Exemplos/Cap1/prog3_analogy.pl}
+\inputminted{prolog}{../Exemplos/Cap1/prog3_analogy.pl}
 
 Esse programa é muito específico: ele toma a analogia entre apenas dois objetos e, a partir disso, cria uma analogia com um terceiro. Uma generalização é possível, mas, para nossos propósitos, isso é o suficiente.
 
 Para que ele funcione, a maneira como os diagramas são representados é fundamental. Estando representados apropriadamente, match/3 nos dá a operação que relaciona um objeto A com um B. Com isso em mãos, só precisamos aplicar a mesma operação ao termo C, por meio de match/2, achando X, o objeto que queríamos. Vale ressaltar que match/2 está sendo usado de duas maneiras diferentes\footnote{Esse tipo de comentário provém de uma leitura procedural: do ponto de
-  vista estritamente lógico, match/2 apenas expressa uma relação, que pode ser verdadeira ou falsa (isto é, pode existir ou não existir). Pensar do ponto de vista lógico é conveniente para fazermos programas mais elegantes e gerais, mas, sem uma leitura procedural adequada, não conseguiriamos trabalhar com alguns dos programas que veremos mais para frete.}: para encontrar a relação entre dois termos e para ``fabricar'' um termo com uma relação
+  vista estritamente lógico, match/2 apenas expressa uma relação, que pode ser verdadeira ou falsa (isto é, pode existir ou não existir). Pensar do ponto de vista lógico é conveniente para fazermos programas mais elegantes e gerais, mas, sem uma leitura procedural adequada, não conseguiríamos trabalhar com alguns dos programas que veremos mais para frete.}: para encontrar a relação entre dois termos e para ``fabricar'' um termo com uma relação
 desejada. O predicado member/2 ainda não foi explicado, e só o será melhor entendido posteriormente: por enquanto, é suficiente assumir que \codigo{member(A, B)} se \var{B} for uma lista (essa coisa entre colchetes, que será explicada adiante) da qual \var{A} faz parte (no caso, de C fazer parte de \var{Answers})\footnote{Caso o mistério te incomode, considere fazer uma visita ao Capítulo 3.}.
 
 Caso esteja se perguntando qual a relação com o modelo do gera-e-testa discutido anteriormente: o primeiro \technical{match} ajuda o segundo a gerar o \technical{member} testa se o resultado é válido.
 
 O seguinte programa realiza um teste ao programa anterior:
 
-\lstinputlisting[caption=Test Analogy]{../Exemplos/Cap1/prog4_testanalogy.pl}
+%\lstinputlisting[caption=Test Analogy]{../Exemplos/Cap1/prog4_testanalogy.pl}
+\inputminted{prolog}{../Exemplos/Cap1/prog4_testanalogy.pl}
 
 O goal \codigo{test\_analogy(test1, X)?} tem o resultado esperado.
 

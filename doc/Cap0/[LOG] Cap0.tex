@@ -7,7 +7,7 @@
 
 \section{Dando nome aos bois}
 
-\epigraph{\textit{Foi a influência da filosofia grega que fez da matemática uma ciência. De fato, os primeiros matemáticos gregos estão entre os primeiros filósofos, como é o caso de Tales e Pitágoras. A noção de que um fato matemático pode ser demonstrado é fruto da interação entre matemática e filosofia. Afinal, uma demonstração é essencialmente um argumento para esclarecer como um certo fato é consequência de algo que já conhecemos. E se há alguma coisa que os filósofos gregos gostavam de
+\epigraph{\cit{Foi a influência da filosofia grega que fez da matemática uma ciência. De fato, os primeiros matemáticos gregos estão entre os primeiros filósofos, como é o caso de Tales e Pitágoras. A noção de que um fato matemático pode ser demonstrado é fruto da interação entre matemática e filosofia. Afinal, uma demonstração é essencialmente um argumento para esclarecer como um certo fato é consequência de algo que já conhecemos. E se há alguma coisa que os filósofos gregos gostavam de
     fazer era argumentar.}}{S. C. Coutinho - Números Inteiros e Criptografia RSA}
 
 
@@ -20,7 +20,7 @@ dá a vantagem de lidar com algo concreto enquanto perdemos muito pouco, se algo
 Ignoraremos essas peculiaridades sempre que possível (este não tem a intenção de ser um texto técnico sobre Prolog) nos focando
 no ``padrão de facto'' Edinburgh Prolog.
 
-Como dizia Sussman %TODO citar direito
+Como dizia Sussman \cite{sussman}
 , quando se quer aprender uma nova linguagem, as perguntas básicas que precisamos perguntas são
 
 \begin{enumerate}
@@ -37,11 +37,11 @@ que contribuem primariamente com o significado): resumidamente, em sua concepç�
 relacional que palavras tem umas com as outras. O termo atualmente também é usado em outras áreas (além de em linguística e
 programação lógica), como em \enphasis{Teoria de Categoria}, com significado semelhante (levando em conta o contexto).
 
-Para nossos propósitos, é uma simplificação razoável dizer que funtores expressam relações. Na linguagem natural, somos restritos a usar os funtores presentes na língua usada (mesmo uma ``licensa poética'' não vai muito longe disso).
+Para nossos propósitos, é uma simplificação razoável dizer que funtores expressam relações. Na linguagem natural, somos restritos a usar os funtores presentes na língua usada (mesmo uma ``licença poética'' não vai muito longe disso).
 Na programação lógica, os funtores só precisam ser sintaticamente corretos. Em Prolog, um funtor $f$ de aridade $n$ (aridade é a quantidade de parâmetros, ou ``símbolos relacionados pelo funtor''), dito
 $f/n$, é escrito com uma sintaxe semelhante à de uma função:
 
-{\tt
+\codigo{
   f($a_1$, ..., $a_n$)
 }
 
@@ -65,12 +65,12 @@ um funtor, junto de seus argumentos, seguido de um ponto. Por exemplo
   mais(1,2,3).
 }
 
-\noindent diz que ``é verdade que mais(1,2,3)'' ou, mais naturalmente, ``é verdade que existe a relação 'mais' entre 1, 2 e 3, nessa ordem'' (vale notar que a ordem é importante: {\tt mais(1,2,3)} não é o igual a {\tt mais(3,2,1)}, onde por ``igual a'' entende-se ``idêntico a'').
+\noindent diz que ``é verdade que mais(1,2,3)'' ou, mais naturalmente, ``é verdade que existe a relação 'mais' entre 1, 2 e 3, nessa ordem'' (vale notar que a ordem é importante: \codigo{mais(1,2,3)} não é o igual a \codigo{mais(3,2,1)}, onde por ``igual a'' entende-se ``idêntico a'').
 Ocasionalmente, é muito mais conveniente que um funtor receba argumentos pela direita e pela esquerda, quase como um operador,
-como {\tt 1 f 2}. É possível definir funtores dessa forma, mas nos restringiremos ao modo usual, pelo qual a última relação fica
-{\tt f(1,2)}.
+como \codigo{1 f 2}. É possível definir funtores dessa forma, mas nos restringiremos ao modo usual, pelo qual a última relação fica
+\codigo{f(1,2)}.
 
-Eventualmente pode ser que, na ocasição de a relação {\tt p(a,b)} ser verdadeira outras relações também sejam.
+Eventualmente pode ser que, na ocasião de a relação \codigo{p(a,b)} ser verdadeira outras relações também sejam.
 Em particular pode ser que, em linguagem matemática, $ f(1,l) \Rightarrow p(a,b) $. Esse tipo de relação é escrita em Prolog como:
 
 {\tt
@@ -79,7 +79,7 @@ Em particular pode ser que, em linguagem matemática, $ f(1,l) \Rightarrow p(a,b
 
 \noindent ou, se $ (f(1,l)$ e $q(f)) \Rightarrow p(a,b) $, escrevemos
 
-{\tt
+\codigo{
   p(a,b) :- f(1,l), q(f).
 }
 
@@ -115,9 +115,9 @@ Um ponto interessante sobre goals e também sobre regras é que são como cláus
 alguma importância para programas lógicos.
 
 Para melhor diferenciarmos goals de fatos, goals serão, aqui, escritos como:
-\[
+\codigo{
   p?
-\]
+}
 
 \noindent apesar de, na natureza\footnote{Isto é, no Prolog padrão}, não haver essa distinção (neles, goals são, como fatos,
 escritos com um ponto final no lugar de com um ponto de interrogação).
@@ -127,7 +127,7 @@ Considere o seguinte código:\\
 
 \lstinputlisting[caption=Árvore binária, style=prosty]{../Exemplos/Cap0/prog3_arvb.pl}
 
-O goal {\tt $arvore\_b$(vazio)?} tem sucesso, já que é um dos fatos. O goal {\tt $arvore\_b$(arvore(raiz, vazio, vazio))?} também tem, já que {\tt $arvore\_b$(a, B, C)?} tem sucesso se $arvore\_b(A)$ e $arvore\_b(B)$ tiverem, o que ocorre. Perceba que, neste caso, o goal não tem sucesso segundo a primeira cláusula apenas e nem segundo a segunda. Ambas contribuem para a definição de $arvore\_b$.
+O goal \codigo{$arvore\_b$(vazio)?} tem sucesso, já que é um dos fatos. O goal \codigo{$arvore\_b$(arvore(raiz, vazio, vazio))?} também tem, já que \codigo{$arvore\_b$(a, B, C)?} tem sucesso se $arvore\_b(A)$ e $arvore\_b(B)$ tiverem, o que ocorre. Perceba que, neste caso, o goal não tem sucesso segundo a primeira cláusula apenas e nem segundo a segunda. Ambas contribuem para a definição de $arvore\_b$.
 
 Utilizamos sempre a convenção de que termos capitalizados (isto é, com inicial maiúscula) denotam variáveis, enquanto os demais denotam constantes (a leitora descobrirá que, por notável coincidência, o Prolog faz uso da mesma convenção). Termos que não
 contém variáveis são ditos \definicao{termos base}. Variáveis serão explicadas em maior completude no futuro.
@@ -144,14 +144,14 @@ ser interpretado de diversas maneiras).
 Com essa discussão em mente, será ocasionalmente útil ter o \enphasis{significado} de um programa lógico definido de forma algo mais precisa:
 
   \theoremstyle{definition}
-  \begin{definition} \textbf{Significado de um programa lógico} é o conjunto de goals deduzíveis a partir dele (isto é, os goals que obtêm sucesso se aplicados ao programa).
+  \begin{definition} \definicao{Significado de um programa lógico} é o conjunto de goals deduzíveis a partir dele (isto é, os goals que obtêm sucesso se aplicados ao programa).
   \end{definition}
 
   Na verdade, essa é a definição procedural do significado de um programa lógico (apesar de que, como veremos posteriormente, essa distinção é imaterial) e, vale notar, ela é sempre bem definida (isto é, todo programa lógico tem um significado bem definido). Nesse contexto, o significado intencionado pela programadora (isto é, ``o que ela quer dizer com o programa'') é um conjunto de goals que pode ou não estar contido no significado do programa. Assim, podemos nos perguntar ``Será que o
   programa diz tudo que se quer que ele diga?'' (isto é, se o significado intencionado está contido no significado do programa), ou ``Será que tudo o que ele diz é correto?'' (isto é, se o significado do programa está contido no intencionado). No primeiro caso, se o significado intencionado estiver contido no do programa, dizemos que o programa é \definicao{completo} e, no segundo, que ele é \definicao{correto}.
 
-  Por exemplo, digamos que o programa \ref{lst:pai_filho}  seja um trecho de um programa no qual a programadora deseja modelar as relações entre programas e especificações de software atuais e antigos, de forma que A é pai de B se A veio antes de B e B herda características de A, como partes do código ou especificações (como é possível ver, ela apenas começou a escrever o programa). Assim, estão no significado intencionado goals como {\tt pai(gnu, linux)?} e {\tt pai(dos, windows)?}, enquanto que o
-  significado do programa é {\tt pai(d,c)?}.
+  Por exemplo, digamos que o programa \ref{lst:pai_filho}  seja um trecho de um programa no qual a programadora deseja modelar as relações entre programas e especificações de software atuais e antigos, de forma que A é pai de B se A veio antes de B e B herda características de A, como partes do código ou especificações (como é possível ver, ela apenas começou a escrever o programa). Assim, estão no significado intencionado goals como \codigo{pai(gnu, linux)?} e \codigo{pai(dos, windows)?}, enquanto que o
+  significado do programa é \codigo{pai(d,c)?}.
 
   Fica a pergunta: esse programa é correto? E ele é completo?.
 
@@ -169,6 +169,11 @@ Com essa discussão em mente, será ocasionalmente útil ter o \enphasis{signifi
      J. Symbolic Logic 16 (1951),
      no. 1,
      pp 14
+
+     \bibitem{sussman}
+     Abelsson, Harold and Sussmann, Gerald J. and Sussman Julie
+     Structure and Interpretation of Computer Programs, second edition
+     MIT Press
 
   \end{thebibliography}
 

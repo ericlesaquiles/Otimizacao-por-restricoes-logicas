@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{analogy}\PYG{p}{(}\PYG{n+nf}{is\PYGZus{}to}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{),} \PYG{n+nf}{is\PYGZus{}to}\PYG{p}{(}\PYG{n+nv}{C}\PYG{p}{,} \PYG{n+nv}{X}\PYG{p}{),} \PYG{n+nv}{Answers}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{match}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{Operation}\PYG{p}{),}
+  \PYG{n+nf}{match}\PYG{p}{(}\PYG{n+nv}{C}\PYG{p}{,} \PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{Operation}\PYG{p}{),}
+  \PYG{n+nf}{member}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{Answers}\PYG{p}{).}
+
+\PYG{n+nf}{match}\PYG{p}{(}\PYG{n+nf}{inside}\PYG{p}{(}\PYG{n+nv}{Figure1}\PYG{p}{,} \PYG{n+nv}{Figure2}\PYG{p}{),}
+      \PYG{n+nf}{inside}\PYG{p}{(}\PYG{n+nv}{Figure3}\PYG{p}{,} \PYG{n+nv}{Figure2}\PYG{p}{),}
+      \PYG{l+s+sAtom}{exclude\PYGZus{}center}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nv}{Figure1} \PYG{o}{=} \PYG{n+nf}{inside}\PYG{p}{(}\PYG{n+nv}{Figure5}\PYG{p}{,} \PYG{n+nv}{Figure6}\PYG{p}{),}
+  \PYG{n+nv}{Figure3} \PYG{o}{=} \PYG{n+nv}{Figure6}\PYG{p}{.}
+
+\PYG{n+nf}{match}\PYG{p}{(}\PYG{n+nf}{inside}\PYG{p}{(}\PYG{n+nv}{Figure1}\PYG{p}{,}\PYG{n+nv}{Figure2}\PYG{p}{),}
+      \PYG{n+nf}{inside}\PYG{p}{(}\PYG{n+nv}{Figure2}\PYG{p}{,}\PYG{n+nv}{Figurel}\PYG{p}{),}
+      \PYG{l+s+sAtom}{invert}\PYG{p}{).}
+\end{Verbatim}
