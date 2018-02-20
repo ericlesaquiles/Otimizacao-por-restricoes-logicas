@@ -1,0 +1,103 @@
+\documentclass{article}
+
+%\documentclass[tikz,border=5]{standalone}
+%\usetikzlibrary{graphs,graphdrawing,arrows.meta}
+%\usegdlibrary{trees}
+
+\input{../header.tex}
+
+\forestset{
+  tree angle/.style={
+    tikz={\path () coordinate (A) -- (!u) coordinate (B) -- (!n) coordinate (C) pic [draw] {angle};}
+  }
+}
+\usetikzlibrary{arrows.meta,angles}
+
+
+%
+% TODO: revisar terminar esta seção!
+%
+%
+
+
+\begin{document}
+
+\section{Programas como árvores}
+
+Será conveniente termos uma interpretação mais visual de programas lógicos. Isso nos dará uma ideia melhor de em qual ordem ocorrem as tentativas de unificações e como lidar com elas.
+Considere o seguinte programa, representando um pedaço da árvore genealógica da dinastia Julio-Claudiana, junto com a relação ancestral\footnote{\foreign{``It is, of course, obvious at once that `ancestor' must be capable of definition in terms of
+`parent', but until Frege developed his generalised theory of induction, no one could have defined `ancestor' precisely in terms of `parent.' ''} --- Bertrand Russel,\foreign{Introduction to Mathematical Philosophy}.
+Para sermos honestos: na verdade, ele se referia a uma versão mais geral dessa relação do que a apresentada aqui. Voltaremos a esse tema depois.}:
+
+\inputminted{prolog}{../Exemplos/Cap5/prog1_ancestor.pl}
+
+Por conveniência, no lugar das relações filhx/2 e ancestral/2 e dos nomes mostrados acima, usaremos os mostrados abaixo:
+
+\inputminted{prolog}{../Exemplos/Cap5/prog2_ancestor.pl}
+
+
+O goal \codigo{a(au, ne)?} define implicitamente uma árvore, que começa da seguinte forma:
+\begin{center}
+  {\footnotesize
+    \begin{forest}
+      for tree={delay={where content={}{content={\phantom{00}}}{}},s sep+=5mm,l+=5mm}
+      [\codigo{a(au, ne)?}
+        [ \codigo{f(ne, au)?},edge={dashed,black,thick}
+          [falha]
+        ]
+        [\cocigo{f(ne,C1), a(au,C1)?}
+          [ {C1 = ag},edge=dashed
+            [\codigo{f(ne, ag)?}]
+            [\codigo{a(au, ag)?}
+                [\codigo{f(ag,au)?},edge=dashed
+                  [falha]
+                ]
+              [\codigo{f(ag,C2), a(au,C2)?}
+                [$\vdots$]
+              ]
+            ]
+          ]
+          [ {C1 = gn},edge=dashed
+            [\codigo{f(ne, gn)?}]
+            [\codigo{a(au, gn)?}
+              [\codigo{f(gn,C2), a(au,C2)?}
+                [$\vdots$]
+              ]
+              [\codigo{f(gn, C2)?},edge=dashed
+                [falha]
+              ]
+            ]
+          ]
+        ]
+      ]
+    \end{forest}
+  }
+\end{center}
+
+A árvore inteira não será colocada por questões de espaço, mas continua de maneira semelhante. Os ramos tracejados indicam
+um ``ou'' lógico, enquanto que os sólidos indicam um ``e'' lógico. O que isso significa é que falha em um dos ramos dos arcos
+sólidos indica que todo o arco é falho, mas uma falha em um ramo tracejado só afeta o ramo tracejado.
+
+A execução de um programa lógico consiste em uma busca, em uma árvore como essa, por uma folha de ``sucesso''. Se, ao invés
+de ``sucesso'' é encontrada ``falha'', é feito o \technical{backtracking}. Quando alguém fala sobre um ``modelo computacional de
+programa lógico'', fala essencialmente sobre como travessar essa árvore e como fazer esse \technical{backtracking}.
+Como pode ver, ela pode crescer muito em largura a cada nível (não cresceu tanto no exemplo acima porque colocamos uma quantidade reduzida de substituições). Por isso, é compreensível que prefiramos uma busca em profundidade
+do que em largura. Isso pode, é claro, levar a problemas técnicos e filosóficos, já que impõe uma escolha arbitrária sobre a ordem
+de avaliação das cláusulas e dos termos de cada cláusula, o que pode levar a comportamentos inesperados ao programador desatento a esse modelo\footnote{Convém lembrar que não estamos lidando com programação paralela.
+No modelo de programação paralela a avaliação pode ocorrer de maneira
+diferente}. É claro, dizer apenas que a busca é em profundidade não é o suficiente: precisamos dizer que ela é em profundidade e
+à esquerda.
+
+
+
+
+
+
+  \begin{thebibliography}{2}
+
+    \bibitem{russel} Russell, Bertrand (1919), \textit{Introduction to Mathematical Philosophy, George Allen and Unwin, London, UK. Reprinted, John G. Slater (intro.), Routledge, London, UK, 1993}
+    \\Esse livro está datado em alguns pontos, mas permanece interessante. Está gratuitamente disponível (em inglês) em [http://people.umass.edu/klement/russell-imp.html].
+
+  \end{thebibliography}
+
+\end{document}

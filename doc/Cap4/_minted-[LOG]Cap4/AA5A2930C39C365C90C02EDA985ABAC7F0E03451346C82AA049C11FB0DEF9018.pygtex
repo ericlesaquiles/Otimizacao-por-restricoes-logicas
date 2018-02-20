@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{or}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{n+nv}{A}\PYG{p}{,} \PYG{p}{!.}
+\PYG{n+nf}{or}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,}\PYG{n+nv}{B}\PYG{p}{)}  \PYG{p}{:\PYGZhy{}} \PYG{n+nv}{B}\PYG{p}{.}
+\end{Verbatim}

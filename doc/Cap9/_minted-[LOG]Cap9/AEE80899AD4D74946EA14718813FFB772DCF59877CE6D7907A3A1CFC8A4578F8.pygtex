@@ -1,0 +1,45 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZpc{} consistente\PYGZus{}por\PYGZus{}arco([Dominios\PYGZhy{}Restricoes|DsRs],}
+\PYG{c+c1}{\PYGZpc{}                      [NovosDominios\PYGZhy{}Restricoes|DnsRs]) :\PYGZhy{}}
+\PYG{c+c1}{\PYGZpc{}   NovosDominios sao consistentes por arco com suas respectivas restricoes}
+\PYG{c+c1}{\PYGZpc{}}
+
+\PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco}\PYG{p}{([],[]).}
+\PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco}\PYG{p}{([}\PYG{n+nv}{D1}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{Res}\PYG{p}{|}\PYG{n+nv}{DsRs}\PYG{p}{],[}\PYG{n+nv}{D1n}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2n}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{Res}\PYG{p}{|}\PYG{n+nv}{DnsRs}\PYG{p}{])} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{([}\PYG{n+nv}{D1}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2}\PYG{p}{],} \PYG{n+nv}{Res}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{D1n}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2n}\PYG{p}{]),}
+  \PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco}\PYG{p}{(}\PYG{n+nv}{DsRs}\PYG{p}{,} \PYG{k}{\PYGZus{}}\PYG{p}{).}
+
+\PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco}\PYG{p}{([}\PYG{k}{\PYGZus{}}\PYG{p}{|}\PYG{n+nv}{Cs}\PYG{p}{],[}\PYG{n+nv}{Cns}\PYG{p}{]).}
+  \PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco}\PYG{p}{(}\PYG{n+nv}{Cs}\PYG{p}{,}\PYG{n+nv}{Cns}\PYG{p}{).}
+
+
+\PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{([],} \PYG{k}{\PYGZus{}}\PYG{p}{,} \PYG{p}{[]).}
+\PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{(}\PYG{k}{\PYGZus{}}\PYG{p}{,} \PYG{p}{[],} \PYG{p}{[]).}
+\PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{([}\PYG{n+nv}{D11}\PYG{p}{|}\PYG{n+nv}{D1s}\PYG{p}{]}\PYG{o}{\PYGZhy{}}\PYG{p}{[}\PYG{n+nv}{D22}\PYG{p}{|}\PYG{n+nv}{D2s}\PYG{p}{],} \PYG{n+nv}{R}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{Dx}\PYG{p}{|}\PYG{n+nv}{D1ns}\PYG{p}{]}\PYG{o}{\PYGZhy{}}\PYG{p}{[}\PYG{n+nv}{Dy}\PYG{p}{|}\PYG{n+nv}{D2ns}\PYG{p}{])} \PYG{p}{:\PYGZhy{}}
+  \PYG{p}{(}
+    \PYG{n+nf}{apply}\PYG{p}{(}\PYG{n+nv}{R}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{D11}\PYG{p}{,} \PYG{n+nv}{D22}\PYG{p}{])} \PYG{l+s+sAtom}{\PYGZhy{}\PYGZgt{}}
+    \PYG{p}{(}
+      \PYG{p}{!,} \PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{(}\PYG{n+nv}{D1s}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2s}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{,} \PYG{n+nv}{D1ns}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2ns}\PYG{p}{),}
+      \PYG{n+nv}{Dx} \PYG{o}{=} \PYG{n+nv}{D11}\PYG{p}{,} \PYG{n+nv}{Dy} \PYG{o}{=} \PYG{n+nv}{D22}
+    \PYG{p}{)}
+  \PYG{p}{;}
+    \PYG{p}{(}
+      \PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{([}\PYG{n+nv}{D11}\PYG{p}{]}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2s}\PYG{p}{,}\PYG{n+nv}{R}\PYG{p}{,} \PYG{k}{\PYGZus{}}\PYG{l+s+sAtom}{\PYGZhy{}}\PYG{k}{\PYGZus{}}\PYG{p}{)} \PYG{l+s+sAtom}{\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{(}
+        \PYG{p}{!,} \PYG{n+nv}{Dx} \PYG{o}{=} \PYG{n+nv}{D11}\PYG{p}{,}
+        \PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{(}\PYG{n+nv}{D1s}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2s}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{,} \PYG{n+nv}{D1ns}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2ns}\PYG{p}{)}
+      \PYG{p}{)}
+    \PYG{p}{;}
+      \PYG{p}{(}
+        \PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{(}\PYG{n+nv}{D1s}\PYG{o}{\PYGZhy{}}\PYG{p}{[}\PYG{n+nv}{D22}\PYG{p}{],}\PYG{n+nv}{R}\PYG{p}{,} \PYG{k}{\PYGZus{}}\PYG{l+s+sAtom}{\PYGZhy{}}\PYG{k}{\PYGZus{}}\PYG{p}{)} \PYG{l+s+sAtom}{\PYGZhy{}\PYGZgt{}}
+        \PYG{p}{(}
+          \PYG{p}{!,}\PYG{n+nv}{Dy} \PYG{o}{=} \PYG{n+nv}{D22}\PYG{p}{,}
+          \PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{(}\PYG{n+nv}{D1s}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2s}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{,} \PYG{n+nv}{D1ns}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2ns}\PYG{p}{)}
+        \PYG{p}{)}
+      \PYG{p}{)}
+    \PYG{p}{)}
+  \PYG{p}{).}
+
+\PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{([}\PYG{n+nv}{D11}\PYG{p}{|}\PYG{n+nv}{D1s}\PYG{p}{]}\PYG{o}{\PYGZhy{}}\PYG{p}{[}\PYG{n+nv}{D22}\PYG{p}{|}\PYG{n+nv}{D2s}\PYG{p}{],} \PYG{n+nv}{R}\PYG{p}{,} \PYG{n+nv}{D1ns}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2ns}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+ \PYG{n+nf}{consistente\PYGZus{}por\PYGZus{}arco\PYGZus{}primitivo}\PYG{p}{(}\PYG{n+nv}{D1s}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2s}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{,} \PYG{n+nv}{D1ns}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{D2ns}\PYG{p}{).}
+\end{Verbatim}

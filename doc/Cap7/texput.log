@@ -1,21 +1,60 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  1 FEB 2018 14:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  19 FEB 2018 19:50
 entering extended mode
- restricted \write18 enabled.
+ \write18 enabled.
  %&-line parsing enabled.
-**"./[LOG] Cap6.tex"
+**\[LOG\]Cap.\.tex
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 0.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 0.
 
+Overfull \hbox (22.57361pt too wide) detected at line 0
+\OML/cmm/m/it/10 LOG
+ []
+
+Missing character: There is no C in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no . in font nullfont!
+LaTeX Font Info:    Try loading font information for +cmr on input line 0.
+LaTeX Font Info:    No file cmr.fd. on input line 0.
+
+LaTeX Font Warning: Font shape `/cmr/m/n' undefined
+(Font)              using `/cmr/m/n' instead on input line 0.
+
+! Corrupted NFSS tables.
+wrong@fontshape ...message {Corrupted NFSS tables}
+                                                  error@fontshape else let f...
+<*> \[LOG\]Cap.\.t
+                  ex
+? 
+
+LaTeX Font Warning: Font shape `/cmr/m/n' undefined
+(Font)              using `OT1/cmr/m/n' instead on input line 0.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no x in font nullfont!
+
+*X
+Missing character: There is no X in font nullfont!
+
+*
+! Interruption.
+<*> 
+    
+? 
 ! Emergency stop.
-<*> "./[LOG] Cap6.tex"
-                      
+<*> 
+    
 End of file on the terminal!
 
  
 Here is how much of TeX's memory you used:
- 3 strings out of 492985
- 118 string characters out of 6138637
+ 13 strings out of 492985
+ 196 string characters out of 6138637
  54187 words of memory out of 5000000
- 3668 multiletter control sequences out of 15000+600000
+ 3678 multiletter control sequences out of 15000+600000
  3640 words of font info for 14 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 0i,0n,0p,21b,6s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 17i,1n,16p,45b,88s stack positions out of 5000i,500n,10000p,200000b,80000s
 !  ==> Fatal error occurred, no output PDF file produced!

@@ -1,0 +1,27 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{bounds\PYGZus{}consistent\PYGZus{}addition}\PYG{p}{([],} \PYG{p}{[]).}
+\PYG{n+nf}{bounds\PYGZus{}consistent\PYGZus{}addition}\PYG{p}{([}\PYG{n+nv}{Dx}\PYG{p}{,}\PYG{n+nv}{Dy}\PYG{p}{,}\PYG{n+nv}{Dz}\PYG{p}{],} \PYG{p}{[}\PYG{n+nv}{Dnx}\PYG{p}{,} \PYG{n+nv}{Dny}\PYG{p}{,} \PYG{n+nv}{Dnz}\PYG{p}{])} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{min\PYGZus{}member}\PYG{p}{(}\PYG{n+nv}{Dx}\PYG{p}{,} \PYG{n+nv}{Xmin}\PYG{p}{),}
+  \PYG{n+nf}{min\PYGZus{}member}\PYG{p}{(}\PYG{n+nv}{Dy}\PYG{p}{,} \PYG{n+nv}{Ymin}\PYG{p}{),}
+  \PYG{n+nf}{min\PYGZus{}member}\PYG{p}{(}\PYG{n+nv}{Dz}\PYG{p}{,} \PYG{n+nv}{Zmin}\PYG{p}{),}
+
+  \PYG{n+nv}{Xm} \PYG{o}{is} \PYG{n+nf}{max}\PYG{p}{(}\PYG{n+nv}{Xmin}\PYG{p}{,} \PYG{n+nv}{Ymin} \PYG{o}{+} \PYG{n+nv}{Zmin}\PYG{p}{),}
+  \PYG{n+nv}{XM} \PYG{o}{is} \PYG{n+nf}{min}\PYG{p}{(}\PYG{n+nv}{Xmax}\PYG{p}{,} \PYG{n+nv}{Ymax} \PYG{o}{+} \PYG{n+nv}{Zmax}\PYG{p}{),}
+  \PYG{n+nf}{new\PYGZus{}domain}\PYG{p}{(}\PYG{n+nv}{Xm}\PYG{p}{,} \PYG{n+nv}{XM}\PYG{p}{,} \PYG{n+nv}{Dx}\PYG{p}{,} \PYG{n+nv}{Dnx}\PYG{p}{),}
+
+  \PYG{n+nv}{Ym} \PYG{o}{is} \PYG{n+nf}{max}\PYG{p}{(}\PYG{n+nv}{Ymin}\PYG{p}{,} \PYG{n+nv}{Xmin} \PYG{o}{\PYGZhy{}} \PYG{n+nv}{Zmax}\PYG{p}{),}
+  \PYG{n+nv}{YM} \PYG{o}{is} \PYG{n+nf}{min}\PYG{p}{(}\PYG{n+nv}{Ymax}\PYG{p}{,} \PYG{n+nv}{Xmax} \PYG{o}{\PYGZhy{}} \PYG{n+nv}{Zmin}\PYG{p}{),}
+  \PYG{n+nf}{new\PYGZus{}domain}\PYG{p}{(}\PYG{n+nv}{Ym}\PYG{p}{,} \PYG{n+nv}{YM}\PYG{p}{,} \PYG{n+nv}{Dy}\PYG{p}{,} \PYG{n+nv}{Dny}\PYG{p}{),}
+
+  \PYG{n+nv}{Zm} \PYG{o}{is} \PYG{n+nf}{max}\PYG{p}{(}\PYG{n+nv}{Zmin}\PYG{p}{,} \PYG{n+nv}{Ymin} \PYG{o}{\PYGZhy{}} \PYG{n+nv}{Ymax}\PYG{p}{),}
+  \PYG{n+nv}{ZM} \PYG{o}{is} \PYG{n+nf}{min}\PYG{p}{(}\PYG{n+nv}{Zmax}\PYG{p}{,} \PYG{n+nv}{Xmax} \PYG{o}{\PYGZhy{}} \PYG{n+nv}{Ymin}\PYG{p}{),}
+  \PYG{n+nf}{new\PYGZus{}domain}\PYG{p}{(}\PYG{n+nv}{Zm}\PYG{p}{,} \PYG{n+nv}{ZM}\PYG{p}{,} \PYG{n+nv}{Dz}\PYG{p}{,} \PYG{n+nv}{Dnz}\PYG{p}{).}
+
+
+\PYG{n+nf}{new\PYGZus{}domain}\PYG{p}{(}\PYG{n+nv}{Vm}\PYG{p}{,} \PYG{n+nv}{VM}\PYG{p}{,} \PYG{n+nv}{Ds}\PYG{p}{,} \PYG{n+nv}{Dn}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nv}{Vm} \PYG{o}{=\PYGZlt{}} \PYG{n+nv}{VM}\PYG{p}{,}
+  \PYG{p}{(}\PYG{n+nf}{member}\PYG{p}{(}\PYG{n+nv}{Vm}\PYG{p}{,} \PYG{n+nv}{D}\PYG{p}{)} \PYG{l+s+sAtom}{\PYGZhy{}\PYGZgt{}} \PYG{n+nf}{append}\PYG{p}{([}\PYG{n+nv}{Vm}\PYG{p}{],} \PYG{n+nv}{Dn}\PYG{p}{)} \PYG{p}{;} \PYG{l+s+sAtom}{true}\PYG{p}{),}
+  \PYG{n+nv}{Vm} \PYG{o}{is} \PYG{n+nv}{Vm} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,}
+  \PYG{n+nf}{new\PYGZus{}domain}\PYG{p}{(}\PYG{n+nv}{Vm}\PYG{p}{,} \PYG{n+nv}{VM}\PYG{p}{,} \PYG{n+nv}{D}\PYG{p}{,} \PYG{n+nv}{Dn}\PYG{p}{).}
+\PYG{n+nf}{new\PYGZus{}domain}\PYG{p}{(}\PYG{k}{\PYGZus{}}\PYG{p}{,} \PYG{k}{\PYGZus{}}\PYG{p}{,} \PYG{k}{\PYGZus{}}\PYG{p}{,} \PYG{p}{[]).}
+\end{Verbatim}

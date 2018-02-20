@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{not}\PYG{p}{(}\PYG{n+nv}{Goal}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{n+nv}{Goal}\PYG{p}{,} \PYG{p}{!,} \PYG{l+s+sAtom}{fail}\PYG{p}{.}
+\PYG{o}{not}\PYG{p}{(}\PYG{n+nv}{Goal}\PYG{p}{).}
+\end{Verbatim}

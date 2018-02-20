@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{julia\PYGZus{}caesaris}\PYG{p}{,} \PYG{l+s+sAtom}{augustus}\PYG{p}{).}
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{julia\PYGZus{}caesaris}\PYG{p}{,} \PYG{l+s+sAtom}{scribonia}\PYG{p}{).}
+
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{agrippina}\PYG{p}{,} \PYG{l+s+sAtom}{marcus\PYGZus{}vipsanius}\PYG{p}{).}
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{agrippina}\PYG{p}{,} \PYG{l+s+sAtom}{julia\PYGZus{}caesaris}\PYG{p}{).}
+
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{caius\PYGZus{}caesar}\PYG{p}{,} \PYG{l+s+sAtom}{agrippina}\PYG{p}{).}    \PYG{l+s+sAtom}{\PYGZsh{}} \PYG{n+nv}{Caligula}
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{caius\PYGZus{}caesar}\PYG{p}{,} \PYG{l+s+sAtom}{germanicus}\PYG{p}{).}
+
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{julia\PYGZus{}drusilla}\PYG{p}{,} \PYG{l+s+sAtom}{caius\PYGZus{}caesar}\PYG{p}{).}
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{julia\PYGZus{}drusilla}\PYG{p}{,} \PYG{l+s+sAtom}{caesonia}\PYG{p}{).}
+
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{nero}\PYG{p}{,} \PYG{l+s+sAtom}{agrippina}\PYG{p}{).}           \PYG{l+s+sAtom}{\PYGZsh{}} \PYG{n+nv}{Nero}
+\PYG{n+nf}{filhx}\PYG{p}{(}\PYG{l+s+sAtom}{nero}\PYG{p}{,} \PYG{l+s+sAtom}{gnaeus\PYGZus{}ahenobarbus}\PYG{p}{).}
+
+\PYG{n+nf}{ancestral}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{)} \PYG{l+s+sAtom}{:=} \PYG{n+nf}{filhx}\PYG{p}{(}\PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{A}\PYG{p}{),} \PYG{p}{!.}
+\PYG{n+nf}{ancestral}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{)} \PYG{l+s+sAtom}{:=} \PYG{n+nf}{filhx}\PYG{p}{(}\PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{C}\PYG{p}{),} \PYG{n+nf}{ancestral}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,}\PYG{n+nv}{C}\PYG{p}{).}
+\end{Verbatim}

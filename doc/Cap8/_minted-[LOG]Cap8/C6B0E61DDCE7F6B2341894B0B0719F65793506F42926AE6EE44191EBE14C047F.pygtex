@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZpc{} Busca(Lista, Credito) :\PYGZhy{}}
+\PYG{c+c1}{\PYGZpc{}   Busca por solucoes com um dado credito}
+
+\PYG{n+nf}{busca}\PYG{p}{(}\PYG{n+nv}{Lista}\PYG{p}{,} \PYG{n+nv}{Credito}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{p}{(} \PYG{n+nf}{fromto}\PYG{p}{(}\PYG{n+nv}{Lista}\PYG{p}{,} \PYG{n+nv}{Vars}\PYG{p}{,} \PYG{n+nv}{Resto}\PYG{p}{,} \PYG{p}{[]),}
+    \PYG{n+nf}{fromto}\PYG{p}{(}\PYG{n+nv}{Credito}\PYG{p}{,} \PYG{n+nv}{CreditoAtual}\PYG{p}{,} \PYG{n+nv}{NovoCredito}\PYG{p}{,} \PYG{k}{\PYGZus{}}\PYG{p}{)}
+  \PYG{l+s+sAtom}{do}
+    \PYG{n+nf}{escolhe\PYGZus{}vari}\PYG{p}{(}\PYG{n+nv}{Vars}\PYG{p}{,} \PYG{n+nv}{Vari}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{Dominio}\PYG{p}{,} \PYG{n+nv}{Resto}\PYG{p}{),}
+    \PYG{n+nf}{escolhe\PYGZus{}val}\PYG{p}{(}\PYG{n+nv}{Dominio}\PYG{p}{,} \PYG{n+nv}{Val}\PYG{p}{,} \PYG{n+nv}{CreditoAtual}\PYG{p}{,} \PYG{n+nv}{NovoCredito}\PYG{p}{),}
+    \PYG{n+nv}{Vari} \PYG{o}{=} \PYG{n+nv}{Val}
+  \PYG{p}{).}
+
+\PYG{n+nf}{escolhe\PYGZus{}val}\PYG{p}{(}\PYG{n+nv}{Dominio}\PYG{p}{,} \PYG{n+nv}{Val}\PYG{p}{,} \PYG{n+nv}{CreditoAtual}\PYG{p}{,} \PYG{n+nv}{NovoCredito}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{compartilha\PYGZus{}credito}\PYG{p}{(}\PYG{n+nv}{Dominio}\PYG{p}{,} \PYG{n+nv}{CreditoAtual}\PYG{p}{,} \PYG{n+nv}{DomCredLista}\PYG{p}{),}
+  \PYG{n+nf}{member}\PYG{p}{(}\PYG{n+nv}{Val}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{NovoCredito}\PYG{p}{,} \PYG{n+nv}{DomCredLista}\PYG{p}{).}
+\end{Verbatim}

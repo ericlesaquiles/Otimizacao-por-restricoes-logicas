@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{length}\PYG{p}{(}\PYG{n+nv}{Xs}\PYG{p}{,} \PYG{n+nv}{N}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{n+nf}{nonvar}\PYG{p}{(}\PYG{n+nv}{Xs}\PYG{p}{),} \PYG{n+nf}{length1}\PYG{p}{(}\PYG{n+nv}{Xs}\PYG{p}{,} \PYG{n+nv}{N}\PYG{p}{).}
+\PYG{n+nf}{length}\PYG{p}{(}\PYG{n+nv}{Xs}\PYG{p}{,} \PYG{n+nv}{N}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{n+nf}{var}\PYG{p}{(}\PYG{n+nv}{Xs}\PYG{p}{),} \PYG{n+nf}{nonvar}\PYG{p}{(}\PYG{n+nv}{N}\PYG{p}{),} \PYG{n+nf}{length2}\PYG{p}{(}\PYG{n+nv}{Xs}\PYG{p}{,} \PYG{n+nv}{N}\PYG{p}{).}
+\end{Verbatim}

@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZpc{} compartilha\PYGZus{}credito(Dominio, N, DomCredLista) :\PYGZhy{}}
+\PYG{c+c1}{\PYGZpc{}    Admite apenas os primeiros N valores.}
+
+\PYG{n+nf}{compartilha\PYGZus{}credito}\PYG{p}{(}\PYG{n+nv}{Dominio}\PYG{p}{,} \PYG{n+nv}{N}\PYG{p}{,} \PYG{n+nv}{DomCredLista}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{p}{(} \PYG{n+nf}{fromto}\PYG{p}{(}\PYG{n+nv}{N}\PYG{p}{,} \PYG{n+nv}{AtuCredito}\PYG{p}{,} \PYG{n+nv}{NovoCredito}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{),}
+    \PYG{n+nf}{fromto}\PYG{p}{(}\PYG{n+nv}{Dominio}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{Val}\PYG{p}{|}\PYG{n+nv}{Tail}\PYG{p}{],} \PYG{n+nv}{Tail}\PYG{p}{,} \PYG{k}{\PYGZus{}}\PYG{p}{),}
+    \PYG{n+nf}{foreach}\PYG{p}{(}\PYG{n+nv}{Val}\PYG{o}{\PYGZhy{}}\PYG{n+nv}{N}\PYG{p}{,} \PYG{n+nv}{DomCredLista}\PYG{p}{),}
+    \PYG{n+nf}{param}\PYG{p}{(}\PYG{n+nv}{N}\PYG{p}{)}
+  \PYG{n+nf}{do}
+    \PYG{p}{(} \PYG{n+nv}{Tail} \PYG{o}{=} \PYG{p}{[]} \PYG{l+s+sAtom}{\PYGZhy{}\PYGZgt{}}
+      \PYG{n+nv}{NovoCredito} \PYG{o}{is} \PYG{l+m+mi}{0}
+    \PYG{p}{;}
+      \PYG{n+nv}{NovoCredito} \PYG{o}{is} \PYG{n+nv}{AtuCredito} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}
+    \PYG{p}{)}
+  \PYG{p}{).}
+\end{Verbatim}

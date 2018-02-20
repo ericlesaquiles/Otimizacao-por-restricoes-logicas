@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{solve}\PYG{p}{(}\PYG{l+s+sAtom}{true}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nv}{Limit}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{p}{!.}
+
+\PYG{n+nf}{solve}\PYG{p}{((}\PYG{n+nv}{G1}\PYG{p}{,} \PYG{n+nv}{G2}\PYG{p}{),} \PYG{n+nv}{C}\PYG{p}{,} \PYG{n+nv}{Limit}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{p}{!,} \PYG{n+nf}{solve}\PYG{p}{(}\PYG{n+nv}{G1}\PYG{p}{,} \PYG{n+nv}{C1}\PYG{p}{,} \PYG{n+nv}{Limit}\PYG{p}{),} \PYG{n+nf}{solve}\PYG{p}{(}\PYG{n+nv}{G2}\PYG{p}{,} \PYG{n+nv}{C2}\PYG{p}{,} \PYG{n+nv}{Limit}\PYG{p}{),}
+  \PYG{n+nv}{C} \PYG{o}{is} \PYG{n+nf}{min}\PYG{p}{(}\PYG{n+nv}{C1}\PYG{p}{,} \PYG{n+nv}{C2}\PYG{p}{).}
+
+\PYG{n+nf}{solve}\PYG{p}{(}\PYG{n+nv}{G}\PYG{p}{,} \PYG{n+nv}{C}\PYG{p}{,} \PYG{n+nv}{Limit}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{clause\PYGZus{}cf}\PYG{p}{(}\PYG{n+nv}{G}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{C1}\PYG{p}{),} \PYG{n+nv}{C1} \PYG{o}{\PYGZgt{}} \PYG{n+nv}{Limit}\PYG{p}{,}
+  \PYG{n+nv}{Limit1} \PYG{o}{is} \PYG{n+nv}{Limit}\PYG{o}{/}\PYG{n+nv}{C1}\PYG{p}{,} \PYG{n+nf}{solve}\PYG{p}{(}\PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{C2}\PYG{p}{,} \PYG{n+nv}{Limit1}\PYG{p}{),}
+  \PYG{n+nv}{C} \PYG{o}{is} \PYG{n+nv}{C1} \PYG{o}{*} \PYG{n+nv}{C2}\PYG{p}{.}
+\end{Verbatim}
