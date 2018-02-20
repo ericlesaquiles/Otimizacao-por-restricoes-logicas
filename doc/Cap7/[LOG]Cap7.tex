@@ -78,24 +78,31 @@ Que podem ser reescritos, de forma mais compacta como \codigo{cons(1, cons(2, co
 \codigo{café da manhã(café(canela, açúcar), pão de queijo, pão(queijo), goiabada)}\footnote{Estamos usando caracteres especiais aqui para fins de expressividade, mas seu uso em códigos de computador deve ser evitado.}.
 Como pode ver, é essencialmente a mesma representação que temos para um funtor (junto com seus argumentos): funtores são árvores, árvores são funtores (neste contexto).
 
-Um algoritmo muito próximo ao algoritmo de unificação, que vimos no Capítulo 1, serve para resolver restrições em árvore do tipo $T_1$ = $T_2$, onde $T_1$ e $T_2$ são árvores. É interessante notar que um algoritmo para resolução de restrições em árvores foi dado por Herbrand\cite{herbrand} de forma independente ao do algoritmo de unificação de Robinson.
+Um algoritmo muito próximo ao algoritmo de unificação, que vimos no Capítulo 1 %TODO adicionar link
+, serve para resolver restrições em árvore do tipo $T_1$ = $T_2$, onde $T_1$ e $T_2$ são árvores. É interessante notar que um algoritmo para resolução de restrições em árvores foi dado por Herbrand\cite{herbrand} de forma independente ao do algoritmo de unificação de Robinson.
 
 Vale notar também outro detalhe importante naquele algoritmo: ele realiza um procedimento que frequentemente fazemos ao buscar resolver um problema, isto é, transformando uma pergunta, potencialmente complicada e difícil, em uma trivial, para a qual sabe-se a resposta. Essa é uma instância de um processo de \definicao{normalização}, isto é, um processo de transformar uma restrição em outra equivalente, mas mais tratável. Processos de normalização frequentemente
 exercem um papel importante. Voltaremos a esse tema depois.
 
 \subsection{Ideias de resolução}
 
-Nossa discussão sobre problemas envolvendo restrições até agora foi uma discussão geral e apesar de muitas vezes, para resolver esses problemas, ser preferível usar métodos específicos ao domínio e ao tipo de problema, muitas vezes esses problemas são heterogêneos o suficiente para não permitir isso ou não fazem uso de uma sintaxe que permita o uso de métodos específicos.
+Nossa discussão sobre problemas envolvendo restrições até agora foi uma discussão geral e apesar de
+muitas vezes, para resolver esses problemas, ser preferível usar métodos específicos ao domínio e ao
+tipo de problema, muitas vezes esses problemas são heterogêneos o suficiente para não permitir isso
+ou não fazem uso de uma sintaxe que permita o uso de métodos específicos.
 É útil então termos alguma ou algumas formas gerais de resolver esses problemas. Eles são baseados em busca.
 
 \subsubsection{Propagação local}
 
-Propagação local é melhor explicada por um desenho. O grafo a seguir representa a modelagem de um circuito. %QUESTION: eletrico?
-As ``caixinhas'' representam as relações de restrições e as ``bolinhas'', os dados ou variáveis. Por exemplo, uma ``caixinha'' com sinal de adição indica que as variáveis ou dados que entram por ela (o que é indicado pela seta) somadas devem ser iguais às variáveis, ou dados, de saída (indicado por outra seta).
-É importante notar que as setas não indicam a direção de propagação, só nos dão uma informação sobre as restrições:
+Propagação local é melhor explicada por um desenho. O grafo a seguir representa a modelagem de um
+circuito elétrico.
+As ``caixinhas'' representam as relações de restrições e as ``bolinhas'', os dados ou variáveis. Por
+exemplo, uma ``caixinha'' com sinal de adição indica que os dados (no caso, as variáveis) que entram
+por ela (o que é indicado pela seta) somadas devem ser iguais às variáveis, ou dados, de saída
+(indicado por outra seta).
 
 \begin{center}
-  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.0cm, thick,main node/.style={circle,draw,font=\sffamily\bfseries}]
+  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.15cm, thick,main node/.style={circle,draw,font=\sffamily\bfseries}]
 
     \node[main node] (V)  [scale=0.75]{V};
     \node[main node] (eq) [decision, below left of=V, scale=0.75]   {=};
@@ -111,19 +118,19 @@ As ``caixinhas'' representam as relações de restrições e as ``bolinhas'', os
     \node[main node] (pls)[decision, below right of=I1, scale=0.75] {+};
     \node[main node] (I)  [below of=pls, scale=0.75]                {I};
 
-    \draw [arrow] (eq)  -- (V);
-    \draw [arrow] (eq1) -- (V);
-    \draw [arrow] (V1)  -- (eq);
-    \draw [arrow] (V2)  -- (eq1);
-    \draw [arrow] (R1)  -- (tm);
-    \draw [arrow] (I1)  -- (tm);
-    \draw [arrow] (tm)  -- (V1);
-    \draw [arrow] (tm1) -- (V2);
-    \draw [arrow] (I2)  -- (tm1);
-    \draw [arrow] (R2)  -- (tm1);
-    \draw [arrow] (I1)  -- (pls);
-    \draw [arrow] (I2)  -- (pls);
-    \draw [arrow] (I)   -- (pls);
+    \draw [thick,<->] (eq)  -- (V);
+    \draw [thick,<->] (eq1) -- (V);
+    \draw [thick,<->] (V1)  -- (eq);
+    \draw [thick,<->] (V2)  -- (eq1);
+    \draw [thick,->] (R1)  -- (tm);
+    \draw [thick,->] (I1)  -- (tm);
+    \draw [thick,->] (tm)  -- (V1);
+    \draw [thick,->] (tm1) -- (V2);
+    \draw [thick,->] (I2)  -- (tm1);
+    \draw [thick,->] (R2)  -- (tm1);
+    \draw [thick,->] (I1)  -- (pls);
+    \draw [thick,->] (I2)  -- (pls);
+    \draw [thick,<-] (I)   -- (pls);
 
     %\path[every node/.style={font=\sffamily\small}]
       %(1) edge node [left] {0.6} (4)
@@ -146,7 +153,7 @@ Esse grafo é uma outra forma de representar a restrição \codigo{V=V1, V=V2, V
 
 
 \begin{center}
-  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.0cm, thick,main node/.style={circle,draw,font=\sffamily\bfseries}]
+  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.15cm, thick,main node/.style={circle,draw,font=\sffamily\bfseries}]
 
     \node[main node] (V)  [scale=0.75]{8};
     \node[main node] (eq) [decision, below left of=V, scale=0.75]   {=};
@@ -162,19 +169,19 @@ Esse grafo é uma outra forma de representar a restrição \codigo{V=V1, V=V2, V
     \node[main node] (pls)[decision, below right of=I1, scale=0.75] {+};
     \node[main node] (I)  [below of=pls, scale=0.75]                {I};
 
-    \draw [arrow] (eq) -- (V);
-    \draw [arrow] (eq1) -- (V);
-    \draw [arrow] (V1) -- (eq);
-    \draw [arrow] (V2) -- (eq1);
-    \draw [arrow] (R1) -- (tm);
-    \draw [arrow] (I1) -- (tm);
-    \draw [arrow] (tm) -- (V1);
-    \draw [arrow] (tm1) -- (V2);
-    \draw [arrow] (I2) -- (tm1);
-    \draw [arrow] (R2) -- (tm1);
-    \draw [arrow] (I1) -- (pls);
-    \draw [arrow] (I2) -- (pls);
-    \draw [arrow] (I) -- (pls);
+    \draw [thick,<->] (eq) -- (V);
+    \draw [thick,<->] (eq1) -- (V);
+    \draw [thick,<->] (V1) -- (eq);
+    \draw [thick,<->] (V2) -- (eq1);
+    \draw [thick,->]  (R1) -- (tm);
+    \draw [thick,->]  (I1) -- (tm);
+    \draw [thick,->]  (tm) -- (V1);
+    \draw [thick,->]  (tm1) -- (V2);
+    \draw [thick,->]  (I2) -- (tm1);
+    \draw [thick,->]  (R2) -- (tm1);
+    \draw [thick,->]  (I1) -- (pls);
+    \draw [thick,->]  (I2) -- (pls);
+    \draw [thick,<-]  (I) -- (pls);
 
   \end{tikzpicture}
 \end{center}
@@ -182,6 +189,21 @@ Esse grafo é uma outra forma de representar a restrição \codigo{V=V1, V=V2, V
 Disso, podemos continuar a propagação, obtendo \codigo{I1 = 8/6}. E assim vai.
 
 Propagação local funciona muito bem para resolver alguns problemas, mas simplesmente não consegue resolver outros. Por exemplo, considere a restrição \codigo{A=B+2*Z, A=3*K-B, K=5, Z=7}. Propagação local detectaria que \codigo{K=5} e \codigo{Z=7}, mas não encontraria o valor de A ou B. Isso ocorre porque para tanto seria preciso fazer uso de mais de uma restrição por vez, o que a propagação local não faz.
+
+Mais geralmente, dizemos que um \definicao{propagador} é uma função monotônica não-crescente de domínio para
+domínio, i.e. se \enphasis{D} e \enphasis{D'} são domínios tais que $D \subseteq D'$ e \enphasis{f}
+é um propagador, obrigatoriamente $f(D') \subseteq f(D)$ e $f(D) \subseteq D$. Um propagador é dito
+correto em relação a uma restrição \funtor{r/n} com variáveis de domínios $D_i$ se as soluções para
+a restrição nos domínios originais são as mesmas que as soluções para a restrição em $f(D_i)$.
+Perceba que essa é uma noção fraca, já que a função identidade a satisfaz. Propagação local é um tipo de propagador correto (veremos outros mais para frente).
+
+No geral, em um CSP, provê-se um propagador para cada restrição. Nesse contexto, um \definicao{resolvedor por
+propagação} para um conjunto de propagadores \enphasis{P} aplica os propagadores em \enphasis{P} a
+cada restrição até que não haja mudanças a serem obtidas. Em outras palavras, um resolvedor
+\enphasis{solv} por propagação recebe como argumentos um conjunto de propagadores \enphasis{P} e um
+de restrições \enphasis{R} e retorna um conjunto de domínios que é o maior ponto fixo dos
+propagadores em \enphasis{P} com respeito à relação de inclusão (assumindo que tal conjunto de
+domínios exista, o que geralmente é o caso).
 
 \subsection{Busca Top-Down}
 

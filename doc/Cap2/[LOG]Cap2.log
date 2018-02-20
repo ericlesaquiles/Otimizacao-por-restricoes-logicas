@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  19 FEB 2018 19:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  20 FEB 2018 09:50
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**[LOG]Cap2.tex
+**./[LOG]Cap2.tex
 (./[LOG]Cap2.tex
 LaTeX2e <2017-04-15>
 Babel <3.15> and hyphenation patterns for 84 language(s) loaded.
@@ -1530,46 +1530,41 @@ Package caption Info: End \AtBeginDocument code.
 ABD: EveryShipout initializing macros
 (./_minted-[LOG]Cap2/default-pyg-prefix.pygstyle)
 (./_minted-[LOG]Cap2/default.pygstyle)
-runsystem(pygmentize -l prolog -f latex -P commandprefix=PYG -F tokenmerge -o _
-minted-[LOG]Cap2/66F48BF946B407BABE6E4AE68590C2FDD6B8DD8076F738CD4D432E4F08678F
-E0.pygtex ../Exemplos/Cap2/prog1_natural.pl)...executed.
-
-
 (./_minted-[LOG]Cap2/66F48BF946B407BABE6E4AE68590C2FDD6B8DD8076F738CD4D432E4F08
 678FE0.pygtex)
-Underfull \hbox (badness 10000) in paragraph at lines 36--36
+Underfull \hbox (badness 10000) in paragraph at lines 35--35
 []\OT1/cmr/bx/n/9 base Her-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 46--46
+Underfull \hbox (badness 10000) in paragraph at lines 45--45
 []\OT1/cmr/bx/n/9 significado
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 2556) in paragraph at lines 62--62
+Underfull \hbox (badness 2556) in paragraph at lines 61--61
 \OT1/cmr/m/n/10 claro, pare e
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 62--62
+Underfull \hbox (badness 10000) in paragraph at lines 61--61
 \OT1/cmr/m/n/10 pense so-bre
  []
 
 
-Underfull \hbox (badness 1320) in paragraph at lines 62--62
+Underfull \hbox (badness 1320) in paragraph at lines 61--61
 \OT1/cmr/m/n/10 min-u-tos.. se
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 62--62
+Underfull \hbox (badness 10000) in paragraph at lines 61--61
 \OT1/cmr/m/n/10 con-tin-uar es-
  []
 
 
-Underfull \hbox (badness 4217) in paragraph at lines 62--62
+Underfull \hbox (badness 4217) in paragraph at lines 61--61
 \OT1/cmr/m/n/10 ir tomar um
  []
 
@@ -1581,7 +1576,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.76   \item C
+l.75   \item C
                onstruímos a equação \codigo{porta\_and(En1, En2, Sai) = p...
 
 ? 
@@ -1592,7 +1587,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.76   \item C
+l.75   \item C
                onstruímos a equação \codigo{porta\_and(En1, En2, Sai) = p...
 
 ? 
@@ -1603,11 +1598,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.76   \item C
+l.75   \item C
                onstruímos a equação \codigo{porta\_and(En1, En2, Sai) = p...
 
 ? 
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 76.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 75.
 (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
@@ -1618,7 +1613,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.77   \item $
+l.76   \item $
               \Gamma$ = \{\};
 ? 
 
@@ -1628,7 +1623,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.77   \item $
+l.76   \item $
               \Gamma$ = \{\};
 ? 
 
@@ -1638,15 +1633,15 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.77   \item $
+l.76   \item $
               \Gamma$ = \{\};
 ? 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 77.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 76.
 (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 77.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 76.
 
 
 ! LaTeX Error: Something's wrong--perhaps a missing \item.
@@ -1655,76 +1650,76 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.79       \item �
+l.78       \item �
                   � realizado o \technical{pop} da equação \codigo{porta$\...
 
 ? 
 
-Overfull \hbox (15.8361pt too wide) in paragraph at lines 76--79
+Overfull \hbox (15.8361pt too wide) in paragraph at lines 75--78
 []\OT1/cmr/m/n/10 Constru^^S^^Pmos a equa^^Xc~ao \OT1/cmtt/m/n/10 porta[]and(En
 1, En2, Sai) = porta$[]$and(En1,
  []
 
 
-Overfull \hbox (39.0939pt too wide) in paragraph at lines 79--80
+Overfull \hbox (39.0939pt too wide) in paragraph at lines 78--79
 [][]\OT1/cmr/m/n/10 E re-al-izado o \OT1/cmr/m/it/10 pop \OT1/cmr/m/n/10 da equ
 a^^Xc~ao \OT1/cmtt/m/n/10 porta$[]$and(En1, En2, Sai) = porta$[]$and(En1,
  []
 
 
-Overfull \hbox (22.25734pt too wide) in paragraph at lines 83--84
+Overfull \hbox (22.25734pt too wide) in paragraph at lines 82--83
 []\OT1/cmtt/m/n/10 porta$[]$nand(En1, En2, X) = porta$[]$nand(Entrada10, Entrad
 a20,
  []
 
 
-Overfull \hbox (23.9753pt too wide) in paragraph at lines 93--94
+Overfull \hbox (23.9753pt too wide) in paragraph at lines 92--93
 []\OT1/cmtt/m/n/10 transistor(En2, ground, X0) = transistor(n5,ground,n4)\OT1/c
 mr/m/n/10 ; 
  []
 
 [3]
-Overfull \hbox (60.26286pt too wide) in paragraph at lines 106--107
+Overfull \hbox (60.26286pt too wide) in paragraph at lines 105--106
 []\OT1/cmr/m/n/10 Realizamos um \OT1/cmr/m/it/10 pop \OT1/cmr/m/n/10 da equa^^X
 c~ao \OT1/cmtt/m/n/10 inversor(n2, Sai) = inversor(Entrada00,
  []
 
 
-Overfull \hbox (23.9753pt too wide) in paragraph at lines 110--111
+Overfull \hbox (23.9753pt too wide) in paragraph at lines 109--110
 []\OT1/cmtt/m/n/10 transistor(n2, ground, Sai) = transistor(n2,ground,n1)\OT1/c
 mr/m/n/10 ; 
  []
 
 
-Overfull \hbox (89.29042pt too wide) in paragraph at lines 115--116
+Overfull \hbox (89.29042pt too wide) in paragraph at lines 114--115
 []\OT1/cmr/m/n/10 Realizamos um \OT1/cmr/m/it/10 pop \OT1/cmr/m/n/10 da equa^^X
 c~ao \OT1/cmtt/m/n/10 resistor(energia, n1) = resistor(energia,n1)\OT1/cmr/m/n/
 10 ; 
  []
 
 
-Overfull \hbox (5.16727pt too wide) in paragraph at lines 131--132
+Overfull \hbox (5.16727pt too wide) in paragraph at lines 130--131
 []\OT1/cmr/m/n/10 Na pr^^Satica, o tipo de caso de n~ao-termina^^Xc~ao men-cion
 ado acima se-ria provavel-
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 141--141
 []\OT1/cmr/bx/n/9 dom^^S^^Pnio de
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 170--170
+Underfull \hbox (badness 10000) in paragraph at lines 169--169
 []\OT1/cmr/bx/n/9 tamanho de
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--173
+Underfull \hbox (badness 10000) in paragraph at lines 172--172
 []\OT1/cmr/bx/n/9 complexidade
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--173
+Underfull \hbox (badness 10000) in paragraph at lines 172--172
 \OT1/cmr/bx/n/9 por com-pri-
  []
 
@@ -1735,13 +1730,13 @@ See the caption package documentation for explanation.
 
 [7] (./[LOG]Cap2.aux) ) 
 Here is how much of TeX's memory you used:
- 36951 strings out of 492985
- 815611 string characters out of 6138637
- 909071 words of memory out of 5000000
- 40044 multiletter control sequences out of 15000+600000
+ 36952 strings out of 492985
+ 815619 string characters out of 6138637
+ 909200 words of memory out of 5000000
+ 40045 multiletter control sequences out of 15000+600000
  537020 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,8n,69p,10402b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,8n,69p,10404b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super
 -ts1.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr
 /share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-d
@@ -1758,7 +1753,7 @@ onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></u
 sr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on [LOG]Cap2.pdf (7 pages, 220578 bytes).
+Output written on [LOG]Cap2.pdf (7 pages, 221170 bytes).
 PDF statistics:
  104 PDF objects out of 1000 (max. 8388607)
  76 compressed objects within 1 object stream

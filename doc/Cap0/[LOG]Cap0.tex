@@ -38,17 +38,21 @@ relacional que palavras tem umas com as outras. O termo atualmente também é us
 programação lógica), como em \enphasis{Teoria de Categoria}, com significado semelhante (levando em conta o contexto).
 
 Para nossos propósitos, é uma simplificação razoável dizer que funtores expressam relações. Na linguagem natural, somos restritos a usar os funtores presentes na língua usada (mesmo uma ``licença poética'' não vai muito longe disso).
-Na programação lógica, os funtores só precisam ser sintaticamente corretos. Em Prolog, um funtor $f$ de aridade $n$ (aridade é a quantidade de parâmetros, ou ``símbolos relacionados pelo funtor''), dito
-$f/n$, é escrito com uma sintaxe semelhante à de uma função:
+Na programação lógica, os funtores só precisam ser sintaticamente corretos. Em Prolog, um funtor
+\enphasis{f} de aridade \enphasis{n} (aridade é a quantidade de parâmetros, ou ``símbolos relacionados pelo funtor''), dito
+\funtor{f/n}, é escrito com uma sintaxe semelhante à de uma função:
 
 \codigo{
   f($a_1$, ..., $a_n$)
 }
 
-Onde os argumentos $a_i$ são outros funtores. Em particular, símbolos e números são ditos funtores de aridade zero, também chamados \definicao{átomos}\footnote{Em Prolog, nem todo símbolo pode ser tratado como átomo (embora os usuais sejam). Quando na dúvida, recomendamos testar antes de confiar.}. Quando um funtor $f/n$ não é um átomo, ele, na presença de seus argumentos,
+Onde os argumentos $a_i$ são outros funtores. Em particular, símbolos e números são ditos funtores
+de aridade zero, também chamados \definicao{átomos}\footnote{Em Prolog, nem todo símbolo pode ser
+  tratado como átomo (embora os usuais sejam). Quando na dúvida, recomendamos testar antes de
+  confiar.}. Quando um funtor \funtor{f/n} não é um átomo, ele, na presença de seus argumentos,
 é dito um \definicao{termo composto} de \definicao{funtor principal} f. Mais em geral, um \definicao{termo} é um funtor ou variável (o que é uma variável e como se comporta  veremos mais para frente) e, quando corresponder a um átomo ou uma variável, dizemos que ele é atômico.
 
-Dados funtores $f/3$ e $p/1$, exemplos de seus usos são:
+Dados funtores \funtor{f/3} e \funtor{p/1}, exemplos de seus usos são:
 
 \begin{itemize}
   \item f(a,b,c)
@@ -127,7 +131,6 @@ escritos com um ponto final no lugar de com um ponto de interrogação).
 
 Considere o seguinte código:\\
 
-%\lstinputlisting[caption=Árvore binária, style=prosty]{../Exemplos/Cap0/prog3_arvb.pl}
 \inputminted{prolog}{../Exemplos/Cap0/prog3_arvb.pl}\label{lst:arvb}
 
 O goal \codigo{$arvore\_b$(vazio)?} tem sucesso, já que é um dos fatos. O goal \codigo{$arvore\_b$(arvore(raiz, vazio, vazio))?} também tem, já que \codigo{$arvore\_b$(a, B, C)?} tem sucesso se $arvore\_b(A)$ e $arvore\_b(B)$ tiverem, o que ocorre. Perceba que, neste caso, o goal não tem sucesso segundo a primeira cláusula apenas e nem segundo a segunda. Ambas contribuem para a definição de $arvore\_b$.
@@ -137,7 +140,6 @@ contém variáveis são ditos \definicao{termos base}. Variáveis serão explica
 
 No geral, o que um programa lógico deveria fazer (isto é, o que a programadora tem em mente ao escrevê-lo) pode não ser a princípio claro. Numa tentativa de aliviar isso, usaremos aqui a convenção de usar nomes significativos, assumindo o significado usual (a não ser quando dito o contrário), para os elementos relevantes. Assim, por exemplo, o seguinte trecho:
 
-%\lstinputlisting[caption=Pai e filho, style=prosty]{../Exemplos/Cap0/prog4_pai.pl}\label{lst:pai_filho}
 \inputminted{prolog}{../Exemplos/Cap0/prog4_pai.pl}\label{lst:pai_filho}
 
 

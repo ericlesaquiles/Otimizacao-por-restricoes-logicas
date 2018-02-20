@@ -9,7 +9,6 @@
 Considere o seguinte código:
 
 
-%\lstinputlisting[caption=Circuito]{../Exemplos/Cap1/prog1_circuito.pl}\label{lst:circuit}
 \inputminted{prolog}{../Exemplos/Cap1/prog1_circuito.pl}
 
 A leitora pode se perguntar qual o resultado do seguinte goal:
@@ -63,9 +62,9 @@ Se temos que existe alguma substituição $\iota$ (possivelmente vazia) para que
   \end{enumerate}
 
   Como em programação lógica, a princípio, não fazemos uso de funções, não podemos fazer a afirmação 1, mas, na prática, o que dizemos é equivalente.
-  Isso porque, apesar de um funtor f/n não retornar um valor propriamente dito, se queremos um ``valor de retorno'', sempre podemos
-  fazer um f/n+1, cujo último argumento (ou qualquer outro, mas costumamos optar pelo último pela conveniência de fazer apenas uma
-  escolha) seria o valor de retorno (como já foi visto no funtor length/2, por exemplo) e o termo nessa última posição, se for uma variável, pode ser unificado com um funtor. Quanto à afirmação 2, podemos dizer somente que os funtores são o tijolo e cimento das
+  Isso porque, apesar de um funtor \funtor{f/n} não retornar um valor propriamente dito, se queremos um ``valor de retorno'', sempre podemos
+  fazer um \funtor{f/n+1}, cujo último argumento (ou qualquer outro, mas costumamos optar pelo último pela conveniência de fazer apenas uma
+  escolha) seria o valor de retorno (como já foi visto no funtor \funtor{length/2}, por exemplo) e o termo nessa última posição, se for uma variável, pode ser unificado com um funtor. Quanto à afirmação 2, podemos dizer somente que os funtores são o tijolo e cimento das
   estruturas de dados em programação lógica.
 
 Voltando ao tema das substituições, todas elas são iguais, mas algumas são mais iguais que outras. Em particular, dado um programa P e substituições $\iota$ e $\nu$, se existe alguma substituição $\eta$ tal que $(P\iota)\eta = P \nu$, dizemos que $\iota$ é uma substituição mais geral do que $\nu$. A substituição mais geral será de especial importância, porque podemos expressar outras substituições em função dela.
@@ -137,7 +136,6 @@ Para entender melhor, tome o exemplo do código \ref{lst:circuit}, no início de
 
   Imagine que você se encontra em uma situação problemática e gostaria de resolver o problema. Um procedimento possível é gerar uma provável solução e, então, testar se ela de fato resolve o problema. Se formos traduzir isso para programação lógica, teríamos algo como:
 
-%\lstinputlisting[caption=Encontra]{../Exemplos/Cap1/prog2_encontra.pl}
 \inputminted{prolog}{../Exemplos/Cap1/prog2_encontra.pl}
 
 Para algum \enphasis{gera} e algum \enphasis{testa}. A hipótese de não-determinísmo está na esperança de que será gerada uma solução que passa no teste, o que não é, a princípio, claro ser possível. Na prática, isso seria aproximadamente resolvido com o artifício do \foreign{backtracking}, que veremos posteriormente.
@@ -168,14 +166,16 @@ No problema específico mostrado, podemos ver que, na primeira linha, a relaçã
 
 O programa a seguir implementa esses passos em um programa lógico\footnote{O ``='' usado nesse programa é o mesmo da ``substituição'' mencionada acima e é a relação de identidade: A = B $\Leftrightarrow$ A é idêntico a B.}:
 
-%\lstinputlisting[caption=Analogy]{../Exemplos/Cap1/prog3_analogy.pl}
 \inputminted{prolog}{../Exemplos/Cap1/prog3_analogy.pl}
 
 Esse programa é muito específico: ele toma a analogia entre apenas dois objetos e, a partir disso, cria uma analogia com um terceiro. Uma generalização é possível, mas, para nossos propósitos, isso é o suficiente.
 
-Para que ele funcione, a maneira como os diagramas são representados é fundamental. Estando representados apropriadamente, match/3 nos dá a operação que relaciona um objeto A com um B. Com isso em mãos, só precisamos aplicar a mesma operação ao termo C, por meio de match/2, achando X, o objeto que queríamos. Vale ressaltar que match/2 está sendo usado de duas maneiras diferentes\footnote{Esse tipo de comentário provém de uma leitura procedural: do ponto de
-  vista estritamente lógico, match/2 apenas expressa uma relação, que pode ser verdadeira ou falsa (isto é, pode existir ou não existir). Pensar do ponto de vista lógico é conveniente para fazermos programas mais elegantes e gerais, mas, sem uma leitura procedural adequada, não conseguiríamos trabalhar com alguns dos programas que veremos mais para frete.}: para encontrar a relação entre dois termos e para ``fabricar'' um termo com uma relação
-desejada. O predicado member/2 ainda não foi explicado, e só o será melhor entendido posteriormente: por enquanto, é suficiente assumir que \codigo{member(A, B)} se \var{B} for uma lista (essa coisa entre colchetes, que será explicada adiante) da qual \var{A} faz parte (no caso, de C fazer parte de \var{Answers})\footnote{Caso o mistério te incomode, considere fazer uma visita ao Capítulo 3.}.
+Para que ele funcione, a maneira como os diagramas são representados é fundamental. Estando
+representados apropriadamente, \funtor{match/3} nos dá a operação que relaciona um objeto A com um
+B. Com isso em mãos, só precisamos aplicar a mesma operação ao termo C, por meio de
+\funtor{match/2}, achando X, o objeto que queríamos. Vale ressaltar que \funtor{match/2} está sendo usado de duas maneiras diferentes\footnote{Esse tipo de comentário provém de uma leitura procedural: do ponto de
+  vista estritamente lógico, \funtor{match/2} apenas expressa uma relação, que pode ser verdadeira ou falsa (isto é, pode existir ou não existir). Pensar do ponto de vista lógico é conveniente para fazermos programas mais elegantes e gerais, mas, sem uma leitura procedural adequada, não conseguiríamos trabalhar com alguns dos programas que veremos mais para frete.}: para encontrar a relação entre dois termos e para ``fabricar'' um termo com uma relação
+desejada. O predicado \funtor{member/2} ainda não foi explicado, e só o será melhor entendido posteriormente: por enquanto, é suficiente assumir que \codigo{member(A, B)} se \var{B} for uma lista (essa coisa entre colchetes, que será explicada adiante) da qual \var{A} faz parte (no caso, de C fazer parte de \var{Answers})\footnote{Caso o mistério te incomode, considere fazer uma visita ao Capítulo 3.}.
 
 Caso esteja se perguntando qual a relação com o modelo do gera-e-testa discutido anteriormente: o primeiro \technical{match} ajuda o segundo a gerar o \technical{member} testa se o resultado é válido.
 

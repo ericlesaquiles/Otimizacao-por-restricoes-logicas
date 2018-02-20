@@ -25,10 +25,9 @@ O significado declarativo é baseado na assim chamada teoria de modelos. Para tr
 
 Por exemplo, se temos um programa como o seguinte:
 
-%\lstinputlisting[caption=Natural]{../Exemplos/Cap2/prog1_natural.pl}
 \inputminted{prolog}{../Exemplos/Cap2/prog1_natural.pl}\label{lst:natural}
 
-U(P) é o conjunto formado por 0, natural/1 e suas combinações:
+U(P) é o conjunto formado por 0, \funtor{natural/1} e suas combinações:
 \[
   U(P) = \{0, s(0), s(s(0)), s(s(s(0))), ...\}
 \]
@@ -147,7 +146,7 @@ No geral, gostaríamos que um programa tivesse um domínio de terminação conti
 
 Pode ser útil buscarmos achar, para programas lógicos, domínios de terminação. Para isso, usaremos o conceito de \enphasis{tipo}: um tipo é um conjunto de termos.
 
-Entenda isso como uma definição mais informal. Poderíamos, pela definição, tratar o match/2, introduzido no programa Analogy, do Capítulo anterior, como um tipo, mas não temos, atualmente, motivos para fazer isso.
+Entenda isso como uma definição mais informal. Poderíamos, pela definição, tratar o \funtor{match/2}, introduzido no programa Analogy, do Capítulo anterior, como um tipo, mas não temos, atualmente, motivos para fazer isso.
 Analogamente, podemos chamar arvore\_b, no programa Árvore Binária do Capítulo 0 de um tipo, %COMMENT: de novo, melhor usar \ref.
 e temos motivos para fazer isso.
 
@@ -187,7 +186,8 @@ Vale notar que essa forma de negação tem várias diferenças com a negação d
 
 Assim, por exemplo, podemos escrever algo como \codigo{a :- not a.} que indica que \codigo{a} tem sucesso se \codigo{a} tem falha. Na prática, se existem outras cláusulas contribuindo para a definição de \codigo{a}, o resultado dessa computação vai depender muito da ordem de avaliação do interpretador, que no geral não é não-determinística.
 
-Vale notar que essa não é a única forma de negação. Uma outra possibilidade seria a de possibilitar a fail/1, um átomo que representa falha, compor a cabeça de uma cláusula, no que poderíamos fazer algo como \codigo{fail :- $a_1$, ..., $a_n$.}.
+Vale notar que essa não é a única forma de negação. Uma outra possibilidade seria a de possibilitar
+a \funtor{fail/1}, um átomo que representa falha, compor a cabeça de uma cláusula, no que poderíamos fazer algo como \codigo{fail :- $a_1$, ..., $a_n$.}.
 Esse tipo de negação tem sua utilidade, por exemplo, em sistemas de diagnóstico de falhas (em particular, porque, por esse sistema, é possível saber o que causou a falha, o que seria mais difícil de outra forma). Mas não faremos uso dele e, quando
 falarmos sobre negação, nos referimos à negação por falha..
 

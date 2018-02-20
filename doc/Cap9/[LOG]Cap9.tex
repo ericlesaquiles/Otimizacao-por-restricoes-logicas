@@ -93,28 +93,104 @@ escolha por um número. No problema da coloração do mapa do Cazaquistão, por 
 denotar as cores como ``vermelho'', ``azul'', etc., podemos denotá-las como ``1'', ``2'', etc., obtendo resultados equivalentes.
 
 Lidando com CSPs aritméticos, podemos definir a noção de \definicao{consistência por limites}. A ideia é limitar o domínio
-de uma variável por limites inferiores e superiores. As seguintes convenções de notação serão convenientes:
+de uma variável por limitantes inferiores e superiores. As seguintes convenções de notação serão convenientes:
 
 \begin{itemize}
   \item $min_D(\var{X})$ := algum $x$ tal que para todo $y \in D$, $y \geq x$;
   \item $max_D(\var{X})$ := algum $x$ tal que para todo $y \in D$, $y  \leq x$.
 \end{itemize}
 
-Dadas essas convenções, podemos construir a seguinte definição:
+Dadas essas convenções, podemos construir uma definição de consistência por limites. Por incrível
+que pareça, existem três noções de consistência por limites, uma incompatível com a outra. Não
+obstante, os pesquisadores frequentemente confundem uma noção com a outra (os motivos de tal
+confusão serão explicados a seguir).
+
+As três noções de consistência por limites serão denotadas \boundd, \boundz{} e \boundr.
+Intuitivamente, para \boundd, dentro de cada limitante no domínio de uma variável há ``suporte
+inteiro'' para os valores dos domínios das outras variáveis ocorrendo na mesma restrição.
+Para \boundz, o ``suporte inteiro'' precisa ser apenas dentro do intervalo definido pelos limitantes
+inferiores e superiores das outras variáveis.
+Para \boundr, os ``suportes'' podem assumir valores reais no intervalo definido pelos limitantes
+inferiores e superiores das outras variáveis.
+
+Mais formalmente, temos as seguintes definições:
 
 \begin{definition}
-  Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita consistente por limites
-  se para cada \var{$X_i$} variável de \funtor{r/n}, existem valores reais $x_1$, ..., $x_n$ tais
-  que para todo $j \neq i$, $min_D(X_j) \leq x_j \leq max_D(X_j)$ e $\{X_i = min_D(X_i), X_j = x_j\}$ é
-  uma solução de r.
-  E outros valores reais $x_1$, ..., $x_n$ tais que para todo $j \neq i $, $min_D(x_j) \leq x_j \leq
-  max_D(x_j)$ e $\{X_i = max_D(X_i)$, $X_j = x_j\}$ é uma solução de r.
+  Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita
+  \definicao{\boundd{} consistente}
+  se, para cada \var{$X_i$}, existem \enphasisb{valores inteiros} $x_j$ no domínio de \var{$X_j$}, onde $j \neq i$, tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
+  é uma solução de \funtor{r/n}.
 
-  Uma restrição composta é dita consistente por limites se cada uma de suas restrições o é.
+  %$min_D(X_j) \leq x_j \leq max_D(X_j)$ e $\{X_i = min_D(X_i), X_j = x_j\}$ é
+  %uma solução de r.
+  %E outros valores reais $x_1$, ..., $x_n$ tais que para todo $j \neq i $, $min_D(x_j) \leq x_j \leq
+  %max_D(x_j)$ e $\{X_i = max_D(X_i)$, $X_j = x_j\}$ é uma solução de r.
+
+  Uma restrição composta é dita \boundd{} consistente se cada uma de suas restrições o é.
 \end{definition}
 
-Um método eficiente, dito uma \definicao{regra de propagação} pode ser elaborado a partir
-de uma constatação ilustrada no seguinte exemplo:
+\begin{definition}
+  Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita
+  \definicao{\boundz{} consistente}
+  se, para cada \var{$X_i$}, existem \enphasisb{valores inteiros} $x_j$, onde $j \neq i$,
+  satisfazendo $min_D(\var{$X_j$}) \leq x_j \leq max_D(\var{$X_j$})$,
+  tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
+  é uma solução inteira de \funtor{r/n}.
+
+  Uma restrição composta é dita \boundz{} consistente se cada uma de suas restrições o é.
+\end{definition}
+
+\begin{definition}
+  Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita
+  \definicao{\boundr{} consistente}
+  se, para cada \var{$X_i$}, existem \enphasisb{valores reais} $x_j$, onde $j \neq i$,
+  satisfazendo $min_D(\var{$X_j$}) \leq x_j \leq max_D(\var{$X_j$})$,
+  tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
+  é uma solução real de \funtor{r/n}.
+
+  Uma restrição composta é dita \boundr{} consistente se cada uma de suas restrições o é.
+\end{definition}
+
+É claro pelas definições que \boundd{} $\Rightarrow$ \boundz{} $\Rightarrow$ \boundr. Existem, no
+entanto, problemas práticos com \boundd{} e \boundz, nomeadamente que, para restrições lineares, por
+exemplo, manter consistêncai por \boundd{} ou por \boundz{} é um problema NP-completo, enquanto que
+manter consistência por \boundr{} pode ser feito em tempo linear.
+
+Também vale notar que um conjunto de domínios D é consistente em \boundz{} ou \boundr{} para uma
+restrição \funtor{r/n} se, e só se, range(D) é consistente em \boundz{} ou em \boundr{} para
+\funtor{r/n}, em que range(D) é definido como $range(D) := \{[min_D_x_i(X) \ldots  max_D_x_i(X_i)]\}$, $D_x_i$ o domínio da
+variável de \funtor{r/n} $X_i$. Essa propriedade é muito usada para não reexecutar propagadores
+de limites sem necessidade, e não vale para \boundd{}.
+
+Um problema com consistência em \boundr{} é que pode não ser claro como interpretar uma restrição
+inteira nos reais.
+
+Com tantas diferenças entre essas noções, alguém poderia nos perguntar ``Como alguém poderia
+confundi-las?''. O fato é que, para muitas restrições, elas são equivalentes. Essas restrições são
+ditas monótonas. Para definir uma restrição monótona, será conveniente ter uma definição mais
+refinada do que é um domínio. Daqui para frente, um \definicao{domínio} D de uma restrição
+\funtor{r/n} será tido como uma função do conjunto de variáveis de \funtor{r/n} para os conjuntos de
+valores que essa variável pode receber. Por exemplo, para \codigo{r(X,Y) :- X = Y.}, onde \var{X}
+pode assumir os valores 1 e 2 e, \var{Y}, os valores 2 e 3, D(X) = \{1, 2\} e D(Y) = \{2, 3\}. Por
+abuso de notação, diremos que $\Gamma \in D$ se $\Gamma$ é outra função domínio tal que $\Gamma(X_i)
+\subseteq D(X_i)$ para $1 \leq i \leq n$.
+
+\begin{definition}
+  Uma restrição \funtor{r/n} é dita monótona com respeito às suas variáveis \var{$X_i$} se, e só se,
+  existe uma ordem total\footnote{Lembrete: uma ordem total em um conjunto S é uma relação $\preceq$ que
+    satisfaz, para todo $a, b, c \in S$: $a \preceq a$, $a \preceq b \wedge b \preceq a \Rightarrow
+  a = b$, $a\preceq b \wedge b \preceq c \Rightarrow a \preceq c$ e $a\preceq b \vee b\preceq a$.}
+    $\prec_i$\footnote{A ordem pode mudar segundo a variável.}
+    no domínio de \var{$X_i$}, $D(X_i)$, tal que, se, para todo i, $\Gamma \in
+  D(X_i)$ é uma solução de \funtor{r/n}, então também o é qualquer $\Gamma$' tal que, para $i \neq
+  j$, $\Gamma$'$(X_j) = \Gamma(X_j)$ e $\Gamma$'$(X_i) \preceq_i \Gamma(X_i)$.
+\end{definition}
+
+Restrições na forma de desigualdades lineares\footnote{Exceto desigualdades da forma $x \neq y$, mas
+essas são muito fáceis de lidar, além de serem equivalentes para \boundd, \boundz{} e \boundr.} e de desigualdades do tipo $x_1 \times x_2 \leq x_3$, onde $min_D(x_i) \geq 0$, são
+monótonas, por exemplo.
+
+Mais detalhes sobre consistência por limites podem ser vistos em \cite{choi}. A seguir é elaborado um exemplo de um método de propagação por limites.
 
 Considere a restrição \codigo{X = Z + Y}. Ela pode ser escrita nas formas
   \[
@@ -284,12 +360,13 @@ Incidentalmente, os \technical{indexicals} usados aqui provém de um conceito ma
 \technical{indexical} proveniente da filosofia da linguagem.
 Para entender esse conceito um pouco melhor, considere a seguinte situação (retirada de \cite{raymond}):
 
-Digamos que existem dois irmãos gêmeos, um que só diz a verdade e outro que só mente. Além disso, o primeiro irmão, que só diz a
+Digamos que existem dois irmãos gêmeos, um que só diz a verdade e outro que só diz a mentira. Além
+disso, o primeiro irmão, que só diz a,
 verdade também tem uma crença perfeita do que é ou não verdade (isto é, todas as proposições que são verdadeiras ele crê serem
 verdade e analogamente o contrário). Em contrapartida, o outro irmão tem uma crença completamente imperfeita do que é verdade
-(o que é verdade ele crê não o ser e analogamente o contrário). O interessante é que, ao serem feitos a mesma pergunta,
+(o que é verdade ele crê não o ser e analogamente o contrário). Note que, ao serem feitos a mesma pergunta,
 os dois irmãos dariam a mesma resposta. Considerando essa situação e tendo em mente que o irmão mentiroso o deve dinheiro,
-um logicista pergunta a um outro ``Você acha que é possível, fazendo perguntas de sim ou não, descobrir se um irmão é o mentiroso ou o verdadeiro?'', ao que ele responde ``Claramente não, já que eles dariam as mesmas respostas às mesmas questões''.
+um logicista pergunta a outro logicista ``Você acha que é possível, fazendo perguntas de sim ou não, descobrir se um irmão é o mentiroso ou o verdadeiro?'', ao que ele responde ``Claramente não, já que eles dariam as mesmas respostas às mesmas questões''.
 Você acha que o segundo logicista estava correto?\\
 Na verdade, não estava: Considere a pergunta ``Você é o que diz a verdade?''. Se ele o for, dirá que é. Se não o for, crerá que
 o é e dirá que não o é. Apesar disso, o segundo logicista estava correto ao dizer que eles dariam as mesmas respostas às mesmas questões: o ``você'' em ``Você é o que diz a verdade?'' se refere a ``coisas'' diferentes se usados com pessoas diferentes,
@@ -302,11 +379,20 @@ diferentes (na verdade, do ponto de vista filosófico, é isso que o define como
 mudar significativamente o que aquele \technical{indexical} significa.
 
 
-
-
-
-
   \begin{thebibliography}{1}
+
+    \bibitem{basileos}
+      Basileos Anastasatos ``Propagation Algorithms for the Alldifferent Constraint''
+
+    \bibitem{choi}
+    C.W. Choi, W. Harvey, J.H.M. Lee, and P.J. Stuckey,
+    ``Finite Domain Bounds Consistency Revisited''
+
+    \bibitem{cristo}
+      Christos Papadimitriou (1998), ``Combinatorial Optimization, Algorithms and Complexity'', Dover Publications
+
+    \bibitem{raymond}
+      Smullyan, Raymond, ``5000 B.C. and Other Philosophical Fantasies''
 
     \bibitem{tsang}
       E. Tsang (1930), ``Foundations of Constraint Satisfaction'', Academic Press.
@@ -314,19 +400,7 @@ mudar significativamente o que aquele \technical{indexical} significa.
     \bibitem{zhou}
       Neng-Fa Zhou (2006), ``Programming Finite-Domain Constraint Propagator in Action Rules'', Theory and Practice of Logic Programming, Vol. 6, No. 5, pp.483-508, 2006
 
-    \bibitem{raymond}
-      Smullyan, Raymond, ``5000 B.C. and Other Philosophical Fantasies''
-
-    \bibitem{basileos}
-      Basileos Anastasatos ``Propagation Algorithms for the Alldifferent Constraint''
-
-    \bibitem{cristo}
-      Christos Papadimitriou (1998), ``Combinatorial Optimization, Algorithms and Complexity'', Dover Publications
-
-
   \end{thebibliography}
-
-
 
 
 \end{document}
