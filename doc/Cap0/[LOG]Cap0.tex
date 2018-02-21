@@ -110,8 +110,11 @@ E essa constitui a maneira primária de se utilizar um programa lógico, que pod
 
 Assim como dizemos que uma busca foi um sucesso se foi encontrado o que se gostaria de encontrar e uma falha caso contrário,
 diremos que um goal relativo a algum programa pode ter o status de sucesso se ele pode ser provado a partir do programa, e de
-falha se não. Se foi um goal mal escrito, também pode gerar um erro (isto é, o goal gera um erro quando não é ``compreensível'' a
-partir da gramática utilizada pelo compilador usado)\footnote{Se um goal que gera erro é de fato um goal é discutível, mas esse comentário fica aqui por completude}.
+falha se não. Note que, em Prolog, ``falhar'' não é o mesmo que ``quebrar''. A diferença é
+essencialmente a mesma entre receber uma resposta de ``não'' a uma pergunta e receber uma resposta de
+``sua pergunta não faz sentido''.  Se foi um goal mal escrito (se ele ``não faz sentido''), pode gerar um erro (isto é, o goal gera um erro quando não é ``compreensível'' a
+partir da gramática utilizada pelo compilador usado)\footnote{Se um goal que gera erro é de fato um
+  goal, é discutível, mas não entraremos nesse mérito.} e o programa pode não ser executado.
 
 Mais especificamente, um goal é uma conjunção\footnote{Isto é, uma sequência de proposições unidas por um \enphasis{e} lógico. Algo como $p\_1$ e
   ... e $p\_n$, onde os $p\_i$ são proposições.}, escrita como \codigo{$p\_1,p\_2,...,p\_n$}, onde $p_i$ é

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  20 FEB 2018 09:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.11.24)  21 FEB 2018 12:28
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -517,6 +517,13 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 \mathdisplay@stack=\toks28
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
+)
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
 (/usr/share/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
@@ -1310,7 +1317,7 @@ runsystem(mkdir -p _minted-[LOG]Cap0)...executed.
 \c@definition=\count346
 
 
-Package amsthm Warning: Unknown theoremstyle `theorem' on input line 18.
+Package amsthm Warning: Unknown theoremstyle `theorem' on input line 19.
 
 \c@theorem=\count347
 )
@@ -1527,7 +1534,17 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-ABD: EveryShipout initializing macros [1
+ABD: EveryShipout initializing macros
+LaTeX Font Info:    Try loading font information for U+msa on input line 11.
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 11.
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 Underfull \hbox (badness 10000) in paragraph at lines 53--53
@@ -1570,14 +1587,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
 (./_minted-[LOG]Cap0/621ACC338634C9F5CD3B27CA07B2E12F6F3949991F19D6F57F4887100C
 2DD033.pygtex) [3]
-Overfull \hbox (5.33917pt too wide) in paragraph at lines 116--119
+Overfull \hbox (5.33917pt too wide) in paragraph at lines 119--122
 []\OT1/cmr/m/n/10 Mais es-peci-fi-ca-mente, um goal ^^Se uma con-jun^^Xc~ao[], 
 es-crita como $\OML/cmm/m/it/10 p[]\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 ; p[]\OT1/
 cmr/m/n/10 2\OML/cmm/m/it/10 ; :::; p[]n$\OT1/cmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
 
  []
 
@@ -1591,16 +1608,16 @@ LaTeX Warning: Marginpar on page 5 moved.
 
 [5]
 
-Package caption Warning: Unused \captionsetup[figure] on input line 13.
+Package caption Warning: Unused \captionsetup[figure] on input line 14.
 See the caption package documentation for explanation.
 
 [6] (./[LOG]Cap0.aux) ) 
 Here is how much of TeX's memory you used:
- 36958 strings out of 492985
- 816425 string characters out of 6138637
- 908450 words of memory out of 5000000
- 40041 multiletter control sequences out of 15000+600000
- 537598 words of font info for 48 fonts, out of 8000000 for 9000
+ 37044 strings out of 492985
+ 817583 string characters out of 6138637
+ 909952 words of memory out of 5000000
+ 40111 multiletter control sequences out of 15000+600000
+ 540078 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,8n,69p,10404b,296s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super
@@ -1619,7 +1636,7 @@ nts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmti9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></us
 r/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on [LOG]Cap0.pdf (6 pages, 221027 bytes).
+Output written on [LOG]Cap0.pdf (6 pages, 221232 bytes).
 PDF statistics:
  99 PDF objects out of 1000 (max. 8388607)
  72 compressed objects within 1 object stream
