@@ -1,0 +1,60 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZpc{}\PYGZpc{}}
+\PYG{c+c1}{\PYGZpc{} pai(?Pai, ?Filhx).}
+\PYG{c+c1}{\PYGZpc{} mae(?Mae, ?Filhx).}
+\PYG{c+c1}{\PYGZpc{} avoh(?Avó, ?Netx).}
+\PYG{c+c1}{\PYGZpc{} avo(?Avô, ?Netx).}
+\PYG{c+c1}{\PYGZpc{} irmao(?Pai, ?Irmao1, ?Irmao2).}
+\PYG{c+c1}{\PYGZpc{} tio(?Pai, ?Tio, ?Sobrinhx).}
+
+
+\PYG{n+nf}{avo}\PYG{p}{(}\PYG{n+nv}{Avo}\PYG{p}{,} \PYG{n+nv}{Neto}\PYG{p}{):\PYGZhy{}}
+         \PYG{n+nf}{pai}\PYG{p}{(}\PYG{n+nv}{Avo}\PYG{p}{,} \PYG{n+nv}{Avo\PYGZus{}filho}\PYG{p}{),}
+         \PYG{n+nf}{pai}\PYG{p}{(}\PYG{n+nv}{Avo\PYGZus{}filho}\PYG{p}{,} \PYG{n+nv}{Neto}\PYG{p}{).}
+
+\PYG{n+nf}{avoh}\PYG{p}{(}\PYG{n+nv}{Avoh}\PYG{p}{,}\PYG{n+nv}{Neto}\PYG{p}{):\PYGZhy{}}
+         \PYG{n+nf}{mae}\PYG{p}{(}\PYG{n+nv}{Avoh}\PYG{p}{,} \PYG{n+nv}{Filha\PYGZus{}da\PYGZus{}avoh}\PYG{p}{),}
+         \PYG{n+nf}{mae}\PYG{p}{(}\PYG{n+nv}{Filha\PYGZus{}da\PYGZus{}avoh}\PYG{p}{,} \PYG{n+nv}{Neto}\PYG{p}{).}
+
+\PYG{n+nf}{irmao}\PYG{p}{(}\PYG{n+nv}{Pai}\PYG{p}{,} \PYG{n+nv}{Irmao1}\PYG{p}{,} \PYG{n+nv}{Irmao2}\PYG{p}{):\PYGZhy{}}
+       \PYG{n+nf}{pai}\PYG{p}{(}\PYG{n+nv}{Pai}\PYG{p}{,} \PYG{n+nv}{Irmao1}\PYG{p}{),}
+       \PYG{n+nf}{pai}\PYG{p}{(}\PYG{n+nv}{Pai}\PYG{p}{,} \PYG{n+nv}{Irmao2}\PYG{p}{).}
+
+\PYG{n+nf}{tio}\PYG{p}{(}\PYG{n+nv}{Pai}\PYG{p}{,} \PYG{n+nv}{Tio}\PYG{p}{,} \PYG{n+nv}{Sobrinho}\PYG{p}{):\PYGZhy{}}
+       \PYG{n+nf}{irmao}\PYG{p}{(}\PYG{k}{\PYGZus{}}\PYG{p}{,}\PYG{n+nv}{Pai}\PYG{p}{,}\PYG{n+nv}{Tio}\PYG{p}{),}
+       \PYG{n+nf}{pai}\PYG{p}{(}\PYG{n+nv}{Tio}\PYG{p}{,} \PYG{n+nv}{Sobrinho}\PYG{p}{).}
+
+
+\PYG{c+c1}{\PYGZpc{} Eu sou o filho do meu pai}
+\PYG{n+nf}{pai}\PYG{p}{(}\PYG{l+s+sAtom}{meu\PYGZus{}pai}\PYG{p}{,} \PYG{l+s+sAtom}{eu}\PYG{p}{).}
+
+\PYG{c+c1}{\PYGZpc{} Meu pai é meu filho adotado}
+\PYG{n+nf}{pai}\PYG{p}{(}\PYG{l+s+sAtom}{eu}\PYG{p}{,} \PYG{l+s+sAtom}{meu\PYGZus{}pai}\PYG{p}{).}
+
+\PYG{c+c1}{\PYGZpc{} Eu sou o pai do filho da minha esposa}
+\PYG{n+nf}{pai}\PYG{p}{(}\PYG{l+s+sAtom}{eu}\PYG{p}{,} \PYG{l+s+sAtom}{filho\PYGZus{}meu\PYGZus{}e\PYGZus{}de\PYGZus{}minha\PYGZus{}esposa}\PYG{p}{).}
+
+\PYG{c+c1}{\PYGZpc{} Meu pai é o pai do filho\PYGZus{}de\PYGZus{}minha\PYGZus{}filha\PYGZus{}adotiva}
+\PYG{n+nf}{pai}\PYG{p}{(}\PYG{l+s+sAtom}{meu\PYGZus{}pai}\PYG{p}{,} \PYG{l+s+sAtom}{filho\PYGZus{}de\PYGZus{}minha\PYGZus{}filha\PYGZus{}adotiva}\PYG{p}{).}
+
+\PYG{c+c1}{\PYGZpc{} Minha filha adotiva é minha madastra}
+\PYG{n+nf}{mae}\PYG{p}{(}\PYG{l+s+sAtom}{minha\PYGZus{}filha\PYGZus{}adotiva}\PYG{p}{,} \PYG{l+s+sAtom}{eu}\PYG{p}{).}
+
+\PYG{c+c1}{\PYGZpc{} Minha esposa é a mãe de minha filha adotiva}
+\PYG{n+nf}{mae}\PYG{p}{(}\PYG{l+s+sAtom}{minha\PYGZus{}esposa}\PYG{p}{,} \PYG{l+s+sAtom}{minha\PYGZus{}filha\PYGZus{}adotiva}\PYG{p}{).}
+
+
+
+\PYG{c+c1}{\PYGZpc{} O filho meu e de minha esposa é o irmão adotado de meu pai}
+\PYG{c+c1}{\PYGZpc{} O filho meu e de minha esposa é meu tio}
+\PYG{c+c1}{\PYGZpc{} Filho de minha filha adotiva é meu irmão}
+\PYG{c+c1}{\PYGZpc{} Filho de minha irmã adotiva é meu neto}
+\PYG{c+c1}{\PYGZpc{} Minha esposa é minha avó}
+\PYG{c+c1}{\PYGZpc{} Eu sou meu avô}
+              \PYG{n+nf}{irmao}\PYG{p}{(}\PYG{k}{\PYGZus{}}\PYG{p}{,} \PYG{l+s+sAtom}{meu\PYGZus{}pai}\PYG{p}{,} \PYG{l+s+sAtom}{filho\PYGZus{}meu\PYGZus{}e\PYGZus{}de\PYGZus{}minha\PYGZus{}esposa}\PYG{p}{).}
+              \PYG{n+nf}{tio}\PYG{p}{(}\PYG{l+s+sAtom}{filho\PYGZus{}meu\PYGZus{}e\PYGZus{}de\PYGZus{}minha\PYGZus{}esposa}\PYG{p}{,} \PYG{l+s+sAtom}{meu\PYGZus{}pai}\PYG{p}{,} \PYG{l+s+sAtom}{eu}\PYG{p}{),}
+              \PYG{n+nf}{irmao}\PYG{p}{(}\PYG{k}{\PYGZus{}}\PYG{p}{,} \PYG{l+s+sAtom}{filho\PYGZus{}de\PYGZus{}minha\PYGZus{}filha\PYGZus{}adotiva}\PYG{p}{,} \PYG{l+s+sAtom}{eu}\PYG{p}{),}
+              \PYG{n+nf}{avo}\PYG{p}{(}\PYG{l+s+sAtom}{eu}\PYG{p}{,} \PYG{l+s+sAtom}{filho\PYGZus{}de\PYGZus{}minha\PYGZus{}filha\PYGZus{}adotiva}\PYG{p}{),}
+              \PYG{n+nf}{avoh}\PYG{p}{(}\PYG{l+s+sAtom}{minha\PYGZus{}esposa}\PYG{p}{,} \PYG{l+s+sAtom}{eu}\PYG{p}{),}
+              \PYG{n+nf}{avo}\PYG{p}{(}\PYG{l+s+sAtom}{eu}\PYG{p}{,} \PYG{l+s+sAtom}{eu}\PYG{p}{).}
+\end{Verbatim}

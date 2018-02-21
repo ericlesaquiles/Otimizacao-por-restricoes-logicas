@@ -45,7 +45,7 @@ O goal \codigo{a(au, ne)?} define implicitamente uma árvore, que começa da seg
         [ \codigo{f(ne, au)?},edge={dashed,black,thick}
           [falha]
         ]
-        [\cocigo{f(ne,C1), a(au,C1)?}
+        [\codigo{f(ne,C1), a(au,C1)?}
           [ {C1 = ag},edge=dashed
             [\codigo{f(ne, ag)?}]
             [\codigo{a(au, ag)?}
@@ -90,12 +90,42 @@ diferente}. É claro, dizer apenas que a busca é em profundidade não é o sufi
 
 
 
+O seguinte exemplo, um homem reclamando de sua vida, mostra que questões de parentesco podem ser bem
+mais complicadas do que isso (o exemplo é baseado na história retirada de \cite{antoni}, frequentemente
+atribuída a Mark Twain):
+
+\cit{
+  Me casei com uma viúva com uma filha crescida. Meu pai, que nos visitava frequentemente, se
+  apaixonou com a filha e a tomou como sua esposa. Isso fez do meu pai o meu filho adotado, e, de
+  minha filha adotada, minha madrasta.\\
+  Depois de um ano, minha esposa deu à luz um filho, que se tornou o irmão adotado do meu pai e, ao
+  mesmo tempo, meu tio, já que ele era o irmão de minha madrasta.\\
+  Mas a esposa de meu pai, isto é, minha filha adotada, também deu à luz um filho. Então, ele era
+  meu irmão e também meu neto, já que ele era o filho de minha filha.\\
+  Isso quer dizer que eu me casei com minha avó, já que ela era a mãe de minha mãe. Como o marido de
+  minha esposa, eu também era o neto adotado dela.\\
+  Nossos amigos dizem que eu sou meu próprio avô. Isso é verdade?
+}
+
+O personagem dessa história, não sabendo Prolog, teve uma certa dificuldade em responder a essa
+questão. Mas nós, como que por reflexo, fazemos o seguinte programa:
+
+\inputminted{prolog}{../Exemplos/Cap5/prog1_family.pl}
+
+O último bloco de código na verdade não faz parte do programa, mas foi deixado por conveniência. Ele
+indica o goal (na verdade, só queremos saber se o pobre coitado é avô de si mesmo, mas os outros
+termos foram deixados por completeza). Você tem ideia de como é a árvore de busca para esse goal?
 
 
 
   \begin{thebibliography}{2}
 
-    \bibitem{russel} Russell, Bertrand (1919), \textit{Introduction to Mathematical Philosophy, George Allen and Unwin, London, UK. Reprinted, John G. Slater (intro.), Routledge, London, UK, 1993}
+    \bibitem{antoni}
+    Niederliński, Antoni,
+    ``A gentle guide to constraint logical programming via Eclipse'',
+    3rd edition, Jacek Skalmierski Computer Studio, Gliwice, 2014
+
+    \bibitem{russel} Russell, Bertrand (1919), Introduction to Mathematical Philosophy, George Allen and Unwin, London, UK. Reprinted, John G. Slater (intro.), Routledge, London, UK, 1993
     \\Esse livro está datado em alguns pontos, mas permanece interessante. Está gratuitamente disponível (em inglês) em [http://people.umass.edu/klement/russell-imp.html].
 
   \end{thebibliography}
