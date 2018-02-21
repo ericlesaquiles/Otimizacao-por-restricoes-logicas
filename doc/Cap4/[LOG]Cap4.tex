@@ -27,7 +27,8 @@ A quantidade de \foreign{choice points} tem muito a ver com a de ``axiomas''. Ma
 falha, não serão mais) e de unificações
 desnecessárias, aumentando a eficiência do programa.
 
-Veremos, então, métodos para lidar com essas situações. O mais importante, e mais polêmico, é o \definicao{corte}, !/0 (um funtor de nome ``!'' e aridade 0). Intuitivamente, o que ele faz é se comprometer com a escolha atual, descartando as demais. Poderemos compreender melhor como ele funciona depois que desenvolvermos a interpretação de uma computação lógica como a busca em uma árvore, mas, enquanto isso, nossa interpretação intuitiva será o suficiente.
+Veremos, então, métodos para lidar com essas situações. O mais importante, e mais polêmico, é o
+\definicao{corte}, \funtor{!/0} (um funtor de nome ``!'' e aridade 0). Intuitivamente, o que ele faz é se comprometer com a escolha atual, descartando as demais. Poderemos compreender melhor como ele funciona depois que desenvolvermos a interpretação de uma computação lógica como a busca em uma árvore, mas, enquanto isso, nossa interpretação intuitiva será o suficiente.
 
 Como um exemplo de seu uso, considere o seguinte programa:
 
@@ -53,11 +54,11 @@ O corte é, provavelmente, o predicado não lógico mais importante e polêmico 
 
 Apesar disso, se deixarmos de lado nosso preconceito, o corte pode contribuir de maneiras interessantes para a lógica do programa.
 
-Por exemplo, o not/1 pode ser implementado de maneira similar à seguinte:
+Por exemplo, o \funtor{not/1} pode ser implementado de maneira similar à seguinte:
 
 \inputminted{prolog}{../Exemplos/Cap4/prog3_not.pl}
 
-Onde o predicado fail/0 é um \foreign{built-in} do Prolog que falha sempre.
+Onde o predicado \funtor{fail/0} é um \foreign{built-in} do Prolog que falha sempre.
 
 Similarmente, podemos, a partir do corte, gerar outras formas de controle, familiares a programadores de linguagens procedurais:
 

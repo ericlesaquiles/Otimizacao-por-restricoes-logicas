@@ -16,13 +16,13 @@ Predicados de inspeção de estrutura nos passam informações sobre um termo es
 Alguns dos, assim chamados, predicados de tipo são:
 
 \begin{itemize}
-  \item integer/1;
-  \item real/1;
-  \item atom/1;
-  \item compound/1;
+  \item \funtor{integer/1};
+  \item \funtor{real/1};
+  \item \funtor{atom/1};
+  \item \funtor{compound/1};
 \end{itemize}
 
-Cada um deles pode ser interpretado como uma lista infinita de átomos. Por exemplo, integer/1 pode ser interpretado como:
+Cada um deles pode ser interpretado como uma lista infinita de átomos. Por exemplo, \funtor{integer/1} pode ser interpretado como:
 
 \codigo{integer(0). integer(1). integer(2). integer(3), ...}.
 
@@ -36,8 +36,11 @@ Cada um deles pode ser interpretado como uma lista infinita de átomos. Por exem
 
 \subsection{Acesso de termos compostos}
 
-Queremos ser capaz, além de lidar com tipos, lidar com funtores. Para acessar o funtor principal, temos o predicado functor/3. O
-goal \codigo{functor(Termo, F, Aridade)?} tem sucesso se o funtor principal de \var{Termo} tem aridade \var{Aridade} e nome \var{F}. Assim, por exemplo, \codigo{functor(f($X_1$, ..., $X_n$), f, n)}, onde os \var{$X_i$} são variáveis, tem sucesso, já que o funtor principal é f/n.
+Queremos ser capaz, além de lidar com tipos, lidar com funtores. Para acessar o funtor principal,
+temos o predicado \funtor{functor/3}. O
+goal \codigo{functor(Termo, F, Aridade)?} tem sucesso se o funtor principal de \var{Termo} tem
+aridade \var{Aridade} e nome \var{F}. Assim, por exemplo, \codigo{functor(f($X_1$, ..., $X_n$), f,
+  n)}, onde os \var{$X_i$} são variáveis, tem sucesso, já que o funtor principal é \funtor{f/n}.
 
 Pode-se usar esse predicado para, entre outras coisas, realizar a decomposição e criação de termos:
 \begin{enumerate}
@@ -48,9 +51,10 @@ Pode-se usar esse predicado para, entre outras coisas, realizar a decomposição
 Note que, no item 2 acima, se o goal fosse \codigo{functor(F, tio, N)?}, teríamos erro, já que o interpretador não consegue adivinhar a aridade de um funtor a partir do nome. Analogamente,
 \codigo{functor(F, tio(a, b), N)?} resultaria em erro, já que \codigo{functor} espera um átomo como segundo argumento, não um funtor composto. Mas, \codigo{functor(tio, X, N)?} teria sucesso, com \{X = tio, N = 0\}.
 
-Similar a functor/3 é o arg/3: \codigo{arg(N, F($X_1$, ..., $X_n$), Q)?} tem sucesso se o Enésimo argumento de \var{F} é o \var{Q}. Assim como functor, arg/3 é comumente usado para decomposição e criação de termos:
+Similar a \funtor{functor/3} é o \funtor{arg/3}: \codigo{arg(N, F($X_1$, ..., $X_n$), Q)?} tem
+sucesso se o Enésimo argumento de \var{F} é o \var{Q}. Assim como functor, \funtor{arg/3} é comumente usado para decomposição e criação de termos:
 \begin{itemize}
-  \item Para decompor um termo, arg/3 acha um argumento particular de um termo composto;
+  \item Para decompor um termo, \funtor{arg/3} acha um argumento particular de um termo composto;
   \item Para criar um termo, ele instancia um argumento variável de um termo.
 \end{itemize}
 
@@ -62,14 +66,18 @@ Exemplos um pouco mais interessantes são os seguintes:
 
 \inputminted{prolog}{../Exemplos/Cap6/prog2_substitui.pl}
 
-Outro predicado de inspeção de estrutura é o, assim chamado (por razões históricas obscuras), \textit{univ}, escrito como \codigo{=../2}\footnote{Predicados para acesso e construção de termos têm origem na família Prolog de Edimburgo (que tem se tornado o padrão de fato) e alguns dos nomes usados vêm de lá. Em particular, a forma “=..” para \textit{univ} vem do Prolog-10, onde era usado “,..” no lugar de “$|$” em listas ({\tt[a, b,.. Xs]} no lugar de \codigo{[a, b|Xs]}).}. Um exemplo de seu uso é \codigo{Termo =.. [f,a,b]?}, com o resultado \{Termo = f(a, b)\}.
-O \textit{univ} pode ser usado de essencialmente duas formas diferentes:
+Outro predicado de inspeção de estrutura é o, assim chamado (por razões históricas obscuras),
+\technical{univ}, escrito como \funtor{=../2}\footnote{Predicados para acesso e construção de termos
+  têm origem na família Prolog de Edimburgo (que tem se tornado o padrão de fato) e alguns dos nomes
+  usados vêm de lá. Em particular, a forma “=..” para \technical{univ} vem do Prolog-10, onde era
+  usado “,..” no lugar de “$|$” em listas (\codigo{[a, b,.. Xs]} no lugar de \codigo{[a, b|Xs]}).}. Um exemplo de seu uso é \codigo{Termo =.. [f,a,b]?}, com o resultado \{Termo = f(a, b)\}.
+O \technical{univ} pode ser usado de essencialmente duas formas diferentes:
 \begin{enumerate}
   \item Com um funtor ao lado esquerdo e uma variável no direito: a variável é unificada com \codigo{[f|v]}, onde f é o funtor principal e V a lista de seus argumentos;
   \item Com uma variável ao lado esquerdo e uma lista no direito: se a lista é \codigo{[a, $b_1$, ..., $b_n$]}, a variável é unificada com \codigo{a($b_1$, ..., $b_n$)}.
 \end{enumerate}
 
-O seguinte programa mostra um exemplo da utilidade de \textit{univ}:
+O seguinte programa mostra um exemplo da utilidade de \technical{univ}:
 
 \inputminted{prolog}{../Exemplos/Cap6/prog3_apply.pl}
 
@@ -82,7 +90,7 @@ Digamos que você queira fazer um interpretador de Prolog em Prolog (algumas pos
 Esse interpretador, sozinho, é de pouca utilidade. Nos dá a possibilidade de acessar quase nada do programa. Se quisermos fazer
 melhor, precisaremos de predicados que nos digam mais sobre predicados (ou seja, meta-predicados, predicados de meta-programação).
 
-Um predicado de meta-programação básico é o clause/2. O goal \codigo{clause(Head, Body)?} é verdadeiro se \var{Head} for unificável
+Um predicado de meta-programação básico é o \funtor{clause/2}. O goal \codigo{clause(Head, Body)?} é verdadeiro se \var{Head} for unificável
 com a cabeça de uma cláusula e \var{Body} com seu respectivo corpo (se \var{Head} for um fato, \var{Body} é unificável com \technical{true}).
 
 Com isso, podemos fazer um meta-interpretador, algo mais elaborado:
@@ -97,7 +105,8 @@ O Prolog nos possibilita não só facilmente escrever interpretadores para a pr�
 de porquês e comos entre outros), mas também nos possibilita facilmente escrever interpretadores para outras linguagens e para
 dialeto dessas. Por exemplo, alguém poderia argumentar que o Prolog, sendo uma linguagem de programação lógica, não lida bem
 com situações em que a incerteza é uma parte importante. Mas, com ele, podemos facilmente criar nossa própria linguagem
-para fazer isso. Para tanto, suponhamos, por exemplo, que cláusulas com uma certeza (a probabilidade de estar correta) \var{C} sejam representadas pelo funtor clause\_c/3, em que \codigo{clause\_c(Head,Body,C)?} é verdade quando \var{Head} unifica com uma cabeça de cláusula cujo corpo unifica com \var{Body} e cujo ``fator de certeza''  unifica com \var{C}, e considere o seguinte:
+para fazer isso. Para tanto, suponhamos, por exemplo, que cláusulas com uma certeza (a probabilidade
+de estar correta) \var{C} sejam representadas pelo funtor \funtor{clause\_c/3}, em que \codigo{clause\_c(Head,Body,C)?} é verdade quando \var{Head} unifica com uma cabeça de cláusula cujo corpo unifica com \var{Body} e cujo ``fator de certeza''  unifica com \var{C}, e considere o seguinte:
 
 \inputminted{prolog}{../Exemplos/Cap6/prog5_meta2.pl}
 
@@ -110,12 +119,13 @@ a confiança \var{C2} (pense na probabilidade de eventos independentes) na resol
 
 \subsubsection{Meta-predicados de variáveis}
 
-Outro predicado de meta-programação básico é o var/1: \codigo{var(T)?} tem sucesso se \var{T} é uma variável não instanciada e falha caso contrário. Sua irmã, novar/1, funciona de maneira análoga. Por exemplo, \codigo{var(a)?} e \codigo{var([X|Xs])?} falham, enquanto que \codigo{var(X)?} tem sucesso, se X é uma variável não instanciada.
+Outro predicado de meta-programação básico é o \funtor{var/1}: \codigo{var(T)?} tem sucesso se
+\var{T} é uma variável não instanciada e falha caso contrário. Sua irmã, \funtor{nonvar/1}, funciona de maneira análoga. Por exemplo, \codigo{var(a)?} e \codigo{var([X|Xs])?} falham, enquanto que \codigo{var(X)?} tem sucesso, se X é uma variável não instanciada.
 Esse predicado nos permite fazer, por exemplo, programas como o seguinte:
 
 \inputminted{prolog}{../Exemplos/Cap6/prog6_glength.pl}
 
 %TODO inserir refs e links
-\noindent em que length1/2 e length2/2 são dados pelos length no (Capítulo 4).
+\noindent em que \funtor{length1/2} e \funtor{length2/2} são dados pelos length no (Capítulo 4).
 
 \end{document}
