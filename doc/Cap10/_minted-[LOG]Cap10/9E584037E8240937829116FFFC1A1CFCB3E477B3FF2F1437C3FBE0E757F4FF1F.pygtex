@@ -1,0 +1,51 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{:\PYGZhy{}} \PYG{n+nf}{lib}\PYG{p}{(}\PYG{l+s+sAtom}{ic}\PYG{p}{).}
+\PYG{p}{:\PYGZhy{}} \PYG{n+nf}{lib}\PYG{p}{(}\PYG{l+s+sAtom}{ic\PYGZus{}symbolic}\PYG{p}{).}
+\PYG{p}{:\PYGZhy{}} \PYG{l+s+sAtom}{local} \PYG{n+nf}{domain}\PYG{p}{(}\PYG{n+nf}{membro\PYGZus{}do\PYGZus{}clube}\PYG{p}{(}\PYG{l+s+sAtom}{oposicionista\PYGZus{}honrado}\PYG{p}{,} \PYG{l+s+sAtom}{colaborador\PYGZus{}secreto}\PYG{p}{)).}
+
+
+\PYG{c+c1}{\PYGZpc{} Oposicionistas Honrados sempre dizem a verdade}
+\PYG{c+c1}{\PYGZpc{} Colaboradores Secretos podem dizer a verdade ou mentir}
+\PYG{n+nf}{resmungo\PYGZus{}unico}\PYG{p}{(}\PYG{n+nv}{Membro}\PYG{p}{,} \PYG{n+nv}{Verdade}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+    \PYG{p}{(}\PYG{n+nv}{Membro} \PYG{l+s+sAtom}{\PYGZam{}=} \PYG{l+s+sAtom}{oposicionista\PYGZus{}honrado}\PYG{p}{)} \PYG{l+s+sAtom}{=\PYGZgt{}} \PYG{n+nv}{Verdade}\PYG{p}{.}
+
+\PYG{c+c1}{\PYGZpc{} Colaboradores secretos mentem e dizem a verdade alternadamente}
+\PYG{n+nf}{resmungos\PYGZus{}consecutivos}\PYG{p}{(}\PYG{n+nv}{Membro}\PYG{p}{,} \PYG{n+nv}{Verdade1}\PYG{p}{,} \PYG{n+nv}{Verdade2}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+    \PYG{p}{(}\PYG{n+nv}{Membro} \PYG{l+s+sAtom}{\PYGZam{}=} \PYG{l+s+sAtom}{colaborador\PYGZus{}secreto}\PYG{p}{)} \PYG{l+s+sAtom}{\PYGZsh{}=} \PYG{p}{(}\PYG{n+nv}{Verdade1} \PYG{l+s+sAtom}{\PYGZsh{}\PYGZbs{}=} \PYG{n+nv}{Verdade2}\PYG{p}{).}
+
+\PYG{n+nf}{resmungos\PYGZus{}consecutivos}\PYG{p}{(}\PYG{n+nv}{Membro}\PYG{p}{,} \PYG{n+nv}{Verdade1}\PYG{p}{,} \PYG{n+nv}{Verdade2}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+    \PYG{p}{(}\PYG{n+nv}{Membro} \PYG{l+s+sAtom}{\PYGZam{}=} \PYG{l+s+sAtom}{colaborador\PYGZus{}secreto}\PYG{p}{)} \PYG{l+s+sAtom}{\PYGZsh{}=} \PYG{p}{(}\PYG{n+nv}{Verdade1} \PYG{l+s+sAtom}{\PYGZsh{}\PYGZbs{}=} \PYG{n+nv}{Verdade2}\PYG{p}{).}
+
+
+\PYG{n+nf}{resolve}\PYG{p}{([}\PYG{n+nv}{Membro\PYGZus{}1}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}3}\PYG{p}{]):\PYGZhy{}}
+    \PYG{p}{[}\PYG{n+nv}{Membro\PYGZus{}1}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}3}\PYG{p}{]} \PYG{l+s+sAtom}{\PYGZam{}::} \PYG{l+s+sAtom}{membro\PYGZus{}do\PYGZus{}clube}\PYG{p}{,}
+    \PYG{p}{[}\PYG{n+nv}{Membro\PYGZus{}3\PYGZus{}possivelmente\PYGZus{}disse}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}3\PYGZus{}disse}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}1\PYGZus{}disse}\PYG{p}{,}
+     \PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}primeiro}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}entao}\PYG{p}{]} \PYG{l+s+sAtom}{::} \PYG{l+m+mf}{0..1}\PYG{p}{,}
+    \PYG{n+nv}{Membro\PYGZus{}1} \PYG{l+s+sAtom}{\PYGZam{}\PYGZbs{}=} \PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{,}
+
+    \PYG{c+c1}{\PYGZpc{} O que Membro\PYGZus{}3 possivelmente disse}
+    \PYG{c+c1}{\PYGZpc{} O que Membro\PYGZus{}1 disse}
+    \PYG{c+c1}{\PYGZpc{} O que Membro\PYGZus{}2 disse primeiro}
+    \PYG{c+c1}{\PYGZpc{} O que Member\PYGZus{}2 disse entao}
+    \PYG{n+nv}{Membro\PYGZus{}3\PYGZus{}possivelmente\PYGZus{}disse} \PYG{l+s+sAtom}{\PYGZsh{}=} \PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}3} \PYG{l+s+sAtom}{\PYGZam{}=oposicionista\PYGZus{}honrado}\PYG{p}{),}
+    \PYG{n+nf}{resmungo\PYGZus{}unico}\PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}3}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}3\PYGZus{}possivelmente\PYGZus{}disse}\PYG{p}{),}
+
+    \PYG{n+nv}{Membro\PYGZus{}1\PYGZus{}disse} \PYG{l+s+sAtom}{\PYGZsh{}=} \PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}3\PYGZus{}disse} \PYG{l+s+sAtom}{\PYGZsh{}=}\PYG{n+nv}{Membro\PYGZus{}3\PYGZus{}possivelmente\PYGZus{}disse}\PYG{p}{),}
+    \PYG{n+nf}{resmungo\PYGZus{}unico}\PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}1}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}1\PYGZus{}disse}\PYG{p}{),}
+
+    \PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}primeiro} \PYG{l+s+sAtom}{\PYGZsh{}=} \PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}3} \PYG{l+s+sAtom}{\PYGZam{}=colaborador\PYGZus{}secreto}\PYG{p}{),}
+    \PYG{n+nf}{resmungo\PYGZus{}unico}\PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}primeiro}\PYG{p}{),}
+
+    \PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}entao} \PYG{l+s+sAtom}{\PYGZsh{}=}\PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}3\PYGZus{}disse} \PYG{l+s+sAtom}{\PYGZsh{}=} \PYG{l+m+mi}{0}\PYG{p}{),}
+    \PYG{n+nf}{resmungo\PYGZus{}unico}\PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}entao}\PYG{p}{),}
+
+    \PYG{n+nf}{resmungos\PYGZus{}consecutivos}\PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}primeiro}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}entao}\PYG{p}{),}
+    \PYG{l+s+sAtom}{ic\PYGZus{}symbolic:}\PYG{n+nf}{indomain}\PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}1}\PYG{p}{),}
+    \PYG{l+s+sAtom}{ic\PYGZus{}symbolic:}\PYG{n+nf}{indomain}\PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{),}
+    \PYG{l+s+sAtom}{ic\PYGZus{}symbolic:}\PYG{n+nf}{indomain}\PYG{p}{(}\PYG{n+nv}{Membro\PYGZus{}3}\PYG{p}{),}
+    \PYG{n+nf}{writeln}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Membro\PYGZus{}1\PYGZdq{}}\PYG{l+s+sAtom}{:}\PYG{n+nv}{Membro\PYGZus{}1}\PYG{p}{),}
+    \PYG{n+nf}{writeln}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Membro\PYGZus{}2\PYGZdq{}}\PYG{l+s+sAtom}{:}\PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{),}
+    \PYG{n+nf}{writeln}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Membro\PYGZus{}3\PYGZdq{}}\PYG{l+s+sAtom}{:}\PYG{n+nv}{Membro\PYGZus{}3}\PYG{p}{),}
+    \PYG{n+nf}{writeln}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}primeiro\PYGZdq{}}\PYG{l+s+sAtom}{:}\PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}primeiro}\PYG{p}{),}
+    \PYG{n+nf}{writeln}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}entao\PYGZdq{}}\PYG{l+s+sAtom}{:}\PYG{n+nv}{Membro\PYGZus{}2\PYGZus{}disse\PYGZus{}entao}\PYG{p}{).}
+\end{Verbatim}
