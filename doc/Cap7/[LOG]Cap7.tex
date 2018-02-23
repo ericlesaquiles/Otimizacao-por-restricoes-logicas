@@ -195,7 +195,9 @@ domínio, i.e. se \enphasis{D} e \enphasis{D'} são domínios tais que $D \subse
 é um propagador, obrigatoriamente $f(D') \subseteq f(D)$ e $f(D) \subseteq D$. Um propagador é dito
 correto em relação a uma restrição \funtor{r/n} com variáveis de domínios $D_i$ se as soluções para
 a restrição nos domínios originais são as mesmas que as soluções para a restrição em $f(D_i)$.
-Perceba que essa é uma noção fraca, já que a função identidade a satisfaz. Propagação local é um tipo de propagador correto (veremos outros mais para frente).
+Perceba que essa é uma noção fraca, já que a função identidade a satisfaz. Propagação local é um
+tipo de propagador correto (veremos outros mais para frente). No frigir dos ovos, o que um
+propagador faz impedir que o resolvedor teste todas as possibilidades descartando algumas possibilidades que não dariam certo.
 
 No geral, em um CSP, provê-se um propagador para cada restrição. Nesse contexto, um \definicao{resolvedor por
 propagação} para um conjunto de propagadores \enphasis{P} aplica os propagadores em \enphasis{P} a
@@ -254,7 +256,9 @@ Não é difícil ver que a projeção é uma forma de simplificação e, dessa f
 Simplificações e projeções têm um papel importante na resolução de CPs, então será útil termos uma definição mais rigorosa. Mas antes precisamos da noção de equivalência:
 
 \begin{definition}
-  Duas restrições \definicao{restrições equivalentes}} $C_1$ e $C_2$ são equivalentes em relação ao conjunto de variáveis V, o que denotaremos por $C_1 \leftrightarrow C_2$, se toda solução de $C_1$ restrita a V é uma solução parcial de $C_2$ e se toda solução de $C_2$ restrita a V é uma solução parcial de $C_1$.
+  Duas restrições \definicao{restrições equivalentes} $C_1$ e $C_2$ são equivalentes em relação ao
+  conjunto de variáveis V, o que denotaremos por $C_1 \leftrightarrow C_2$, se toda solução de $C_1$
+  restrita a V é uma solução parcial de $C_2$ e se toda solução de $C_2$ restrita a V é uma solução parcial de $C_1$.
 \end{definition}
 
 % TODO retirar bad line-breaks
