@@ -226,7 +226,7 @@ código \ref{lst:bounds}. Assim, temos um mecanismo de busca incompleto. Torná-
 com a adição do backtracking.
 
 
-\subsection{Consistência generalizada e complexa}
+\subsection{Consistência global}
 
 Consistência por limites também podem ser aplicadas a restrições em duas ou em uma variável, mas, nesse caso, consistência por
 arco ou por nó costumam resultar em diminuição maior nos domínios. Um problema geral, no entanto, pode ser composto por uma
@@ -242,7 +242,7 @@ prática, resolveríamos isso por \technical{backtraking}, que tem um cresciment
 
 Restrições desse tipo são tão usadas que receberam o nome especial de \funtor{alldiferent/1}\footnote{Na verdade, a aridade dessa restrição pode ser arbitrária, mas, por simplicidade, assumimos que as variáveis que devem ser diferentes entre si estão organizadas em uma lista, tornando a aridade igual a um.} em vários sistemas CLP e é, talvez, a restrição mais estudada.
 Restrições que fazem uso da informação no domínio de muitas variáveis para realizar a atualização de cada domínio são
-chamadas \definicao{restrições complexas}. No caso do \funtor{alldifferent/1}, podemos notar que essa restrição é equivalente ao
+chamadas restrições globais (como notado anteriormente). No caso do \funtor{alldifferent/1}, podemos notar que essa restrição é equivalente ao
 supramencionado problema de correspondência bipartida e que existem algoritmos eficientes para lidar com ele.
 
 Assim como nas restrições vistas anteriormente, os domínios das variáveis em \funtor{alldifferent/1} são importantes na decisão de como
