@@ -1,29 +1,6 @@
 \documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage[portuguese]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage{placeins}
 
-\usepackage{amsthm}
-\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
-
-\usepackage{listings}
-\lstset{language=Prolog}
-\renewcommand{\lstlistingname}{Código}
-
-%\theoremstyle{definition}{indent=1cm}
-\newtheorem{definition}{Definição}[section]
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-
-\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
-
-\setlength{\parskip}{.5em}
-
-\usepackage{epigraph}
-\setlength\epigraphwidth{0.9\linewidth}
-\setlength\epigraphrule{0pt}
+\input{../header.tex}
 
 
 
@@ -49,5 +26,33 @@
     \item Quando se quiser destacar algum termo por qualquer outro motivo, ele estará em itálico.
     \item Para trechos de código, ou similar, escritos no meio do texto, será usada {\tt esta fonte}.
   \end{itemize}
+
+\subsection{Documentação de códigos}
+
+  As observações nesta subseção servem mais como referência e seriam melhor apreciadas depois de
+  lidos os primeiros capítulos (em particular, o capítulo inicial).
+
+  Uma particularidade do Prolog é que, no caso geral, a mesma variável pode ser tanto ``de entrada''
+  quanto ``de saída'' e, como argumento de um funtor, pode ser tanto instanciada como não
+  instanciada. No entanto, frequentemente um programa é otimizado ou construído para apenas um dos
+  casos. Isto é, frequentemente espera-se que uma variável já esteja instanciada ao ser associada a
+  um funtor (ou o contrário, espera-se que ela não esteja instanciada), ou que uma variável só sirva
+  como variável de saída.
+
+  Dada a forma como programas lógicos são escritos, esses casos podem não ser claros e deseja-se que
+  sejam documentados. Para tanto, usaremos a convenção de, na documentação do funtor ou restrição (geralmente, na
+  forma de um comentário logo antes), indicar os seguintes modos:
+
+  \begin{itemize}
+    \item ``Variáveis de entrada'', isto é, unificadas a outro termo do programa, serão indicadas
+      por um prefixo ``+'' (como em \codigo{f(+X)});
+    \item Exceto quando são esperadas estarem unificadas com termos base, quando serão indicadas
+      pelo prefixo ``++'' (como em \codigo{f(++X)});
+    \item ``Variáveis de saída'', isto é, cuja expectativa é de não estarem unificadas a termo
+      algum, serão indicadas pelo prefixo ``-'' (como em \codigo{f(-X)});
+    \item Quando não for necessária uma distinção entre ``variável de entrada'' ou ``de saída'', a
+      variável será indicada pelo prefixo ``?'', como o \var{Y} em \codigo{f(++X, ?Y, -Z)}.
+  \end{itemize}
+
 
 \end{document}
