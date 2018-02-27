@@ -17,6 +17,10 @@
     \PYG{p}{(}\PYG{n+nv}{Membro} \PYG{l+s+sAtom}{\PYGZam{}=} \PYG{l+s+sAtom}{colaborador\PYGZus{}secreto}\PYG{p}{)} \PYG{l+s+sAtom}{\PYGZsh{}=} \PYG{p}{(}\PYG{n+nv}{Verdade1} \PYG{l+s+sAtom}{\PYGZsh{}\PYGZbs{}=} \PYG{n+nv}{Verdade2}\PYG{p}{).}
 
 
+\PYG{c+c1}{\PYGZpc{}\PYGZpc{} resolve([?Membro\PYGZus{}1, ?Membro\PYGZus{}2, ?Membro\PYGZus{}3])}
+\PYG{c+c1}{\PYGZpc{} Membro\PYGZus{}x é unificado com o nome do seu respectivo grupo}
+\PYG{c+c1}{\PYGZpc{}}
+
 \PYG{n+nf}{resolve}\PYG{p}{([}\PYG{n+nv}{Membro\PYGZus{}1}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}3}\PYG{p}{]):\PYGZhy{}}
     \PYG{p}{[}\PYG{n+nv}{Membro\PYGZus{}1}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}2}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}3}\PYG{p}{]} \PYG{l+s+sAtom}{\PYGZam{}::} \PYG{l+s+sAtom}{membro\PYGZus{}do\PYGZus{}clube}\PYG{p}{,}
     \PYG{p}{[}\PYG{n+nv}{Membro\PYGZus{}3\PYGZus{}possivelmente\PYGZus{}disse}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}3\PYGZus{}disse}\PYG{p}{,} \PYG{n+nv}{Membro\PYGZus{}1\PYGZus{}disse}\PYG{p}{,}

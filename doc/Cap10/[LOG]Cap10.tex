@@ -97,6 +97,44 @@ uma propagação e não uma busca propriamente dita). Essa foi uma
 situação excepcional, uma vez que geralmente é necessário fazer uma busca para se chegar à solução
 (na verdade, mesmo quando não é necessário usar busca, sua introdução pode agilizar o processo).
 
+\subsection{Backtracking raso}
+
+Busca por \technical{backtracing} raso é um processo de busca no qual é permitido
+\technical{backtracking}, mas de forma limitada: ao atribuir um valor a uma variável, o processo de
+propagação é desencadeado e, se ocorre uma falha, o próximo valor é tentado. Para realizar essa
+busca, precisamos de predicados que nos permitam o acesso do domínio atual de uma variável. Um
+desses predicados é o \funtor{get\_domain\_as\_list/2}. Ele toma como primeiro argumento uma
+variável com um domínio e o segundo argumento é instanciado a uma lista com os valores contidos do
+domínio da variável. Com essa lista em mãos, podemos testar cada valor a partir de
+\funtor{member/2}: \codigo{get\_domain\_as\_list(X, Dominio), member(X, Dominio)}. Essa combinação
+(de \funtor{get\_domain\_as\_list/2 e member/2}) é tão usada que foi criado o predicado
+\funtor{indomain/1}\footnote{Perceba como ele foi usado no programa anterior} para realizar a mesma
+função (exceto que de forma mais eficiente). O predicado \funtor{indomain/1} age como se definido por:
+
+\inputminted{prolog}{../Exemplos/Cap10/prog2_indomain.pl}
+
+Em mãos desse predicado, podemos fazer o \technical{backtracking} raso como se segue:
+
+\inputminted{prolog}{../Exemplos/Cap10/prog3_backraso.ecl}
+
+Note que busca por \technical{backtracking} raso não é um resolvedor completo.
+
+\subsection{Busca por backtracking}
+
+Fazer uma busca por \technical{backtracking} por meio da enumeração de todos os valores no domínio
+não é eficiente na presença de propagadores, já que os domínios diminuem (ou, ao menos, assim
+esperamos). No lugar disso, seria mais interessante fazer uma busca por \backtracking que faça uso
+apenas dos valores nos domínios atuais. Essa observação nos leva a uma revisão do programa de busca
+apresentado no Capítulo 8: %TODO adicionar link
+
+\inputminted{prolog}{../Exemplos/Cap10/prog4_busca.ecl}
+
+Sendo um procedimento de busca tão comum, ele está disponível em algumas bibliotecas \eclipse (na
+\enphasis{ic} e na \enphasis{sd}, por exemplo) sob o nome \funtor{labeling/1} (o nome
+\technical{labeling} é devido a razões históricas)
+
+
+
   \begin{thebibliography}{2}
 
     \bibitem{antoni}
