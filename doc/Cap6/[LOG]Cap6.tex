@@ -70,7 +70,8 @@ Outro predicado de inspeção de estrutura é o, assim chamado (por razões hist
 \technical{univ}, escrito como \funtor{=../2}\footnote{Predicados para acesso e construção de termos
   têm origem na família Prolog de Edimburgo (que tem se tornado o padrão de fato) e alguns dos nomes
   usados vêm de lá. Em particular, a forma “=..” para \technical{univ} vem do Prolog-10, onde era
-  usado “,..” no lugar de “$|$” em listas (\codigo{[a, b,.. Xs]} no lugar de \codigo{[a, b|Xs]}).}. Um exemplo de seu uso é \codigo{Termo =.. [f,a,b]?}, com o resultado \{Termo = f(a, b)\}.
+  usado “,..” no lugar de “$|$” em listas (\codigo{[a, b,.. Xs]} no lugar de \codigo{[a, b|Xs]}).}.
+Um exemplo de seu uso é \codigo{Termo =.. [f,a,b]?}, que faz \codigo{Termo = f(a, b)}.
 O \technical{univ} pode ser usado de essencialmente duas formas diferentes:
 \begin{enumerate}
   \item Com um funtor ao lado esquerdo e uma variável no direito: a variável é unificada com \codigo{[f|v]}, onde f é o funtor principal e V a lista de seus argumentos;
