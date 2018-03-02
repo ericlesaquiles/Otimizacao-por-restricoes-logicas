@@ -187,7 +187,7 @@ on_backtracking(Q) :-
 %
 % each eclipse program to solve a CSP has the following shape:
 %
-% :-library(name_of_library)
+% :-lib(name_of_library)
 %
 % solve(List) :-
 %   declare_domains(List),

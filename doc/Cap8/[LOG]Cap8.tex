@@ -17,8 +17,26 @@ restrições passivas por si só não podem e, assim, são mais usadas para fins
 \codigo{4*X < Y+2} é, uma restrição passiva, já que \var{X} e \var{Y} precisam estar instanciadas
 para a restrição ser usada.
 
-Por enquanto, nos preocuparemos mais com restrições passivas e veremos exemplos de sua utilização no sistema \eclipse. Valeria deixarmos aqui uma breve introdução à história desse sistema e uma explicação mais detalhada de porquê escolhemos usá-lo e não outro, mas nos contentamos em dizer que o \eclipse\ é uma expansão suficientemente completa do Prolog para lidar melhor com restrições. Não cabe darmos aqui uma detalhada mostra do que ele adiciona, mas convém falarmos brevemente
-sobre como alguns de seus iteradores funcionam, já que os usaremos extensivamente daqui em diante.
+Por enquanto, nos preocuparemos mais com restrições passivas e veremos exemplos de sua utilização no
+sistema \eclipse, que é uma expansão suficientemente completa do Prolog para lidar melhor com restrições. Não
+cabe darmos aqui uma detalhada mostra do que ele adiciona, mas convém falarmos brevemente
+sobre como alguns de seus iteradores funcionam, já que os usaremos daqui em diante.
+
+Nossa exposição é baseada primariamente em \cite{joachim} e em \cite{schimpf}. Na realidade,
+apesar de existirem muitos iteradores diferentes no \eclipse, todos são feitos com base na mesma
+construção, chamada \funtor{do/2}. Ademais, apenas uma das especificações de iteradores é mesmo
+fundamental. Uma chamada \codigo{( fromto(From, In, Out, To) do Body ).} é traduzida como:
+
+\inputminted{prolog}{../Exemplos/Cap8/prog8_fromto.pl}
+
+\noindent É importante notar que, com \technical{fromtos} aninhados, cada um mapeia a um acumulador
+diferente.
+
+A partir desse iterador, podemos criar outros (que, na verdade, são abreviações). Por exemplo,
+\codigo{( foreach(X,Lista) do Body ).} é uma abreviação de \codigo{( fromto(Lista, [X|Xs], Xs, []) do
+  Body ).}, e \codigo{(foreacharg(X,S) do Body).} é uma abreviação para \codigo{N1 is arity(S) + 1,
+  ( fromto(1,I,I1,N1), param(S) do arg(I,S,X), I1 is I+1, Body ).}
+
 
 Enquanto em Prolog o único método iterativo é a recursão, no \eclipse\ dispomos de algumas opções a mais. Em particular, temos:
 
@@ -97,7 +115,7 @@ Essa biblioteca também lida com restrições booleanas (para as quais os valore
 
 Uma delas é por meio do \technical{range}: \codigo{suspend(X :: 2..10).}, ou \codigo{suspend(X \#:: 2..10).}
 que gera uma variável X cujo valor é restrito ao intervalo de inteiros entre 2 e 10. Se a biblioteca já estiver carregada, que é o que assumiremos daqui para frente, essa restrição pode ser escrita como \codigo{X :: 2..10.}.
-Se quisermos usar intervalos reais no lugar de intervalos de inteiros (assumido como o padrão),
+Se quisermos usar intervalos reais no lugar de intervalos de inteiros (assumidos como o padrão),
 podemos usar um \$ no lugar de \#, como em \codigo{X \$:: 2..10} (vale repetir que o uso de
 intervalos inteiros é o padrão, o que significa que, na falta de uma símbolo como  \# ou \$, o
 intervalo é entendi como sendo em inteiros).
@@ -158,7 +176,23 @@ significativa:
 
 Um exemplo de restrição global é o \funtor{alldiferent/n}, que será visto adiante.
 
+  \begin{thebibliography}{1}
 
+    \bibitem{joachim}
+      Schimpf, Joachim,
+      [https://groups.google.com/forum/?hl=en#!msg/comp.lang.prolog/UYfgRxUWbGo/0KuxfWPEDqoJ]
+
+      \bibitem{schimpf}
+        Schimpf, Joachim,
+        ``Logical Loops'', IC-Parc, Imperial College, London
+
+        \bibitem{shen}
+        Schimpf, Joachim e Shen, Kish,
+        ``\eclipse - From LP to CLP'',
+        Theory and Practice of Logic Programming
+
+
+  \end{thebibliography}
 
 %COMMENT: backtrack eh verbo, entao, para usar o substantivo, precisa colocar backtracking (ou backtrackings, no plural). Acho que troquei em todos os lugares aqui, mas nao nos codigos (acho que ficaria melhor trocando). E precisa ver se nos outros capitulos tambem nao tem isso.
 
