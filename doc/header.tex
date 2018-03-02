@@ -11,6 +11,25 @@
 \usepackage{listings}
 \usepackage{minted}
 \usepackage{placeins}
+\usepackage[linguistics]{forest}
+\usepackage{caption}
+\usepackage{qtree}
+
+\tikzstyle{decision} = [diamond, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\captionsetup[figure]{name=Árvore}
+\setlength{\belowcaptionskip}{1pt plus 1pt minus 1pt}
+\setlength{\abovecaptionskip}{1pt plus 1pt minus 1pt}
+
+\forestset{
+  tree angle/.style={
+    tikz={\path () coordinate (A) -- (!u) coordinate (B) -- (!n) coordinate (C) pic [draw] {angle};}
+  }
+}
+\usetikzlibrary{arrows.meta,angles}
+\usetikzlibrary{shapes.geometric, arrows}
+
 
 \captionsetup[figure]{font=scriptsize}
 
@@ -25,6 +44,9 @@
 \renewcommand\refname{Leituras adicionais}
 \renewcommand\figurename{Figura}
 \renewcommand{\lstlistingname}{Código}
+
+\let\oldsection\section
+\renewcommand\section{\clearpage\oldsection}
 
 \newcommand{\eclipse}{$ECL^iPS^e$}
 \newcommand{\definicao}[1]{\textbf{#1}\marginpar{\small \textbf{#1}}}
@@ -49,3 +71,8 @@
   basicstyle=\small
 }
 
+\patchcmd{\thebibliography}
+  {\chapter*}
+  {\section*}
+  {}
+  {}
