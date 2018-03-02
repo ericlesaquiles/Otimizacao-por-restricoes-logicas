@@ -1,0 +1,406 @@
+%\documentclass{article}
+
+%\input{../header.tex}
+
+%\begin{document}
+
+\section{Propagação de restrições em domínios finitos}
+
+Nesta seção trabalharemos primariamente com restrições em domínios finitos.
+Domínios finitos são importantes porque costumam ser bons para modelar
+decisões, o que é algo com que gostaríamos que o computador ajudasse.
+
+Um exemplo simples e bem conhecido é o problema de coloração de um mapa: dado um conjunto finito de cores (de tamanho 15, por exemplo), precisamos colorir um mapa (digamos, o do Cazaquistão) de modo que nenhuma de suas regiões receba a mesma cor que outra com que faça fronteira\footnote{Incidentalmente, acontece que esse problema é essencialmente o mesmo que as companhias de aviação tem para alocar seu tráfico aéreo.}.
+Outro exemplo bem conhecido é o do ``casamento a moda antiga'' (menos popularmente conhecido como o ``problema da correspondência bipartida'').
+Nesse problema, temos um conjunto de homens, um de mulheres a relação \codigo{gosta/2}, que existe quando um indivíduo $i$ gosta de outro $j$.
+O problema é separar esses grupos de homens e mulheres em casais que se gostam.
+
+Esses dois exemplos tem a particularidade de terem restrições primitivas binárias e, por isso, são chamados de CSPs binários. Um ponto interessante em CSPs binários é que sempre podem ser representados como um grafo não direcionado:
+  cada variável (cada indivíduo no segundo exemplo ou cada região do Cazaquistão, no primeiro) é representada como um nó e cada restrição como um arco entre suas variáveis. Mais em geral, restrições n-árias CSPs podem ser representados como um multigrafo (isto é, um grafo em que podem existir mais de uma aresta entre dois vértices).
+
+  Em particular, problemas como os de roteamento e criação de cronogramas
+  costumam ser facilmente expressos como CPs em domínio finito, o que indica sua importância comercial.
+
+  Sendo de uso tão amplo, essa classe de problemas (a de CPs em domínios finitos) foi estudada por diferentes comunidades
+científicas. A comunidade de Inteligência Artificial desenvolveu técnicas de consistência por arco e por nó, para CSPs, a
+comunidade de programação por restrições desenvolveu técnicas de propagação de limites e a comunidade de pesquisas
+operacionais desenvolveu técnicas de programação inteira. Daremos uma olhada em cada uma dessas abordagens a seguir.
+
+\subsection{Consistência por nó e por arco}
+
+Resolução de CSPs por consistência por nó e por arco acontece em tempo polinomial
+(mas, possivelmente, de forma incompleta)\footnote{Mas ela, assim como as demais formas de consistência vistas aqui
+ pode ser usada em conjunto com \technical{backtracking}, gerando um resolvedor completo, mas não
+ mais em tempo polinomial.}.
+A ideia aqui é diminuir os domínios das variáveis,
+transformando o problema em outro equivalente (com as mesmas soluções).
+Se o domínio de alguma variável for vazio, é o fim do CSP.
+
+Essa forma de resolução é dita baseada em consistência porque ele funciona propagando informações dos domínios de cada variável
+para os demais, tornando-os ``consistentes'' entre si.
+
+\begin{definition}
+  Uma restrição $r/n$ é dita \definicao{consistente por nó}
+  se $n > 1$ ou, $X$ sendo for uma variável em $r$, se para cada $d$ no domínio
+  de \var{X}, \codigo{ X=d,r(X).} resulta em sucesso.
+  Uma restrição composta é dita consistente por nó se cada uma de suas restrições
+  primitivas o é.
+\end{definition}
+
+\begin{definition}
+  Uma restrição $r/n$ é dita \definicao{consistente por arco} se
+  $n \neq 2$ ou, se \enphasis{r} é uma restrição nas variáveis \var{X} e \var{Y} e se $D_x$ é o
+  domínio de \var{X} e $D_y$ o de \var{Y}, então $x \in D_x$ implica que existe $y \in D_y$ tal que \codigo{X=x, Y=y, r(X,Y).} resulta em sucesso.
+  Uma restrição composta é dita consistente por arco se cada uma de suas restrições primitivas o é.
+\end{definition}
+
+Vale notar que essas noções de consistência são noções fracas no sentido de que um CSP pode não ser satisfazível
+e ainda manter consistência por arco e por nó.
+
+Não é difícil escrever um código para manter consistência por arco e por nós. A seguir segue um exemplo. Ele é para fins
+demonstrativos: para algoritmos mais eficientes veja \cite{tsang}. O funtor \codigo{apply/2} é o
+definido no Capítulo 6. %TODO adicionar link
+
+\inputminted{prolog}{../Exemplos/Cap9/node_consistency.pl}\label{lst:no_consistency}
+\vspace{2cm}
+
+\inputminted{prolog}{../Exemplos/Cap9/arc_consistency.pl}\label{lst:arc_consistency}
+
+\codigo{consistente\_por\_no/2} recebe uma lista de pares ``Domínio-Restrição''. Se a restrição for unária, ela checa cada valor do domínio.
+Os valores que resultam em falha são retirados do domínio. \codigo{consistente\_por\_arco/2} tem alguns casos a mais, mas é essencialmente a mesma coisa.
+
+\subsection{Consistência por limites\footnote{Também conhecido como \foreign{bounds consistency}}}
+
+As noções de consistência desenvolvidas acima funcionam bem para restrições em uma ou duas variáveis,
+mas se quisermos usar algo do tipo para mais variáveis, precisaremos generalizar um pouco:
+
+\begin{definition}
+  Uma restrição \codigo{r/n} nas variáveis \var{$X_1$}, ..., \var{$X_n$} é dita \definicao{consistente por hiper-arco}
+  se para cada $x_i$ no domínio de \var{$X_i$}, existem $x_j$ nos domínios de \var{$X_j$} tal que
+  para todo $j \neq i$ entre 1 e \enphasis{n}, \codigo{$X_i$ = $x_i$, $X_j$ = $x_j$.} resulta em
+  sucesso. Uma restrição composta é dita consistente por hiper-arco se cada uma de suas restrições o é.
+\end{definition}
+
+Infelizmente, manter consistência por hiper-arco é algo caro demais para se fazer em um problema geral. Para
+encontrarmos uma nova checagem de consistência realmente útil, precisaremos restringir o domínio com que lidamos.
+
+Dizemos que temos um \definicao{CSP é aritmético} se o domínio de cada variável é uma união
+finita de intervalos finitos de números inteiros e se as restrições são aritméticas. Muitos CSPs
+podem ser modelados como aritméticos de forma natural e muitos outros podem ser transformados em
+CSPs aritméticos por uma mudança de variáveis apropriada.
+Por exemplo, se o problema tem a ver com escolhas, uma mudança de variáveis natural é denotar cada
+escolha por um número. No problema da coloração do mapa do Cazaquistão, por exemplo, ao invés de
+denotar as cores como ``vermelho'', ``azul'', etc., podemos denotá-las como ``1'', ``2'', etc., obtendo resultados equivalentes.
+
+Lidando com CSPs aritméticos, podemos definir a noção de \definicao{consistência por limites}. A ideia é limitar o domínio
+de uma variável por limitantes inferiores e superiores. As seguintes convenções de notação serão convenientes:
+
+\begin{itemize}
+  \item $min_D(\var{X})$ := algum $x$ tal que para todo $y \in D$, $y \geq x$;
+  \item $max_D(\var{X})$ := algum $x$ tal que para todo $y \in D$, $y  \leq x$.
+\end{itemize}
+
+Dadas essas convenções, podemos construir uma definição de consistência por limites. Por incrível
+que pareça, existem três noções de consistência por limites, uma incompatível com a outra. Não
+obstante, os pesquisadores frequentemente confundem uma noção com a outra (os motivos de tal
+confusão serão explicados a seguir).
+
+As três noções de consistência por limites serão denotadas \boundd, \boundz{} e \boundr.
+Intuitivamente, para \boundd, dentro de cada limitante no domínio de uma variável há ``suporte
+inteiro'' para os valores dos domínios das outras variáveis ocorrendo na mesma restrição.
+Para \boundz, o ``suporte inteiro'' precisa ser apenas dentro do intervalo definido pelos limitantes
+inferiores e superiores das outras variáveis.
+Para \boundr, os ``suportes'' podem assumir valores reais no intervalo definido pelos limitantes
+inferiores e superiores das outras variáveis.
+
+Mais formalmente, temos as seguintes definições:
+
+\begin{definition}
+  Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita
+  \definicao{\boundd{} consistente}
+  se, para cada \var{$X_i$}, existem \enphasisb{valores inteiros} $x_j$ no domínio de \var{$X_j$}, onde $j \neq i$, tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
+  é uma solução de \funtor{r/n}.
+
+  %$min_D(X_j) \leq x_j \leq max_D(X_j)$ e $\{X_i = min_D(X_i), X_j = x_j\}$ é
+  %uma solução de r.
+  %E outros valores reais $x_1$, ..., $x_n$ tais que para todo $j \neq i $, $min_D(x_j) \leq x_j \leq
+  %max_D(x_j)$ e $\{X_i = max_D(X_i)$, $X_j = x_j\}$ é uma solução de r.
+
+  Uma restrição composta é dita \boundd{} consistente se cada uma de suas restrições o é.
+\end{definition}
+
+\begin{definition}
+  Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita
+  \definicao{\boundz{} consistente}
+  se, para cada \var{$X_i$}, existem \enphasisb{valores inteiros} $x_j$, onde $j \neq i$,
+  satisfazendo $min_D(\var{$X_j$}) \leq x_j \leq max_D(\var{$X_j$})$,
+  tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
+  é uma solução inteira de \funtor{r/n}.
+
+  Uma restrição composta é dita \boundz{} consistente se cada uma de suas restrições o é.
+\end{definition}
+
+\begin{definition}
+  Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita
+  \definicao{\boundr{} consistente}
+  se, para cada \var{$X_i$}, existem \enphasisb{valores reais} $x_j$, onde $j \neq i$,
+  satisfazendo $min_D(\var{$X_j$}) \leq x_j \leq max_D(\var{$X_j$})$,
+  tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
+  é uma solução real de \funtor{r/n}.
+
+  Uma restrição composta é dita \boundr{} consistente se cada uma de suas restrições o é.
+\end{definition}
+
+É claro pelas definições que \boundd{} $\Rightarrow$ \boundz{} $\Rightarrow$ \boundr. Existem, no
+entanto, problemas práticos com \boundd{} e \boundz, nomeadamente que, para restrições lineares, por
+exemplo, manter consistêncai por \boundd{} ou por \boundz{} é um problema NP-completo, enquanto que
+manter consistência por \boundr{} pode ser feito em tempo linear.
+
+Também vale notar que um conjunto de domínios D é consistente em \boundz{} ou \boundr{} para uma
+restrição \funtor{r/n} se, e só se, range(D) é consistente em \boundz{} ou em \boundr{} para
+\funtor{r/n}, em que range(D) é definido como $range(D) := \{[min_D_x_i(X) \ldots  max_D_x_i(X_i)]\}$, $D_x_i$ o domínio da
+variável de \funtor{r/n} $X_i$. Essa propriedade é muito usada para não reexecutar propagadores
+de limites sem necessidade, e não vale para \boundd{}.
+
+Um problema com consistência em \boundr{} é que pode não ser claro como interpretar uma restrição
+inteira nos reais.
+
+Com tantas diferenças entre essas noções, alguém poderia nos perguntar ``Como alguém poderia
+confundi-las?''. O fato é que, para muitas restrições, elas são equivalentes. Essas restrições são
+ditas monótonas. Para definir uma restrição monótona, será conveniente ter uma definição mais
+refinada do que é um domínio. Daqui para frente, um \definicao{domínio} D de uma restrição
+\funtor{r/n} será tido como uma função do conjunto de variáveis de \funtor{r/n} para os conjuntos de
+valores que essa variável pode receber. Por exemplo, para \codigo{r(X,Y) :- X = Y.}, onde \var{X}
+pode assumir os valores 1 e 2 e, \var{Y}, os valores 2 e 3, D(X) = \{1, 2\} e D(Y) = \{2, 3\}. Por
+abuso de notação, diremos que $\Gamma \in D$ se $\Gamma$ é outra função domínio tal que $\Gamma(X_i)
+\subseteq D(X_i)$ para $1 \leq i \leq n$.
+
+\begin{definition}
+  Uma restrição \funtor{r/n} é dita monótona com respeito às suas variáveis \var{$X_i$} se, e só se,
+  existe uma ordem total\footnote{Lembrete: uma ordem total em um conjunto S é uma relação $\preceq$ que
+    satisfaz, para todo $a, b, c \in S$: $a \preceq a$, $a \preceq b \wedge b \preceq a \Rightarrow
+  a = b$, $a\preceq b \wedge b \preceq c \Rightarrow a \preceq c$ e $a\preceq b \vee b\preceq a$.}
+    $\prec_i$\footnote{A ordem pode mudar segundo a variável.}
+    no domínio de \var{$X_i$}, $D(X_i)$, tal que, se, para todo i, $\Gamma \in
+  D(X_i)$ é uma solução de \funtor{r/n}, então também o é qualquer $\Gamma$' tal que, para $i \neq
+  j$, $\Gamma$'$(X_j) = \Gamma(X_j)$ e $\Gamma$'$(X_i) \preceq_i \Gamma(X_i)$.
+\end{definition}
+
+Restrições na forma de desigualdades lineares\footnote{Exceto desigualdades da forma $x \neq y$, mas
+essas são muito fáceis de lidar, além de serem equivalentes para \boundd, \boundz{} e \boundr.} e de desigualdades do tipo $x_1 \times x_2 \leq x_3$, onde $min_D(x_i) \geq 0$, são
+monótonas, por exemplo.
+
+Mais detalhes sobre consistência por limites podem ser vistos em \cite{choi}. A seguir é elaborado um exemplo de um método de propagação por limites.
+
+Considere a restrição \codigo{X = Z + Y}. Ela pode ser escrita nas formas
+  \[
+  X = Z + Y \text{, } Y = X - Y \text{, } Z = X - Y
+\]
+
+Podemos ver que:
+\begin{gather}
+  X \geq min_D(Y)+min_D(Z),  X \leq max_D(Y) + max_D(Z)\\
+  Y \geq min_D(Y)+min_D(Z),  Y \leq max_D(Y) + max_D(Z)\\
+  Z \geq min_D(Y)+min_D(Z),  Z \leq max_D(Y) + max_D(Z)
+\end{gather}
+
+Podemos usar essa observação para tentar diminuir os domínios de X, Y e Z. Com essa ideia, obtemos o seguinte programa:
+
+\inputminted{prolog}{../Exemplos/Cap9/bounds_consistency.pl}\label{lst:bounds}
+
+Observações semelhantes podem ser feitas para outros tipos de restrições aritméticas. Para restrições do tipo $X \neq Z$ e $X  \neq min(Z, Y)$, isso é especialmente simples de ser feito. Para restrições  não lineares do tipo $X < Z\times Y$, isso pode ser
+especialmente complicado, ainda mais se $Z$ e $Y$ puderem assumir valores positivos e negativos, mas
+ainda pode ser feito.
+
+Como é meio chato escrever uma regra para cada caso de restrição dessas para a manutenção de consistência por limites, o que é
+mais usual em um sistema que ofereça esse tipo de consistência é que suporte apenas uma quantidade reduzida dessas restrições,
+sendo as demais transformadas em versões equivalentes às quais essas restrições se apliquem, o que não é difícil de se fazer.
+Isso, no entanto, está sujeito ao potencial inconveniente de que restrições equivalentes mas escritas de formas diferentes podem oferecer
+oportunidades diferentes para a diminuição de domínio de cada restrição e a reescrita pode tornar um domínio que poderia
+originalmente ser grandemente simplificado, em um que sofra apenas uma pequena alteração (e o
+usuário pode ficar frustrado ao ver que uma diminuição de domínio ``óbvia'' não foi feita).
+
+Apesar disso, a aplicação de consistência por limites frequentemente é útil. Um programa que realiza essa aplicação é simples
+de se fazer: ele toma cada restrição primitiva e os domínios de suas respectivas variáveis e aplica um algo como o mostrado no
+código \ref{lst:bounds}. Assim, temos um mecanismo de busca incompleto. Torná-lo um mecanismo completo é simples e pode ser feito
+com a adição do backtracking.
+
+
+\subsection{Consistência global}
+
+Consistência por limites também podem ser aplicadas a restrições em duas ou em uma variável, mas, nesse caso, consistência por
+arco ou por nó costumam resultar em diminuição maior nos domínios. Um problema geral, no entanto, pode ser composto por uma
+combinação de restrições de diferente aridade, tornando vantajosa a aplicação de diferentes noções de consistência.
+
+No entanto, um potencial problema com abordagens baseadas em consistência é que elas consideram apenas uma ou um pequeno número de
+restrições e variáveis por vez, enquanto que frequentemente muitas restrições e variáveis oferecem informações sobre as demais.
+
+Tome, por exemplo, a restrição \codigo{X $\neq$ Y, Y $\neq$ Z, X $\neq$ Z}, equivalente a dizer que as variáveis X, Y e Z são todas
+diferentes. Dos métodos de consistência que vimos, o mais indicado a essa restrição é o de consistência em arco, já que $\neq$ é
+de aridade 2. Mas esse método é muito fraco para restrições de desigualdade, o que significa que, na
+prática, resolveríamos isso por \technical{backtraking}, que tem um crescimento assintótico exponencial.% TODO adicionar exemplo
+
+Restrições desse tipo são tão usadas que receberam o nome especial de \funtor{alldiferent/1}\footnote{Na verdade, a aridade dessa restrição pode ser arbitrária, mas, por simplicidade, assumimos que as variáveis que devem ser diferentes entre si estão organizadas em uma lista, tornando a aridade igual a um.} em vários sistemas CLP e é, talvez, a restrição mais estudada.
+Restrições que fazem uso da informação no domínio de muitas variáveis para realizar a atualização de cada domínio são
+chamadas restrições globais (como notado anteriormente). No caso do \funtor{alldifferent/1}, podemos notar que essa restrição é equivalente ao
+supramencionado problema de correspondência bipartida e que existem algoritmos eficientes para lidar com ele.
+
+Assim como nas restrições vistas anteriormente, os domínios das variáveis em \funtor{alldifferent/1} são importantes na decisão de como
+resolvê-la. Em particular, se as variáveis são inteiras um algoritmo de propagação baseado em consistência por limites atinge
+um bom desempenho. Se as variáveis não são inteiras, no entanto, uma algoritmos baseados em consistência por hiper-arco
+podem ser usados. A seguir é apresentada os fundamentos de um tal algoritmo. Esse material é baseado em \cite{basileos}.
+
+\subsubsection{Alldifferent}
+
+Precisaremos das seguintes definições:
+
+\begin{definition}
+  Um \definicao{grafo} é uma tupla $G = (V,A)$, de vértices e arestas (V é um conjunto de vértices e A de arestas).
+  Em um grafo não orientado, uma aresta é  uma tupla de vértices.
+\end{definition}
+
+
+Dado um grafo $G = (V,E)$, um \definicao{pareamento}\footnote{Também comumente conhecido como {\it matching}.} M em G é um conjunto de arestas cujos vértices aparecem em apenas uma aresta de M (em outras
+palavras, M é um pareamento em G se os vértices em (V,M) tem no máximo grau 1).
+
+\begin{definition}
+  Um pareamento M em G é dito máximo se para todos os pareamentos P de G, $|P| \leq |M|$.
+\end{definition}
+
+A teoria de pareamento é relevante para nosso problema porque, para qualquer restrição $r/n$ com variáveis $X_j$, de domínios
+$D_j$, a informação de que $X_j \in D_j$ pode ser expressa por um grafo bipartido
+$(\cup_{j=1}^nX_i\cup(\cup_{i=1}^nD_i),E)$, onde $(X_i,d) \in E \Leftrightarrow d \in D_i$. Esse
+grafo é conhecido como \definicao{grafo valor} e pode ser construído em tempo polinomial.
+
+É fácil ver que a restrição \funtor{alldifferent/n} tem solução se e somente se existe um pareamento máximo de tamanho n em seu grafo valor. Incidentalmente, existe um algoritmo que, dado um grafo, encontra um pareamento máximo em $O(\sqrt[2]{|X|}\times|E|)$.
+
+Ademais, dado um pareamento máximo, existem algoritmos eficientes que tornam \funtor{alldifferent/n} hiper arco consistente (cada aresta em um pareamento máximo corresponde a uma atribuição de valor a uma variável da restrição).
+
+Para desenvolvermos essas afirmações um pouco melhor, as seguintes definições serão uteis.
+
+\begin{definition}
+  Dado um pareamento P em G, um vértice $e$ em G é dito pareado se $e\in P$, ou livre caso contrário.
+\end{definition}
+
+\begin{definition}
+  Um pareamento P em G é dito uma \definicao{cobertura} para os vértices do G se todo $v$ vértice de G pertence a P.
+\end{definition}
+
+\begin{definition}
+  Dado um pareamento P em G, um \definicao{caminho (ou ciclo) alternante} de G é um caminho (ou ciclo) cujos vértices são alternadamente pareadas e livres.
+\end{definition}
+
+\begin{theorem}
+  Um vértice pertence a algum pareamento máximo P de tamanho n se, e somente se, para qualquer pareamento máximo P', ele ou pertence a P' ou a um caminho alternante em P' de comprimento par que começa em um vértice livre em P', ou a um ciclo alternante
+  em P' de comprimento par.\footnote{Se esse teorema não soa intuitivo, você pode fazer uns desenhos e se convencer de sua veracidade (a prova real não vai ser muito diferente dos desenhos que fizer).}
+\end{theorem}
+
+Disso segue que quando uma aresta não pertencer a algum circuito ou caminho alternante, podemos extraí-la do grafo original.
+Para sabermos se tal ocasião acontece, podemos transformar o grafo em um grafo direcionado bipartido G' da seguinte forma:
+dado G=(V,A), nas arestas em A que são pareadas com P a aresta é orientada das variáveis para os valores e, nas demais, dos valores ara as variáveis.
+
+Assim, podemos fazer uso do seguinte:
+
+\begin{theorem}
+  Todo circuito direcionado de G' tem comprimento par e corresponde a um circuito alternante par de G. Além disso, todo caminho em G' que for ímpar pode ser estendido em um caminho par, que corresponde a um caminho alternante par de G começando em um vértice livre.
+\end{theorem}
+
+Para achar os caminhos procurados, podemos, então determinar os componentes fortemente conectados de G', assim como os caminhos direcionados em G' começando num vértice livre.
+
+Um resumo do algoritmo é como se segue\footnote{Tem algumas sutilezas nele não comentadas aqui. Para
+  saber mais, veja a bibliografia (em particular, \cite{basileos} e, em \cite{cristo}, o Capítulo
+  \foreign{Algorithms for matching})}:
+
+\begin{enumerate}
+  \item É dada a restrição \codigo{alldifferent(X)}, onde $X = [X_1,$ ..., $X_n]$;
+  \item Construímos então o grafo valor $G = (\cup_{j=1}^nX_i\cup(\cup_{i=1}^nD_i),E)$  ;
+  \item Computamos algum pareamento máximo de G, P;
+  \item Se $|P| < |X|$, falha;
+  \item Caso contrário, construa G';
+  \item Marque as arestas de G' que correspondem a arestas de G pertencentes a P como consistentes;
+  \item Encontre os componentes fortemente conectados de G' e marque as arestas nesses componentes como consistentes;
+  \item Encontre os caminhos direcionados que começam em um vértice livre e marque suas arestas como consistentes;
+  \item Para cada aresta de G' não marcada como consistente, remova a aresta correspondente em G.
+\end{enumerate}
+
+
+
+\subsection{Indexicals}
+
+Como deve ter dado para notar, uma operação chave em CLP(FD) é a propagação de restrições.
+
+Em sistemas CLP(FD) iniciais, como o CHIP, as restrições eram primeiro transformadas em termos de forma canônica
+e, então, executados em um interpretador que, entre outras coisas, realiza a propagação de restrições (veja \cite{zhou}).
+Devido ao sucesso na compilação de programas Prolog para a \enphasis{máquina abstrata de Warren} (ou WAM, da sigla em inglês),
+que é o tipo de máquina abstrata mais usada na compilação de programas em Prolog, foram feitos esforços para a compilação
+de restrições em CLP(FD) nos mesmos moldes (sendo, na prática, uma extensão da WAM).
+
+Nesse modelo, as restrições são traduzidas para códigos de baixo nível de modo que formas de propagação especializadas sejam
+usadas para cada tipo de restrição. Isso foi chamado de ``modelo caixa-preta'', já que o programador não sabe,
+a princípio, que tipo de propagação seria realizada em suas restrições. Na prática, esse modelo não se provou flexível o suficiente
+e foi abandonado.
+
+Uma construção chamada \definicao{indexicals}, mais flexível do que a anterior, foi então criada para auxiliar na compilação de
+restrições em CLP(FD). O modelo com \technical{indexicals} é dito de ``caixa de vidro'', denotando seu caráter intermediário entre
+``o programador dita como as restrições são tratadas'' e o seu contrário. No nosso contexto, um
+\technical{indexical} é algo da forma \codigo{X in S}, onde X é uma variável de domínio finito e S é uma expressão.
+
+Por exemplo, uma regra de propagação em consistência por limites para a restrição \codigo{X = Y + Z.}
+em \technical{indexical} é:
+
+    $X$ in $min(Y)$ + $min(Z)..max(Y)$ + $max(Z)$
+
+A ideia é descrever o domínio de cada variável como uma função do domínio inicial por meio de
+construções como \technical{in} e \technical{min(Z)..max(Y)}.
+
+\technical{Indexicals} não são usados no \eclipse\, mas são usados em outros sistemas e algumas outras formas de propagação fazem
+uso de métodos que tomam \technical{indexicals} por base, por isso o discutimos brevemente por nesta ocasião.
+
+Incidentalmente, os \technical{indexicals} usados aqui provém de um conceito mais geral de
+\technical{indexical} proveniente da filosofia da linguagem.
+Para entender esse conceito um pouco melhor, considere a seguinte situação (retirada de \cite{raymond}):
+
+Digamos que existem dois irmãos gêmeos, um que só diz a verdade e outro que só diz a mentira. Além
+disso, o primeiro irmão, que só diz a,
+verdade também tem uma crença perfeita do que é ou não verdade (isto é, todas as proposições que são verdadeiras ele crê serem
+verdade e analogamente o contrário). Em contrapartida, o outro irmão tem uma crença completamente imperfeita do que é verdade
+(o que é verdade ele crê não o ser e analogamente o contrário). Note que, ao serem feitos a mesma pergunta,
+os dois irmãos dariam a mesma resposta. Considerando essa situação e tendo em mente que o irmão mentiroso o deve dinheiro,
+um logicista pergunta a outro logicista ``Você acha que é possível, fazendo perguntas de sim ou não, descobrir se um irmão é o mentiroso ou o verdadeiro?'', ao que ele responde ``Claramente não, já que eles dariam as mesmas respostas às mesmas questões''.
+Você acha que o segundo logicista estava correto?\\
+Na verdade, não estava: Considere a pergunta ``Você é o que diz a verdade?''. Se ele o for, dirá que é. Se não o for, crerá que
+o é e dirá que não o é. Apesar disso, o segundo logicista estava correto ao dizer que eles dariam as mesmas respostas às mesmas questões: o ``você'' em ``Você é o que diz a verdade?'' se refere a ``coisas'' diferentes se usados com pessoas diferentes,
+então a pergunta feita ao mentiroso seria fundamentalmente diferente da feita ao não mentiroso.
+Aqui, ``você'' é um \technical{indexical}.
+
+O ponto é que um mesmo \technical{indexical} pode significar coisas diferentes em contextos
+diferentes (na verdade, do ponto de vista filosófico, é isso que o define como sendo um
+\technical{indexical}). No exemplo de \technical{indexical} acima, os domínios iniciais de X, Y e Z poderiam
+mudar significativamente o que aquele \technical{indexical} significa.
+
+
+  \begin{thebibliography}{1}
+
+    \bibitem{basileos}
+      Basileos Anastasatos ``Propagation Algorithms for the Alldifferent Constraint''
+
+    \bibitem{choi}
+    C.W. Choi, W. Harvey, J.H.M. Lee, and P.J. Stuckey,
+    ``Finite Domain Bounds Consistency Revisited''
+
+    \bibitem{cristo}
+      Christos Papadimitriou (1998), ``Combinatorial Optimization, Algorithms and Complexity'', Dover Publications
+
+    \bibitem{raymond}
+      Smullyan, Raymond, ``5000 B.C. and Other Philosophical Fantasies''
+
+    \bibitem{tsang}
+      E. Tsang (1930), ``Foundations of Constraint Satisfaction'', Academic Press.
+
+    \bibitem{zhou}
+      Neng-Fa Zhou (2006), ``Programming Finite-Domain Constraint Propagator in Action Rules'', Theory and Practice of Logic Programming, Vol. 6, No. 5, pp.483-508, 2006
+
+  \end{thebibliography}
+
+
+%\end{document}
