@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{encontra}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{gera}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{),}
+  \PYG{n+nf}{testa}\PYG{p}{(}\PYG{l+s+sAtom}{x}\PYG{p}{).}
+\end{Verbatim}

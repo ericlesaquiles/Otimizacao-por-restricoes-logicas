@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ju}\PYG{p}{,} \PYG{l+s+sAtom}{au}\PYG{p}{).}
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ju}\PYG{p}{,} \PYG{l+s+sAtom}{sc}\PYG{p}{).}
+
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ag}\PYG{p}{,} \PYG{l+s+sAtom}{ma}\PYG{p}{).}
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ag}\PYG{p}{,} \PYG{l+s+sAtom}{ju}\PYG{p}{).}
+
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ca}\PYG{p}{,} \PYG{l+s+sAtom}{ag}\PYG{p}{).}
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ca}\PYG{p}{,} \PYG{l+s+sAtom}{ge}\PYG{p}{).}
+
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ju\PYGZus{}d}\PYG{p}{,} \PYG{l+s+sAtom}{ca}\PYG{p}{).}
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ju\PYGZus{}d}\PYG{p}{,} \PYG{l+s+sAtom}{cae}\PYG{p}{).}
+
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ne}\PYG{p}{,} \PYG{l+s+sAtom}{ag}\PYG{p}{).}
+\PYG{n+nf}{f}\PYG{p}{(}\PYG{l+s+sAtom}{ne}\PYG{p}{,} \PYG{l+s+sAtom}{gn}\PYG{p}{).}
+
+\PYG{n+nf}{a}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{)} \PYG{l+s+sAtom}{:=} \PYG{n+nf}{f}\PYG{p}{(}\PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{A}\PYG{p}{),} \PYG{p}{!.}
+\PYG{n+nf}{a}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{)} \PYG{l+s+sAtom}{:=} \PYG{n+nf}{f}\PYG{p}{(}\PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{C}\PYG{p}{),} \PYG{n+nf}{a}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,}\PYG{n+nv}{C}\PYG{p}{).}
+\end{Verbatim}

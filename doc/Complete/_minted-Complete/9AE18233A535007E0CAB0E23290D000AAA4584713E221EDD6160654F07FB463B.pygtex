@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZpc{}\PYGZpc{} indomain(+X)}
+\PYG{c+c1}{\PYGZpc{} Insiste que a variável X faça parte de seu domínio}
+
+\PYG{n+nf}{indomain}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{get\PYGZus{}domain\PYGZus{}as\PYGZus{}list}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,}\PYG{n+nf}{member}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{Domain}\PYG{p}{).}
+  \PYG{n+nf}{member}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{Domain}\PYG{p}{),}
+\end{Verbatim}

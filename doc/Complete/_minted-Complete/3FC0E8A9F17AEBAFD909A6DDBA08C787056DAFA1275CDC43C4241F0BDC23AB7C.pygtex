@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{flatten\PYGZus{}dl}\PYG{p}{([}\PYG{n+nv}{X}\PYG{p}{|}\PYG{n+nv}{Xs}\PYG{p}{],} \PYG{n+nv}{Ys}\PYG{l+s+sAtom}{\PYGZbs{}}\PYG{n+nv}{Zs}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{flatten\PYGZus{}dl}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{As}\PYG{l+s+sAtom}{\PYGZbs{}}\PYG{n+nv}{Bs}\PYG{p}{),} \PYG{n+nf}{flatten\PYGZus{}dl}\PYG{p}{(}\PYG{n+nv}{Xs}\PYG{p}{,} \PYG{n+nv}{Cs}\PYG{l+s+sAtom}{\PYGZbs{}}\PYG{n+nv}{Ds}\PYG{p}{),}
+  \PYG{n+nf}{append\PYGZus{}dl}\PYG{p}{(}\PYG{n+nv}{As}\PYG{l+s+sAtom}{\PYGZbs{}}\PYG{n+nv}{Bs}\PYG{p}{,} \PYG{n+nv}{Cs}\PYG{l+s+sAtom}{\PYGZbs{}}\PYG{n+nv}{Ds}\PYG{p}{,} \PYG{n+nv}{Ys}\PYG{l+s+sAtom}{\PYGZbs{}}\PYG{n+nv}{Zs}\PYG{p}{).}
+\PYG{n+nf}{flatten\PYGZus{}dl}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,[}\PYG{n+nv}{X}\PYG{p}{|}\PYG{n+nv}{Xs}\PYG{p}{]}\PYG{l+s+sAtom}{\PYGZbs{}}\PYG{n+nv}{Xs}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{atomic}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{),}
+  \PYG{n+nv}{X} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{p}{[].}
+\PYG{n+nf}{flatten\PYGZus{}dl}\PYG{p}{([],}\PYG{n+nv}{Xs}\PYG{l+s+sAtom}{\PYGZbs{}}\PYG{n+nv}{Xs}\PYG{p}{).}
+\end{Verbatim}

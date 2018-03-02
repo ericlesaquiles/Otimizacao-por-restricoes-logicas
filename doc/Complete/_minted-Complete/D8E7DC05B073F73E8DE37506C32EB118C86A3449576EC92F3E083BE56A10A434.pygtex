@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{test\PYGZus{}analogy}\PYG{p}{(}\PYG{n+nv}{Name}\PYG{p}{,} \PYG{n+nv}{X}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{figures}\PYG{p}{(}\PYG{n+nv}{Name}\PYG{p}{,} \PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{C}\PYG{p}{),}
+  \PYG{n+nf}{answers}\PYG{p}{(}\PYG{n+nv}{Name}\PYG{p}{,} \PYG{n+nv}{Answers}\PYG{p}{),}
+  \PYG{n+nf}{analogy}\PYG{p}{(}\PYG{n+nf}{is\PYGZus{}to}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,}\PYG{n+nv}{B}\PYG{p}{),} \PYG{n+nf}{is\PYGZus{}to}\PYG{p}{(}\PYG{n+nv}{C}\PYG{p}{,}\PYG{n+nv}{X}\PYG{p}{),} \PYG{n+nv}{Answers}\PYG{p}{).}
+
+\PYG{n+nf}{figures}\PYG{p}{(}\PYG{l+s+sAtom}{test1}\PYG{p}{,}
+        \PYG{p}{[} \PYG{n+nf}{inside}\PYG{p}{(}\PYG{n+nf}{inside}\PYG{p}{(}\PYG{l+s+sAtom}{triangle}\PYG{p}{,} \PYG{l+s+sAtom}{triangle}\PYG{p}{),}\PYG{l+s+sAtom}{square}\PYG{p}{),}
+          \PYG{n+nf}{inside}\PYG{p}{(}\PYG{l+s+sAtom}{triangle}\PYG{p}{,} \PYG{l+s+sAtom}{square}\PYG{p}{),}
+          \PYG{n+nf}{inside}\PYG{p}{(}\PYG{n+nf}{inside}\PYG{p}{(}\PYG{l+s+sAtom}{square}\PYG{p}{,} \PYG{l+s+sAtom}{circle}\PYG{p}{),}\PYG{l+s+sAtom}{square}\PYG{p}{)} \PYG{p}{]).}
+
+\PYG{n+nf}{answers}\PYG{p}{(}\PYG{l+s+sAtom}{test1}\PYG{p}{,}
+        \PYG{p}{[} \PYG{n+nf}{inside}\PYG{p}{(}\PYG{n+nf}{inside}\PYG{p}{(}\PYG{l+s+sAtom}{circle}\PYG{p}{,} \PYG{l+s+sAtom}{circle}\PYG{p}{),} \PYG{l+s+sAtom}{square}\PYG{p}{),}
+          \PYG{n+nf}{inside}\PYG{p}{(}\PYG{l+s+sAtom}{square}\PYG{p}{,} \PYG{l+s+sAtom}{square}\PYG{p}{),}
+          \PYG{n+nf}{inside}\PYG{p}{(}\PYG{n+nf}{inside}\PYG{p}{(}\PYG{l+s+sAtom}{triangle}\PYG{p}{,} \PYG{l+s+sAtom}{circle}\PYG{p}{),} \PYG{l+s+sAtom}{square}\PYG{p}{),}
+          \PYG{n+nf}{inside}\PYG{p}{(}\PYG{l+s+sAtom}{circle}\PYG{p}{,} \PYG{l+s+sAtom}{square}\PYG{p}{),}
+          \PYG{n+nf}{inside}\PYG{p}{(}\PYG{l+s+sAtom}{triangle}\PYG{p}{,} \PYG{l+s+sAtom}{square}\PYG{p}{)} \PYG{p}{]).}
+\end{Verbatim}

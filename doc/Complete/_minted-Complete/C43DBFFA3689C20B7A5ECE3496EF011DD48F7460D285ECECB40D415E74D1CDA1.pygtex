@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{do\PYGZus{}\PYGZus{}1}\PYG{p}{(}\PYG{n+nv}{Last}\PYG{p}{,} \PYG{n+nv}{Last}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{p}{!.}
+\PYG{n+nf}{do\PYGZus{}\PYGZus{}1}\PYG{p}{(}\PYG{n+nv}{In}\PYG{p}{,} \PYG{n+nv}{Last}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{n+nv}{Body}\PYG{p}{,} \PYG{n+nf}{do\PYGZus{}\PYGZus{}1}\PYG{p}{(}\PYG{n+nv}{Out}\PYG{p}{,} \PYG{n+nv}{Last}\PYG{p}{).}
+
+\PYG{n+nf}{do\PYGZus{}\PYGZus{}1}\PYG{p}{(}\PYG{n+nv}{From}\PYG{p}{,} \PYG{n+nv}{To}\PYG{p}{)}\PYG{l+s+sAtom}{?}
+\end{Verbatim}
