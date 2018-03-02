@@ -1,0 +1,30 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{rainhas}\PYG{p}{(}\PYG{l+s+sAtom}{rotate}\PYG{p}{,} \PYG{n+nv}{Rainhas}\PYG{p}{,} \PYG{n+nv}{Numero}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{dim}\PYG{p}{(}\PYG{n+nv}{RainhaStruct}\PYG{p}{,[}\PYG{n+nv}{Numero}\PYG{p}{]),}
+  \PYG{n+nf}{constraints}\PYG{p}{(}\PYG{n+nv}{RainhaStruct}\PYG{p}{,} \PYG{n+nv}{Numero}\PYG{p}{),}
+  \PYG{n+nf}{struct\PYGZus{}para\PYGZus{}lista}\PYG{p}{(}\PYG{n+nv}{RainhaStruct}\PYG{p}{,} \PYG{n+nv}{QList}\PYG{p}{),}
+  \PYG{n+nf}{busca}\PYG{p}{(}\PYG{n+nv}{QLista}\PYG{p}{,} \PYG{l+s+sAtom}{rotate}\PYG{p}{),}
+  \PYG{n+nf}{rotate}\PYG{p}{(}\PYG{n+nv}{RainhaStruct}\PYG{p}{,} \PYG{n+nv}{Rainhas}\PYG{p}{).}
+
+\PYG{n+nf}{busca}\PYG{p}{(}\PYG{n+nv}{QLista}\PYG{p}{,} \PYG{l+s+sAtom}{rotate}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{middle\PYGZus{}out\PYGZus{}dom}\PYG{p}{(}\PYG{n+nv}{QLista}\PYG{p}{,} \PYG{n+nv}{MOutDom}\PYG{p}{),}
+  \PYG{p}{(} \PYG{n+nf}{foreach}\PYG{p}{(}\PYG{n+nv}{Val}\PYG{p}{,} \PYG{n+nv}{MOutDom}\PYG{p}{),}
+    \PYG{n+nf}{param}\PYG{p}{(}\PYG{n+nv}{QLista}\PYG{p}{)}
+  \PYG{l+s+sAtom}{do}
+    \PYG{n+nf}{member}\PYG{p}{(}\PYG{n+nv}{Val}\PYG{p}{,} \PYG{n+nv}{QLista}\PYG{p}{)}
+  \PYG{p}{).}
+
+\PYG{n+nf}{middle\PYGZus{}out\PYGZus{}dom}\PYG{p}{([}\PYG{n+nv}{Q} \PYG{p}{|} \PYG{k}{\PYGZus{}}\PYG{p}{],} \PYG{n+nv}{MOutDom}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{get\PYGZus{}domain\PYGZus{}as\PYGZus{}lista}\PYG{p}{(}\PYG{n+nv}{Q}\PYG{p}{,}\PYG{n+nv}{OrigDom}\PYG{p}{),}
+  \PYG{n+nf}{middle\PYGZus{}out}\PYG{p}{(}\PYG{n+nv}{OrigDom}\PYG{p}{,} \PYG{n+nv}{MOutDom}\PYG{p}{).}
+
+\PYG{n+nf}{rotate}\PYG{p}{(}\PYG{n+nv}{RainhaStruct}\PYG{p}{,} \PYG{n+nv}{Rainhas}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{dim}\PYG{p}{(}\PYG{n+nv}{RainhaStruct}\PYG{p}{,[}\PYG{n+nv}{N}\PYG{p}{]),}
+  \PYG{n+nf}{dim}\PYG{p}{(}\PYG{n+nv}{RRainhas}\PYG{p}{,[}\PYG{n+nv}{N}\PYG{p}{]),}
+  \PYG{p}{(} \PYG{n+nf}{foreachelem}\PYG{p}{(}\PYG{n+nv}{Q}\PYG{p}{,}\PYG{n+nv}{RainhaStruct}\PYG{p}{,[}\PYG{n+nv}{I}\PYG{p}{]),}
+    \PYG{n+nf}{param}\PYG{p}{(}\PYG{n+nv}{RRainhas}\PYG{p}{)}
+  \PYG{l+s+sAtom}{do}
+    \PYG{n+nf}{subscript}\PYG{p}{(}\PYG{n+nv}{RRainhas}\PYG{p}{,[}\PYG{n+nv}{Q}\PYG{p}{],}\PYG{n+nv}{I}\PYG{p}{)}
+  \PYG{p}{),}
+  \PYG{n+nf}{struct\PYGZus{}para\PYGZus{}lista}\PYG{p}{(}\PYG{n+nv}{RRainhas}\PYG{p}{,} \PYG{n+nv}{Rainhas}\PYG{p}{).}
+\end{Verbatim}

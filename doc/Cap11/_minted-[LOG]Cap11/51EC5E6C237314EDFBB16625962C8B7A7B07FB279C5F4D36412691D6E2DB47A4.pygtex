@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{:\PYGZhy{}} \PYG{n+nf}{lib}\PYG{p}{(}\PYG{l+s+sAtom}{lists}\PYG{p}{).}
+
+\PYG{n+nf}{busca}\PYG{p}{(}\PYG{n+nv}{Rainhas}\PYG{p}{,} \PYG{l+s+sAtom}{middle\PYGZus{}out}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{middle\PYGZus{}out}\PYG{p}{(}\PYG{n+nv}{Rainhas}\PYG{p}{,} \PYG{n+nv}{RainhasDeSaida}\PYG{p}{),}
+  \PYG{n+nf}{labeling}\PYG{p}{(}\PYG{n+nv}{RainhasDeSaida}\PYG{p}{).}
+
+\PYG{n+nf}{middle\PYGZus{}out}\PYG{p}{(}\PYG{n+nv}{Lista}\PYG{p}{,} \PYG{n+nv}{ListaDeSaida}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+  \PYG{n+nf}{halve}\PYG{p}{(}\PYG{n+nv}{Lista}\PYG{p}{,} \PYG{n+nv}{PrimeiraMetade}\PYG{p}{,} \PYG{n+nv}{UltimaMetade}\PYG{p}{),}
+  \PYG{n+nf}{reverse}\PYG{p}{(}\PYG{n+nv}{PrimeiraMetade}\PYG{p}{,} \PYG{n+nv}{RevPrimeiraMetade}\PYG{p}{),}
+  \PYG{n+nf}{splice}\PYG{p}{(}\PYG{n+nv}{UltimaMetade}\PYG{p}{,} \PYG{n+nv}{RevPrimeiraMetade}\PYG{p}{,} \PYG{n+nv}{ListaDeSaida}\PYG{p}{).}
+\end{Verbatim}
