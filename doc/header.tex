@@ -14,6 +14,10 @@
 \usepackage[linguistics]{forest}
 \usepackage{caption}
 \usepackage{qtree}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \tikzstyle{decision} = [diamond, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
@@ -61,6 +65,8 @@
 \newcommand{\technical}[1]{\textit{#1}}
 \newcommand{\cit}[1]{\textit{#1}}
 \newcommand{\backtracking}{\textit{backtracking}}
+%\newcommand{\floor}[#1]{\lfloor #1 \rfloor}
+%\newcommand{\ceiling}[#1]{\lceiling #1 \rceiling}
 
 \newcommand{\boundd}{\textit{bounds}($\mathbb{D}$)}
 \newcommand{\boundz}{\textit{bounds}($\mathbb{Z}$)}

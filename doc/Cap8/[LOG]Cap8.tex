@@ -118,7 +118,7 @@ que gera uma variável X cujo valor é restrito ao intervalo de inteiros entre 2
 Se quisermos usar intervalos reais no lugar de intervalos de inteiros (assumidos como o padrão),
 podemos usar um \$ no lugar de \#, como em \codigo{X \$:: 2..10} (vale repetir que o uso de
 intervalos inteiros é o padrão, o que significa que, na falta de uma símbolo como  \# ou \$, o
-intervalo é entendi como sendo em inteiros).
+intervalo é entendido como sendo em inteiros).
 Alternativamente, pode-se usar a restrição \funtor{integers/1} ou \funtor{reals/1} para restringir a variável ou lista de variáveis a assumir valores nos inteiros ou reais, respectivamente.
 
 
@@ -132,7 +132,7 @@ que deixam a suspensão juntas) e o terceiro a condição de saída da suspensã
 Um exemplo é \codigo{suspend(X =:= 21, 2, X -> inst)}, indicando que a restrição de que X =:= 21 está em estado de suspensão até que X seja instanciada.
 
 Talvez se lembre do programa Ou Exclusivo do Capítulo 6. Com o uso de \funtor{suspend/3}, podemos reimplementá-lo sem recorrer ao \technical{backtracking}:
-\vspace{3cm}
+%\vspace{3cm}
 
 \inputminted{prolog}{../Exemplos/Cap8/prog7_xor.pl}
 
@@ -145,7 +145,9 @@ comentário sobre as demais bibliotecas. Isso é útil não só pelos motivos pr
 bibliotecas), mas também como uma resumo das restrições que veremos mais para frente.
 
 \begin{itemize}
-  \item A biblioteca \technical{ic} (de \foreign{interval constraint}) provê um resolvedor de restrições misto inteiro/real;
+  \item A biblioteca \technical{ic} (de \foreign{interval constraint})\footnote{Esse nome vem do
+      fato de que essas restrições atuam sobre intervalos, e as operações aritméticas realizadas sob elas são
+      operações de intervalos. Veja \cite{hickey} para mais detalhes.} provê um resolvedor de restrições misto inteiro/real;
   \item A biblioteca \technical{branch and bound} provê um \technical{framework} para resolver
     problemas por  \foreign{branch and bound} muito customizável;
   \item A biblioteca \technical{eplex} provê otimização para problemas de LP e MIP (\foreign{linear
@@ -181,6 +183,11 @@ Um exemplo de restrição global é o \funtor{alldiferent/n}, que será visto ad
     \bibitem{joachim}
       Schimpf, Joachim,
       [https://groups.google.com/forum/?hl=en#!msg/comp.lang.prolog/UYfgRxUWbGo/0KuxfWPEDqoJ]
+
+      \bibitem{hickey}
+      T. Hickey and Q. Ju and M. H. van Emden,
+      ``Interval Arithmetic: from Principles to Implementation'',
+      Journal of the ACM
 
       \bibitem{schimpf}
         Schimpf, Joachim,
