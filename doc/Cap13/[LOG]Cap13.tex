@@ -1,0 +1,90 @@
+\documentclass{article}
+
+\input{../header.tex}
+
+
+\begin{document}
+
+\section{Dualidade e relaxação}
+
+\epigraph{\cit{ - Q: Qual é o contrário do ``espaço dual''?\\
+                - R: O espaço ``donothing''.}}{Eduardo Tengan, em uma aula qualquer}
+
+A noção de dualidade não é uma noção perene só na álgebra linear e suas áreas adjacentes (conhecidas
+em conjunto como ``matemática''), também ocupa um lugar especial na teoria de otimização. Em
+otimização, dualidade vem em diversas formas: dualidade de programação linear, de programação
+linear inteira (lagrangeana), entre outras. Frequentemente, os métodos de otimização mais
+confiavelmente eficicientes são métodos primal-dual.
+
+A dualidade é um tema unificador porque podemos expressar todos os duais como dual de inferência ou
+de relaxação (frequentemente vezes, como ambos). Um dual de inferência pode ser visto como o
+problema de inferir das restrições nas variáveis um maior limitante inferior na imagem da função
+objetivo (assumimos daqui para frente, sem perda de generalidade, que queremos minimizar a função). Assim, a busca ocorre
+sobre provas, no lugar de sobre valores das variáveis. Mais precisamente, se tivermos um problema de
+otimização da forma
+
+\begin{align}
+  &  min f(x)\\
+  &  R(x)\\
+  &  x \in D
+\end{align}
+
+\noindent em que $R(x)$ denota as restrições sobre x e D o seu domínio, seu respectivo
+\definicao{dual de inferência} nos coloca o problema de maximizar o limitante inferior em $f(x)$ que
+é inferível das restrições. Isso ocorre na forma de uma busca por uma prova do limitante ótimo (ou
+``bom o suficiente'', se não pudermos pedir por um ``ótimo''):
+
+\begin{align}
+  max \; & v\\
+  C(x) & \vdash^{P} (f(x) \geq v)\\
+  v \in \mathbb{R}&, P \in \mathcal{P}
+\end{align}
+
+\noindent em que $C(x) \vdash^{P} (f(x) \geq v)$ indica que \var{P} é uma prova de $(f(x) \geq v)$,
+usando o que é assumido em $C(x)$. O domínio de \var{P} é uma família de provas $\mathcal{P}$, sendo
+$(v,P)$ um par de solução dual. Quando o problema inicial (dito ``\definicao{primal}'') não tem
+soluções, o conjunto de soluções para o dual é ilimitado.
+
+Quando o primal for um problema de programação linear, por exemplo, a família de provas pode
+consistir de combinações lineares não-negativas de restrições de desigualdade, sendo a solução dual
+identificada com os multiplicadores na combinação linear que deriva o maior limitante.
+
+Direto da definição, podemos inferir o \definicao{princípio de dualidade fraca}: um valor factível
+\var{v} do dual de inferência nunca pode ser maior do que qualquer valor factível do primal.
+Ademais, a diferença (a ``lacuna'') entre os valores ótimos do primal e do dual é chamada
+\definicao{lacuna de dualidade}. A lacuna de dualidade pode ser igual a zero, mas não é garantido
+que esse vá ser o caso. Em particular, pode ser que exista um maior limitante inferior a $f(x)$, mas
+esse limitante inferior não ser inferível em $\mathcal{P}$. Quando isso acontece, $\mathcal{P}$ é
+incompleta. Mais no geral, se \var{C} é uma restrição implicada por $C(x)$ mas não existe $P \in
+\mathcal{P}$ que infira \var{C}, $\mathcal{P}$ é dita incompleta. Caso contrário, ela é dita
+completa. Quando $\mathcal{P}$ for completa, a lacuna de dualidade pode ser reduzida a zero, o que
+constitui o princípio de \definicao{dualidade forte}\footnote{Os princípios de dualidade fraca e
+  forte são às vezes referidos como teoremas (porque precisam ser provados). Suas provas, no
+  entanto, são tão simples, que foram omitidas a fim de não aborrecer o leitor.}.
+
+\subsection{Complexidade}
+
+Um certificado de factibilidade (infactilibidade/otimalidade) é um pedaço de
+informação que permite a verificação da factibilidade (infactibilidade/otimalidade) da instância de
+um problema. Dizemos que um problema de otimização pertence ao NP (de \foreign{nondeterministic
+  polynomial}) se existe um certificado de factibilidade polinomial para qualquer instância factível
+do problema: a computação requerida para testar factibilidade, pelo certificado, é limitada por uma
+função polinomial do tamanho da instância do problema. Um problema de otimização é co-NP se existe
+um certificado polinomial de otimalidade para qualquer instância.
+
+Se um problema de otimização primal for co-NP, seu dual de inferência é NP para alguma família de
+provas $\mathcal{P}$: se o problema for co-NP, seja $\mathcal{P}$ a família de provas $P_i$ (que
+assumimos polinomiais) de otimalidade da instância i, de valor ótimo $v_i$, provê um certificado
+polinomial de factibilidade do dual (que é, portanto, NP).
+
+Programação linear pertence a ambos NP e co-NP. Problemas desse tipo são tidos ter ``boa
+caracterização'', no sentido de que soluções factíveis e provas de otimalidade são facilmente
+escritas.
+
+  \begin{thebibliography}{1}
+
+    \bibitem{carnap}
+
+  \end{thebibliography}
+
+\end{document}
