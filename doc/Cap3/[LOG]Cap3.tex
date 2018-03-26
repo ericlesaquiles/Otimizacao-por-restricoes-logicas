@@ -134,11 +134,13 @@ Por exemplo, a lista \codigo{[a,b,c]} (menos popularmente conhecida como \codigo
 
 Estruturas de dados incompletas, no geral, podem ser bem importantes e úteis. Um exemplo interessante são as \definicao{listas de diferença}, uma estrutura de dados que pode simplificar e aumentar a eficiência de programas que lidam com listas.
 
-Listas de diferença tem esse nome porque são criadas como a diferença de duas listas. Por exemplo, dizemos que  a diferença entre as listas
+Listas de diferença têm esse nome porque são criadas como a diferença de duas listas. Por exemplo, dizemos que  a diferença entre as listas
 \codigo{[a,b,c]} e \codigo{[c]} é a lista \codigo{[a,b]}. A diferença entre duas listas incompletas \codigo{[a,b|Xs]} e \codigo{Xs} é equivalente à lista \codigo{[a,b]} e, mais no geral, a diferença entre duas listas incompletas \codigo{[$x_0$, ...,$x_i$|Xs]} e \codigo{Xs} é equivalente a \codigo{[$x_0$, ...,$x_i$]}.
-A diferença entra as listas \var{Ys} e \var{Xs}, onde \codigo{Ys = [Zs|Xs]}, é denotada \codigo{Ys$\setminus$Xs}, onde \var{Ys} é dita a \enphasis{cabeça} e \enphasis{Xs} a cauda. Na prática,
+A diferença entra as listas \var{Ys} e \var{Xs}, com \codigo{Ys = [Zs|Xs]}, é denotada \codigo{Ys$\setminus$Xs}, em que \var{Ys} é dita a \enphasis{cabeça} e \enphasis{Xs} a \enphasis{cauda}. Na prática,
 poderíamos definir um funtor tal como \funtor{lista\_diff/2}, o que seria potencialmente mais eficiente, mas a notação anterior será
 mais conveniente pelo momento. Se eficiência for uma preocupação, termos como \codigo{Ys$\setminus$Xs} poderiam ser substituídos automaticamente por outro funtor apropriado.
+
+%COMMENT: esta bem ruim de acompanhar a que codigo se refere sem ter a legenda...
 
 É importante notar que qualquer lista \var{L} pode ser trivialmente representada na forma de lista de diferença como \codigo{L$\setminus$[]}. Fazer a concatenação de uma lista de diferença \codigo{Ys$\setminus$Xs} com uma \codigo{Zs$\setminus$Ws}
 só é possível quando \var{Xs} seja unificável com \var{Zs}, sendo, nessa ocasião, ditas \definicao{listas compatíveis}  e, nesse caso, resulta na lista de diferença \codigo{Zs$\setminus$Xs}. Esse fato é capturado no seguinte código:
@@ -170,7 +172,7 @@ Vistos os exemplos de listas de diferença dados, é justo dizer que a ideia de 
 para tipos de dados diferentes de listas. Para tanto, precisamos desenvolver uma representação um pouco melhor de o que a lista é
 e como ela funciona. Uma lista, como a definimos acima, é uma forma de representar uma árvore. Por exemplo, a lista \codigo{[a,b,c]} se parece com:
 
-\begin{figure}[h]
+\begin{figure}[!h]
 
   \caption{Lista simples}\label{fig:simp_list}
 
@@ -195,10 +197,12 @@ e como ela funciona. Uma lista, como a definimos acima, é uma forma de represen
 
 \end{figure}
 
-\noindent onde $\bullet$ representa o funtor \funtor{./2} da lista. Na verdade, funtores em geral são árvores, não só os de lista, mas
+\noindent em que $\bullet$ representa o funtor \funtor{./2} da lista. Na verdade, funtores em geral são árvores, não só os de lista, mas
 funtores de lista tem essa ``cara especial''. Uma lista como \codigo{[[a,b],c]} seria como:
 
-  \begin{figure}[h]
+%COMMENT: coloquei uma ! antes do h para reforcar que quer que a figura fique "here". Mas veja que pode acontecer da figura mudar de lugar e o paragrafo anterior ficou sem sentido. Tem um "seria como:" e ai ja comeca outro paragrafo. Por isso sempre eh melhor, ao usar figuras (ou tabelas e coisas do tipo), usar coisas como "como apresentado na Figura \ref{xxx}" do que "como na figura a seguir:".
+
+  \begin{figure}[!h]
 
     \caption[tree]{Lista aninhada}\label{fig:nest_list}
 
@@ -226,12 +230,12 @@ funtores de lista tem essa ``cara especial''. Uma lista como \codigo{[[a,b],c]} 
 
   \end{figure}
 
-O que \funtor{flatten/2} faz é uma transformação em árvores como essa, transformando uma lista aninhada como a \ref{fig:nest_list} em uma
-simples, como a \ref{fig:simp_list}. No caso, o resultado de flatten na lista \ref{fig:nest_list} (que é uma árvore) seria a lista
-\ref{fig:simp_list}.
+O que \funtor{flatten/2} faz é uma transformação em árvores como essa, transformando uma lista aninhada como a da Figura~\ref{fig:nest_list} em uma
+simples, como a da Figura~\ref{fig:simp_list}. No caso, o resultado de flatten na lista da Figura~\ref{fig:nest_list} (que é uma árvore) seria a lista
+da Figura~\ref{fig:simp_list}.
 
 Agora, para vermos como uma estrutura de diferença pode ser útil em outras ocasiões, considere o seguinte exemplo. Em Prolog, a
-operação de soma é associativo a esquerda, o que significa que a operação \codigo{1 + 1 + 1 + 1} é tomada como \codigo{(((1 + 1) + 1) + 1)}.
+operação de soma é associativa à esquerda, o que significa que a operação \codigo{1 + 1 + 1 + 1} é tomada como \codigo{(((1 + 1) + 1) + 1)}.
 Por razões técnicas, podemos querer que ela seja normalizada como associativa à direita. Ou seja, se temos algo como
 \codigo{(1 + 2) + (3 + 4)}, dado pela árvore
 
@@ -261,7 +265,7 @@ Por razões técnicas, podemos querer que ela seja normalizada como associativa 
   \end{figure}
 
 
-\noindent queremos que isso se torne \codigo{ (1 + (2 +  (3 + 4)))}, dado pela árvore \ref{fig:sum_norm}.
+\noindent queremos que isso se torne \codigo{ (1 + (2 +  (3 + 4)))}, dado pela árvore da Figura~\ref{fig:sum_norm}.
 
   \begin{figure}[h]
 
@@ -295,10 +299,10 @@ o funtor \funtor{++/2} como um operador infixo, da seguinte forma:
 \codigo{:- op(500, xfy, ++).}
 
 \noindent Resumidamente, essa linha nos diz que o funtor \funtor{++/2} é um operador binário (podemos usá-lo na forma \codigo{A ++ B}), de prioridade
-500 (quando maior o número, menor a prioridade de avaliação, sendo a menor prioridade possível dada por 1200) e associativo à direita (yfx seria associativo à esquerda e xfx seria não-associativo).
+500 (quanto maior o número, menor a prioridade de avaliação, sendo a menor prioridade possível dada por 1200) e associativo à direita (yfx seria associativo à esquerda e xfx seria não-associativo).
 
 Com esse funtor em mãos, definimos a ``soma de diferença'' de maneira análoga à lista de diferença, isto é, como \codigo{S1++S2},
-onde \var{S1} e \var{S2} são somas normalizadas incompletas. Nesse contexto, o número 0 faz o papel da lista vazia e
+em que \var{S1} e \var{S2} são somas normalizadas incompletas. Nesse contexto, o número 0 faz o papel da lista vazia e
 \codigo{S1++0} é equivalente a \var{S1}. Assim, podemos definir o seguinte código:
 
 \inputminted{prolog}{../Exemplos/Cap3/progn_normalized_sum.pl}\label{lst:norm}
