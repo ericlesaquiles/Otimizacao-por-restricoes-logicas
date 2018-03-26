@@ -233,17 +233,18 @@ fornecendo maior crédito às escolhas aparentemente mais promissoras.
 
 Os métodos de busca discutidos anteriormente são apropriados para CSPs. Para COPs, precisaremos
 fazer algumas modificações. Uma opção é o \definicao{branch and bound} e \technical{branch, bound
-and cut}. Para a realização de um \technical{branch and bound}, precisamos O \technical{branch and bound} genérico funciona da seguinte forma (sendo F o conjunto de
+and cut}. Para a realização de um \technical{branch and bound}, precisamos %COMMENT: alguma coisa se perdeu aqui
+O \technical{branch and bound} genérico funciona da seguinte forma (sendo F o conjunto de
 soluções para o problema de otimização inteira):
 
 \begin{enumerate}
-  \item F é particionado em n partes ($F_1, \hdots, F_n$);
+  \item F é particionado em $n$ partes ($F_1, \hdots, F_n$);
   \item Um $F_k$ é selecionado:
     \begin{enumerate}
       \item Se ele não for factível, é deletado;
-      \item Caso contrário, compute o limitante inferior, $b(F_k)$ de sua função custo;
-      \item Se $b(F_k) \geq U$, o limitante superior do problema global, $F_k$ é deletado;
-      \item Caso contrário, obtenha uma solução ótima ao problema inicial, ou ramifique $F_k$ em
+      \item Caso contrário, compute um limitante inferior $b(F_k)$ de sua função custo;
+      \item Se $b(F_k) \geq U$, o limitante superior do problema global $F_k$ é deletado;
+      \item Caso contrário, obtenha uma solução ótima do problema inicial, ou ramifique $F_k$ em
         outros subproblemas e os adicione à lista de subproblemas a serem selecionados ou deletados.
     \end{enumerate}
   \end{enumerate}
@@ -265,10 +266,10 @@ Dado um problema de programação inteira linear tal como
   \text{minimize } c'x \\
   \text{tal que }  Ax = b\\
            x \geq 0\\
-           x \in \mathbb{Z}
+           x \in \mathbb{Z},
 \end{align}\label{eq:inteiro}
 
-\noindent, uma possível função \enphasis{b} é o custo ótimo do problema relaxado
+\noindent uma possível função \enphasis{b} é o custo ótimo do problema relaxado
 
 \begin{align}
   \text{minimize } c'x \\
@@ -276,11 +277,11 @@ Dado um problema de programação inteira linear tal como
            x \geq 0\\
 \end{align}\label{eq:inteiro}
 
-Se a solução $x^*$ ao problema relaxado for inteira (isto é, se todas as componentes de $x^*$ forem
-inteiras), essa solução é ótima para o problema inteiro inicial. Caso contrário, se os $x_j$ para $j
+Se uma solução $x^*$ do problema relaxado for inteira (isto é, se todas as componentes de $x^*$ forem
+inteiras), essa solução é ótima para o problema inteiro inicial. Caso contrário, se algum dos $x_j$ para $j
 \in J$ forem fracionários, podemos ramificar o problema adicionando as restrições $x_k \leq
 \floor*{x_k}$ ou $x_k \geq \ceil*{x_k}$, para algum $k \in J$. Como $x^*$ não faz parte do
-conjuntos de soluções de nenhuma das ramificações, o custo ótimo delas será extritamente maior.
+conjuntos de soluções de nenhuma das ramificações, o custo ótimo delas será estritamente maior.
 
 Vale notar que, se o problema relaxado original foi resolvido por meios do método simplex, o
 ramificado poderia ser resolvido sem grandes dificuldades pelo simplex dual, já que só difere do
@@ -292,7 +293,7 @@ de busca. O uso de cortes ditos ``profundos'' podem tornar a execução de \tech
   bound} muito mais rápida (mas podem ser difíceis de encontrar). Para mais detalhes sobre técnicas
 de programação inteira, veja, por exemplo, \cite{tsitsiklis}.
 
-O \eclipse vem com uma biblioteca para métodos \technical{branch and bound}, a qual veremos com mais
+O \eclipse\ vem com uma biblioteca para métodos \technical{branch and bound}, a qual veremos com mais
 detalhes posteriormente.
 
 \subsection{Projeção}
