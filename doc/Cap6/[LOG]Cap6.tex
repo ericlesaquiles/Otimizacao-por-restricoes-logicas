@@ -111,7 +111,8 @@ de estar correta) \var{C} sejam representadas pelo funtor \funtor{clause\_c/3}, 
 
 \inputminted{prolog}{../Exemplos/Cap6/prog5_meta2.pl}
 
-Um goal \codigo{solve(Goal,C,Limit)} submetido a esse interpretador resulta em sucesso se a ``confiança'' \var{C} de \var{Goal}
+Um goal \codigo{solve(Goal,C,Limit)} %QUESTION: nao deveria ter uma interrogacao?
+submetido a esse interpretador resulta em sucesso se a ``confiança'' \var{C} de \var{Goal}
 for maior do que o limite inferior \var{Limit}. Alguns pontos válidos de se notar nesse programa são que, numa conjunção \codigo{A,B},
 a nossa confiança na conjunção é tomada como o mínimo entre a de \var{A} e a de \var{B} e que se, para provar um goal \var{Goal}, é
 preciso passar por uma cláusula com fator de certeza \var{C1}, a prova do corpo da cláusula terá um fator de certeza menor, dado
@@ -120,7 +121,7 @@ a confiança \var{C2} (pense na probabilidade de eventos independentes) na resol
 
 \subsubsection{Meta-predicados de variáveis}
 
-Outro predicado de meta-programação básico é o \funtor{var/1}: \codigo{var(T)?} tem sucesso se
+Outro predicado de meta-programação básico é o \funtor{var/1}: o goal \codigo{var(T)?} tem sucesso se
 \var{T} é uma variável não instanciada e falha caso contrário. Sua irmã, \funtor{nonvar/1}, funciona de maneira análoga. Por exemplo, \codigo{var(a)?} e \codigo{var([X|Xs])?} falham, enquanto que \codigo{var(X)?} tem sucesso, se X é uma variável não instanciada.
 Esse predicado nos permite fazer, por exemplo, programas como o seguinte:
 
