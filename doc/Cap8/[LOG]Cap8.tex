@@ -142,22 +142,22 @@ Note que, agora, nosso \funtor{ou\_exclusivo/2} não é mais uma operação arit
 
 Como lidamos, nesta seção, com a biblioteca \technical{suspend}, vale a pena fazermos um breve
 comentário sobre as demais bibliotecas. Isso é útil não só pelos motivos práticos (no uso das
-bibliotecas), mas também como uma resumo das restrições que veremos mais para frente.
+bibliotecas), mas também como um resumo das restrições que veremos mais para frente.
 
 \begin{itemize}
   \item A biblioteca \technical{ic} (de \foreign{interval constraint})\footnote{Esse nome vem do
       fato de que essas restrições atuam sobre intervalos, e as operações aritméticas realizadas sob elas são
-      operações de intervalos. Veja \cite{hickey} para mais detalhes.} provê um resolvedor de restrições misto inteiro/real;
+      operações de intervalos. Veja \cite{hickey} para mais detalhes.} provê um resolvedor de restrições misto inteiro/real.
   \item A biblioteca \technical{branch and bound} provê um \technical{framework} para resolver
-    problemas por  \foreign{branch and bound} muito customizável;
+    problemas por  \foreign{branch and bound} muito customizável.
   \item A biblioteca \technical{eplex} provê otimização para problemas de LP e MIP (\foreign{linear
     programming} e \foreign{mixed integer programming}, respectivamente). Existem outras bibliotecas
   nomeadas \technical{eplex\_x}, para usar o resolvedor \technical{x} específico (exemplos para
-  valores de \technical{x} são ``cplex'' e ``gurobi'');
-  \item A biblioteca \technical{ic\_global} provê restrições globais sobre listas de inteiros;
+  valores de \technical{x} são ``cplex'' e ``gurobi'').
+  \item A biblioteca \technical{ic\_global} provê restrições globais sobre listas de inteiros.
   \item A biblioteca \technical{ic\_symbolic} provê um resolvedor para restrições sobre domínios
-    simbolicos ordenados;
-  \item A biblioteca \technical{fd} provê um resolvedor para domínios finitos no geral
+    simbólicos ordenados.
+  \item A biblioteca \technical{fd} provê um resolvedor para domínios finitos no geral.
 \end{itemize}
 
 Citamos algumas das que consideramos importantes. Mais detalhes sobre essas bibliotecas (e sobre as
@@ -169,14 +169,14 @@ distinção entre restrições ativas e passivas, mas existe outra distinção, 
 significativa:
 
 \begin{itemize}
-  \item \definicao{Restrições elementares} são as que ajem sobre uma quantidade predeterminada de
+  \item \definicao{Restrições elementares} são as que agem sobre uma quantidade predeterminada de
     variáveis. Elas estão disponíveis, por exemplo, nas bibliotecas \technical{ic} e
     \technical{branch\_and\_bound};
-  \item \definicao{Restrições globais} as que ajem sobre uma quantidade indeterminada de variáveis. Elas estão disponíveis, por
+  \item \definicao{Restrições globais} são as que agem sobre uma quantidade indeterminada de variáveis. Elas estão disponíveis, por
     exemplo, na biblioteca \technical{ic\_global} (e também em outras, não citadas aqui).
 \end{itemize}
 
-Um exemplo de restrição global é o \funtor{alldiferent/n}, que será visto adiante.
+Um exemplo de restrição global é o \funtor{alldiferent/n}, que será vista adiante.
 
   \begin{thebibliography}{1}
 
