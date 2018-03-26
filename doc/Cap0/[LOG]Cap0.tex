@@ -21,16 +21,16 @@ Ignoraremos essas peculiaridades sempre que possível (este não tem a intençã
 no ``padrão de facto'' Edinburgh Prolog.
 
 Como dizia Sussman \cite{sussman}
-, quando se quer aprender uma nova linguagem, as perguntas básicas que precisamos perguntas são
+, quando se quer aprender uma nova linguagem, as perguntas básicas que precisamos perguntar são
 
 \begin{enumerate}
   \item Quais são as ``coisas'' primitivas da linguagem?
-  \item Quais são seus meios de combinação, com os quais podemos usar as primitivas de maneira estruturada?
-  \item Quais são seus meios de abstração, com os quais podemos criar programas cada vez maiores?
+  \item Quais são seus meios de combinação com os quais podemos usar as primitivas de maneira estruturada?
+  \item Quais são seus meios de abstração com os quais podemos criar programas cada vez maiores?
 \end{enumerate}
 
 A resposta à primeira pergunta é a seguinte. O Prolog tem uma primitiva: o \definicao{funtor}. Para uma melhor compreensão sobre o que é um
-funtor é útil sabermos a origem do termo: O termo \technical{funtor} foi introduzido por Rudolf Carnap, filósofo alemão que
+funtor é útil sabermos a origem do termo. O termo \technical{funtor} foi introduzido por Rudolf Carnap, filósofo alemão que
 participou do círculo de Viena, em seu \foreign{Logische Syntax der Sprache}\cite{carnap} e indica uma \enphasis{palavra função}
 (não confundir com ``uma função''), que contribui primariamente com a sintaxe de uma sentença (em contraste com \enphasis{palavras conteúdo},
 que contribuem primariamente com o significado): resumidamente, em sua concepção original, funtores expressam a estrutura
@@ -46,7 +46,7 @@ Na programação lógica, os funtores só precisam ser sintaticamente corretos. 
   f($a_1$, ..., $a_n$)
 }
 
-Onde os argumentos $a_i$ são outros funtores. Em particular, símbolos e números são ditos funtores
+\noindent em que os argumentos $a_i$ são outros funtores. Em particular, símbolos e números são ditos funtores
 de aridade zero, também chamados \definicao{átomos}\footnote{Em Prolog, nem todo símbolo pode ser
   tratado como átomo (embora os usuais sejam). Quando na dúvida, recomendamos testar antes de
   confiar.}. Quando um funtor \funtor{f/n} não é um átomo, ele, na presença de seus argumentos,
@@ -69,13 +69,13 @@ um funtor, junto de seus argumentos, seguido de um ponto. Por exemplo
   mais(1,2,3).
 }
 
-\noindent diz que ``é verdade que mais(1,2,3)'' ou, mais naturalmente, ``é verdade que existe a relação 'mais' entre 1, 2 e 3, nessa ordem'' (vale notar que a ordem é importante: \codigo{mais(1,2,3)} não é o igual a \codigo{mais(3,2,1)}, onde por ``igual a'' entende-se ``idêntico a'').
+\noindent diz que ``é verdade que mais(1,2,3)'' ou, mais naturalmente, ``é verdade que existe a relação 'mais' entre 1, 2 e 3, nessa ordem'' (vale notar que a ordem é importante: \codigo{mais(1,2,3)} não é o igual a \codigo{mais(3,2,1)}, em que por ``igual a'' entende-se ``idêntico a'').
 Ocasionalmente, é muito mais conveniente que um funtor receba argumentos pela direita e pela esquerda, quase como um operador,
 como \codigo{1 f 2}. É possível definir funtores dessa forma, mas nos restringiremos ao modo usual, pelo qual a última relação fica
 \codigo{f(1,2)}.
 
-Eventualmente pode ser que, na ocasião de a relação \codigo{p(a,b)} ser verdadeira outras relações também sejam.
-Em particular pode ser que, em linguagem matemática, $ f(1,l) \Rightarrow p(a,b) $. Esse tipo de relação é escrita em Prolog como:
+Eventualmente pode ser que, na ocasião de a relação \codigo{p(a,b)} ser verdadeira, outras relações também sejam.
+Em particular, pode ser que, em linguagem matemática, $ f(1,l) \Rightarrow p(a,b) $. Esse tipo de relação é escrita em Prolog como:
 
 \codigo{
   p(a,b) :- f(1,l).
@@ -87,9 +87,9 @@ Em particular pode ser que, em linguagem matemática, $ f(1,l) \Rightarrow p(a,b
   p(a,b) :- f(1,l), q(f).
 }
 
-\noindent onde as vírgulas entre os termos fazem o papel do ``e'' lógico. Esse tipo de estrutura é chamada \definicao{regra}
-e é o mais importante meio de combinação em programação lógica. O que está para a esquerda de ``:-'' em uma regra é dito
-``cabeça da regra'', ou só ``cabeça'', se a regra for clara do contexto e o que está à direita de ``:-'' é dito o
+\noindent na qual as vírgulas entre os termos fazem o papel do ``e'' lógico. Esse tipo de estrutura é chamada \definicao{regra}
+e é o mais importante meio de combinação em programação lógica. O que está para a esquerda de ``:-'' em uma regra é dita
+``cabeça da regra'', ou só ``cabeça'', se a regra for clara do contexto, e o que está à direita de ``:-'' é dito o
 ``corpo da regra''. Quando não for necessário distinguir entre fatos e regras, usaremos o termo
 \definicao{cláusula}\footnote{Note que usamos ``cláusula'' em um sentido diferente do da lógica
   clássica (em que ``cláusula'' é definida como sendo uma disjunção de proposições). } para
@@ -104,14 +104,19 @@ Note que os nomes usados para os funtores são arbitrários. O seguinte programa
 %\lstinputlisting[caption=Queijo, style=prosty]{../Exemplos/Cap0/prog2_queijo.pl}
 \inputminted{prolog}{../Exemplos/Cap0/prog2_queijo.pl}\label{lst:queijo}
 
+%QUESTION: o pao no primeiro codigo (e o queijo, no segundo) aparece primeiro com 1 argumento e depois com 2. Eh isso mesmo?
+
+%COMMENT: seria bom ter uma legenda no codigo, para o leitor saber o que quer dizer com "Codigo 1".
+
 Pelo código \ref{lst:cafe}, por exemplo, podemos dizer que ``é verdade que pao(de, queijo) e que com(cafe)''. De fato, a pergunta mais
 geral que podemos fazer a um programa lógico é se existe alguma relação $r$ entre os termos $a_1$, ..., $a_n$.
 
 E essa constitui a maneira primária de se utilizar um programa lógico, que pode ocorrer, por
-exemplo, em um \foreign{prompt} no computador. Por meio de questões, ou buscas \footnote{Por que
+exemplo, em um \foreign{prompt} no computador. Por meio de questões, ou buscas \footnote{Porque
   busca é um termo apropriado deve ficar cada vez mais claro no decorrer do texto.}, às vezes também
 chamadas objetivos ou ``\definicao{goals}'' (daqui para frente preferiremos usar ``goal'', sem
-itálico, exceto quando for conveniente utilizar ``busca'' ou ``objetivo''). Um goal é escrito como
+itálico %COMMENT: veja que nao usou em italico antes
+, exceto quando for conveniente utilizar ``busca'' ou ``objetivo''). Um goal é escrito como
 um fato e é o que se busca ``provar'' a partir do programa. Intuitivamente, pode-se pensar no
 programa lógico como um conjunto de axiomas e no goal como uma hipótese que se quer provar a partir desses axiomas.
 
@@ -126,7 +131,7 @@ partir da gramática utilizada pelo compilador usado)\footnote{Se um goal que ge
 
 Mais especificamente, um goal é uma conjunção\footnote{Isto é, uma sequência de proposições unidas
   por um \enphasis{e} lógico. Algo como \funtor{p\_1} e
-  ... e \funtor{p\_n}, onde os \funtor{p\_i} são proposições.}, escrita como \codigo{$p\_1,p\_2,...,p\_n$}, onde $p_i$ é
+  ... e \funtor{p\_n}, em que os \funtor{p\_i} são proposições.}, escrita como \codigo{$p\_1,p\_2,...,p\_n$}, em que $p_i$ é
 entendida como uma proposição que pode ser verdadeira ou falsa \footnote{Na verdade, como veremos,
   uma interpretação mais próxima da realidade do programa lógico é uma baseada na lógica
   construtivista, mas, por enquanto, é suficiente pensar em um goal como uma conjunção no sentido
@@ -134,12 +139,12 @@ entendida como uma proposição que pode ser verdadeira ou falsa \footnote{Na ve
 
 Um ponto interessante sobre goals e também sobre regras é que são como cláusulas de
 Horn\footnote{Também, apesar de mais raramente, chamadas \enphasis{cláusulas de McKinsey}. Elas
-  foram usadas primeiramente por Mckinsey, como notado por Horn \cite{horn}. É importante notar que
-  o ``cláusula'' usado aqui não é a mesma ``cláusula'' definida anteriormente, mas a ``cláusula'' da
+  foram usadas primeiramente por McKinsey, como notado por Horn \cite{horn}. É importante notar que
+  a ``cláusula'' usada aqui não é a mesma ``cláusula'' definida anteriormente, mas a ``cláusula'' da
 lógica clássica} (isto é, cláusulas do
 tipo C se $A_1$ e ... e $A_n$). Como pode imaginar, a teoria existente sobre cláusulas de Horn é de
 alguma importância para programas lógicos. Mais especificamente, dada uma
-disjunção\footnote{Proposições unidas por ``ou''.} com ao menos um termo não negado, é dita uma
+disjunção\footnote{Proposições unidas por ``ou''.} com ao menos um termo não negado, esta é dita uma
 \enphasis{cláusula de Horn}. Se existe exatamente um termo não negado, a seguinte identidade é de
 simples constatação:
 
@@ -192,7 +197,7 @@ Com essa discussão em mente, será ocasionalmente útil ter o \enphasis{signifi
   Por exemplo, digamos que o programa \ref{lst:pai_filho}  seja um trecho de um programa no qual a programadora deseja modelar as relações entre programas e especificações de software atuais e antigos, de forma que A é pai de B se A veio antes de B e B herda características de A, como partes do código ou especificações (como é possível ver, ela apenas começou a escrever o programa). Assim, estão no significado intencionado goals como \codigo{pai(gnu, linux)?} e \codigo{pai(dos, windows)?}, enquanto que o
   significado do programa é \codigo{pai(d,c)?}.
 
-  Fica a pergunta: esse programa é correto? E ele é completo?.
+  Fica a pergunta: esse programa é correto? E ele é completo?
 
 
   \begin{thebibliography}{1}
