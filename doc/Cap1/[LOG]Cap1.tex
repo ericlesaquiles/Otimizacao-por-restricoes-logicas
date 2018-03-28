@@ -8,7 +8,10 @@
 
 Considere o seguinte código:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap1/prog1_circuito.pl}\label{lst:circuit}
+\caption{Circuito}
+    \end{listing}
 
 A leitora pode se perguntar qual o resultado do seguinte goal:
 
@@ -140,7 +143,10 @@ Para entender melhor, tome o exemplo do código \ref{lst:circuit}, no início de
 
   Imagine que você se encontra em uma situação problemática e gostaria de resolver o problema. Um procedimento possível é gerar uma provável solução e, então, testar se ela de fato resolve o problema. Se formos traduzir isso para programação lógica, teríamos algo como:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap1/prog2_encontra.pl}
+\caption{Encontra}
+    \end{listing}
 
 Para algum \enphasis{gera} e algum \enphasis{testa}. A hipótese de não-determinísmo está na esperança de que será gerada uma solução que passa no teste, o que não é, a princípio, claro ser possível. Na prática, isso seria aproximadamente resolvido com o artifício do \foreign{backtracking}, que veremos posteriormente.
 
@@ -170,7 +176,10 @@ No problema específico mostrado, podemos ver que, na primeira linha, a relaçã
 
 O programa a seguir implementa esses passos em um programa lógico\footnote{O ``='' usado nesse programa é o mesmo da ``substituição'' mencionada acima e é a relação de identidade: A = B $\Leftrightarrow$ A é idêntico a B.}:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap1/prog3_analogy.pl}
+\caption{Analogy}
+    \end{listing}
 
 Esse programa é muito específico: ele toma a analogia entre apenas dois objetos e, a partir disso, cria uma analogia com um terceiro. Uma generalização é possível, mas, para nossos propósitos, isso é o suficiente.
 
@@ -186,7 +195,10 @@ Caso esteja se perguntando qual a relação com o modelo do gera-e-testa discuti
 O seguinte programa realiza um teste ao programa anterior:
 
 %\lstinputlisting[caption=Test Analogy]{../Exemplos/Cap1/prog4_testanalogy.pl}
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap1/prog4_testanalogy.pl}
+\caption{Test Analogy}
+    \end{listing}
 
 O goal \codigo{test\_analogy(test1, X)?} tem o resultado esperado.
 
