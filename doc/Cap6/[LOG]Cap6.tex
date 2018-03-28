@@ -62,9 +62,15 @@ Por exemplo, \codigo{arg(1, tio(a,b), X)?} tem sucesso com \{\var{X} = a\}, enqu
 
 Exemplos um pouco mais interessantes são os seguintes:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap6/prog1_subtermo.pl}
+\caption{Subtermo}
+    \end{listing}
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap6/prog2_substitui.pl}
+\caption{Substitui}
+    \end{listing}
 
 Outro predicado de inspeção de estrutura é o, assim chamado (por razões históricas obscuras),
 \technical{univ}, escrito como \funtor{=../2}\footnote{Predicados para acesso e construção de termos
@@ -80,7 +86,10 @@ O \technical{univ} pode ser usado de essencialmente duas formas diferentes:
 
 O seguinte programa mostra um exemplo da utilidade de \technical{univ}:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap6/prog3_apply.pl}
+\caption{Apply}
+    \end{listing}
 
 \subsection{Predicados de Meta-programação}
 
@@ -96,7 +105,10 @@ com a cabeça de uma cláusula e \var{Body} com seu respectivo corpo (se \var{He
 
 Com isso, podemos fazer um meta-interpretador, algo mais elaborado:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap6/prog4_meta1.pl}
+\caption{Meta 1}
+    \end{listing}
 
 Precisamos dos parênteses a mais em \codigo{solve((A,B))} por razões técnicas (não queremos confundir o compilador). Esse
 interpretador teria que ser estendido se quisermos que faça tudo o que é esperado de um interpretador Prolog (ele não lida
@@ -109,7 +121,10 @@ com situações em que a incerteza é uma parte importante. Mas, com ele, podemo
 para fazer isso. Para tanto, suponhamos, por exemplo, que cláusulas com uma certeza (a probabilidade
 de estar correta) \var{C} sejam representadas pelo funtor \funtor{clause\_c/3}, em que \codigo{clause\_c(Head,Body,C)?} é verdade quando \var{Head} unifica com uma cabeça de cláusula cujo corpo unifica com \var{Body} e cujo ``fator de certeza''  unifica com \var{C}, e considere o seguinte:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap6/prog5_meta2.pl}
+\caption{Meta 2}
+    \end{listing}
 
 Um goal \codigo{solve(Goal,C,Limit)} submetido a esse interpretador resulta em sucesso se a ``confiança'' \var{C} de \var{Goal}
 for maior do que o limite inferior \var{Limit}. Alguns pontos válidos de se notar nesse programa são que, numa conjunção \codigo{A,B},
@@ -124,9 +139,14 @@ Outro predicado de meta-programação básico é o \funtor{var/1}: \codigo{var(T
 \var{T} é uma variável não instanciada e falha caso contrário. Sua irmã, \funtor{nonvar/1}, funciona de maneira análoga. Por exemplo, \codigo{var(a)?} e \codigo{var([X|Xs])?} falham, enquanto que \codigo{var(X)?} tem sucesso, se X é uma variável não instanciada.
 Esse predicado nos permite fazer, por exemplo, programas como o seguinte:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap6/prog6_glength.pl}
+\caption{Length mais geral}
+    \end{listing}
 
 %TODO inserir refs e links
 \noindent em que \funtor{length1/2} e \funtor{length2/2} são dados pelos length no (Capítulo 4).
+
+%TODO inserir bibliografia para solver
 
 \end{document}
