@@ -42,7 +42,8 @@ Antes de prosseguirmos em outros aspectos da programação lógica, ocasionalmen
 Dado isso, podemos escrever um programa para adicionar um elemento na lista como o seguinte:
 
 \begin{listing}[ht]
-\inputminted{prolog}{../Exemplos/Cap2/prog2_append.pl}\label{lst:append}
+  \inputminted{prolog}{../Exemplos/Cap2/prog2_append.pl}
+  \caption{Append}\label{lst:append}
 \end{listing}
 
 Esse é um programa clássico e, por isso, escolhemos manter seu nome clássico, que, daqui para frente será usado sem itálico. Os dois elementos iniciais de append são listas e o final é o resultado de se ``juntar as duas listas'': cada elemento da primeira lista está, ordenadamente, antes da cada elemento da segunda. Para exercitar, pense em qual seria o resultado do goal \codigo{append([cafe, queijo], [goiabada], L)?}.
@@ -51,7 +52,10 @@ Para uma melhor compreensão, será instrutivo analisarmos o seguinte programa:
 \\
 \\
 
-\inputminted{prolog}{../Exemplos/Cap3/prog2_length.pl}\label{lst:length}
+    \begin{listing}
+\inputminted{prolog}{../Exemplos/Cap3/prog2_length.pl}
+\caption{Length 0}\label{lst:length}
+    \end{listing}
 
 \subsubsection{Operadores aritméticos}
 
@@ -67,7 +71,10 @@ operador aritmético\footnote{Operadores aritméticos que temos à disposição 
 comportamento é diferente do \funtor{=/2}, por exemplo: o seguinte
 programa pode não ter o resultado intuitivamente esperado:
 
-\inputminted{prolog}{../Exemplos/Cap3/prog3_length1.pl}\label{lst:length1}
+    \begin{listing}
+\inputminted{prolog}{../Exemplos/Cap3/prog3_length1.pl}
+  \caption{Length 1}\label{lst:length1}
+    \end{listing}
 
 \noindent Intuitivamente, esperaríamos que o \var{N} fosse unificado, por um processo recursivo, com
 o número correspondente ao tamanho da lista. Isso não ocorre, porque \funtor{=/2} tem um efeito puramente simbólico e não realiza operações aritméticas: o que teríamos em \var{N} seria algo como uma \technical{string} de símbolos \str{1+(1+(1+0))}, ao invés da avaliação dessa \foreign{string}, ou seja, 3.
@@ -76,7 +83,10 @@ Outro exemplo é o do operador ou exclusivo (o \technical{xor}), que também  n�
 Veremos mais tarde outras formas de contornarmos isso. Por ora, podemos lidar com isso por meio de predicados de meta-programação
 (os quais serão melhor explicados no Capítulo 6):
 
-\inputminted{prolog}{../Exemplos/Cap6/prog3_xor.pl}\label{lst:xor}
+    \begin{listing}
+\inputminted{prolog}{../Exemplos/Cap6/prog3_xor.pl}
+  \caption{XOR}\label{lst:xor}
+    \end{listing}
 
 Temos à nossa disposição também \enphasis{operadores de comparação} (também chamados de operadores relacionais), que funcionam de
 maneira semelhante e também possibilitam o uso de operadores aritméticos à direita do símbolo, na maneira usual. Eles serão de
@@ -98,7 +108,10 @@ O goal \codigo{length(Xs, N)?}, onde \var{Xs} é uma lista e \var{N} uma variáv
 
 Para o seguinte programa, esse já não é o caso.
 
-\inputminted{prolog}{../Exemplos/Cap3/prog3_length2.pl}\label{lst:length2}
+    \begin{listing}
+\inputminted{prolog}{../Exemplos/Cap3/prog3_length2.pl}
+\caption{Length 2}\label{lst:length2}
+    \end{listing}
 
 O goal \codigo{length(Xs, N)?}, para esse programa, resulta em erro se N não for um número. Entretanto, se for um natural positivo, \codigo{length(Xs, N)?} resulta em sucesso e Xs se torna uma lista de N elementos. Se Xs for uma lista e N um natural positivo, \codigo{length(Xs, N)?} resulta em falha se Xs tem uma quantidade de elementos diferente de N e sucesso se Xs tem uma quantidade de elementos igual a N.
 
@@ -113,7 +126,10 @@ perfeitamente válida é \codigo{[[[a,b],c],[]]}. Algumas vezes, entretanto, ser
 uma lista \var{L} só contenha ``não-listas'' como elementos. Para tanto, podemos fazer uso do funtor
 \funtor{flatten/1}, que pode ser implementado como se segue:
 
-\inputminted{prolog}{../Exemplos/Cap3/prog3_flatten.pl}\label{lst:flatten}
+    \begin{listing}
+\inputminted{prolog}{../Exemplos/Cap3/prog3_flatten.pl}
+\caption{Flatten}\label{lst:flatten}
+    \end{listing}
 
 \noindent O \funtor{atomic/1} usado é avaliado como sucesso se seu argumento for uma constante (\codigo{atomic(A)?} resulta em sucesso
 se \var{A} for um funtor de aridade zero).
@@ -143,8 +159,10 @@ mais conveniente pelo momento. Se eficiência for uma preocupação, termos como
 É importante notar que qualquer lista \var{L} pode ser trivialmente representada na forma de lista de diferença como \codigo{L$\setminus$[]}. Fazer a concatenação de uma lista de diferença \codigo{Ys$\setminus$Xs} com uma \codigo{Zs$\setminus$Ws}
 só é possível quando \var{Xs} seja unificável com \var{Zs}, sendo, nessa ocasião, ditas \definicao{listas compatíveis}  e, nesse caso, resulta na lista de diferença \codigo{Zs$\setminus$Xs}. Esse fato é capturado no seguinte código:
 
-\inputminted{prolog}{../Exemplos/Cap3/prog5_concatenate_diff.pl}\label{lst:append_dl}
-\inputminted{prolog}{../Exemplos/Cap3/prog3_flatten.pl}\label{lst:flatten}
+    \begin{listing}
+\inputminted{prolog}{../Exemplos/Cap3/prog5_concatenate_diff.pl}
+\caption{Append dl}\label{lst:append_dl}
+    \end{listing}
 
 Perceba que, enquanto no código \ref{lst:append} a concatenação realiza uma quantidade de operações linear no tamanho da lista,
 no código \ref{lst:append_dl} a concatenação é realizada em uma quantidade constante de operações.
@@ -155,11 +173,17 @@ Outro exemplo de programa que poderia ser melhorado com o uso de listas de difer
 \codigo{flatten(Xs,Ys)} é o mesmo que \codigo{flatten\_dl(Xs$\setminus$[], Ys$\setminus$[])}. Um
 \funtor{flatten\_dl/2} pode ser como o seguinte:
 
-\inputminted{prolog}{../Exemplos/Cap3/prog_flatten_dl1.pl}\label{lst:flatten_dl}
+    \begin{listing}
+\inputminted{prolog}{../Exemplos/Cap3/prog_flatten_dl1.pl}
+\caption{Flatten dl 0}\label{lst:flatten_dl}
+    \end{listing}
 
 Perceba agora que o passo em que usamos \funtor{append\_dl/2}, no código \ref{lst:flatten_dl}, pode ser feito de maneira implícita, resultando no seguinte
 
-\inputminted{prolog}{../Exemplos/Cap3/prog_flatten_dl2.pl}\label{lst:flatten_dl2}
+    \begin{listing}
+\inputminted{prolog}{../Exemplos/Cap3/prog_flatten_dl2.pl}
+\caption{Flatten dl 1}\label{lst:flatten_dl2}
+    \end{listing}
 
 \noindent que parece melhor do que nosso \funtor{flatten/2} original. Essa mudança poderia ser obtida automaticamente com uma aplicação de um \technical{unfolding}.
 \technical{Unfolding} é um tipo de ``transformação programática'' que consiste, em termos gerais, na substituição de um goal por
@@ -301,7 +325,10 @@ Com esse funtor em mãos, definimos a ``soma de diferença'' de maneira análoga
 onde \var{S1} e \var{S2} são somas normalizadas incompletas. Nesse contexto, o número 0 faz o papel da lista vazia e
 \codigo{S1++0} é equivalente a \var{S1}. Assim, podemos definir o seguinte código:
 
-\inputminted{prolog}{../Exemplos/Cap3/progn_normalized_sum.pl}\label{lst:norm}
+    \begin{listing}
+\inputminted{prolog}{../Exemplos/Cap3/progn_normalized_sum.pl}
+\caption{Soma normalizada}\label{lst:norm}
+    \end{listing}
 
 \noindent O goal \codigo{Normalize(Exp, Norm)} tem sucesso se \var{Norm} é a versão normalizada da expressão \var{Exp}.
 Perceba a semelhança entre esse normalizador e o \funtor{flatten/2}: a transformação feita na árvore é essencialmente a mesma. De uma
