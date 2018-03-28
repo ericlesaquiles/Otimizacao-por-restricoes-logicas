@@ -97,12 +97,18 @@ nos referir a qualquer um dos dois.
 
 Um \definicao{programa lógico} consiste em um conjunto de cláusulas. Um exemplo é o seguinte:\\
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap0/prog1_cafe.pl}\label{lst:cafe}
+    \caption{Café}
+    \end{listing}
 
 Note que os nomes usados para os funtores são arbitrários. O seguinte programa tem essencialmente o mesmo significado do ponto de vista computacional:\\
 
 %\lstinputlisting[caption=Queijo, style=prosty]{../Exemplos/Cap0/prog2_queijo.pl}
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap0/prog2_queijo.pl}\label{lst:queijo}
+\caption{queijo}
+    \end{listing}
 
 Pelo código \ref{lst:cafe}, por exemplo, podemos dizer que ``é verdade que pao(de, queijo) e que com(cafe)''. De fato, a pergunta mais
 geral que podemos fazer a um programa lógico é se existe alguma relação $r$ entre os termos $a_1$, ..., $a_n$.
@@ -163,7 +169,10 @@ sentido, já que no processo de resolução (que será explicado depois) eles cu
 
 Agora, considere o seguinte código:\\
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap0/prog3_arvb.pl}\label{lst:arvb}
+\caption{Árvore Binária}
+    \end{listing}
 
 O goal \codigo{$arvore\_b$(vazio)?} tem sucesso, já que é um dos fatos. O goal \codigo{$arvore\_b$(arvore(raiz, vazio, vazio))?} também tem, já que \codigo{$arvore\_b$(a, B, C)?} tem sucesso se $arvore\_b(A)$ e $arvore\_b(B)$ tiverem, o que ocorre. Perceba que, neste caso, o goal não tem sucesso segundo a primeira cláusula apenas e nem segundo a segunda. Ambas contribuem para a definição de $arvore\_b$.
 
@@ -174,7 +183,10 @@ contém variáveis são ditos \definicao{termos base}. Variáveis serão explica
 
 No geral, o que um programa lógico deveria fazer (isto é, o que a programadora tem em mente ao escrevê-lo) pode não ser a princípio claro. Numa tentativa de aliviar isso, usaremos aqui a convenção de usar nomes significativos, assumindo o significado usual (a não ser quando dito o contrário), para os elementos relevantes. Assim, por exemplo, o seguinte trecho:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap0/prog4_pai.pl}\label{lst:pai_filho}
+\caption{Pai e Filho}
+    \end{listing}
 
 
 Indica que Pai tem a relação \enphasis{pai} com Filho se Filho tem a relação \enphasis{filho} com Pai (em outras palavras, um Pai é pai de um Filho se Filho é filho de Pai). Mas não é assumido que o interpretador do programa tenha conhecimento sobre o que é \technical{pai} ou \technical{filho}, ou seja, essa interpretação é relevante para o leitor do programa apenas (o que também significa que o leitor do programa pode ler \technical{pai} e \technical{filho} de várias formas e um programa pode, assim,
