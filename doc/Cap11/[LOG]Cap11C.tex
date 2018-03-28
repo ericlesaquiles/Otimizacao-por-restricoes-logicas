@@ -1,8 +1,8 @@
-%\documentclass{article}
+\documentclass{article}
 
-%\input{../header.tex}
+\input{../header.tex}
 
-%\begin{document}
+\begin{document}
 
 \section{Heurísticas}
 
@@ -13,14 +13,36 @@ escolhidas de forma heurística e, por isso, são chamadas ordenações heuríst
 naturalmente, duas classes de ordenações heurísticas: ordenação heurística de variáveis e de
 valores.
 
-Analisaremos o efeito de algumas dessas heurísticas pela resolução do \enphasis{problema das
+Mas, antes de prosseguirmos, será útil falarmos sobre vetores, que serão utilizados nos programas a
+seguir.
+
+\subsection{Vetores}
+
+Listas são interessantes, mas, eventualmente, podemos querer realizar acesso em tempo constante aos
+seus membros, o que não é possível. Em outras linguagens, esse tipo de acesso é por costume
+realizado através de vetores. Vetores existem em Prolog padrão, de certa forma. Como os argumentos
+de funtores podem ser acessados em tempo constante por meio do funtor \funtor{arg/3}, a princípio,
+um funtor qualquer poderia ser usado como um vetor, o acesso aos membros do qual feitos por meio de
+\funtor{arg/3}. Essa abordagem, no entanto, não só não parece muito elegante, como é pouco prática.
+Se temos algo que chamamos de vetor, gostaríamos de poder fazer algo como \codigo{ Vetor =/= 4}, por
+exemplo, o que com os meios do Prolog padrão não é possível.
+
+Para esse tipo de situação, no \eclipse existe uma implementação de vetores como um açucar
+sintático (semelhante ao que vimos na implementação de listas), permitindo justamente esse tipo de
+utilizaçãoa. Em particular, um vetor, é escrito como uma variável seguida do funtor de lista (como
+em \codigo{Var[4]}), ou, se anônimo, como \codigo{[](A, B, C)} (note que, assim, a representação de
+um vetor ou de uma lista vazia é a mesma) Para criar ``vetores'', possivelmente multidimensionais
+(na realidade, matrizes, o que justifica os ``''), foi construído o predicado \funtor{dim/2}, que
+pode ser usado ou para criar vetores ou para extrair sua dimensão.
+
+\subsection{As n-rainhas}
+
+Analisaremos o efeito de algumas heurísticas pela resolução do \enphasis{problema das
   n-rainhas} quando $n \geq 3$\footnote{Quando n = 2 ou n = 3, o problema não tem solução}. É um
 problema por restrições tão bem conhecido que um estudante de programação por
 restrições poderia (e com razão) se sentir enganado se terminasse um livro sobre o tema sem saber
 como resolver esse problema em especial. A discussão a seguir é baseada, em grande parte, em
 \cite{krzysztof}.
-
-\subsection{As n-rainhas}
 
 Para quem não conhece, o \enphasis{problema das n-rainhas} é o problema de alocar n rainhas em um
 tabuleiro como o de xadrez, mas $n\times n$, com a restrição de que as rainhas não tem permissão
@@ -38,7 +60,8 @@ por linha (ou por coluna), o que se traduz na restrição \codigo{alldifferent(C
 restrições \codigo{$X_i$ - $X_j$ $\setminus=\setminus$ I - J} e \codigo{$X_i$ - $X_j$
   $\setminus=\setminus$ J - I}, em que $X_i$ e $X_j$ são membros distintos da lista de colunas (ou linhas).
 
-\inputminted{prolog}{../Exemplos/Cap11/prog1_queens.ecl}
+\i 
+    \begin{listing}{prolog}{../Exemplos/Cap11/prog1_queens.ecl}
 
 Esse programa primeiro declara o vetor \var{RainhaStruct}, impõe a ele as restrições mencionadas,
 transforma o vetor em lista e realiza a busca (como explicada no Capítulo 10).%TODO por link
@@ -58,13 +81,15 @@ A alteração consiste na adição de um argumento Heur (de heurística) no pred
 Podemos definir o \funtor{rainhas/2}, do exemplo passado, como um \funtor{rainhas/3} no qual o
 último argumento é ``naive'' (indicando que a heurística usada é uma, por assim dizer, boba).
 
-\inputminted{prolog}{../Exemplos/Cap11/prog2_queensHeurNaive.ecl}
+\i 
+    \begin{listing}{prolog}{../Exemplos/Cap11/prog2_queensHeurNaive.ecl}
 
 Uma heurística mais esperta nesta situação seria começar a testar as variáveis do meio. Chamaremos
 essa heurítica de \technical{middle\_out}: ela faz com que a busca comece do meio e vá alternando
 entre os vizinhos do lado esquerdo e direito, a partir do meio.
 
-\inputminted{prolog}{../Exemplos/Cap11/prog3_queensHeurMout.ecl}
+\i 
+    \begin{listing}{prolog}{../Exemplos/Cap11/prog3_queensHeurMout.ecl}
 
 Aqui usamos a biblioteca \technical{lists}, que contém, entre outras coisas, \funtor{halve/3},
 \funtor{reverse/2} e \funtor{splice/3}. O que o primeiro e o segundo desses predicados faz deve ser
@@ -82,7 +107,8 @@ lista dos parâmetros possíveis pode ser encontrada na documentação do \eclip
 parâmetro é \technical{first\_fail}. Nossa busca com o \technical{first\_fail} fica da seguinte
 forma:
 
-\inputminted{prolog}{../Exemplos/Cap11/prog4_queensHeurFrstFail.ecl}
+\i 
+    \begin{listing}{prolog}{../Exemplos/Cap11/prog4_queensHeurFrstFail.ecl}
 
 \indent o parâmetro 0 indica que lidamos com uma lista de fato.
 
@@ -92,7 +118,8 @@ o \technical{fisrt\_fail} ou não é pequena. Para N grandes, entretanto, a dife
 Não temos motivos \enphasis{a priori} para não usar o \technical{first\_fail} e o
 \technical{middle\_out} juntos. Chamaremos essa heurística de \technical{moff}:
 
-\inputminted{prolog}{../Exemplos/Cap11/prog5_queensHeurMoff.ecl}
+\i 
+    \begin{listing}{prolog}{../Exemplos/Cap11/prog5_queensHeurMoff.ecl}
 
 \subsection{Heurísticas de ordenamento de valor}
 
@@ -108,13 +135,14 @@ que vem antes).
 Podemos assim combinar nossa heurística anterior (\technical{moff}) com esta (que chamaremos de
 \technical{moffmo}):
 
-\inputminted{prolog}{../Exemplos/Cap11/prog6_queensHeurMoffMo.ecl}
+\i 
+    \begin{listing}{prolog}{../Exemplos/Cap11/prog6_queensHeurMoffMo.ecl}
 
 Na tabela a seguir consta a quantidade de \technical{backtrackings} por heurística para alguns
 valores de N:
 
 \begin{figure}[h]
-  \caption{Retirado de \cite{krzysztof}}\label{fig:heur}
+  \caption{Retirado de \cite{krzysztof}}\label{fig:psi}
   \centering
   \includegraphics[scale=0.5]{HeuristicsBacktrack.png}
 \end{figure}
@@ -136,14 +164,15 @@ variável atual (pelo \funtor{indomain/1}), selecionaremos uma variável para um
 mesmos produzidos pelo \technical{middle\_out}. Um código representando o que foi discutido é como
 segue:
 
-\inputminted{prolog}{../Exemplos/Cap11/prog7_queensHeurRotate.ecl}
+\i 
+    \begin{listing}{prolog}{../Exemplos/Cap11/prog7_queensHeurRotate.ecl}
 
 Curiosamente, os resultados para o \technical{rotate} são muito melhores do que para
 \technical{middle\_out}, como pode ser visto na seguinte tabela, mostrando a quantidade de
 \technical{backtrackings} por N e por heurística:
 
 \begin{figure}[h]
-  \caption{Retirado de \cite{krzysztof}}\label{fig:rotate}
+  \caption{Retirado de \cite{krzysztof}}\label{fig:psi}
   \centering
   \includegraphics[scale=0.5]{rotate.png}
 \end{figure}
@@ -192,4 +221,4 @@ informações}, algumas das quais são \technical{node(daVinci)}, para criar um 
 
   \end{thebibliography}
 
-%\end{document}
+\end{document}

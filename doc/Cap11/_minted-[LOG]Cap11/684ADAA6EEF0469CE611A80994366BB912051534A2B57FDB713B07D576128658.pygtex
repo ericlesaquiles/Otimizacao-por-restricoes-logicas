@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{busca}\PYG{p}{(}\PYG{n+nv}{Lista}\PYG{p}{,} \PYG{l+s+sAtom}{moffmo}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
-  \PYG{n+nf}{middle\PYGZus{}out}\PYG{p}{(}\PYG{n+nv}{Lista}\PYG{p}{,} \PYG{n+nv}{ListaDeSaida}\PYG{p}{),}
-  \PYG{p}{(} \PYG{n+nf}{fromto}\PYG{p}{(}\PYG{n+nv}{ListaDeSaida}\PYG{p}{,} \PYG{n+nv}{Vars}\PYG{p}{,} \PYG{n+nv}{Resto}\PYG{p}{,} \PYG{p}{[])}
-  \PYG{l+s+sAtom}{do}
-    \PYG{n+nf}{delete}\PYG{p}{(}\PYG{n+nv}{Var}\PYG{p}{,} \PYG{n+nv}{Vars}\PYG{p}{,} \PYG{n+nv}{Resto}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+s+sAtom}{first\PYGZus{}fail}\PYG{p}{),}
-    \PYG{n+nf}{indomain}\PYG{p}{(}\PYG{n+nv}{Var}\PYG{p}{)}
-  \PYG{p}{).}
-\end{Verbatim}
