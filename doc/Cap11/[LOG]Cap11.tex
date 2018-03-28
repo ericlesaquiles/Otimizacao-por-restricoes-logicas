@@ -60,7 +60,10 @@ por linha (ou por coluna), o que se traduz na restrição \codigo{alldifferent(C
 restrições \codigo{$X_i$ - $X_j$ $\setminus=\setminus$ I - J} e \codigo{$X_i$ - $X_j$
   $\setminus=\setminus$ J - I}, em que $X_i$ e $X_j$ são membros distintos da lista de colunas (ou linhas).
 
+    \begin{listing}[!h]
     \inputminted{prolog}{../Exemplos/Cap11/prog1_queens.ecl}
+    \caption{Queens}
+    \end{listing}
 
 Esse programa primeiro declara o vetor \var{RainhaStruct}, impõe a ele as restrições mencionadas,
 transforma o vetor em lista e realiza a busca (como explicada no Capítulo 10).%TODO por link
@@ -80,13 +83,20 @@ A alteração consiste na adição de um argumento Heur (de heurística) no pred
 Podemos definir o \funtor{rainhas/2}, do exemplo passado, como um \funtor{rainhas/3} no qual o
 último argumento é ``naive'' (indicando que a heurística usada é uma, por assim dizer, boba).
 
+    \begin{listing}[!h]
     \inputminted{prolog}{../Exemplos/Cap11/prog2_queensHeurNaive.ecl}
+    \caption{Heurística Ingênua}
+    \end{listing}
 
 Uma heurística mais esperta nesta situação seria começar a testar as variáveis do meio. Chamaremos
 essa heurítica de \technical{middle\_out}: ela faz com que a busca comece do meio e vá alternando
 entre os vizinhos do lado esquerdo e direito, a partir do meio.
 
+    \begin{listing}[!h]
     \inputminted{prolog}{../Exemplos/Cap11/prog3_queensHeurMout.ecl}
+    \caption{Heurística Meio}
+
+    \end{listing}
 
 Aqui usamos a biblioteca \technical{lists}, que contém, entre outras coisas, \funtor{halve/3},
 \funtor{reverse/2} e \funtor{splice/3}. O que o primeiro e o segundo desses predicados faz deve ser
@@ -104,7 +114,10 @@ lista dos parâmetros possíveis pode ser encontrada na documentação do \eclip
 parâmetro é \technical{first\_fail}. Nossa busca com o \technical{first\_fail} fica da seguinte
 forma:
 
+    \begin{listing}
     \inputminted{prolog}{../Exemplos/Cap11/prog4_queensHeurFrstFail.ecl}
+    \caption{Heurística First Fail}
+    \end{listing}
 
 \indent o parâmetro 0 indica que lidamos com uma lista de fato.
 
@@ -114,7 +127,10 @@ o \technical{fisrt\_fail} ou não é pequena. Para N grandes, entretanto, a dife
 Não temos motivos \enphasis{a priori} para não usar o \technical{first\_fail} e o
 \technical{middle\_out} juntos. Chamaremos essa heurística de \technical{moff}:
 
+    \begin{listing}
     \inputminted{prolog}{../Exemplos/Cap11/prog5_queensHeurMoff.ecl}
+    \caption{Heurística Pelo meio + First Fail}
+    \end{listing}
 
 \subsection{Heurísticas de ordenamento de valor}
 
@@ -130,7 +146,10 @@ que vem antes).
 Podemos assim combinar nossa heurística anterior (\technical{moff}) com esta (que chamaremos de
 \technical{moffmo}):
 
+    \begin{listing}
     \inputminted{prolog}{../Exemplos/Cap11/prog6_queensHeurMoffMo.ecl}
+    \caption{Heurística Meio First Fail Meio}
+    \end{listing}
 
 Na tabela a seguir consta a quantidade de \technical{backtrackings} por heurística para alguns
 valores de N:
@@ -158,7 +177,10 @@ variável atual (pelo \funtor{indomain/1}), selecionaremos uma variável para um
 mesmos produzidos pelo \technical{middle\_out}. Um código representando o que foi discutido é como
 segue:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap11/prog7_queensHeurRotate.ecl}
+    \caption{Heurística Roda}
+    \end{listing}
 
 Curiosamente, os resultados para o \technical{rotate} são muito melhores do que para
 \technical{middle\_out}, como pode ser visto na seguinte tabela, mostrando a quantidade de
