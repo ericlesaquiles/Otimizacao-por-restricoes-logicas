@@ -29,14 +29,21 @@ Considere o seguinte programa, representando um pedaço da árvore genealógica 
 `parent', but until Frege developed his generalised theory of induction, no one could have defined `ancestor' precisely in terms of `parent.' ''} --- Bertrand Russel,\foreign{Introduction to Mathematical Philosophy}.
 Para sermos honestos: na verdade, ele se referia a uma versão mais geral dessa relação do que a apresentada aqui. Voltaremos a esse tema depois.}:
 
+    \begin{listing}[!h]
 \inputminted{prolog}{../Exemplos/Cap5/prog1_ancestor.pl}
+\caption{Ancestral 0}
+    \end{listing}
 
-Por conveniência, no lugar das relações filhx/2 e ancestral/2 e dos nomes mostrados acima, usaremos os mostrados abaixo:
+Por conveniência, no lugar das relações filhx/2 e ancestral/2 e dos nomes mostrados acima, usaremos
+os mostrados no Código \ref{lst:ancestor1}\.
 
+    \begin{listing}[!h]
 \inputminted{prolog}{../Exemplos/Cap5/prog2_ancestor.pl}
+\caption{Ancestral 1}\label{lst:ancestor1}
+    \end{listing}
 
 
-O goal \codigo{a(au, ne)?} define implicitamente uma árvore, que começa da seguinte forma:
+O goal \codigo{a(au, ne)?} define implicitamente uma árvore, que começa da forma a seguir.
 \begin{center}
   {\footnotesize
     \begin{forest}
@@ -110,7 +117,11 @@ atribuída a Mark Twain):
 O personagem dessa história, não sabendo Prolog, teve uma certa dificuldade em responder a essa
 questão. Mas nós, como que por reflexo, fazemos o seguinte programa:
 
+%TODO fix
+    \begin{listing}[!h]
 \inputminted{prolog}{../Exemplos/Cap5/prog1_family.pl}
+\caption{Família}
+    \end{listing}
 
 O último bloco de código na verdade não faz parte do programa, mas foi deixado por conveniência. Ele
 indica o goal (na verdade, só queremos saber se o pobre coitado é avô de si mesmo, mas os outros
