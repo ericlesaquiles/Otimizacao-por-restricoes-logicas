@@ -22,7 +22,8 @@
 \tikzstyle{decision} = [diamond, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
 
-\captionsetup[figure]{name=Árvore}
+\captionsetup[figure]{name=Figura}
+\captionsetup[tree]{name=Árvore}
 \setlength{\belowcaptionskip}{1pt plus 1pt minus 1pt}
 \setlength{\abovecaptionskip}{1pt plus 1pt minus 1pt}
 
@@ -48,6 +49,8 @@
 \renewcommand\refname{Leituras adicionais}
 \renewcommand\figurename{Figura}
 \renewcommand{\lstlistingname}{Código}
+%\SetupFloatingEnvironment{listing}{name=Código}
+\renewcommand{\listingscaption}{Código}
 
 \let\oldsection\section
 \renewcommand\section{\clearpage\oldsection}
