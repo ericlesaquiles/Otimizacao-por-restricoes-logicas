@@ -29,7 +29,9 @@ apesar de existirem muitos iteradores diferentes no \eclipse, todos são feitos 
 construção, chamada \funtor{do/2}. Ademais, apenas uma das especificações de iteradores é mesmo
 fundamental. Uma chamada \codigo{( fromto(From, In, Out, To) do Body ).} é traduzida como:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog8_fromto.pl}
+    \end{listing}
 
 \noindent É importante notar que, com \technical{fromtos} aninhados, cada um mapeia a um acumulador
 diferente.
@@ -82,18 +84,24 @@ do X antes do Y, temos dois nós internos, enquanto que, fazendo o \technical{la
 
 Mencionamos que uma forma de descrever a escolha de valores de forma mais geral é por meio de alocação de crédito. Uma parte de um programa que implementa essa ideia é o seguinte, que assume que os valores de cada domínio já estão ordenados segundo uma preferência:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog2_busca2.pl}
+    \end{listing}
 
 Ele assume que Lista é uma lista de pares variável-domínio e precisa ser completada pelas escolhas
 de \funtor{escolhe\_var/3} e \funtor{compartilha\_credito/3}. O seguinte exemplo de \funtor{compartilha\_credito/3} corresponde à escolha dos N primeiros valores, se N for menor
 que o tamanho do domínio; ou do domínio todo,
 caso contrário:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog3_partilha.pl}
+    \end{listing}
 
 Essa escolha ocorre atribuindo aos primeiros N valores do domínio o mesmo crédito, de N. Outra escolha de compartilha\_crédito, possivelmente mais natural, é a que envolve a atribuição de N créditos ao primeiro valor, N/2 ao segundo, e assim por diante:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog4_partilha2.pl}
+    \end{listing}
 
 Nesse código, o \codigo{fix(ceiling(AtuCredito/2))} retorna o maior inteiro menor ou igual que AtuCredito/2.
 
@@ -113,7 +121,9 @@ Nesse código, o \codigo{fix(ceiling(AtuCredito/2))} retorna o maior inteiro men
   valor delas é por meio de um dos predicados acima. Segue uma implementação de nosso programa de
   busca que conta a quantidade de \technical{backtrackings}\footnote{Esse \funtor{once/1}, usado no programa, definido como \codigo{once(Goal) :- Goal, !.}}:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog5_busca3.pl}
+    \end{listing}
 
 Esse programa explora a forma como é feito o \technical{backtracking} e, por isso, a ordem em que foi posta é crucial. Vale notar que ele conta todos os backtrackings que ocorrem na busca, possibilitando contar a quantidade de nós na árvore.
 
@@ -122,7 +132,9 @@ ocorre quando, logo depois de realizar um, é realizado outro \technical{backtra
 melhor de eficiência pode ser uma contagem de \technical{backtrackings} que conta uma sequência
 ininterrupta como sendo apenas um. Um \funtor{conta\_backtracking/0} que faz isso é dado a seguir:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog6_conta_backtrack.pl}
+    \end{listing}
 
 \subsection{A biblioteca suspend}
 
@@ -156,7 +168,9 @@ Um exemplo é \codigo{suspend(X =:= 21, 2, X -> inst)}, indicando que a restriç
 Talvez se lembre do programa Ou Exclusivo do Capítulo 6. Com o uso de \funtor{suspend/3}, podemos reimplementá-lo sem recorrer ao \technical{backtracking}:
 \vspace{3cm}
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog7_xor.pl}
+    \end{listing}
 
 Note que, agora, nosso \funtor{ou\_exclusivo/2} não é mais uma operação aritmética, agindo como um predicado relacional como os demais.
 
