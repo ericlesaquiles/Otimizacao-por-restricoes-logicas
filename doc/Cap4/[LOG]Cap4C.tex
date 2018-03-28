@@ -32,7 +32,9 @@ Veremos, então, métodos para lidar com essas situações. O mais importante, e
 
 Como um exemplo de seu uso, considere o seguinte programa:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog1_member.pl}
+    \end{listing}
 
 O símbolo ``\_'' representa uma \definicao{variável anônima}. A utilizamos quando o nome daquela variável não é importante, o que acontece quando não a utilizarmos novamente (isso serve para não nos distrairmos com variáveis que não serão utilizadas: a variável anônima cumpre um papel meramente formal, de \foreign{placeholder}). Toda variável anônima é diferente, apesar de serem
 escritas iguais.
@@ -43,7 +45,9 @@ uma lista; ou para gerar em \var{X} os elementos da lista. Por exemplo, para o g
 
 Se a programadora quiser saber apenas se um certo \var{X} faz parte de uma certa lista \var{Xs}, ela pode usar o corte, ``cortando'' as demais soluções:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog2_member2.pl}
+    \end{listing}
 
 O que o corte ``diz'' essencialmente é: ``Tudo bem. Agora que chegamos a este ponto, não olhe para trás''. A utilização desse novo programa para \foreign{member} é o mesmo do anterior, exceto que, agora, ao gerar membros da lista, só é gerado um elemento. Ao checar se outro elemento pertence a lista, assim que é obtido sucesso, o processo para.
 
@@ -56,15 +60,21 @@ Apesar disso, se deixarmos de lado nosso preconceito, o corte pode contribuir de
 
 Por exemplo, o \funtor{not/1} pode ser implementado de maneira similar à seguinte:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog3_not.pl}
+    \end{listing}
 
 Onde o predicado \funtor{fail/0} é um \foreign{built-in} do Prolog que falha sempre.
 
 Similarmente, podemos, a partir do corte, gerar outras formas de controle, familiares a programadores de linguagens procedurais:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog4_ifthenelse.pl}
+    \end{listing}
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog5_or.pl}
+    \end{listing}
 
 Perceba que, diferentemente do que ocorre em programas puramente lógicos\footnote{Você pode se perguntar se algum do programa nesse texto é puramente lógico. Alguns dos mais simples, como o \enphasis{Natural}, do Capítulo 2, %COMMENT: lembrar de colocar referencia ao capitulo, no lugar do "2". E sempre que for fazer referencia a um capitulo, secao, tabela, figura, codigo, etc, com o numero na sequencia, usa letra maiuscula. Por exemplo, "Capítulo 1", "Código 3", etc.
 podem ser, mas a situação geral é que os programas que veremos são só ``meio que'' lógicos.}, a ordem das cláusulas e dos termos em cada cláusula podem ser fundamentais. Pode ser que, por exemplo, na cláusula \codigo{p(a) :- b, c.}, b resulte em falha e c em um
