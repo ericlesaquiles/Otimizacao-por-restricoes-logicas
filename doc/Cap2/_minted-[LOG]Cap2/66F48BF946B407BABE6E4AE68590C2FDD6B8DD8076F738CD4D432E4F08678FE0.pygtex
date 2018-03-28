@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{natural}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{).}
-\PYG{n+nf}{natural}\PYG{p}{(}\PYG{n+nf}{s}\PYG{p}{(}\PYG{n+nv}{P}\PYG{p}{))} \PYG{p}{:\PYGZhy{}}  \PYG{n+nf}{natural}\PYG{p}{(}\PYG{n+nv}{P}\PYG{p}{).}
-\end{Verbatim}

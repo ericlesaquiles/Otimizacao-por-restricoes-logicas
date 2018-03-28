@@ -1,0 +1,141 @@
+\documentclass{article}
+
+\input{../header.tex}
+
+\usepackage{pgfgantt}
+
+\begin{document}
+
+\section{Montando Bicicletas}
+
+Este exemplo foi inspirado de um exemplo de \cite{antonii} (que, por sua vez, foi inspirado em um
+ensaio de Ronald Graham), que escrevou sobre uma linha de montagens de bicicletas fictícia chamada
+ACME. Segue uma citação de Graham, sobre a linha de montagens:
+
+``As coisas não tem ido bem para a seção de montagem da Companhia de Bicicletas ACME. Pelos últimos
+seis meses, a seção consistentemente falhou em cumprir sua quota e cabeças estavam começando a
+rolar. Um novo chefe foi trazido para a seção de montagem para remediar esse triste estado. Ele
+percebe que essa é sua grande chance de capturar a atenção da alta gerência, de modo que, em seu
+primeiro dia de serviço, ele arregaça as mangas e começa a descobrir sobre tudo o que acontece na seção.
+A primeira coisa que ele aprende é que o trabalho de montar uma bicicleta é geralmente quebrado em
+um número de tarefas mais simples:
+
+\begin{enumerate}
+  \item Preparação da armação, que inclui instalação do garfo frontal e de paralamas;
+  \item Montagem e alinhamento da roda da frente;
+  \item Montagem e alinhamento da roda de trás;
+  \item Anexação do descarrilhador à armação;
+  \item Instalação do conjunto de engrenagens;
+  \item Anexação da manivela e da correnta da roda à armação;
+  \item Montagem do pedal direito e do clip do dedo do pé;
+  \item Anexações finais, que includem montagem e ajuste do guidão, assento, freis, etc.
+\end{enumerate}
+
+Ele também aprende que seus predecessores que partiram recentemente haviam coletado montes de dados
+sobre quanto tempo (na média, em minutos) cada uma dessas tarefas um montador trinado leva para
+montar, o que ele tinha convenientemente sumarizado na sequinte tabela:
+
+\begin{tabular}{c c c c c c c c c c c}
+Tarefas: & A & B & C & D & E & F & G & H & I & J \\
+\hline
+Tempo:   & 7 & 7 & 7 & 2 & 2 & 2 & 2 & 8 & 8 & 18  \\
+\end{tabular}
+
+Devido a restrições de espaço e de equipamento na loja, os 20 motadores na seção são geralmente
+separados em pares de 10 times com 2 montadores cada, sendo que cada time montaria uma bicicleta
+por vez. Ele fez um cálculo rápido: uma bicicleta requer 63 minutos de tempo de montagem, então m
+time de dois \enphasis{deveria} requerir 31,5 minutos. Isso significa que em um dia de trabalho de
+oito horas, cada time montaria 15,23 bicicletas e, com todos os 10 times fazendo isso, a quota de
+152 bicicletas por dia pode ser cumprida. O novo chefe de montagem já pode sentir o gosto de sua
+promoção no próximo ano.
+
+Entretanto, seu entusiasmo diminui consideravelmente quando ele percebe que bicicletas não podem ser
+montadas aleatoriamente. Certas tarefas devem ser feitas antes de outras. Por exemplo, é
+extremamente inadequado montar o garfo frontal à armação de uma bicicleta se o guidão já tiver sido
+anexada ao garfo. Similarmente, a manivela deve ser montada na armação antes dos pedais serem
+  anexados. Depois de discussões demoradas com vários dos montadores experientes, o novo chefe prepara
+a seguinte carta mostrando que tarefas devem ser feitas antes das outras durante a montagem:
+
+\begin{tabular}{l c d}
+A, B, C, D, E & deve ser feito antes de & J   \\
+D, E, A       & deve ser feito antes de & C   \\
+D             & deve ser feito antes de & E,F \\
+E, F, G       & deve ser feito antes de & H,I \\
+F             & deve ser feito antes de & G   \\
+A             & deve ser feito antes de & B   \\
+\end{tabular}
+
+Além dessas restrições mecânicas, existem também duas regras que a gerência requer que sejam
+observadas:
+
+\begin{itemize}
+  \item \textbf{Regra 1:} Nenhum montador ou montadora pode ficar parado(a) se existe alguma tarefa
+    que ele(a) pode fazer;
+  \item \textbf{Regra 2:} Uma vez que um(a) montador(a) começa uma tarefa, ele(a) deve continuar
+    trabalhando na tarefa até que ela esteja completa
+\end{itemize}
+
+A ordem de montagem de bicicletas na ACME sempre foi a seguinte:
+
+\begin{tabular}{c c c c c c c c c c c}
+Tarefas: & A & B & C & D & E & F & G & H & I & J \\
+\hline
+Tempo de início:   & 1 & 8 & 9 & 1 & 7 & 3 & 5 & 15 & 23 & 16  \\
+\end{tabular}
+
+%Com o seguinte gráfico Gantt:
+
+%\begin{ganttchart}[y unit title=0.4cm,
+%y unit chart=0.5cm,
+%vgrid,hgrid,
+%title height=1,
+%bar/.style={draw,fill=cyan},
+%bar incomplete/.append style={fill=yellow!50},
+%bar height=0.7]{1}{23}
+ %\gantttitle{}{23}
+ %\gantttitle{Junho}{12} \\
+ %\gantttitlelist{20,...,31}{1}
+ %\gantttitlelist{1,...,23}{1} \\
+ %\ganttbar{Montador 1}{3}{7} \\
+ %\ganttbar{Montador 2}{7}{12} \\
+ %\ganttbar[progress=70]{Fase 3}{13}{18} \\
+ %\ganttbar[progress=40]{Conclus\~ao}{20}{24} \\
+  %rela\c c\~oes
+ %\ganttlink{elem0}{elem1}
+ %\ganttlink{elem1}{elem2}
+ %\ganttlink{elem2}{elem3}
+%\end{ganttchart}
+
+O cronograma mostra a atividade de cada montador to time começando no tempo 1 e progredindo até o
+tempo da montagem completa, chamado \enphasis{tempo de montagem total}, cerca de 33 minutos depois.
+Apesar de esse cronograma obedecer todas as restrições requeridas, ele permite cada time completar
+14,5 bicicletas por dia (na média). Assim, a saída total da seção é 145 bicicletas por ida, o que é
+menos do que 152.''
+
+%%
+%
+Depois de várias tentativas infrutíferas, ``o chefe decide, com pressa, fornecer a todos os
+montadores ferramentas elétricas alugadas. Isso diminui o tempo de cada um dos serviços por
+exatamente um minuto, então o tempo total requerido para todos os serviços é apenas 53 minutos.''
+
+%%
+
+Vendo que essa ação não foi o suficiente, o chefe de seção decide contratar 10 montadores a mais,
+aumentando o custo de trabalho em 50\%. O especialista em CLP avisa ao chefe de seção que 10
+montadores a mais não aumentariam a produção, devido às restrições na ordem das tarefas.
+
+
+
+
+  \begin{thebibliography}{2}
+
+    \bibitem{antonii}
+    Niederliński, Antoni,
+    ``A gentle guide to constraint logical programming via Eclipse'',
+    3rd edition, Jacek Skalmierski Computer Studio, Gliwice, 2014
+
+
+
+  \end{thebibliography}
+
+\end{document}

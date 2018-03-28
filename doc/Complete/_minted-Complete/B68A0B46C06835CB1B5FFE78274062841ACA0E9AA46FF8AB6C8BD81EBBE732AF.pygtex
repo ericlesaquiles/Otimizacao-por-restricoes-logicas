@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{pao}\PYG{p}{(}\PYG{l+s+sAtom}{de}\PYG{p}{).}
-\PYG{n+nf}{pao}\PYG{p}{(}\PYG{l+s+sAtom}{de}\PYG{p}{,} \PYG{l+s+sAtom}{queijo}\PYG{p}{).}
-\PYG{n+nf}{com}\PYG{p}{(}\PYG{l+s+sAtom}{cafe}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{n+nf}{tem}\PYG{p}{(}\PYG{l+s+sAtom}{cafe}\PYG{p}{).}
-\PYG{n+nf}{tem}\PYG{p}{(}\PYG{l+s+sAtom}{cafe}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{l+s+sAtom}{cafe}\PYG{p}{.}
-\PYG{l+s+sAtom}{cafe}\PYG{p}{.}
-\end{Verbatim}

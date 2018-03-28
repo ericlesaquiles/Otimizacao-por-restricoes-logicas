@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{filho}\PYG{p}{(}\PYG{l+s+sAtom}{c}\PYG{p}{,}\PYG{l+s+sAtom}{b}\PYG{p}{).}
-\PYG{n+nf}{pai}\PYG{p}{(}\PYG{n+nv}{Pai}\PYG{p}{,} \PYG{n+nv}{Filho}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{n+nf}{filho}\PYG{p}{(}\PYG{n+nv}{Filho}\PYG{p}{,} \PYG{n+nv}{Pai}\PYG{p}{).}
-\end{Verbatim}

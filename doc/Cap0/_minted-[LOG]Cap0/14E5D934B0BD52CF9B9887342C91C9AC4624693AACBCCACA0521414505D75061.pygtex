@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{arvore\PYGZus{}b}\PYG{p}{(}\PYG{l+s+sAtom}{vazio}\PYG{p}{).}
-\PYG{n+nf}{arvore\PYGZus{}b}\PYG{p}{(}\PYG{n+nf}{arvore}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{D}\PYG{p}{,} \PYG{n+nv}{E}\PYG{p}{))} \PYG{p}{:\PYGZhy{}}
-  \PYG{n+nf}{arvore\PYGZus{}b}\PYG{p}{(}\PYG{n+nv}{D}\PYG{p}{),}
-  \PYG{n+nf}{arvore\PYGZus{}b}\PYG{p}{(}\PYG{n+nv}{E}\PYG{p}{).}
-\end{Verbatim}

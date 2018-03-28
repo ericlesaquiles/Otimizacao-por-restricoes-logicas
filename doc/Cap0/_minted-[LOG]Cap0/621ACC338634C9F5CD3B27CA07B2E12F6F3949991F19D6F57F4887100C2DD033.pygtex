@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{queijo}\PYG{p}{(}\PYG{l+s+sAtom}{lua}\PYG{p}{).}
-\PYG{n+nf}{queijo}\PYG{p}{(}\PYG{l+s+sAtom}{lua}\PYG{p}{,} \PYG{l+s+sAtom}{pao}\PYG{p}{).}
-\PYG{n+nf}{coma}\PYG{p}{(}\PYG{l+s+sAtom}{terra}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{n+nf}{gem}\PYG{p}{(}\PYG{l+s+sAtom}{terra}\PYG{p}{).}
-\PYG{n+nf}{gem}\PYG{p}{(}\PYG{l+s+sAtom}{terra}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{l+s+sAtom}{terra}\PYG{p}{.}
-\PYG{l+s+sAtom}{terra}\PYG{p}{.}
-\end{Verbatim}

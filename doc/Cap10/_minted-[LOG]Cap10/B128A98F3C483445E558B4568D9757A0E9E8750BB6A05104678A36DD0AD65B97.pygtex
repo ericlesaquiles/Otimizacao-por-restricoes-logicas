@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZpc{}\PYGZpc{} backtrack\PYGZus{}raso(+Lista)}
-\PYG{c+c1}{\PYGZpc{} Para cada variável em Lista, tente atribuir um valor em seu domínio}
-
-\PYG{n+nf}{backtrack\PYGZus{}raso}\PYG{p}{(}\PYG{n+nv}{Lista}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
-  \PYG{p}{(} \PYG{n+nf}{foreach}\PYG{p}{(}\PYG{n+nv}{Var}\PYG{p}{,}\PYG{n+nv}{Lista}\PYG{p}{)} \PYG{l+s+sAtom}{do} \PYG{n+nf}{once}\PYG{p}{(}\PYG{n+nf}{indomain}\PYG{p}{(}\PYG{n+nv}{Var}\PYG{p}{))} \PYG{p}{).}
-\end{Verbatim}

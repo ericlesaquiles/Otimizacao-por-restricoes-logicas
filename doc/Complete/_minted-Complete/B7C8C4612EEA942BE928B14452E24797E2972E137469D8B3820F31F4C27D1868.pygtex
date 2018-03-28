@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{se\PYGZus{}entao\PYGZus{}senao}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
-  \PYG{n+nv}{A}\PYG{p}{,} \PYG{p}{!,} \PYG{n+nv}{B}\PYG{p}{.}
-\PYG{n+nf}{se\PYGZus{}entao\PYGZus{}senao}\PYG{p}{(}\PYG{n+nv}{A}\PYG{p}{,} \PYG{n+nv}{B}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
-  \PYG{n+nv}{R}\PYG{p}{.}
-\end{Verbatim}
