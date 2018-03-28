@@ -71,7 +71,10 @@ valores aritméticos 0 e 1. O valor de cada variável de Membro pode receber os 
 o grupo ao qual outro membro faz parte ou sobre a veracidade do que outro Membro disse. Essas
 observações são traduzidas no seguinte código:
 
+    \begin{listing}[!h]
 \inputminted{prolog}{../Exemplos/Cap10/prog1_pretoEbranco.ecl}
+\caption{Preto e Branco}
+    \end{listing}
 
 É um código simples e que não precisa de muitos comentários, mas cabe alguns:
 
@@ -111,11 +114,17 @@ domínio da variável. Com essa lista em mãos, podemos testar cada valor a part
 \funtor{indomain/1}\footnote{Perceba como ele foi usado no programa anterior} para realizar a mesma
 função (exceto que de forma mais eficiente). O predicado \funtor{indomain/1} age como se definido por:
 
+    \begin{listing}[!h]
 \inputminted{prolog}{../Exemplos/Cap10/prog2_indomain.pl}
+\caption{Indomain}
+    \end{listing}
 
 Em mãos desse predicado, podemos fazer o \technical{backtracking} raso como se segue:
 
+    \begin{listing}[!h]
 \inputminted{prolog}{../Exemplos/Cap10/prog3_backraso.ecl}
+\caption{Back Raso}
+    \end{listing}
 
 Note que busca por \technical{backtracking} raso não é um resolvedor completo.
 
@@ -127,7 +136,10 @@ esperamos). No lugar disso, seria mais interessante fazer uma busca por \backtra
 apenas dos valores nos domínios atuais. Essa observação nos leva a uma revisão do programa de busca
 apresentado no Capítulo 8: %TODO adicionar link
 
+    \begin{listing}[!h]
 \inputminted{prolog}{../Exemplos/Cap10/prog4_busca.ecl}
+\caption{Busca}
+    \end{listing}
 
 Sendo um procedimento de busca tão comum, ele está disponível em algumas bibliotecas \eclipse (na
 \enphasis{ic} e na \enphasis{sd}, por exemplo) sob o nome \funtor{labeling/1} (o nome
