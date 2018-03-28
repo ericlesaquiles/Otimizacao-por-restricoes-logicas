@@ -22,7 +22,9 @@ não é difícil ler o programa Member (copiado a seguir, para referência) como
 que existe entre um termo X e um Xs se Xs puder ser escrito como \codigo{[X|Xs]}
 ou, se for possível escrever Xs como \codigo{[Y|Ys]} e X tiver a relação member com Ys.
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog1_member.pl}
+    \end{listing}
 
 Mas vimos também que operações aritméticas, no Prolog, não funcionam de maneira relacional (ao fazermos uma soma, por exemplo, o ``+'' funciona como uma função, retornando um valor, no lugar de como uma restrição ou relação). Isso é grave, porque expressões aritméticas aparecem de várias formas em problemas reais e não ser capaz de expressá-las relacionalmente poderia levar a um código muito maior, redundante e difícil de manter.
 

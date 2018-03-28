@@ -22,7 +22,10 @@ não é difícil ler o programa Member (copiado a seguir, para referência) como
 que existe entre um termo X e um Xs se Xs puder ser escrito como \codigo{[X|Xs]}
 ou, se for possível escrever Xs como \codigo{[Y|Ys]} e X tiver a relação member com Ys.
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog1_member.pl}
+\caption{Member}
+    \end{listing}
 
 Mas vimos também que operações aritméticas, no Prolog, não funcionam de maneira relacional (ao fazermos uma soma, por exemplo, o ``+'' funciona como uma função, retornando um valor, no lugar de como uma restrição ou relação). Isso é grave, porque expressões aritméticas aparecem de várias formas em problemas reais e não ser capaz de expressá-las relacionalmente poderia levar a um código muito maior, redundante e difícil de manter.
 
@@ -233,7 +236,7 @@ fornecendo maior crédito às escolhas aparentemente mais promissoras.
 
 Os métodos de busca discutidos anteriormente são apropriados para CSPs. Para COPs, precisaremos
 fazer algumas modificações. Uma opção é o \definicao{branch and bound} e \technical{branch, bound
-and cut}. Para a realização de um \technical{branch and bound}, precisamos O \technical{branch and bound} genérico funciona da seguinte forma (sendo F o conjunto de
+and cut}. O \technical{branch and bound} genérico funciona da seguinte forma (sendo F o conjunto de
 soluções para o problema de otimização inteira):
 
 \begin{enumerate}
