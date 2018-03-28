@@ -61,10 +61,14 @@ Não é difícil escrever um código para manter consistência por arco e por n�
 demonstrativos: para algoritmos mais eficientes veja \cite{tsang}. O funtor \codigo{apply/2} é o
 definido no Capítulo 6. %TODO adicionar link
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap9/node_consistency.pl}\label{lst:no_consistency}
+    \end{listing}
 \vspace{2cm}
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap9/arc_consistency.pl}\label{lst:arc_consistency}
+    \end{listing}
 
 \codigo{consistente\_por\_no/2} recebe uma lista de pares ``Domínio-Restrição''. Se a restrição for unária, ela checa cada valor do domínio.
 Os valores que resultam em falha são retirados do domínio. \codigo{consistente\_por\_arco/2} tem alguns casos a mais, mas é essencialmente a mesma coisa.
@@ -206,7 +210,9 @@ Podemos ver que:
 
 Podemos usar essa observação para tentar diminuir os domínios de X, Y e Z. Com essa ideia, obtemos o seguinte programa:
 
+    \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap9/bounds_consistency.pl}\label{lst:bounds}
+    \end{listing}
 
 Observações semelhantes podem ser feitas para outros tipos de restrições aritméticas. Para restrições do tipo $X \neq Z$ e $X  \neq min(Z, Y)$, isso é especialmente simples de ser feito. Para restrições  não lineares do tipo $X < Z\times Y$, isso pode ser
 especialmente complicado, ainda mais se $Z$ e $Y$ puderem assumir valores positivos e negativos, mas
