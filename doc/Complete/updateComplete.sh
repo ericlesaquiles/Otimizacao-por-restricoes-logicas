@@ -21,7 +21,7 @@ do
   sed -i 's/\\end{document}/%\\end{document}/'                   "../Cap${i}/[LOG]Cap${i}C.tex"
 done
 
-cp "../Cap${i}/[LOG]Cap${i}.tex" "../Intro/IntroC.tex"
+cp "../Intro/Intro.tex" "../Intro/IntroC.tex"
 sed -i 's/\\documentclass{article}/%\\documentclass{article}/' "../Intro/IntroC.tex"
 sed -i 's/\\input{/%\\input{/'                                 "../Intro/IntroC.tex"
 sed -i 's/\\begin{document}/%\\begin{document}/'               "../Intro/IntroC.tex"

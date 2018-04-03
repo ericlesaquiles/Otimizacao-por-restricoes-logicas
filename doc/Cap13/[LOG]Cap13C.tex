@@ -3,6 +3,9 @@
 %\input{../header.tex}
 
 
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
 %\begin{document}
 
 \section{Dualidade e relaxação}
@@ -83,7 +86,9 @@ mais informações, veja \cite{beame}
 Existem na literatura de programação por restrições, assim como na de programação matemática,
 diversas noções específicas de dual, para diversos tipos de problemas diferentes. Entre eles, destacam-se
 como especialmente úteis os duais \technical{substituto} e \technical{lagrangeano}, aos quais devotaremos alguma atenção
-nesta seção e na próxima, colocando ênfase especial na relação entre eles.
+nesta seção e na próxima, colocando ênfase especial na relação entre eles. Então, nossa atenção se
+voltará ao \technical{dual por ramificação}, que será útil em nosso posterior estudo de técnicas de
+ramificação.
 
 Seja um problema do tipo
 
@@ -121,6 +126,7 @@ Daí segue que essa formulação é equivalente a
 
 Pergunta: o \technical{dual substituto} é completo?
 
+
 \subsubsection{Dual Lagrangeano}
 
 O dual lagrangeano ao problema \ref{eqt:geral} é semelhante ao dual substituto, exceto que, no dual
@@ -153,11 +159,28 @@ lagrangeano é equivalente a
 ($\lambda$ é afim para $x$ fixo). O vetor $l$ é popularmente conhecido como vetor de multiplicadores
 de lagrange.
 
+\subsubsection{Dualidade por Ramificação}
 
+Intuitivamente, se temos uma árvore de busca para um problema de otimização, essa árvore vista ``de
+baixo para cima'', isto é, das folhas para a raíz, nos provê um certificado de otimalidade a uma
+solução ótima. Além disso, dada tal árvore de busca, cada subárvore dela constitui uma relaxação ao
+problema original e provê um limitante ao custo ótimo ao problema original.
+Assim, parece natural definirmos um dual por ramificação ao problema de otimizar um $f(x)$ nas
+folhas de uma árvore de busca $\mathpzc{T}$ da seguinte forma:
 
+\begin{equation}
+  \begin{split}
+    max\; B(\mathpzc{T'}),\\
+    \mathpzc{T'} \in \mathcal{T},
+  \end{split}
+\end{equation}
 
+\noindent em que $B$ é o limitante de $f$ em $\mathpzc{T'}$ e $\mathcal{T}$ é uma coleção de
+subárvores de $\mathpzc{T}$.
 
-%$ug(x) \geq 0$ domina $f(x) \geq v$ quando $ug(x) \geq f(x) - v
+As estratégias de ramificação que veremos logo mais podem ser vistas como instânicas do dual de
+ramificação. Para mais detalhes sobre o dual de inferência veja \cite{hooker}.
+
 
 \subsection{Complexidade}
 

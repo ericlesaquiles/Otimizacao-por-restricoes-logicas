@@ -63,13 +63,13 @@ definido no Capítulo 6. %TODO adicionar link
 
     \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap9/node_consistency.pl}\label{lst:no_consistency}
-\caption{Consistencia por nó}
+\caption{Consistência por nó}
     \end{listing}
 \vspace{2cm}
 
     \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap9/arc_consistency.pl}\label{lst:arc_consistency}
-\caption{Consistencia por arco}
+\caption{Consistência por arco}
     \end{listing}
 
 O \codigo{consistente\_por\_no/2} recebe uma lista de pares ``Domínio-Restrição''. Se a restrição for unária, ela checa cada valor do domínio.
@@ -214,7 +214,7 @@ Podemos usar essa observação para tentar diminuir os domínios de X, Y e Z. Co
 
     \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap9/bounds_consistency.pl}
-\caption{Consistencia por limites}\label{lst:bounds}
+\caption{Consistência por limites}\label{lst:bounds}
     \end{listing}
 
 Observações semelhantes podem ser feitas para outros tipos de restrições aritméticas. Para restrições do tipo $X \neq Z$ e $X  \neq min(Z, Y)$, isso é especialmente simples de ser feito. Para restrições  não lineares do tipo $X < Z\times Y$, isso pode ser
