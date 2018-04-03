@@ -63,7 +63,7 @@ do X antes do Y, temos dois nós internos, enquanto que, fazendo o \technical{la
 
 Mencionamos que uma forma de descrever a escolha de valores de forma mais geral é por meio de alocação de crédito. Uma parte de um programa que implementa essa ideia é o seguinte, que assume que os valores de cada domínio já estão ordenados segundo uma preferência:
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap8/prog2_busca2.pl}
 \caption{Busca 0}
     \end{listing}
@@ -73,14 +73,14 @@ de \funtor{escolhe\_var/3} e \funtor{compartilha\_credito/3}. O seguinte exemplo
 que o tamanho do domínio; ou do domínio todo,
 caso contrário:
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap8/prog3_partilha.pl}
 \caption{Partilha 0}
     \end{listing}
 
 Essa escolha ocorre atribuindo aos primeiros N valores do domínio o mesmo crédito, de N. Outra escolha de compartilha\_crédito, possivelmente mais natural, é a que envolve a atribuição de N créditos ao primeiro valor, N/2 ao segundo, e assim por diante:
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap8/prog4_partilha2.pl}
 \caption{Partilha 1}
     \end{listing}
@@ -103,7 +103,7 @@ Nesse código, o \codigo{fix(ceiling(AtuCredito/2))} retorna o maior inteiro men
   valor delas é por meio de um dos predicados acima. Segue uma implementação de nosso programa de
   busca que conta a quantidade de \technical{backtrackings}\footnote{Esse \funtor{once/1}, usado no programa, definido como \codigo{once(Goal) :- Goal, !.}}:
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap8/prog5_busca3.pl}
 \caption{Busca 1}
     \end{listing}
@@ -115,7 +115,7 @@ ocorre quando, logo depois de realizar um, é realizado outro \technical{backtra
 melhor de eficiência pode ser uma contagem de \technical{backtrackings} que conta uma sequência
 ininterrupta como sendo apenas um. Um \funtor{conta\_backtracking/0} que faz isso é dado a seguir:
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap8/prog6_conta_backtrack.pl}
 \caption{Backtracking}
     \end{listing}
@@ -152,7 +152,7 @@ Um exemplo é \codigo{suspend(X =:= 21, 2, X -> inst)}, indicando que a restriç
 Talvez se lembre do programa Ou Exclusivo do Capítulo 6. Com o uso de \funtor{suspend/3}, podemos reimplementá-lo sem recorrer ao \technical{backtracking}:
 %\vspace{3cm}
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap8/prog7_xor.pl}
 \caption{XOR}
     \end{listing}
@@ -163,22 +163,22 @@ Note que, agora, nosso \funtor{ou\_exclusivo/2} não é mais uma operação arit
 
 Como lidamos, nesta seção, com a biblioteca \technical{suspend}, vale a pena fazermos um breve
 comentário sobre as demais bibliotecas. Isso é útil não só pelos motivos práticos (no uso das
-bibliotecas), mas também como uma resumo das restrições que veremos mais para frente.
+bibliotecas), mas também como um resumo das restrições que veremos mais para frente.
 
 \begin{itemize}
   \item A biblioteca \technical{ic} (de \foreign{interval constraint})\footnote{Esse nome vem do
       fato de que essas restrições atuam sobre intervalos, e as operações aritméticas realizadas sob elas são
-      operações de intervalos. Veja \cite{hickey} para mais detalhes.} provê um resolvedor de restrições misto inteiro/real;
+      operações de intervalos. Veja \cite{hickey} para mais detalhes.} provê um resolvedor de restrições misto inteiro/real.
   \item A biblioteca \technical{branch and bound} provê um \technical{framework} para resolver
-    problemas por  \foreign{branch and bound} muito customizável;
+    problemas por  \foreign{branch and bound} muito customizável.
   \item A biblioteca \technical{eplex} provê otimização para problemas de LP e MIP (\foreign{linear
     programming} e \foreign{mixed integer programming}, respectivamente). Existem outras bibliotecas
   nomeadas \technical{eplex\_x}, para usar o resolvedor \technical{x} específico (exemplos para
-  valores de \technical{x} são ``cplex'' e ``gurobi'');
-  \item A biblioteca \technical{ic\_global} provê restrições globais sobre listas de inteiros;
+  valores de \technical{x} são ``cplex'' e ``gurobi'').
+  \item A biblioteca \technical{ic\_global} provê restrições globais sobre listas de inteiros.
   \item A biblioteca \technical{ic\_symbolic} provê um resolvedor para restrições sobre domínios
-    simbolicos ordenados;
-  \item A biblioteca \technical{fd} provê um resolvedor para domínios finitos no geral
+    simbólicos ordenados.
+  \item A biblioteca \technical{fd} provê um resolvedor para domínios finitos no geral.
 \end{itemize}
 
 Citamos algumas das que consideramos importantes. Mais detalhes sobre essas bibliotecas (e sobre as
@@ -190,14 +190,14 @@ distinção entre restrições ativas e passivas, mas existe outra distinção, 
 significativa:
 
 \begin{itemize}
-  \item \definicao{Restrições elementares} são as que ajem sobre uma quantidade predeterminada de
+  \item \definicao{Restrições elementares} são as que agem sobre uma quantidade predeterminada de
     variáveis. Elas estão disponíveis, por exemplo, nas bibliotecas \technical{ic} e
     \technical{branch\_and\_bound};
-  \item \definicao{Restrições globais} as que ajem sobre uma quantidade indeterminada de variáveis. Elas estão disponíveis, por
+  \item \definicao{Restrições globais} são as que agem sobre uma quantidade indeterminada de variáveis. Elas estão disponíveis, por
     exemplo, na biblioteca \technical{ic\_global} (e também em outras, não citadas aqui).
 \end{itemize}
 
-Um exemplo de restrição global é o \funtor{alldiferent/n}, que será visto adiante.
+Um exemplo de restrição global é o \funtor{alldiferent/n}, que será vista adiante.
 
   \begin{thebibliography}{1}
 
@@ -222,7 +222,6 @@ Um exemplo de restrição global é o \funtor{alldiferent/n}, que será visto ad
 
   \end{thebibliography}
 
-%COMMENT: backtrack eh verbo, entao, para usar o substantivo, precisa colocar backtracking (ou backtrackings, no plural). Acho que troquei em todos os lugares aqui, mas nao nos codigos (acho que ficaria melhor trocando). E precisa ver se nos outros capitulos tambem nao tem isso.
 
 %COMMENT: em um lugar voce usou "nao-logica" e nos outros "nao logica". Nao sei qual a regra, para parece fazer mais sentido usar "nao-logica" (ja que isso seria uma palavra soh). Entao mudei em todos os lugares para ficar com o tracinho. Se descobrir que o certo eh sem, tem de tirar de todos os lugares.
 

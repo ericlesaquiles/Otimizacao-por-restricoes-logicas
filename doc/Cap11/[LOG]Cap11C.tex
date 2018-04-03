@@ -35,25 +35,25 @@ um vetor ou de uma lista vazia é a mesma. Para criar ``vetores'', possivelmente
 (na realidade, matrizes), existe o predicado \funtor{dim/2}, que pode ser usado ou para criar vetores
 ou para extrair sua dimensão.
 
-\subsection{As n-rainhas}
+\subsection{As $n$-rainhas}
 
 Analisaremos o efeito de algumas heurísticas pela resolução do \enphasis{problema das
-  n-rainhas} quando $n > 3$\footnote{Quando n = 2 ou n = 3, o problema não tem solução}. É um
+  n-rainhas} quando $n > 3$\footnote{Quando $n = 2 ou n = 3$, o problema não tem solução}. É um
 problema por restrições tão bem conhecido que um estudante de programação por
 restrições poderia (talvez com razão) se sentir enganado se terminasse um livro sobre o tema sem saber
 como resolver esse problema em especial. A discussão a seguir é baseada, em grande parte, em
 \cite{krzysztof}.
 
-Para quem não conhece, o \enphasis{problema das n-rainhas} é o problema de alocar n rainhas em um
-tabuleiro como o de xadrez, mas $n\times n$, com a restrição de que as rainhas não tem permissão
+Para quem não conhece, o \enphasis{problema das n-rainhas} é o problema de alocar $n$ rainhas em um
+tabuleiro como o de xadrez, mas $n\times n$, com a restrição de que as rainhas não têm permissão
 para se atacarem segundo as regras usuais de xadrez.
 
 Existe um algoritmo polinomial para a resolução desse problema (que não veremos aqui), mas o que
-veremos é muitas vezes mais conveniente e até mais rápido. Antes de considerarmos o papel das
+veremos muitas vezes é mais conveniente e até mais rápido. Antes de considerarmos o papel das
 heurísticas, vejamos como é uma solução mais simples. Notamos primeiro que, como temos $n$ rainhas,
-precisa existir exatamente uma rainha em cada linha e em cada coluna. Ou seja, para cada coluna (ou
-cada linha), só precisamos indicar em qual linha (coluna) a rainha está, o que significa que a solução requer um
-lista\footnote{Ou um vetor.} de n posições, não uma matriz (como alguém poderia a princípio supor). O domínio de cada
+precisa existir uma rainha em cada linha e em cada coluna. Ou seja, para cada coluna (ou cada linha)
+só precisamos indicar em qual linha (coluna) a rainha está, o que significa que a solução requer uma
+lista\footnote{Ou um vetor.} de $n$ posições, não uma matriz (como alguém poderia supor a princípio). O domínio de cada
 posição na lista é o intervalo inteiro $[1,n]$ e as restrições são que só pode existir uma rainha
 por linha (ou por coluna), o que se traduz na restrição \codigo{alldifferent(Cols)}, em que
 \var{Cols} é o vetor de colunas. Ademais, só pode existir uma rainha por linha, o que se traduz nas
@@ -216,10 +216,10 @@ representa uma heurística (feita pelo usuário ou não) de ordenação de vari�
 \var{Escolha}, uma de ordenação de valores. Pelo \var{Metodo}, podemos selecionar a ``forma'' pela
 qual a busca deve ser feita: algumas opções são \technical{complete} (que realiza uma busca por
 todos os valores), e \technical{sbds} (que faz uso da biblioteca SBDS de quebra de simetria para
-excluir partes simétricas da árvore de busca)\footnote{Recomendamos a consulta ao manual do \eclipse
-para mais detalhes sobre esses e outros métodos de busca}. O argumento \var{Opcao} é usado para
-passar parâmetros adicionais\footnote{Novamente, é recomendado checar o manual do \eclipse para mais
-informações}, algumas das quais são \technical{node(daVinci)}, para criar um desenho da
+excluir partes simétricas da árvore de busca)\footnote{Recomendamos a consulta ao manual do \eclipse\
+para mais detalhes sobre esses e outros métodos de busca.}. O argumento \var{Opcao} é usado para
+passar parâmetros adicionais\footnote{Novamente, é recomendado checar o manual do \eclipse\ para mais
+informações.}, algumas das quais são \technical{node(daVinci)}, para criar um desenho da
 árvore de busca usando a ferramenta de desenho daVinci, e \technical{backtracks(-N)}, que nos dá em
 \var{N} a quantidade de \technical{backtrackings} que ocorreram durante a busca.
 

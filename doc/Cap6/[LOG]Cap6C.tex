@@ -135,7 +135,7 @@ a confiança \var{C2} (pense na probabilidade de eventos independentes) na resol
 
 \subsubsection{Meta-predicados de variáveis}
 
-Outro predicado de meta-programação básico é o \funtor{var/1}: \codigo{var(T)?} tem sucesso se
+Outro predicado de meta-programação básico é o \funtor{var/1}: o goal \codigo{var(T)?} tem sucesso se
 \var{T} é uma variável não instanciada e falha caso contrário. Sua irmã, \funtor{nonvar/1}, funciona de maneira análoga. Por exemplo, \codigo{var(a)?} e \codigo{var([X|Xs])?} falham, enquanto que \codigo{var(X)?} tem sucesso, se X é uma variável não instanciada.
 Esse predicado nos permite fazer, por exemplo, programas como o seguinte:
 

@@ -21,10 +21,11 @@ do
   sed -i 's/\\end{document}/%\\end{document}/'                   "../Cap${i}/[LOG]Cap${i}C.tex"
 done
 
-sed -i 's/\\documentclass{article}/%\\documentclass{article}/' "../Intro/Intro.tex"
-sed -i 's/\\input{/%\\input{/'                                 "../Intro/Intro.tex"
-sed -i 's/\\begin{document}/%\\begin{document}/'               "../Intro/Intro.tex"
-sed -i 's/\\end{document}/%\\end{document}/'                   "../Intro/Intro.tex"
+cp "../Cap${i}/[LOG]Cap${i}.tex" "../Intro/IntroC.tex"
+sed -i 's/\\documentclass{article}/%\\documentclass{article}/' "../Intro/IntroC.tex"
+sed -i 's/\\input{/%\\input{/'                                 "../Intro/IntroC.tex"
+sed -i 's/\\begin{document}/%\\begin{document}/'               "../Intro/IntroC.tex"
+sed -i 's/\\end{document}/%\\end{document}/'                   "../Intro/IntroC.tex"
 
 echo "Ignore os erros/warnings."
 

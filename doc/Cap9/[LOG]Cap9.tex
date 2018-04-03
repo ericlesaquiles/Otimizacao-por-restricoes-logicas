@@ -61,18 +61,18 @@ Não é difícil escrever um código para manter consistência por arco e por n�
 demonstrativos: para algoritmos mais eficientes veja \cite{tsang}. O funtor \codigo{apply/2} é o
 definido no Capítulo 6. %TODO adicionar link
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap9/node_consistency.pl}\label{lst:no_consistency}
 \caption{Consistencia por nó}
     \end{listing}
 \vspace{2cm}
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap9/arc_consistency.pl}\label{lst:arc_consistency}
 \caption{Consistencia por arco}
     \end{listing}
 
-\codigo{consistente\_por\_no/2} recebe uma lista de pares ``Domínio-Restrição''. Se a restrição for unária, ela checa cada valor do domínio.
+O \codigo{consistente\_por\_no/2} recebe uma lista de pares ``Domínio-Restrição''. Se a restrição for unária, ela checa cada valor do domínio.
 Os valores que resultam em falha são retirados do domínio. \codigo{consistente\_por\_arco/2} tem alguns casos a mais, mas é essencialmente a mesma coisa.
 
 \subsection{Consistência por limites\footnote{Também conhecida como \foreign{bounds consistency}.}}
@@ -212,7 +212,7 @@ Podemos ver que:
 
 Podemos usar essa observação para tentar diminuir os domínios de X, Y e Z. Com essa ideia, obtemos o seguinte programa:
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap9/bounds_consistency.pl}
 \caption{Consistencia por limites}\label{lst:bounds}
     \end{listing}
@@ -232,7 +232,7 @@ usuário pode ficar frustrado ao ver que uma diminuição de domínio ``óbvia''
 Apesar disso, a aplicação de consistência por limites frequentemente é útil. Um programa que realiza essa aplicação é simples
 de se fazer: ele toma cada restrição primitiva e os domínios de suas respectivas variáveis e aplica um algo como o mostrado no
 código \ref{lst:bounds}. Assim, temos um mecanismo de busca incompleto. Torná-lo um mecanismo completo é simples e pode ser feito
-com a adição do {\it backtracking} %COMMENT: acho que nao era \it que voce usava...
+com a adição do \technical{backtracking}.
 
 
 \subsection{Consistência global}
