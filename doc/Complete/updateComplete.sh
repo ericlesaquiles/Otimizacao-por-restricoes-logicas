@@ -1,21 +1,32 @@
 #!/bin/bash
 
-for ((i = 0; i < 13; i++))
+
+#
+# Has to:
+#   Copy Capi.tex to CapiC.tex;
+#
+#   Remove (comment out):
+#     \documentclass{article}
+#     \input{../header.tex}
+#     \begin{document}
+#     \end{document}
+#
+
+for ((i = 0; i < 14; i++))
 do
   cp "../Cap${i}/[LOG]Cap${i}.tex" "../Cap${i}/[LOG]Cap${i}C.tex"
-
-  #Prepend and append \begin{listing} to inputeminted
-  sed -i 's/inputminted/i \
-    \\begin\{listing\}/g' "../Cap${i}/[LOG]Cap${i}C.tex"
-  sed -i '/inputminted/a \
-    \\end\{listing\}' "../Cap${i}/[LOG]Cap${i}C.tex"
-
-  sed -i 's/inputminted/i \
-    \\begin\{listing\}/g' "../Cap${i}/[LOG]Cap${i}.tex"
-  sed -i '/inputminted/a \
-    \\end\{listing\}' "../Cap${i}/[LOG]Cap${i}.tex"
+  sed -i 's/\\documentclass{article}/%\\documentclass{article}/' "../Cap${i}/[LOG]Cap${i}C.tex"
+  sed -i 's/\\input{/%\\input{/'                                 "../Cap${i}/[LOG]Cap${i}C.tex"
+  sed -i 's/\\begin{document}/%\\begin{document}/'               "../Cap${i}/[LOG]Cap${i}C.tex"
+  sed -i 's/\\end{document}/%\\end{document}/'                   "../Cap${i}/[LOG]Cap${i}C.tex"
 done
 
+sed -i 's/\\documentclass{article}/%\\documentclass{article}/' "../Intro/Intro.tex"
+sed -i 's/\\input{/%\\input{/'                                 "../Intro/Intro.tex"
+sed -i 's/\\begin{document}/%\\begin{document}/'               "../Intro/Intro.tex"
+sed -i 's/\\end{document}/%\\end{document}/'                   "../Intro/Intro.tex"
+
+echo "Ignore os erros/warnings."
 
 pdflatex -shell-escape "Complete.tex"
 
