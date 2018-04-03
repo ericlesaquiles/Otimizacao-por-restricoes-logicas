@@ -75,14 +75,14 @@ definido no Capítulo 6. %TODO adicionar link
 \codigo{consistente\_por\_no/2} recebe uma lista de pares ``Domínio-Restrição''. Se a restrição for unária, ela checa cada valor do domínio.
 Os valores que resultam em falha são retirados do domínio. \codigo{consistente\_por\_arco/2} tem alguns casos a mais, mas é essencialmente a mesma coisa.
 
-\subsection{Consistência por limites\footnote{Também conhecido como \foreign{bounds consistency}}}
+\subsection{Consistência por limites\footnote{Também conhecida como \foreign{bounds consistency}.}}
 
-As noções de consistência desenvolvidas acima funcionam bem para restrições em uma ou duas variáveis,
+As noções de consistência desenvolvidas a cima funcionam bem para restrições em uma ou duas variáveis,
 mas se quisermos usar algo do tipo para mais variáveis, precisaremos generalizar um pouco:
 
 \begin{definition}
   Uma restrição \codigo{r/n} nas variáveis \var{$X_1$}, ..., \var{$X_n$} é dita \definicao{consistente por hiper-arco}
-  se para cada $x_i$ no domínio de \var{$X_i$}, existem $x_j$ nos domínios de \var{$X_j$} tal que
+  se para cada $x_i$ no domínio de \var{$X_i$}, existem $x_j$ nos domínios de \var{$X_j$} tais que
   para todo $j \neq i$ entre 1 e \enphasis{n}, \codigo{$X_i$ = $x_i$, $X_j$ = $x_j$.} resulta em
   sucesso. Uma restrição composta é dita consistente por hiper-arco se cada uma de suas restrições o é.
 \end{definition}
@@ -90,7 +90,7 @@ mas se quisermos usar algo do tipo para mais variáveis, precisaremos generaliza
 Infelizmente, manter consistência por hiper-arco é algo caro demais para se fazer em um problema geral. Para
 encontrarmos uma nova checagem de consistência realmente útil, precisaremos restringir o domínio com que lidamos.
 
-Dizemos que temos um \definicao{CSP é aritmético} se o domínio de cada variável é uma união
+Dizemos que um \definicao{CSP é aritmético} se o domínio de cada variável é uma união
 finita de intervalos finitos de números inteiros e se as restrições são aritméticas. Muitos CSPs
 podem ser modelados como aritméticos de forma natural e muitos outros podem ser transformados em
 CSPs aritméticos por uma mudança de variáveis apropriada.
@@ -124,7 +124,7 @@ Mais formalmente, temos as seguintes definições:
 \begin{definition}
   Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita
   \definicao{\boundd{} consistente}
-  se, para cada \var{$X_i$}, existem \enphasisb{valores inteiros} $x_j$ no domínio de \var{$X_j$}, onde $j \neq i$, tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
+  se, para cada \var{$X_i$}, existem \enphasisb{valores inteiros} $x_j$ no domínio de \var{$X_j$}, para $j \neq i$, tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
   é uma solução de \funtor{r/n}.
 
   %$min_D(X_j) \leq x_j \leq max_D(X_j)$ e $\{X_i = min_D(X_i), X_j = x_j\}$ é
@@ -138,7 +138,7 @@ Mais formalmente, temos as seguintes definições:
 \begin{definition}
   Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita
   \definicao{\boundz{} consistente}
-  se, para cada \var{$X_i$}, existem \enphasisb{valores inteiros} $x_j$, onde $j \neq i$,
+  se, para cada \var{$X_i$}, existem \enphasisb{valores inteiros} $x_j$, para $j \neq i$,
   satisfazendo $min_D(\var{$X_j$}) \leq x_j \leq max_D(\var{$X_j$})$,
   tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
   é uma solução inteira de \funtor{r/n}.
@@ -149,7 +149,7 @@ Mais formalmente, temos as seguintes definições:
 \begin{definition}
   Uma restrição \funtor{r/n} nas variáveis \var{$X_1$}, \dots, \var{$X_n$} é dita
   \definicao{\boundr{} consistente}
-  se, para cada \var{$X_i$}, existem \enphasisb{valores reais} $x_j$, onde $j \neq i$,
+  se, para cada \var{$X_i$}, existem \enphasisb{valores reais} $x_j$, para $j \neq i$,
   satisfazendo $min_D(\var{$X_j$}) \leq x_j \leq max_D(\var{$X_j$})$,
   tais que \{\var{$X_k$} = $x_k$ : $1 \leq k \leq n$ \}
   é uma solução real de \funtor{r/n}.
@@ -176,7 +176,7 @@ confundi-las?''. O fato é que, para muitas restrições, elas são equivalentes
 ditas monótonas. Para definir uma restrição monótona, será conveniente ter uma definição mais
 refinada do que é um domínio. Daqui para frente, um \definicao{domínio} D de uma restrição
 \funtor{r/n} será tido como uma função do conjunto de variáveis de \funtor{r/n} para os conjuntos de
-valores que essa variável pode receber. Por exemplo, para \codigo{r(X,Y) :- X = Y.}, onde \var{X}
+valores que essa variável pode receber. Por exemplo, para \codigo{r(X,Y) :- X = Y.}, em que \var{X}
 pode assumir os valores 1 e 2 e, \var{Y}, os valores 2 e 3, D(X) = \{1, 2\} e D(Y) = \{2, 3\}. Por
 abuso de notação, diremos que $\Gamma \in D$ se $\Gamma$ é outra função domínio tal que $\Gamma(X_i)
 \subseteq D(X_i)$ para $1 \leq i \leq n$.
@@ -187,13 +187,13 @@ abuso de notação, diremos que $\Gamma \in D$ se $\Gamma$ é outra função dom
     satisfaz, para todo $a, b, c \in S$: $a \preceq a$, $a \preceq b \wedge b \preceq a \Rightarrow
   a = b$, $a\preceq b \wedge b \preceq c \Rightarrow a \preceq c$ e $a\preceq b \vee b\preceq a$.}
     $\prec_i$\footnote{A ordem pode mudar segundo a variável.}
-    no domínio de \var{$X_i$}, $D(X_i)$, tal que, se, para todo i, $\Gamma \in
+    no domínio de \var{$X_i$}, $D(X_i)$, tal que, se para todo i, $\Gamma \in
   D(X_i)$ é uma solução de \funtor{r/n}, então também o é qualquer $\Gamma$' tal que, para $i \neq
   j$, $\Gamma$'$(X_j) = \Gamma(X_j)$ e $\Gamma$'$(X_i) \preceq_i \Gamma(X_i)$.
 \end{definition}
 
 Restrições na forma de desigualdades lineares\footnote{Exceto desigualdades da forma $x \neq y$, mas
-essas são muito fáceis de lidar, além de serem equivalentes para \boundd, \boundz{} e \boundr.} e de desigualdades do tipo $x_1 \times x_2 \leq x_3$, onde $min_D(x_i) \geq 0$, são
+essas são muito fáceis de lidar, além de serem equivalentes para \boundd, \boundz{} e \boundr.} e de desigualdades do tipo $x_1 \times x_2 \leq x_3$, com $min_D(x_i) \geq 0$, são
 monótonas, por exemplo.
 
 Mais detalhes sobre consistência por limites podem ser vistos em \cite{choi}. A seguir é elaborado um exemplo de um método de propagação por limites.
@@ -232,7 +232,7 @@ usuário pode ficar frustrado ao ver que uma diminuição de domínio ``óbvia''
 Apesar disso, a aplicação de consistência por limites frequentemente é útil. Um programa que realiza essa aplicação é simples
 de se fazer: ele toma cada restrição primitiva e os domínios de suas respectivas variáveis e aplica um algo como o mostrado no
 código \ref{lst:bounds}. Assim, temos um mecanismo de busca incompleto. Torná-lo um mecanismo completo é simples e pode ser feito
-com a adição do backtracking.
+com a adição do {\it backtracking} %COMMENT: acho que nao era \it que voce usava...
 
 
 \subsection{Consistência global}

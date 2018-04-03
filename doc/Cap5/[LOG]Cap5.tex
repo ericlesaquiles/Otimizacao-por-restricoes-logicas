@@ -87,13 +87,13 @@ um ``ou'' lógico, enquanto que os sólidos indicam um ``e'' lógico. O que isso
 sólidos indica que todo o arco é falho, mas uma falha em um ramo tracejado só afeta o ramo tracejado.
 
 A execução de um programa lógico consiste em uma busca, em uma árvore como essa, por uma folha de ``sucesso''. Se, ao invés
-de ``sucesso'' é encontrada ``falha'', é feito o \technical{backtracking}. Quando alguém fala sobre um ``modelo computacional de
-programa lógico'', fala essencialmente sobre como travessar essa árvore e como fazer esse \technical{backtracking}.
+de ``sucesso'', é encontrada ``falha'', é feito o \technical{backtracking}. Quando alguém fala sobre um ``modelo computacional de
+programa lógico'', fala essencialmente sobre como percorrer essa árvore e como fazer esse \technical{backtracking}.
 Como pode ver, ela pode crescer muito em largura a cada nível (não cresceu tanto no exemplo acima porque colocamos uma quantidade reduzida de substituições). Por isso, é compreensível que prefiramos uma busca em profundidade
 do que em largura. Isso pode, é claro, levar a problemas técnicos e filosóficos, já que impõe uma escolha arbitrária sobre a ordem
 de avaliação das cláusulas e dos termos de cada cláusula, o que pode levar a comportamentos inesperados ao programador desatento a esse modelo\footnote{Convém lembrar que não estamos lidando com programação paralela.
 No modelo de programação paralela a avaliação pode ocorrer de maneira
-diferente}. É claro, dizer apenas que a busca é em profundidade não é o suficiente: precisamos dizer que ela é em profundidade e
+diferente.}. É claro, dizer apenas que a busca é em profundidade não é o suficiente: precisamos dizer que ela é em profundidade e
 à esquerda.
 
 
@@ -104,7 +104,8 @@ atribuída a Mark Twain):
 
 \cit{
   Me casei com uma viúva com uma filha crescida. Meu pai, que nos visitava frequentemente, se
-  apaixonou com a filha e a tomou como sua esposa. Isso fez do meu pai o meu filho adotado, e, de
+  apaixonou com a %QUESTION: copiou de algum lugar ou traduziu/modificou? Se for a segunda opcao, fica melhor trocar o "com a" por "pela"
+  filha e a tomou como sua esposa. Isso fez do meu pai o meu filho adotado, e, de
   minha filha adotada, minha madrasta.\\
   Depois de um ano, minha esposa deu à luz um filho, que se tornou o irmão adotado do meu pai e, ao
   mesmo tempo, meu tio, já que ele era o irmão de minha madrasta.\\
@@ -128,7 +129,7 @@ O último bloco de código na verdade não faz parte do programa, mas foi deixad
 indica o goal (na verdade, só queremos saber se o pobre coitado é avô de si mesmo, mas os outros
 termos foram deixados por completeza). Você tem ideia de como é a árvore de busca para esse goal?
 
-
+%QUESTION: os goals nao iam ter uma ? no final, em vez de ponto?
 
   \begin{thebibliography}{2}
 
