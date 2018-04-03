@@ -1,19 +1,15 @@
-Programação Lógica
+Otimização Por Restrições Lógicas
 ==================
 
 
 Repositório com documentos e programas relacionados
-a Programação Lógica e, em particular, à Programação por Restrições Lógicas.
+a Otimização por Restrições Lógicas no geral e Programação Lógica em particular.
 
+Uso:
+  Para compilar um capítulo, faça:
+    $ pdflatex -shell-escape '[LOG]CapI.tex'
+  onde I é o número do capítulo
 
-
-TODO:
-  Atualização do Capitulo 1;
-  Capitulo 2.
-
-  .
-  .
-  .
-
-  Atualizar TODO list
-  Substituir '\textbf{...}\marginpar{..}' por '\definicao{...}'
+  Para compilar a versão completa, faça:
+    $ ./updateComplete.sh
+  na pasta doc/Complete. Aparecerão aluns warnings e erros. Ignore-os.
