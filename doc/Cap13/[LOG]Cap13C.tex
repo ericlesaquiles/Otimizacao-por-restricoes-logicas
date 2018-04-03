@@ -1,9 +1,9 @@
-\documentclass{article}
+%\documentclass{article}
 
-\input{../header.tex}
+%\input{../header.tex}
 
 
-\begin{document}
+%\begin{document}
 
 \section{Dualidade e relaxação}
 
@@ -23,25 +23,25 @@ objetivo (assumimos daqui para frente, sem perda de generalidade, que queremos m
 sobre provas, no lugar de sobre valores das variáveis. Mais precisamente, se tivermos um problema de
 otimização da forma
 
-\begin{align}
-  &  min f(x)\\
-  &  R(x)\\
-  &  x \in D
-\end{align}
+\begin{align*}
+  &  min \; f(x),\\
+  &  R(x),\\
+  &  x \in X,
+\end{align*}
 
-\noindent em que $R(x)$ denota as restrições sobre x e D o seu domínio, seu respectivo
+\noindent em que $R(x)$ denota as restrições sobre x, sendo X o seu domínio, seu respectivo
 \definicao{dual de inferência} nos coloca o problema de maximizar o limitante inferior em $f(x)$ que
 é inferível das restrições. Isso ocorre na forma de uma busca por uma prova do limitante ótimo (ou
 ``bom o suficiente'', se não pudermos pedir por um ``ótimo''):
 
-\begin{align}
-  max \; & v\\
-  C(x) & \vdash^{P} (f(x) \geq v)\\
-  v \in \mathbb{R}&, P \in \mathcal{P}
-\end{align}
+\begin{align*}
+  max \; & v,\\
+  C(x) & \vdash^{P} (f(x) \geq v),\\
+  v \in \mathbb{R}&, P \in \mathcal{P},
+\end{align*}
 
 \noindent em que $C(x) \vdash^{P} (f(x) \geq v)$ indica que \var{P} é uma prova de $(f(x) \geq v)$,
-usando o que é assumido em $C(x)$. O domínio de \var{P} é uma família de provas $\mathcal{P}$, sendo
+usando o que é assumido em $C(x)$ (no caso, $C(x)$ indica as restrições). O domínio de \var{P} é uma família de provas $\mathcal{P}$, sendo
 $(v,P)$ um par de solução dual. Quando o problema inicial (dito ``\definicao{primal}'') não tem
 soluções, o conjunto de soluções para o dual é ilimitado.
 
@@ -50,36 +50,114 @@ consistir de combinações lineares não-negativas de restrições de desigualda
 identificada com os multiplicadores na combinação linear que deriva o maior limitante.
 
 Direto da definição, podemos inferir o \definicao{princípio de dualidade fraca}: um valor factível
-\var{v} do dual de inferência nunca pode ser maior do que qualquer valor factível do primal.
+\var{v} do dual de inferência nunca pode ser maior do que qualquer valor factível do primal, o que
+nos possibilita limitar o valor para o ótimo do primal.
 Ademais, a diferença (a ``lacuna'') entre os valores ótimos do primal e do dual é chamada
 \definicao{lacuna de dualidade}. A lacuna de dualidade pode ser igual a zero, mas não é garantido
-que esse vá ser o caso. Em particular, pode ser que exista um maior limitante inferior a $f(x)$, mas
-esse limitante inferior não ser inferível em $\mathcal{P}$. Quando isso acontece, $\mathcal{P}$ é
-incompleta. Mais no geral, se \var{C} é uma restrição implicada por $C(x)$ mas não existe $P \in
+que esse possa ser o caso (isto é, não é garantido que as soluções ótimas primal e dual possam ter o
+mesmo custo). Em particular, pode ser que exista um maior limitante inferior a $f(x)$, mas
+esse limitante inferior não ser inferível em $\mathcal{P}$. Quando esse é o caso, $\mathcal{P}$ é
+dita incompleta. Mais em geral, se $C(x)$ implica \var{C} mas não existe $P \in
 \mathcal{P}$ que infira \var{C}, $\mathcal{P}$ é dita incompleta. Caso contrário, ela é dita
-completa. Quando $\mathcal{P}$ for completa, a lacuna de dualidade pode ser reduzida a zero, o que
-constitui o princípio de \definicao{dualidade forte}\footnote{Os princípios de dualidade fraca e
+completa. Quando $\mathcal{P}$ for completa, a lacuna de dualidade pode, ao menos em princípio, ser
+reduzida a zero pelo dual, o que
+constitui o princípio de \definicao{dualidade forte}\footnote{Os ``princípios'' de dualidade fraca e
   forte são às vezes referidos como teoremas (porque precisam ser provados). Suas provas, no
-  entanto, são tão simples, que foram omitidas a fim de não aborrecer o leitor.}.
+  entanto, são tão simples, que foram omitidas a fim de não aborrecer a leitora.}.
 
-\subsubsection{Duais Surrogate e Lagrangeano}
+A ideia de dualidade por inferência provê um plano unificador para várias ideias centrais em
+otimização no geral e em programação por restrições em particular. Entre outras coisas, dualidade
+por inferência nos provê métodos para \technical{aprendizado de cláusulas}, frequentemente muito
+úteis. Buscas com \technical{aprendizado de cláusulas} cresceram de pesquisa em
+\technical{aprendizado baseado em explicações}, um ramo de inteligência artificial que busca melhorar
+a eficiência de métodos de busca por \technical{backtracking} por meio de ``explicações de falha'',
+na forma de novas restrições ao problema original. Para CSPs em geral, tais ``explicações'' são
+chamadas \technical{nogood} (ou, às vezes, ``conflitos''). Foi mostrado que uma grande quantidade de
+problemas que não podem (até o presente momento) ser resolvidos por outras técnicas podem ser
+resolvidos de maneira eficiente por \technical{aprendizado de cláusulas}. Em particlar, problemas
+(enteriormente) abertos em teoria de grupos foram resolvidos com essa técnica (entre outras). Para
+mais informações, veja \cite{beame}
 
-Em otimização, existem duais para muitos gostos. Entre eles, o dual Lagrangeano se destaca em sua
-importância teórica e utilidade prática, então lhe dedicaremos um olhar mais detalhado. Antes disso,
-será útil darmos uma olhada no dual Surrogate, que compartilha de semelhanças importantes com o
-Lagrangeano.
+\subsubsection{Dual Substituto}
 
-Considere o seguinte problema
+Existem na literatura de programação por restrições, assim como na de programação matemática,
+diversas noções específicas de dual, para diversos tipos de problemas diferentes. Entre eles, destacam-se
+como especialmente úteis os duais \technical{substituto} e \technical{lagrangeano}, aos quais devotaremos alguma atenção
+nesta seção e na próxima, colocando ênfase especial na relação entre eles.
 
-\begin{align}
-  &  min f(x)\\
-  &  g(x) \geq 0\\
-  &  x \in D
-\end{align}
+Seja um problema do tipo
 
-\noindent em que $g:X\subset\mathbb{R}^n \rightarrow Y\subset\mathbb{R}^m$ pode ser linear ou não.
+\begin{equation}
+  \begin{split}
+    & min f(x),\\
+    & g(x) \geq 0,\\
+    & x \in X,
+  \end{split}\label{eqt:geral}
+\end{equation}
+
+\noindent em que $g(x)$ não necessariamente é linear e  $x \in X$ indica as demais restrições em $x$. Note
+que problemas de programação inteira mista são um caso particular em que $g(x)$ é uma função linear e $X =
+\mathbb{R}^n + \mathbb{Z}^m$. Obtemos o dual de inferência desse problema tomando combinações
+lineares não negativas e implicação como método de inferência, fazendo
+
+\begin{equation}
+  \begin{split}
+    & max \; v,\\
+    & (g(x) \geq 0) \vdash^P (f(x) \geq v),\\
+    & P \in \mathcal{P}, v \in \mathbb{R},
+  \end{split}\label{eqt:surro}
+\end{equation}
+
+\noindent em que cada prova em $\mathcal{P}$ corresponde a um vetor $u$ de multiplicadores e a prova
+$P$ deduz $f(x) \geq v$ de $g(x) \geq 0$ quando a $ug(x) \geq 0 \Rightarrow f(x) \geq
+v$. Isto é o mesmo que dizer que o mínimo de $f(x)$ com $ug(x) \geq 0$ e $x \in X$ é no mínimo $v$.
+Daí segue que essa formulação é equivalente a
+
+\begin{align*}
+  max \;& \sigma(u),\\
+  \sigma(u) &= min_{x\in X}\{f(x)|ug(x)\geq0\},\\
+  u &\geq 0,
+\end{align*}
+
+Pergunta: o \technical{dual substituto} é completo?
+
+\subsubsection{Dual Lagrangeano}
+
+O dual lagrangeano ao problema \ref{eqt:geral} é semelhante ao dual substituto, exceto que, no dual
+lagrangeano, as provas fazem uso de combinações lineares a \technical{dominação}\footnote{Dizemos que uma
+desigualdade $g(x) \geq 0$ domina uma $h(x) \geq 0$ se $g(x) \leq h(x) \;\forall x$, ou se não existe x
+tal que $g(x) \geq 0$}. O dual é o problema \ref{eqt:surro}, em que $\mathcal{P}$ consiste de provas
+que mesclam combinação linear com dominação: $f(x) \geq v$ é inferido de $g(x) \geq 0$ se $\exists
+\; l \geq 0: lg(x)$ domina $f(x) \geq v$.
+
+Como dominação é um requisito mais fraco do que implicação, o dual lagrangeano resulta em um dual de
+inferência mais fraco do que o \technical{substituto} e, assim, possibilita limitantes mais fracos
+em relação ao \technical{substituto}. Apesar disso, para outros fatores o lagrangeano goza de propriedades mais
+interessantes do que o \technical{substituto}, o que o torna atraente para uma grande variedade de problemas. Por exemplo,
+o conjunto de soluções factíveis para o \technical{dual lagrangeano} é côncavo (o que não vale, no
+geral, para o \technical{dual substituto}). Isso pode ser visto
+facilmente, se, supondo que $lg(x) \geq 0$ é factível para $l\geq0$, observarmos que o
+lagrangeano maximiza $v$ com $l \geq 0$ e $lg(x) \geq f(x) - v \; \forall x \in X$. Reescrevendo $lg(x)
+\leq f(x) - v$ como $v \leq f(x) - lg(x)$ e fazendo $\lambda(l,x) = f(x) - lg(x)$, nosso
+lagrangeano é equivalente a
+
+%\begin{equation}
+  \begin{align}
+     max &\; \lambda(l),\\
+     \lambda(l) &:=  inf_{x \in X}\{f(x) - lg(x)\},\label{eqt:lambda}\\
+     l & \geq 0,
+  \end{align}
+%\end{equation}
+
+\noindent e o conjunto de ínfimos de funções afim (como em \ref{eqt:lambda}) é um conjunto côncavo
+($\lambda$ é afim para $x$ fixo). O vetor $l$ é popularmente conhecido como vetor de multiplicadores
+de lagrange.
 
 
+
+
+
+%$ug(x) \geq 0$ domina $f(x) \geq v$ quando $ug(x) \geq f(x) - v
 
 \subsection{Complexidade}
 
@@ -102,8 +180,15 @@ escritas.
 
   \begin{thebibliography}{1}
 
-    \bibitem{carnap}
+    \bibitem{beame}
+    Beame Paul and Kautz Henry and Sabharwal Ashish,
+    Towards Understanding and Harnessing the Potential of Clause Learning,
+    Journal of Artificial Intelligence Research 22 (2004) 319-351.
+
+
+    \bibitem{hooker}
+    Hooker N. John, Integrated Methods for Optimization, Second Edition, Springer Verlag, 2012.
 
   \end{thebibliography}
 
-\end{document}
+%\end{document}

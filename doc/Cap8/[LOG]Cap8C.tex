@@ -18,19 +18,18 @@ restrições passivas por si só não podem e, assim, são mais usadas para fins
 para a restrição ser usada.
 
 Por enquanto, nos preocuparemos mais com restrições passivas e veremos exemplos de sua utilização no
-sistema \eclipse. Valeria deixarmos aqui uma breve introdução à história desse sistema e uma
-explicação mais detalhada de porquê escolhemos usá-lo e não outro, mas nos contentamos em dizer que
-o \eclipse\ é uma expansão suficientemente completa do Prolog para lidar melhor com restrições. Não
+sistema \eclipse, que é uma expansão suficientemente completa do Prolog para lidar melhor com restrições. Não
 cabe darmos aqui uma detalhada mostra do que ele adiciona, mas convém falarmos brevemente
-sobre como alguns de seus iteradores funcionam, já que os usaremos extensivamente daqui em diante.
+sobre como alguns de seus iteradores funcionam, já que os usaremos daqui em diante.
 
-A nossa exposição é baseada primariamente em \cite{joachim} e em \cite{schimpf}. Na realidade,
+Nossa exposição é baseada primariamente em \cite{joachim} e em \cite{schimpf}. Na realidade,
 apesar de existirem muitos iteradores diferentes no \eclipse, todos são feitos com base na mesma
 construção, chamada \funtor{do/2}. Ademais, apenas uma das especificações de iteradores é mesmo
 fundamental. Uma chamada \codigo{( fromto(From, In, Out, To) do Body ).} é traduzida como:
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog8_fromto.pl}
+\caption{Fromto}
     \end{listing}
 
 \noindent É importante notar que, com \technical{fromtos} aninhados, cada um mapeia a um acumulador
@@ -54,26 +53,6 @@ Enquanto em Prolog o único método iterativo é a recursão, no \eclipse\ dispo
 Existem diversos outros iteradores para propósitos diferentes, todos eles seguindo o padrão  \enphasis{(iterador do busca)}. Iteradores podem ser postos em conjunto como \enphasis{(iterador1, iterador2, ..., iteradorn do busca)}. Ao fazer isso, todos os iteradores dão o passo junto, por assim dizer, e o conjunto de iteradores para quando qualquer um deles chegar ao fim. Também podemos aninhar iteradores (como se colocássemos um \technical{for} dentro de outro em uma linguagem
 convencional) da seguinte forma: \enphasis{(iterador1 do (iterador 2 do ... (iteradorn do busca)))}.
 
-\subsection{Vetores}
-
-Listas são interessantes, mas, eventualmente, podemos querer realizar acesso em tempo constante aos
-seus membros, o que não é possível. Em outras linguagens, esse tipo de acesso é por costume
-realizado através de vetores. Vetores existem em Prolog padrão, de certa forma. Como os argumentos
-de funtores podem ser acessados em tempo constante por meio do funtor \funtor{arg/3}, a princípio,
-um funtor qualquer poderia ser usado como um vetor, o acesso aos membros do qual feitos por meio de
-\funtor{arg/3}. Essa abordagem, no entanto, não só não parece muito elegante, como é pouco prática.
-Se temos algo que chamamos de vetor, gostaríamos de poder fazer algo como \codigo{ Vetor =/= 4}, por
-exemplo, o que com os meios do Prolog padrão não é possível.
-
-Para esse tipo de situação, no \eclipse existe uma implementação de vetores como um açucar
-sintático (semelhante ao que vimos na implementação de listas), permitindo justamente esse tipo de
-utilizaçãoa. Em particular, um vetor, é escrito como uma variável seguida do funtor de lista (como
-em \codigo{Var[4]}), ou, se anônimo, como \codigo{[](A, B, C)} (note que, assim, a representação de
-um vetor ou de uma lista vazia é a mesma) Para criar ``vetores'', possivelmente multidimensionais
-(na realidade, matrizes, o que justifica os ``''), foi construído o predicado \funtor{dim/2}, que
-pode ser usado ou para criar vetores ou para extrair sua dimensão.
-
-
 \subsection{Backtracking no Prolog/Eclipse}
 
 Já discutimos rapidamente a busca por \technical{backtracking} antes, agora veremos como implementá-la. Para tanto, precisamos decidir qual será o método de ramificação usado, qual a ordenação das variáveis e qual a ordenação dos valores de cada variável.
@@ -86,6 +65,7 @@ Mencionamos que uma forma de descrever a escolha de valores de forma mais geral 
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog2_busca2.pl}
+\caption{Busca 0}
     \end{listing}
 
 Ele assume que Lista é uma lista de pares variável-domínio e precisa ser completada pelas escolhas
@@ -95,12 +75,14 @@ caso contrário:
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog3_partilha.pl}
+\caption{Partilha 0}
     \end{listing}
 
 Essa escolha ocorre atribuindo aos primeiros N valores do domínio o mesmo crédito, de N. Outra escolha de compartilha\_crédito, possivelmente mais natural, é a que envolve a atribuição de N créditos ao primeiro valor, N/2 ao segundo, e assim por diante:
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog4_partilha2.pl}
+\caption{Partilha 1}
     \end{listing}
 
 Nesse código, o \codigo{fix(ceiling(AtuCredito/2))} retorna o maior inteiro menor ou igual que AtuCredito/2.
@@ -123,6 +105,7 @@ Nesse código, o \codigo{fix(ceiling(AtuCredito/2))} retorna o maior inteiro men
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog5_busca3.pl}
+\caption{Busca 1}
     \end{listing}
 
 Esse programa explora a forma como é feito o \technical{backtracking} e, por isso, a ordem em que foi posta é crucial. Vale notar que ele conta todos os backtrackings que ocorrem na busca, possibilitando contar a quantidade de nós na árvore.
@@ -134,6 +117,7 @@ ininterrupta como sendo apenas um. Um \funtor{conta\_backtracking/0} que faz iss
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog6_conta_backtrack.pl}
+\caption{Backtracking}
     \end{listing}
 
 \subsection{A biblioteca suspend}
@@ -152,7 +136,7 @@ que gera uma variável X cujo valor é restrito ao intervalo de inteiros entre 2
 Se quisermos usar intervalos reais no lugar de intervalos de inteiros (assumidos como o padrão),
 podemos usar um \$ no lugar de \#, como em \codigo{X \$:: 2..10} (vale repetir que o uso de
 intervalos inteiros é o padrão, o que significa que, na falta de uma símbolo como  \# ou \$, o
-intervalo é entendi como sendo em inteiros).
+intervalo é entendido como sendo em inteiros).
 Alternativamente, pode-se usar a restrição \funtor{integers/1} ou \funtor{reals/1} para restringir a variável ou lista de variáveis a assumir valores nos inteiros ou reais, respectivamente.
 
 
@@ -166,10 +150,11 @@ que deixam a suspensão juntas) e o terceiro a condição de saída da suspensã
 Um exemplo é \codigo{suspend(X =:= 21, 2, X -> inst)}, indicando que a restrição de que X =:= 21 está em estado de suspensão até que X seja instanciada.
 
 Talvez se lembre do programa Ou Exclusivo do Capítulo 6. Com o uso de \funtor{suspend/3}, podemos reimplementá-lo sem recorrer ao \technical{backtracking}:
-\vspace{3cm}
+%\vspace{3cm}
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap8/prog7_xor.pl}
+\caption{XOR}
     \end{listing}
 
 Note que, agora, nosso \funtor{ou\_exclusivo/2} não é mais uma operação aritmética, agindo como um predicado relacional como os demais.
@@ -181,7 +166,9 @@ comentário sobre as demais bibliotecas. Isso é útil não só pelos motivos pr
 bibliotecas), mas também como uma resumo das restrições que veremos mais para frente.
 
 \begin{itemize}
-  \item A biblioteca \technical{ic} (de \foreign{interval constraint}) provê um resolvedor de restrições misto inteiro/real;
+  \item A biblioteca \technical{ic} (de \foreign{interval constraint})\footnote{Esse nome vem do
+      fato de que essas restrições atuam sobre intervalos, e as operações aritméticas realizadas sob elas são
+      operações de intervalos. Veja \cite{hickey} para mais detalhes.} provê um resolvedor de restrições misto inteiro/real;
   \item A biblioteca \technical{branch and bound} provê um \technical{framework} para resolver
     problemas por  \foreign{branch and bound} muito customizável;
   \item A biblioteca \technical{eplex} provê otimização para problemas de LP e MIP (\foreign{linear
@@ -216,7 +203,12 @@ Um exemplo de restrição global é o \funtor{alldiferent/n}, que será visto ad
 
     \bibitem{joachim}
       Schimpf, Joachim,
-      [https://groups.google.com/forum/?hl=en#!msg/comp.lang.prolog/UYfgRxUWbGo/0KuxfWPEDqoJ]
+      \url{https://groups.google.com/forum/?hl=en#!msg/comp.lang.prolog/UYfgRxUWbGo/0KuxfWPEDqoJ}
+
+      \bibitem{hickey}
+      T. Hickey and Q. Ju and M. H. van Emden,
+      ``Interval Arithmetic: from Principles to Implementation'',
+      Journal of the ACM
 
       \bibitem{schimpf}
         Schimpf, Joachim,

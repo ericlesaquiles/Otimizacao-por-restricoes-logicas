@@ -23,14 +23,14 @@ O significado declarativo é baseado na assim chamada teoria de modelos. Para tr
 \begin{definition} O \definicao{universo Herbrand} de um programa lógico P, denotado U(P), é o conjunto de termos base formados pelas constantes e símbolos de funtores que aparecem em P.
 \end{definition}
 
-Por exemplo, se temos um programa como o seguinte:
+Por exemplo, se temos um código como o seguinte:
 
     \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap2/prog1_natural.pl}\label{lst:natural}
-\caption{Natural}
+\inputminted{prolog}{../Exemplos/Cap2/prog1_natural.pl}
+\caption{Natural}\label{lst:natural}
     \end{listing}
 
-U(P) é o conjunto formado por 0, \funtor{natural/1} e suas combinações:
+    \noindent então U(P) é o conjunto formado por 0, \funtor{natural/1} e suas combinações:
 \[
   U(P) = \{0, s(0), s(s(0)), s(s(s(0))), ...\}
 \]
@@ -40,7 +40,7 @@ U(P) é o conjunto formado por 0, \funtor{natural/1} e suas combinações:
 
   Chamaremos um subconjunto de B(P) de \enphasis{interpretação} e um subconjunto consistente com o programa, de \enphasis{modelo}:
 
-\begin{definition} Dada uma interpretação I de um programa lógico, I é um modelo\marginpar{\enphasis{Modelo}} se, para cada cláusula de P, \codigo{a :- $b_0$, ..., $b_n$}, $a \in I$ se $b_0$, ..., $b_n$ $\in I$.
+\begin{definition} Dada uma interpretação I de um programa lógico, I é um modelo\definicao{Modelo} se, para cada cláusula de P, \codigo{a :- $b_0$, ..., $b_n$}, $a \in I$ se $b_0$, ..., $b_n$ $\in I$.
 \end{definition}
 
  Podem existir vários modelos diferentes para um programa lógico, então faz sentido falar de um modelo mínimo.

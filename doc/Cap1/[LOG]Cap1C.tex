@@ -1,15 +1,16 @@
-%%\documentclass{article}
+%\documentclass{article}
 
-%%\input{../header.tex}
+%\input{../header.tex}
 
 
-%%\begin{document}
+%\begin{document}
 \section{Modelo Computacional de Programas Lógicos}
 
 Considere o seguinte código:
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap1/prog1_circuito.pl}\label{lst:circuit}
+\caption{Circuito}
     \end{listing}
 
 A leitora pode se perguntar qual o resultado do seguinte goal:
@@ -50,7 +51,12 @@ outro'', ou seja, é, em algum sentido, restrita. Mais precisamente, temos:\\
 \end{remark}
 
 Se temos que existe alguma substituição $\iota$ (possivelmente vazia) para que $p(a_1, ..., a_n) = q(b_1, ..., b_n)$, dizemos que  $p(a_1, ..., a_n)$ é unificável com $q(b_1, ..., b_n)$. ``='' é o \definicao{símbolo de unificação}\footnote{Veremos depois mais
-  predicados do tipo ``a op b'', onde op é o operador (no caso, op é =/2). Predicados desse tipo são chamados de infixos. Todo predicado infixo também pode ser usado no formato prefixo (como =(a, b) ) e predicados infixos também podem ser definidos pelo programador, como já mencionado anteriormente.}.
+  predicados do tipo ``a op b'', onde op é o operador (no caso, op é =/2). Predicados desse tipo são
+  chamados de infixos. Todo predicado infixo também pode ser usado no formato prefixo (como =(a, b)
+  ) e predicados infixos também podem ser definidos pelo programador, como já mencionado
+  anteriormente.}\footnote{ Rigorosamente, ``predicados'' são diferentes de ``funtores'', mas neste
+  texto adotaremos a convenção usual de nos referir a um ``funtor'' como ``predicado'' quando
+  quisermos enfatizar seu caráter procedural. }.
 
   Convém notar aqui que, em Prolog, funtores são \enphasis{cidadãos de primeira classe}, o que significa que compartilham o
   direito e privilégio de ser nomeado por uma variável (isto é, uma variável pode receber qualquer funtor n-ário, não só átomos).
@@ -139,6 +145,7 @@ Para entender melhor, tome o exemplo do código \ref{lst:circuit}, no início de
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap1/prog2_encontra.pl}
+\caption{Encontra}
     \end{listing}
 
 Para algum \enphasis{gera} e algum \enphasis{testa}. A hipótese de não-determinísmo está na esperança de que será gerada uma solução que passa no teste, o que não é, a princípio, claro ser possível. Na prática, isso seria aproximadamente resolvido com o artifício do \foreign{backtracking}, que veremos posteriormente.
@@ -171,6 +178,7 @@ O programa a seguir implementa esses passos em um programa lógico\footnote{O ``
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap1/prog3_analogy.pl}
+\caption{Analogy}
     \end{listing}
 
 Esse programa é muito específico: ele toma a analogia entre apenas dois objetos e, a partir disso, cria uma analogia com um terceiro. Uma generalização é possível, mas, para nossos propósitos, isso é o suficiente.
@@ -189,6 +197,7 @@ O seguinte programa realiza um teste ao programa anterior:
 %\lstinputlisting[caption=Test Analogy]{../Exemplos/Cap1/prog4_testanalogy.pl}
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap1/prog4_testanalogy.pl}
+\caption{Test Analogy}
     \end{listing}
 
 O goal \codigo{test\_analogy(test1, X)?} tem o resultado esperado.
@@ -210,7 +219,5 @@ primitivas e tinha que criar um tipo de representação por conta própria. Como
 
   \end{thebibliography}
 
-  %\pagebreak
 
-
-%%\end{document}
+%\end{document}

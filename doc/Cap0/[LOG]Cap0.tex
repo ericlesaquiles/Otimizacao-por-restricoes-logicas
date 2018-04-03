@@ -98,16 +98,16 @@ nos referir a qualquer um dos dois.
 Um \definicao{programa lógico} consiste em um conjunto de cláusulas. Um exemplo é o seguinte:\\
 
     \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap0/prog1_cafe.pl}\label{lst:cafe}
-    \caption{Café}
+\inputminted{prolog}{../Exemplos/Cap0/prog1_cafe.pl}
+    \caption{Café}\label{lst:cafe}
     \end{listing}
 
 Note que os nomes usados para os funtores são arbitrários. O seguinte programa tem essencialmente o mesmo significado do ponto de vista computacional:\\
 
 %\lstinputlisting[caption=Queijo, style=prosty]{../Exemplos/Cap0/prog2_queijo.pl}
     \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap0/prog2_queijo.pl}\label{lst:queijo}
-\caption{queijo}
+\inputminted{prolog}{../Exemplos/Cap0/prog2_queijo.pl}
+\caption{queijo}\label{lst:queijo}
     \end{listing}
 
 Pelo código \ref{lst:cafe}, por exemplo, podemos dizer que ``é verdade que pao(de, queijo) e que com(cafe)''. De fato, a pergunta mais
@@ -170,8 +170,8 @@ sentido, já que no processo de resolução (que será explicado depois) eles cu
 Agora, considere o seguinte código:\\
 
     \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap0/prog3_arvb.pl}\label{lst:arvb}
-\caption{Árvore Binária}
+\inputminted{prolog}{../Exemplos/Cap0/prog3_arvb.pl}
+\caption{Árvore Binária}\label{lst:arvb}
     \end{listing}
 
 O goal \codigo{$arvore\_b$(vazio)?} tem sucesso, já que é um dos fatos. O goal \codigo{$arvore\_b$(arvore(raiz, vazio, vazio))?} também tem, já que \codigo{$arvore\_b$(a, B, C)?} tem sucesso se $arvore\_b(A)$ e $arvore\_b(B)$ tiverem, o que ocorre. Perceba que, neste caso, o goal não tem sucesso segundo a primeira cláusula apenas e nem segundo a segunda. Ambas contribuem para a definição de $arvore\_b$.
@@ -184,8 +184,8 @@ contém variáveis são ditos \definicao{termos base}. Variáveis serão explica
 No geral, o que um programa lógico deveria fazer (isto é, o que a programadora tem em mente ao escrevê-lo) pode não ser a princípio claro. Numa tentativa de aliviar isso, usaremos aqui a convenção de usar nomes significativos, assumindo o significado usual (a não ser quando dito o contrário), para os elementos relevantes. Assim, por exemplo, o seguinte trecho:
 
     \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap0/prog4_pai.pl}\label{lst:pai_filho}
-\caption{Pai e Filho}
+\inputminted{prolog}{../Exemplos/Cap0/prog4_pai.pl}
+\caption{Pai e Filho}\label{lst:pai_filho}
     \end{listing}
 
 

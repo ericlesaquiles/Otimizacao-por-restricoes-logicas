@@ -69,7 +69,7 @@ Exemplos um pouco mais interessantes são os seguintes:
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap6/prog2_substitui.pl}
-\caption{Substitui}
+\caption{Substituto}
     \end{listing}
 
 Outro predicado de inspeção de estrutura é o, assim chamado (por razões históricas obscuras),
@@ -126,7 +126,7 @@ de estar correta) \var{C} sejam representadas pelo funtor \funtor{clause\_c/3}, 
 \caption{Meta 2}
     \end{listing}
 
-Um goal \codigo{solve(Goal,C,Limit)} submetido a esse interpretador resulta em sucesso se a ``confiança'' \var{C} de \var{Goal}
+Um goal \codigo{solve(Goal,C,Limit)?} submetido a esse interpretador resulta em sucesso se a ``confiança'' \var{C} de \var{Goal}
 for maior do que o limite inferior \var{Limit}. Alguns pontos válidos de se notar nesse programa são que, numa conjunção \codigo{A,B},
 a nossa confiança na conjunção é tomada como o mínimo entre a de \var{A} e a de \var{B} e que se, para provar um goal \var{Goal}, é
 preciso passar por uma cláusula com fator de certeza \var{C1}, a prova do corpo da cláusula terá um fator de certeza menor, dado

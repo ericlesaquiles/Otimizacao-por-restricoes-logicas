@@ -1,8 +1,6 @@
 \documentclass{article}
 
 \input{../header.tex}
-\usepackage[linguistics]{forest}
-\usepackage{caption}
 
 \captionsetup[figure]{name=Árvore}
 \setlength{\belowcaptionskip}{1pt plus 1pt minus 1pt}
@@ -68,7 +66,7 @@ operador aritmético\footnote{Operadores aritméticos que temos à disposição 
   funcionamento de muitos deles é claro pelo símbolo, o dos demais será explicado na medida que
   forem usados.} \technical{op} é usado com \funtor{is/2}, o operador realiza a operação esperada:
 \codigo{A is 2 + 3} e \codigo{A is 10 - 8} resultam em A = 5, por exemplo. Vale notar que esse
-comportamento é diferente do \funtor{=/2}, por exemplo: o seguinte
+comportamento é diferente do \funtor{=/2}, por exemplo. Assim, o seguinte
 programa pode não ter o resultado intuitivamente esperado:
 
     \begin{listing}

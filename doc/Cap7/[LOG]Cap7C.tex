@@ -2,10 +2,9 @@
 
 %\input{../header.tex}
 
-%\usepackage{qtree}
-%\usetikzlibrary{shapes.geometric, arrows}
-%\tikzstyle{decision} = [diamond, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=green!30]
-%\tikzstyle{arrow} = [thick,->,>=stealth]
+\usetikzlibrary{shapes.geometric, arrows}
+\tikzstyle{decision} = [diamond, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
 
 
 %
@@ -24,6 +23,7 @@ ou, se for possível escrever Xs como \codigo{[Y|Ys]} e X tiver a relação memb
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog1_member.pl}
+\caption{Member}
     \end{listing}
 
 Mas vimos também que operações aritméticas, no Prolog, não funcionam de maneira relacional (ao fazermos uma soma, por exemplo, o ``+'' funciona como uma função, retornando um valor, no lugar de como uma restrição ou relação). Isso é grave, porque expressões aritméticas aparecem de várias formas em problemas reais e não ser capaz de expressá-las relacionalmente poderia levar a um código muito maior, redundante e difícil de manter.
@@ -216,17 +216,90 @@ Propagação local pode ser uma técnica muito útil para resolver alguns proble
 Intuitivamente, a propagação de restrições ajuda a transformar o problema em outro mais simples. O passo de ramificação serve, então, para partir o problema em problemas menores, aos quais poderemos aplicar a propagação de restrições novamente, seguido por outra ramificação, e assim vai, gerando uma árvore de busca. A forma padrão de busca top-down é chamada de \definicao{busca por backtracking}. Essa forma de busca funciona simplesmente
 gerando a dita árvore e fazendo a travessia dela (frequentemente, faremos a travessia enquanto geramos a árvore, não depois). Vale notar que, na presença de propagação de restrições, ocasionalmente pode ser útil adicionar à escrita do problema restrições implícitas, que podem auxiliar na propagação.
 
-A forma mais comum de \foreign{backtracking} começa ordenando as variáveis do problema, usualmente por algum modelo heurístico, com as ramificações tomando a forma de divisões no domínio de cada variável. Uma forma de fazer isso é a chamada marcação (ou, mais comumente, \technical{labelling}), que corresponde à ramificação do domínio de cada variável em seus elementos constituintes (o que só pode ser feito, é claro, quando o domínio for finito), assegurando que todos os valores de cada variável
+A forma mais comum de \foreign{backtracking} começa ordenando as variáveis do problema, usualmente
+por algum modelo heurístico, com as ramificações tomando a forma de divisões no domínio de cada
+variável. Uma forma de fazer isso é a chamada marcação (ou, mais comumente, \technical{labelling}),
+que corresponde à ramificação do domínio de cada variável em seus elementos constituintes (o que só
+pode ser feito, é claro, quando o domínio for finito), assegurando que todos os valores de cada
+variável
 serão explorados. A marcação pode tornar um \enphasis{método de busca incompleto}
 em um completo (isto é, um método que pode não encontrar uma solução quando ela existe em um que sempre encontra alguma solução se ela existe).
 
-A ordem de exploração das variáveis é, então, escolhida por meio de uma \enphasis{heurística de escolha de valor}. Frequentemente não será viável termos um método de busca completo, então é essencial que foquemos a nossa atenção nos valores que parecem mais promissores. Esse ``foco de atenção'' pode frequentemente ser descrito na forma de uma política de alocação de crédito, fornecendo maior crédito às escolhas aparentemente mais promissoras.
+A ordem de exploração das variáveis é, então, escolhida por meio de uma \enphasis{heurística de
+  escolha de valor}. Frequentemente não será viável termos um método de busca completo, então é
+essencial que foquemos a nossa atenção nos valores que parecem mais promissores. Esse ``foco de
+atenção'' pode frequentemente ser descrito na forma de uma política de alocação de crédito,
+fornecendo maior crédito às escolhas aparentemente mais promissoras.
 
-\subsection{Branch and Bound}
+\subsection{Branch and Bound and Cut}
 
-Os métodos de busca discutidos anteriormente são apropriados para CSPs. Para COPs, precisaremos fazer algumas modificações. Uma opção é o \definicao{branch and bound}. Ele funciona da seguinte forma: em cada passo da busca em \foreign{backtracking}, se f é a função custo, temos na variável Bound o valor do melhor custo até então (Bound pode ser inicializado com um valor simbolicamente equivalente a ``infinito'') e, a cada passo da busca, verificamos se o custo é ou não melhor do que Bound. Se for, o valor de Bound é atualizado.
+Os métodos de busca discutidos anteriormente são apropriados para CSPs. Para COPs, precisaremos
+fazer algumas modificações. Uma opção é o \definicao{branch and bound} e \technical{branch, bound
+and cut}. O \technical{branch and bound} genérico funciona da seguinte forma (sendo F o conjunto de
+soluções para o problema de otimização inteira):
 
-Existem algumas variações a esse algoritmo. Uma delas é a de adicionar a restrição de que f $<$ Bound\footnote{Estamos fazendo uso de um abuso de linguagem ao denotar o valor de f em uma substituição por f a fim de deixar a notação mais limpa.}, possibilitando a obtenção de cortes na árvore de busca.
+\begin{enumerate}
+  \item F é particionado em n partes ($F_1, \hdots, F_n$);
+  \item Um $F_k$ é selecionado:
+    \begin{enumerate}
+      \item Se ele não for factível, é deletado;
+      \item Caso contrário, compute o limitante inferior, $b(F_k)$ de sua função custo;
+      \item Se $b(F_k) \geq U$, o limitante superior do problema global, $F_k$ é deletado;
+      \item Caso contrário, obtenha uma solução ótima ao problema inicial, ou ramifique $F_k$ em
+        outros subproblemas e os adicione à lista de subproblemas a serem selecionados ou deletados.
+    \end{enumerate}
+  \end{enumerate}
+
+Note que, para esse método, é essencial, primeiro, a existência de uma função $b(F)$ razoavelmente
+eficiente, segundo, um método de ramificação razoavelmente eficiente, assim como um para o
+conhecimento do limitante superior \enphasis{U}. Para um problema geral, podem existir várias
+escolhas para cada um desses fatores e uma ``boa escolha'' pode afetar decisivamente a eficiência
+do algoritmo.
+
+O limitante superior \enphasis{U} pode ser inicializado com infinito ou com o custo de alguma
+solução factível e é atualizado com o custo da melhor solução encontrada até o momento. A escolha de
+\enphasis{b} pode ser um pouco mais complicada e será ilustrada com uma instância de um exemplo de
+problema de programação inteira linear.
+
+Dado um problema de programação inteira linear tal como
+
+\begin{equation}
+  \begin{split}
+    \text{minimize } c'x, \\
+    \text{tal que }  Ax = b,\\
+             x \geq 0,\\
+             x \in \mathbb{Z},
+  \end{split}\label{eq:inteiro}
+\end{equation}
+
+\noindent uma possível função \enphasis{b} é o custo ótimo do problema relaxado
+
+\begin{equation}
+  \begin{split}
+    \text{minimize } c'x, \\
+    \text{tal que }  Ax = b,\\
+             x \geq 0.\\
+  \end{split}\label{eq:inteiro}
+\end{equation}
+
+Se a solução $x^*$ ao problema relaxado for inteira (isto é, se todas as componentes de $x^*$ forem
+inteiras), essa solução é ótima para o problema inteiro inicial. Caso contrário, se os $x_j$ para $j
+\in J$ forem fracionários, podemos ramificar o problema adicionando as restrições $x_k \leq
+\floor*{x_k}$ ou $x_k \geq \ceil*{x_k}$, para algum $k \in J$. Como $x^*$ não faz parte do
+conjuntos de soluções de nenhuma das ramificações, o custo ótimo delas será extritamente maior.
+
+Vale notar que, se o problema relaxado original foi resolvido por meios do método simplex, o
+ramificado poderia ser resolvido sem grandes dificuldades pelo simplex dual, já que só difere do
+problema original (relaxado) pela adição de uma restrição.
+
+O \enphasis{branch and bound} para problemas de programação linear inteira poderia ser aprimorado
+pela adição de \enphasis{planos de corte}, traduzidos na forma de restrições que diminuem o espaço
+de busca. O uso de cortes ditos ``profundos'' podem tornar a execução de \technical{branch and
+  bound} muito mais rápida (mas podem ser difíceis de encontrar). Para mais detalhes sobre técnicas
+de programação inteira, veja, por exemplo, \cite{tsitsiklis}.
+
+O \eclipse vem com uma biblioteca para métodos \technical{branch and bound}, a qual veremos com mais
+detalhes posteriormente.
 
 \subsection{Projeção}
 
@@ -306,20 +379,26 @@ de problemas de otimização com restrições lineares.
 
   \begin{thebibliography}{1}
 
-    \bibitem{herbrand}
-      J. Herbrand (1930), ``Recherches sur la theorie de la demonstration'', PhD thesis, Universite de Paris, France, 1930.
+    \bibitem{tsitsiklis}
+      Bertsimas, Dmitris e Tsitsiklis, John N., ``Introduction to Linear Optimization'', Athena
+      Scientific.
+
+    \bibitem{besik}
+      Dundua, Besik; Florido Mário; Kutsia Temur; Marin, Mircea (2015),
+      ``CLP(H): Constraint Logic Programming for Hedges'',	arXiv:1503.00336.
 
     \bibitem{sat}
       Editores A. Biere, M. Heule, H. Van Maaren, T. Walsh (2009), ``Handbook of Satisfiability'', IOS Press.
 
-    \bibitem{marriot}
-      Marriott, Kim; Peter J. Stuckey (1998), ``Programming with constraints: An introduction'' [S.l.]: MIT Press.
-
-    \bibitem{besik}
-      Dundua, Besik; Florido Mário; Kutsia Temur; Marin, Mircea (2015), ``CLP(H): Constraint Logic Programming for Hedges'',  	arXiv:1503.00336.
+    \bibitem{herbrand}
+      J. Herbrand (1930), ``Recherches sur la theorie de la demonstration'', PhD thesis, Universite de Paris, France, 1930.
 
     \bibitem{margarida}
       Mamede, Margarida; Monteiro Luís (1992), ``A Constraint Logic Programming Scheme for Taxonomic Reasoning''.
+
+    \bibitem{marriot}
+      Marriott, Kim; Peter J. Stuckey (1998), ``Programming with constraints: An introduction'' [S.l.]: MIT Press.
+
 
   \end{thebibliography}
 

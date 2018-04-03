@@ -2,7 +2,6 @@
 
 \input{../header.tex}
 
-\usepackage{qtree}
 \usetikzlibrary{shapes.geometric, arrows}
 \tikzstyle{decision} = [diamond, minimum width=1cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
@@ -264,20 +263,24 @@ problema de programação inteira linear.
 
 Dado um problema de programação inteira linear tal como
 
-\begin{align}
-  \text{minimize } c'x \\
-  \text{tal que }  Ax = b\\
-           x \geq 0\\
-           x \in \mathbb{Z}
-\end{align}\label{eq:inteiro}
+\begin{equation}
+  \begin{split}
+    \text{minimize } c'x, \\
+    \text{tal que }  Ax = b,\\
+             x \geq 0,\\
+             x \in \mathbb{Z},
+  \end{split}\label{eq:inteiro}
+\end{equation}
 
-\noindent, uma possível função \enphasis{b} é o custo ótimo do problema relaxado
+\noindent uma possível função \enphasis{b} é o custo ótimo do problema relaxado
 
-\begin{align}
-  \text{minimize } c'x \\
-  \text{tal que }  Ax = b\\
-           x \geq 0\\
-\end{align}\label{eq:inteiro}
+\begin{equation}
+  \begin{split}
+    \text{minimize } c'x, \\
+    \text{tal que }  Ax = b,\\
+             x \geq 0.\\
+  \end{split}\label{eq:inteiro}
+\end{equation}
 
 Se a solução $x^*$ ao problema relaxado for inteira (isto é, se todas as componentes de $x^*$ forem
 inteiras), essa solução é ótima para o problema inteiro inicial. Caso contrário, se os $x_j$ para $j
@@ -295,7 +298,7 @@ de busca. O uso de cortes ditos ``profundos'' podem tornar a execução de \tech
   bound} muito mais rápida (mas podem ser difíceis de encontrar). Para mais detalhes sobre técnicas
 de programação inteira, veja, por exemplo, \cite{tsitsiklis}.
 
-O \eclipse vem com uma biblioteca para métodos \technical{branch and bound}, a qual veremos com mais
+O \eclipse\ vem com uma biblioteca para métodos \technical{branch and bound}, a qual veremos com mais
 detalhes posteriormente.
 
 \subsection{Projeção}

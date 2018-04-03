@@ -1,9 +1,9 @@
-%%\documentclass{article}
+%\documentclass{article}
 
-%%\input{../header.tex}
+%\input{../header.tex}
 
 
-%%\begin{document}
+%\begin{document}
 
 \section{Dando nome aos bois}
 
@@ -90,20 +90,24 @@ Em particular pode ser que, em linguagem matemática, $ f(1,l) \Rightarrow p(a,b
 \noindent onde as vírgulas entre os termos fazem o papel do ``e'' lógico. Esse tipo de estrutura é chamada \definicao{regra}
 e é o mais importante meio de combinação em programação lógica. O que está para a esquerda de ``:-'' em uma regra é dito
 ``cabeça da regra'', ou só ``cabeça'', se a regra for clara do contexto e o que está à direita de ``:-'' é dito o
-``corpo da regra''. Quando não for necessário distinguir entre fatos e regras, usaremos o termo \definicao{cláusula} para
+``corpo da regra''. Quando não for necessário distinguir entre fatos e regras, usaremos o termo
+\definicao{cláusula}\footnote{Note que usamos ``cláusula'' em um sentido diferente do da lógica
+  clássica (em que ``cláusula'' é definida como sendo uma disjunção de proposições). } para
 nos referir a qualquer um dos dois.
 
 Um \definicao{programa lógico} consiste em um conjunto de cláusulas. Um exemplo é o seguinte:\\
 
     \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap0/prog1_cafe.pl}\label{lst:cafe}
+\inputminted{prolog}{../Exemplos/Cap0/prog1_cafe.pl}
+    \caption{Café}\label{lst:cafe}
     \end{listing}
 
 Note que os nomes usados para os funtores são arbitrários. O seguinte programa tem essencialmente o mesmo significado do ponto de vista computacional:\\
 
 %\lstinputlisting[caption=Queijo, style=prosty]{../Exemplos/Cap0/prog2_queijo.pl}
     \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap0/prog2_queijo.pl}\label{lst:queijo}
+\inputminted{prolog}{../Exemplos/Cap0/prog2_queijo.pl}
+\caption{queijo}\label{lst:queijo}
     \end{listing}
 
 Pelo código \ref{lst:cafe}, por exemplo, podemos dizer que ``é verdade que pao(de, queijo) e que com(cafe)''. De fato, a pergunta mais
@@ -136,23 +140,38 @@ entendida como uma proposição que pode ser verdadeira ou falsa \footnote{Na ve
 
 Um ponto interessante sobre goals e também sobre regras é que são como cláusulas de
 Horn\footnote{Também, apesar de mais raramente, chamadas \enphasis{cláusulas de McKinsey}. Elas
-  foram usadas primeiramente por Mckinsey, como notado por Horn \cite{horn}.} (isto é, cláusulas do
+  foram usadas primeiramente por Mckinsey, como notado por Horn \cite{horn}. É importante notar que
+  o ``cláusula'' usado aqui não é a mesma ``cláusula'' definida anteriormente, mas a ``cláusula'' da
+lógica clássica} (isto é, cláusulas do
 tipo C se $A_1$ e ... e $A_n$). Como pode imaginar, a teoria existente sobre cláusulas de Horn é de
-alguma importância para programas lógicos.
+alguma importância para programas lógicos. Mais especificamente, dada uma
+disjunção\footnote{Proposições unidas por ``ou''.} com ao menos um termo não negado, é dita uma
+\enphasis{cláusula de Horn}. Se existe exatamente um termo não negado, a seguinte identidade é de
+simples constatação:
+
+\[
+  X_1 \vee \neg X_2 \hdots \neg X_n \Leftrightarrow [(X_2 \wedge \hdots X_n) \Rightarrow X_1]
+\]
+
+\noindent em que o símbolo $\neg$ corresponde à negação lógica usual.
 
 Para melhor diferenciarmos goals de fatos, goals serão, aqui, escritos como:
 \codigo{
   p?
 }
 
-\noindent apesar de, na natureza\footnote{Isto é, no Prolog padrão}, não haver essa distinção (neles, goals são, como fatos,
-escritos com um ponto final no lugar de com um ponto de interrogação).
+\noindent apesar de, na natureza\footnote{Isto é, no Prolog padrão.}, não haver essa distinção (neles, goals são, como fatos,
+escritos com um ponto final no lugar de com um ponto de interrogação). Na verdade, a falta de distinção entre
+goals, fatos e termos de uma cláusula, como deve ficar mais claro nos próximos capítulos, faz
+sentido, já que no processo de resolução (que será explicado depois) eles cumprem papel semelhante.
 
 
-Considere o seguinte código:\\
+
+Agora, considere o seguinte código:\\
 
     \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap0/prog3_arvb.pl}\label{lst:arvb}
+\inputminted{prolog}{../Exemplos/Cap0/prog3_arvb.pl}
+\caption{Árvore Binária}\label{lst:arvb}
     \end{listing}
 
 O goal \codigo{$arvore\_b$(vazio)?} tem sucesso, já que é um dos fatos. O goal \codigo{$arvore\_b$(arvore(raiz, vazio, vazio))?} também tem, já que \codigo{$arvore\_b$(a, B, C)?} tem sucesso se $arvore\_b(A)$ e $arvore\_b(B)$ tiverem, o que ocorre. Perceba que, neste caso, o goal não tem sucesso segundo a primeira cláusula apenas e nem segundo a segunda. Ambas contribuem para a definição de $arvore\_b$.
@@ -165,11 +184,16 @@ contém variáveis são ditos \definicao{termos base}. Variáveis serão explica
 No geral, o que um programa lógico deveria fazer (isto é, o que a programadora tem em mente ao escrevê-lo) pode não ser a princípio claro. Numa tentativa de aliviar isso, usaremos aqui a convenção de usar nomes significativos, assumindo o significado usual (a não ser quando dito o contrário), para os elementos relevantes. Assim, por exemplo, o seguinte trecho:
 
     \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap0/prog4_pai.pl}\label{lst:pai_filho}
+\inputminted{prolog}{../Exemplos/Cap0/prog4_pai.pl}
+\caption{Pai e Filho}\label{lst:pai_filho}
     \end{listing}
 
 
-Indica que Pai tem a relação \enphasis{pai} com Filho se Filho tem a relação \enphasis{filho} com Pai (em outras palavras, um Pai é pai de um Filho se Filho é filho de Pai). Mas não é assumido que o interpretador do programa tenha conhecimento sobre o que é \technical{pai} ou \technical{filho}, ou seja, essa interpretação é relevante para o leitor do programa apenas (o que também significa que o leitor do programa pode ler \technical{pai} e \technical{filho} de várias formas e um programa pode, assim,
+Indica que Pai tem a relação \enphasis{pai} com Filho se Filho tem a relação \enphasis{filho} com
+Pai (em outras palavras, um Pai é pai de um Filho se Filho é filho de Pai). Mas não é assumido que o
+interpretador do programa tenha conhecimento sobre o que é \technical{pai} ou \technical{filho}, ou
+seja, essa interpretação é relevante para a leitora do programa apenas (o que também significa que a
+leitora do programa pode ler \technical{pai} e \technical{filho} de várias formas e um programa pode, assim,
 ser interpretado de diversas maneiras).
 
 Com essa discussão em mente, será ocasionalmente útil ter o \enphasis{significado} de um programa lógico definido de forma algo mais precisa:
@@ -208,6 +232,4 @@ Com essa discussão em mente, será ocasionalmente útil ter o \enphasis{signifi
 
   \end{thebibliography}
 
-  %\pagebreak
-
-%%\end{document}
+%\end{document}

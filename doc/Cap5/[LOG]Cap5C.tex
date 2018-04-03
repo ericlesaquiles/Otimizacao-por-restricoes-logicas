@@ -1,17 +1,17 @@
 %\documentclass{article}
 
-%%\documentclass[tikz,border=5]{standalone}
+%\documentclass[tikz,border=5]{standalone}
 %\usetikzlibrary{graphs,graphdrawing,arrows.meta}
 %\usegdlibrary{trees}
 
 %\input{../header.tex}
 
-%\forestset{
-  %tree angle/.style={
-    %tikz={\path () coordinate (A) -- (!u) coordinate (B) -- (!n) coordinate (C) pic [draw] {angle};}
-  %}
-%}
-%\usetikzlibrary{arrows.meta,angles}
+\forestset{
+  tree angle/.style={
+    tikz={\path () coordinate (A) -- (!u) coordinate (B) -- (!n) coordinate (C) pic [draw] {angle};}
+  }
+}
+\usetikzlibrary{arrows.meta,angles}
 
 
 %
@@ -29,18 +29,22 @@ Considere o seguinte programa, representando um pedaço da árvore genealógica 
 `parent', but until Frege developed his generalised theory of induction, no one could have defined `ancestor' precisely in terms of `parent.' ''} --- Bertrand Russel,\foreign{Introduction to Mathematical Philosophy}.
 Para sermos honestos: na verdade, ele se referia a uma versão mais geral dessa relação do que a apresentada aqui. Voltaremos a esse tema depois.}:
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap5/prog1_ancestor.pl}
+\caption{Ancestral 0}
     \end{listing}
 
-Por conveniência, no lugar das relações filhx/2 e ancestral/2 e dos nomes mostrados acima, usaremos os mostrados abaixo:
+Por conveniência, no lugar das relações filhx/2 e ancestral/2 e dos nomes mostrados acima, usaremos
+os mostrados no Código \ref{lst:ancestor1}\.
 
-    \begin{listing}
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap5/prog2_ancestor.pl}
+\caption{Ancestral 1}\label{lst:ancestor1}
     \end{listing}
 
 
-O goal \codigo{a(au, ne)?} define implicitamente uma árvore, que começa da seguinte forma:
+O goal \codigo{a(au, ne)?} define implicitamente uma árvore, que começa da forma a seguir.
+
 \begin{center}
   {\footnotesize
     \begin{forest}
@@ -114,8 +118,10 @@ atribuída a Mark Twain):
 O personagem dessa história, não sabendo Prolog, teve uma certa dificuldade em responder a essa
 questão. Mas nós, como que por reflexo, fazemos o seguinte programa:
 
-    \begin{listing}
+%TODO fix
+    \begin{listing}[H]
 \inputminted{prolog}{../Exemplos/Cap5/prog1_family.pl}
+\caption{Família}
     \end{listing}
 
 O último bloco de código na verdade não faz parte do programa, mas foi deixado por conveniência. Ele
@@ -132,7 +138,8 @@ termos foram deixados por completeza). Você tem ideia de como é a árvore de b
     3rd edition, Jacek Skalmierski Computer Studio, Gliwice, 2014
 
     \bibitem{russel} Russell, Bertrand (1919), Introduction to Mathematical Philosophy, George Allen and Unwin, London, UK. Reprinted, John G. Slater (intro.), Routledge, London, UK, 1993
-    \\Esse livro está datado em alguns pontos, mas permanece interessante. Está gratuitamente disponível (em inglês) em [http://people.umass.edu/klement/russell-imp.html].
+    \\Esse livro está datado em alguns pontos, mas permanece interessante. Está gratuitamente
+    disponível (em inglês) em \url{http://people.umass.edu/klement/russell-imp.html}
 
   \end{thebibliography}
 

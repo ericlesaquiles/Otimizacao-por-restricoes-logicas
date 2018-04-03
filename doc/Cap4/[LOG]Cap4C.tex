@@ -1,8 +1,6 @@
-%%\documentclass{article}
+%\documentclass{article}
 
-%%\input{../header.tex}
-
-%\usepackage[linguistics]{forest}
+%\input{../header.tex}
 
 %
 % TODO: revisar terminar esta seção!
@@ -10,7 +8,7 @@
 %
 
 
-%%\begin{document}
+%\begin{document}
 
 \section{Alguns predicados não lógicos}
 
@@ -18,7 +16,7 @@ Mesmo depois de termos visto tudo o que vimos, ainda temos alguns pontos a escla
   presença de escolhas. }. O ideal seria que, se um goal pode ser provado por um programa, o processo de prova seguisse um caminho direto, sem tentativas de unificações infrutíferas. Na prática, isso só é realizável para situações muito específicas e, no geral, serão tentadas
 diversas unificações infrutíferas antes de se chegar ao objetivo.
 
-Para esse tipo de situação existe o \definicao{choice point} logo antes de se tentar uma unificação. Se a tentativa resulta em falha, o processo volta ao estado anterior à tentativa, o que chamamos de \definicao{backtracking}, a possibilidade daquela unificação é eliminada e o processo continua (isto é, a mesma unificação não é tentada de novo). O goal falha quando todas as possibilidades foram eliminadas e tem sucesso quando não existirem mais unificações a serem feitas.
+Para esse tipo de situação é criado o \definicao{choice point} logo antes de se tentar uma unificação. Se a tentativa resulta em falha, o processo volta ao estado anterior à tentativa, o que chamamos de \definicao{backtracking}, a possibilidade daquela unificação é eliminada e o processo continua (isto é, a mesma unificação não é tentada de novo). O goal falha quando todas as possibilidades foram eliminadas e tem sucesso quando não existirem mais unificações a serem feitas.
 
 Os \foreign{choice points} são um ponto chave na execução de um programa lógico. A quantidade deles está diretamente relacionada com a eficiência do programa: quanto mais \foreign{choice points}, em geral, mais ineficiente o programa é. Assim, se o mesmo goal puder ser provado de mais de uma forma diferente, é necessária a criação de \foreign{choice points} a mais, o que deve ser evitado (em outras palavras, programas determinísticos costumam ser mais eficientes). Da mesma forma, se existe mais
 de um resultado para uma computação (isto é, se o mesmo goal admite diversas substituições que resultam em sucesso), a eliminação das opções a mais implicariam na eliminação de \foreign{choice points}, o que seria vantajoso.
@@ -34,6 +32,7 @@ Como um exemplo de seu uso, considere o seguinte programa:
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog1_member.pl}
+\caption{Member 0}
     \end{listing}
 
 O símbolo ``\_'' representa uma \definicao{variável anônima}. A utilizamos quando o nome daquela variável não é importante, o que acontece quando não a utilizarmos novamente (isso serve para não nos distrairmos com variáveis que não serão utilizadas: a variável anônima cumpre um papel meramente formal, de \foreign{placeholder}). Toda variável anônima é diferente, apesar de serem
@@ -47,6 +46,8 @@ Se a programadora quiser saber apenas se um certo \var{X} faz parte de uma certa
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog2_member2.pl}
+\caption{Member 1}
+
     \end{listing}
 
 O que o corte ``diz'' essencialmente é: ``Tudo bem. Agora que chegamos a este ponto, não olhe para trás''. A utilização desse novo programa para \foreign{member} é o mesmo do anterior, exceto que, agora, ao gerar membros da lista, só é gerado um elemento. Ao checar se outro elemento pertence a lista, assim que é obtido sucesso, o processo para.
@@ -62,6 +63,7 @@ Por exemplo, o \funtor{not/1} pode ser implementado de maneira similar à seguin
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog3_not.pl}
+\caption{Not}
     \end{listing}
 
 Onde o predicado \funtor{fail/0} é um \foreign{built-in} do Prolog que falha sempre.
@@ -70,10 +72,12 @@ Similarmente, podemos, a partir do corte, gerar outras formas de controle, famil
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog4_ifthenelse.pl}
+\caption{SES}
     \end{listing}
 
     \begin{listing}
 \inputminted{prolog}{../Exemplos/Cap4/prog5_or.pl}
+\caption{OR}
     \end{listing}
 
 Perceba que, diferentemente do que ocorre em programas puramente lógicos\footnote{Você pode se perguntar se algum do programa nesse texto é puramente lógico. Alguns dos mais simples, como o \enphasis{Natural}, do Capítulo 2, %COMMENT: lembrar de colocar referencia ao capitulo, no lugar do "2". E sempre que for fazer referencia a um capitulo, secao, tabela, figura, codigo, etc, com o numero na sequencia, usa letra maiuscula. Por exemplo, "Capítulo 1", "Código 3", etc.
@@ -88,9 +92,47 @@ Os programas acima demonstram uma possível forma de se definir, respectivamente
 \end{itemize}
 
 
-  %\begin{thebibliography}{2}
+\subsection{Outras Opções}
+
+Na realidade, é preciso notar que a perspectiva anterior (usando \technical{choice points} e
+\technical{backtrackings}) não é a única possível (mas é a usada no Prolog padrão). Que ela poderia não
+ser a única possível deve ser intuitivo, já que, a princípio, se começamos a descrever a programação lógica
+de forma realmente lógica, a ordem em que as cláusulas são postas, assim como a ordem dos termos em
+cada cláusula, não deveriam importar (na lógica clássica, $A \vee B$ é o mesmo que $B \vee A$), o
+que deixa de ser o caso quando introduzimos artifícios tais como \technical{choice points} e
+\technical{backtracking}.
+
+Artifícios desse tipo são necessários (ou, ao menos, parecem necessários), no entanto, quando
+queremos transformar um programa lógico em algo que possa ser executado. Em outras palavras, não é
+suficiente termos um conjunto de relações que impliquem alguma outra relação: precisamos de um
+mecanismo para construir uma prova de que o conjunto de relações implica de fato a outra relação.
+Uma prova (como interpretamos aqui) é uma sequência de passos que deriva inferências\footnote{Convém
+  termos uma ideia da diferença entre ``implicação'' e ``inferência'': ``A implica B'' não implica
+  que ``de A se infere B''. Ter uma prova de ``A implica B'', sim.} a partir de
+relações conhecidas anteriormente.
+
+O que isso significa é que a escolha do \technical{backtracking} para resolver ``tentativas
+infrutíferas'', como posto acima, é uma entre outras e, possivelmente, não a mais eficiente para
+todos os casos. Atualmente, existem outros métodos como \technical{dynamic backtracking}, \technical{partial order dynamic
+  backtracking} e \technical{backjumping}, com funcionamentos diferentes.
+
+No entanto, entendemos que, no que se segue, fazer uso de outro mecanismo que não o
+\technical{backtracking} adicionaria complexidade na exposição e pouco \foreign{insight} ao
+entendimento. Caso a leitora interessada queira consultar detalhes, uma boa fonte de consulta é
+\cite{dyn}
 
 
-  %\end{thebibliography}
 
-%%\end{document}
+
+  \begin{thebibliography}{2}
+
+    \bibitem{dyn}
+    Final Technical Report,
+    ``DYNAMIC BACKTRACKING'',
+    February 1997,
+    University of Oregon
+
+
+  \end{thebibliography}
+
+%\end{document}
