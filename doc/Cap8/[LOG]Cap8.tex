@@ -50,8 +50,10 @@ Enquanto em Prolog o único método iterativo é a recursão, no \eclipse\ dispo
     \\ Itera Busca(In, Out) de In = Prim até Out = Ult.
 \end{itemize}
 
-Existem diversos outros iteradores para propósitos diferentes, todos eles seguindo o padrão  \enphasis{(iterador do busca)}. Iteradores podem ser postos em conjunto como \enphasis{(iterador1, iterador2, ..., iteradorn do busca)}. Ao fazer isso, todos os iteradores dão o passo junto, por assim dizer, e o conjunto de iteradores para quando qualquer um deles chegar ao fim. Também podemos aninhar iteradores (como se colocássemos um \technical{for} dentro de outro em uma linguagem
-convencional) da seguinte forma: \enphasis{(iterador1 do (iterador 2 do ... (iteradorn do busca)))}.
+Existem diversos outros iteradores para propósitos diferentes, todos eles seguindo o padrão
+\enphasis{(iterador \codigo{do} busca)}. Iteradores podem ser postos em conjunto como \enphasis{(iterador1, iterador2, ..., iteradorn do busca)}. Ao fazer isso, todos os iteradores dão o passo junto, por assim dizer, e o conjunto de iteradores para quando qualquer um deles chegar ao fim. Também podemos aninhar iteradores (como se colocássemos um \technical{for} dentro de outro em uma linguagem
+convencional) da seguinte forma: \enphasis{(iterador1 \codigo{do} (iterador2 \codigo{do} ... (iteradorn
+  \codigo{do} busca)))}.
 
 \subsection{Backtracking no Prolog/Eclipse}
 
