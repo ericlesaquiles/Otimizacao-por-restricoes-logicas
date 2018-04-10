@@ -8,6 +8,8 @@
 
 \begin{document}
 
+%COMMENT: acho que teve um salto dos capitulos anteriores para este. Ficou faltando uma "liga", que talvez o capitulo 12 possa dar.
+
 \section{Dualidade e relaxação}
 
 \epigraph{\cit{ - Q: Qual é o contrário do ``espaço dual''?\\
@@ -20,7 +22,7 @@ linear inteira (lagrangeana), entre outras. Frequentemente, os métodos de otimi
 confiavelmente eficicientes são métodos primal-dual.
 
 A dualidade é um tema unificador porque podemos expressar todos os duais como dual de inferência ou
-de relaxação (frequentemente vezes, como ambos). Um dual de inferência pode ser visto como o
+de relaxação (frequentemente, como ambos). Um dual de inferência pode ser visto como o
 problema de inferir das restrições nas variáveis um maior limitante inferior na imagem da função
 objetivo (assumimos daqui para frente, sem perda de generalidade, que queremos minimizar a função). Assim, a busca ocorre
 sobre provas, no lugar de sobre valores das variáveis. Mais precisamente, se tivermos um problema de
@@ -32,7 +34,7 @@ otimização da forma
   &  x \in X,
 \end{align*}
 
-\noindent em que $R(x)$ denota as restrições sobre x, sendo X o seu domínio, seu respectivo
+\noindent em que $R(x)$ denota as restrições sobre $x$, sendo $X$ o seu domínio, seu respectivo
 \definicao{dual de inferência} nos coloca o problema de maximizar o limitante inferior em $f(x)$ que
 é inferível das restrições. Isso ocorre na forma de uma busca por uma prova do limitante ótimo (ou
 ``bom o suficiente'', se não pudermos pedir por um ``ótimo''):
@@ -77,14 +79,14 @@ a eficiência de métodos de busca por \technical{backtracking} por meio de ``ex
 na forma de novas restrições ao problema original. Para CSPs em geral, tais ``explicações'' são
 chamadas \technical{nogood} (ou, às vezes, ``conflitos''). Foi mostrado que uma grande quantidade de
 problemas que não podem (até o presente momento) ser resolvidos por outras técnicas podem ser
-resolvidos de maneira eficiente por \technical{aprendizado de cláusulas}. Em particlar, problemas
-(enteriormente) abertos em teoria de grupos foram resolvidos com essa técnica (entre outras). Para
-mais informações, veja \cite{beame}
+resolvidos de maneira eficiente por \technical{aprendizado de cláusulas}. Em particular, problemas
+(anteriormente) abertos em teoria de grupos foram resolvidos com essa técnica (entre outras). Para
+mais informações, veja~\cite{beame}
 
 \subsection{Duais}
 
 Existem na literatura de programação por restrições, assim como na de programação matemática,
-diversas noções específicas de dual, para diversos tipos de problemas diferentes. Entre eles, destacam-se
+diversas noções específicas de dual, para diversos tipos de problemas diferentes. Entre elas, destacam-se
 como especialmente úteis os duais \technical{substituto} e \technical{lagrangeano}, aos quais devotaremos alguma atenção
 nesta seção e na próxima, colocando ênfase especial na relação entre eles. Então, nossa atenção se
 voltará ao \technical{dual por ramificação}, que será útil em nosso posterior estudo de técnicas de
@@ -123,7 +125,7 @@ Daí segue que essa formulação é equivalente a
 \begin{align*}
   max \;& \sigma(u),\\
   \sigma(u) &= min_{x\in X}\{f(x)|ug(x)\geq0\},\\
-  u &\geq 0,
+  u &\geq 0.
 \end{align*}
 
 Pergunta: o \technical{dual substituto} é completo?
@@ -131,10 +133,11 @@ Pergunta: o \technical{dual substituto} é completo?
 
 \subsubsection{Dual Lagrangeano}
 
-O dual lagrangeano ao problema \ref{eqt:geral} é semelhante ao dual substituto, exceto que, no dual
-lagrangeano, as provas fazem uso de combinações lineares a \technical{dominação}\footnote{Dizemos que uma
-desigualdade $g(x) \geq 0$ domina uma $h(x) \geq 0$ se $g(x) \leq h(x) \;\forall x$, ou se não existe x
-tal que $g(x) \geq 0$}. O dual é o problema \ref{eqt:surro}, em que $\mathcal{P}$ consiste de provas
+O dual lagrangeano do problema (\ref{eqt:geral}) é semelhante ao dual substituto, exceto que, no dual
+lagrangeano, as provas fazem uso de combinações lineares e %QUESTION: era pra ser um "e" aqui mesmo?
+\technical{dominação}\footnote{Dizemos que uma
+desigualdade $g(x) \geq 0$ domina uma $h(x) \geq 0$ se $g(x) \leq h(x) \;\forall x$, ou se não existe $x$
+tal que $g(x) \geq 0$.}. O dual é o problema (\ref{eqt:surro}), em que $\mathcal{P}$ consiste de provas
 que mesclam combinação linear com dominação: $f(x) \geq v$ é inferido de $g(x) \geq 0$ se $\exists
 \; l \geq 0: lg(x)$ domina $f(x) \geq v$.
 
@@ -144,7 +147,7 @@ em relação ao \technical{substituto}. Apesar disso, para outros fatores o lagr
 interessantes do que o \technical{substituto}, o que o torna atraente para uma grande variedade de problemas. Por exemplo,
 o conjunto de soluções factíveis para o \technical{dual lagrangeano} é côncavo (o que não vale, no
 geral, para o \technical{dual substituto}). Isso pode ser visto
-facilmente, se, supondo que $lg(x) \geq 0$ é factível para $l\geq0$, observarmos que o
+facilmente se, supondo que $lg(x) \geq 0$ é factível para $l\geq0$, observarmos que o
 lagrangeano maximiza $v$ com $l \geq 0$ e $lg(x) \geq f(x) - v \; \forall x \in X$. Reescrevendo $lg(x)
 \leq f(x) - v$ como $v \leq f(x) - lg(x)$ e fazendo $\lambda(l,x) = f(x) - lg(x)$, nosso
 lagrangeano é equivalente a
@@ -157,7 +160,7 @@ lagrangeano é equivalente a
   \end{align}
 %\end{equation}
 
-\noindent e o conjunto de ínfimos de funções afim (como em \ref{eqt:lambda}) é um conjunto côncavo
+\noindent e o conjunto de ínfimos de funções afim (como em (\ref{eqt:lambda})) é um conjunto côncavo
 ($\lambda$ é afim para $x$ fixo). O vetor $l$ é popularmente conhecido como vetor de multiplicadores
 de lagrange.
 
@@ -166,7 +169,7 @@ de lagrange.
 Intuitivamente, se temos uma árvore de busca para um problema de otimização, essa árvore vista ``de
 baixo para cima'', isto é, das folhas para a raíz, nos provê um certificado de otimalidade a uma
 solução ótima. Além disso, dada tal árvore de busca, cada subárvore dela constitui uma relaxação ao
-problema original e provê um limitante ao custo ótimo ao problema original.
+problema original e provê um limitante ao custo ótimo do problema original.
 Assim, parece natural definirmos um dual por ramificação ao problema de otimizar um $f(x)$ nas
 folhas de uma árvore de busca $\mathpzc{T}$ da seguinte forma:
 
@@ -180,7 +183,7 @@ folhas de uma árvore de busca $\mathpzc{T}$ da seguinte forma:
 \noindent em que $B$ é o limitante de $f$ em $\mathpzc{T'}$ e $\mathcal{T}$ é uma coleção de
 subárvores de $\mathpzc{T}$.
 
-As estratégias de ramificação que veremos logo mais podem ser vistas como instânicas do dual de
+As estratégias de ramificação que veremos logo mais podem ser vistas como instâncias do dual de
 ramificação. Para mais detalhes sobre o dual de inferência veja \cite{hooker}.
 
 
@@ -196,7 +199,7 @@ um certificado polinomial de otimalidade para qualquer instância.
 
 Se um problema de otimização primal for co-NP, seu dual de inferência é NP para alguma família de
 provas $\mathcal{P}$: se o problema for co-NP, seja $\mathcal{P}$ a família de provas $P_i$ (que
-assumimos polinomiais) de otimalidade da instância i, de valor ótimo $v_i$, provê um certificado
+assumimos polinomiais) de otimalidade da instância $i$, de valor ótimo $v_i$, provê um certificado
 polinomial de factibilidade do dual (que é, portanto, NP).
 
 Programação linear pertence a ambos NP e co-NP. Problemas desse tipo são tidos ter ``boa
