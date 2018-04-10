@@ -18,18 +18,18 @@ seguir.
 
 \subsection{Vetores}
 
-Listas são interessantes, mas, eventualmente, podemos querer realizar acesso a em tempo constante a
+Listas são interessantes, mas, eventualmente, podemos querer realizar acesso em tempo constante a
 um membro qualquer, o que não é possível. Em outras linguagens, esse tipo de acesso é por costume
 realizado através de vetores. Vetores existem em Prolog padrão, de certa forma. Como os argumentos
 de funtores podem ser acessados em tempo constante por meio do funtor \funtor{arg/3}, a princípio,
 um funtor qualquer poderia ser usado como um vetor, o acesso aos membros do qual sendo feitos por meio de
-\funtor{arg/3}. Essa abordagem, no entanto, não só não parece muito elegante, como é pouco prática, .
+\funtor{arg/3}. Essa abordagem, no entanto, não só não parece muito elegante, como é pouco prática.
 Se temos algo que chamamos de vetor, gostaríamos de poder fazer algo como \codigo{Vetor[2] =/= 4}, por
 exemplo, o que com os meios do Prolog padrão não é possível.
 
-Para esse tipo de situação, no \eclipse existe uma implementação de vetores como um açucar
+Para esse tipo de situação, no \eclipse\ existe uma implementação de vetores como um açúcar
 sintático semelhante ao que vimos na implementação de listas, permitindo justamente esse tipo de
-utilização. Em particular, um vetor, é escrito como uma variável seguida do funtor de lista (como
+utilização. Em particular, um vetor é escrito como uma variável seguida do funtor de lista (como
 em \codigo{Var[4]}), ou, se anônimo, como \codigo{[](A, B, C)}. Note que, assim, a representação de
 um vetor ou de uma lista vazia é a mesma. Para criar ``vetores'', possivelmente multidimensionais
 (na realidade, matrizes), existe o predicado \funtor{dim/2}, que pode ser usado ou para criar vetores
@@ -38,13 +38,13 @@ ou para extrair sua dimensão.
 \subsection{As $n$-rainhas}
 
 Analisaremos o efeito de algumas heurísticas pela resolução do \enphasis{problema das
-  n-rainhas} quando $n > 3$\footnote{Quando $n = 2 ou n = 3$, o problema não tem solução}. É um
+  $n$-rainhas} quando $n > 3$\footnote{Quando $n = 2 ou n = 3$, o problema não tem solução.}. É um
 problema por restrições tão bem conhecido que um estudante de programação por
 restrições poderia (talvez com razão) se sentir enganado se terminasse um livro sobre o tema sem saber
 como resolver esse problema em especial. A discussão a seguir é baseada, em grande parte, em
 \cite{krzysztof}.
 
-Para quem não conhece, o \enphasis{problema das n-rainhas} é o problema de alocar $n$ rainhas em um
+Para quem não conhece, o \enphasis{problema das $n$-rainhas} é o problema de alocar $n$ rainhas em um
 tabuleiro como o de xadrez, mas $n\times n$, com a restrição de que as rainhas não têm permissão
 para se atacarem segundo as regras usuais de xadrez.
 
@@ -57,7 +57,7 @@ lista\footnote{Ou um vetor.} de $n$ posições, não uma matriz (como alguém po
 posição na lista é o intervalo inteiro $[1,n]$ e as restrições são que só pode existir uma rainha
 por linha (ou por coluna), o que se traduz na restrição \codigo{alldifferent(Cols)}, em que
 \var{Cols} é o vetor de colunas. Ademais, só pode existir uma rainha por linha, o que se traduz nas
-restrições \codigo{$X_i$\footnote{Por conveniência, usamos $X_i$ no lugar de $X[i]$.} - $X_j$ $\setminus=\setminus$ I - J} e \codigo{$X_i$ - $X_j$
+restrições\footnote{Por conveniência, usamos $X_i$ no lugar de $X[i]$.} \codigo{$X_i$ - $X_j$ $\setminus=\setminus$ I - J} e \codigo{$X_i$ - $X_j$ %COMMENT: troquei o footnote de lugar porque ele estava parecendo uma potencia
   $\setminus=\setminus$ J - I}, em que $X_i$ e $X_j$ são membros distintos da lista de colunas (ou linhas).
 
     \begin{listing}[H]
@@ -67,8 +67,8 @@ restrições \codigo{$X_i$\footnote{Por conveniência, usamos $X_i$ no lugar de 
 
 Esse programa primeiro declara o vetor \var{RainhaStruct}, impõe a ele as restrições mencionadas,
 transforma o vetor em lista e realiza a busca (como explicada no Capítulo 10).%TODO por link
-O programa, no computador do autor, consegue resolver o problema por esse programa para \var{N} até 29,
-mas, adotando um tempo limite de 50 segundos, \var{N} = 30 já está fora de mão.
+ O programa, no computador do autor, consegue resolver o problema por esse programa para \var{N} até 29,
+mas, adotando um tempo limite de 50 segundos, \var{N} = 30 já está fora de mão. %COMMENT: o que quer dizer com "fora de mao"? Que nao eh mais possivel?
 
 Alguém poderia dizer que isso ocorre porque esse código não foi feito de maneira inteligente,
 já que a assimetria do problema, presente no fato de que a alocação de uma rainha em uma coluna
@@ -89,7 +89,7 @@ Podemos definir o \funtor{rainhas/2}, do exemplo passado, como um \funtor{rainha
     \end{listing}
 
 Uma heurística mais esperta nesta situação seria começar a testar as variáveis do meio. Chamaremos
-essa heurítica de \technical{middle\_out}: ela faz com que a busca comece do meio e vá alternando
+essa heurística de \technical{middle\_out}: ela faz com que a busca comece do meio e vá alternando
 entre os vizinhos do lado esquerdo e direito, a partir do meio.
 
     \begin{listing}[!h]
@@ -101,7 +101,7 @@ entre os vizinhos do lado esquerdo e direito, a partir do meio.
 Aqui usamos a biblioteca \technical{lists}, que contém, entre outros predicados, \funtor{halve/3},
 \funtor{reverse/2} e \funtor{splice/3}. O que o primeiro e o segundo desses predicados faz é
 claro. O que o terceiro faz é juntar em \var{ListaDeSaida} as \var{UltimaMetade} e
-\var{RevPrimeiraMetade} colocando um membro de cada alternadamente (como uma função
+\var{RevPrimeiraMetade}, colocando um membro de cada alternadamente (como uma função
 \technical{merge} do \technical{merge sort}).
 
 À parte dessa heurística, existe a \technical{first\_fail}, que seleciona como a próxima variável a
@@ -119,7 +119,7 @@ forma:
     \caption{Heurística First Fail}
     \end{listing}
 
-\noindent o parâmetro 0 indica que de fato lidamos com uma lista.
+O parâmetro 0 indica que de fato lidamos com uma lista.
 
 A experiência prática (que você pode realizar) indica que, para instâncias pequenas (para $N$ pequenos), a diferença entre usar
 o \technical{fisrt\_fail} ou não é pequena. Para $N$ grandes, entretanto, a diferença é notável.
@@ -132,15 +132,15 @@ o \technical{fisrt\_fail} ou não é pequena. Para $N$ grandes, entretanto, a di
     \caption{Heurística Meio + First Fail}
     \end{listing}
 
-\subsection{Heurísticas de ordenamento de valor}
+\subsection{Heurísticas de ordenamento de valor} %QUESTION: nao deveria ser "ordenacao"?
 
 A mesma observação usada para a heurística \technical{middle\_out} vale para a ordem dos valores
 escolhidos: a escolha de valores próximos ao centro restringem mais os valores de outras variáveis e
-têm a chance de falhar mais cedo. O \eclipse oferece um predicado \funtor{indomain/2} que nos ajuda
+têm a chance de falhar mais cedo. O \eclipse\ oferece um predicado \funtor{indomain/2} que nos ajuda
 nisso: seu segundo argumento nos dá um certo controle sobre a ordem em que os valores são testados.
 Em particular, \codigo{indomain(Var, middle)} começa a enumeração das variáveis pelo meio do domínio
 de \var{Var}. Existem também \codigo{indomain(Vars, min)} e \codigo{indomain(Vars, max)} que começam
-pelos menores valores e maiores, respectivamente (usando a ordem do domínio, pela qual ``menor'' é o
+pelos menores e maiores valores, respectivamente (usando a ordem do domínio, pela qual ``menor'' é o
 que aparece antes na lista).
 
 Podemos assim combinar nossa heurística anterior (\technical{moff}) com esta (que chamaremos de
@@ -162,8 +162,8 @@ valores de $N$:
 
 \subsection{Outras Considerações}
 
-O problema das n-rainhas é simétrico em que se uma solução tem a enésima rainha no emésimo quadrado da
-coluna i, outra solução teria a enésima rainha na emésimo quadrado da linha i. Perceba que uma solução é
+O problema das $n$-rainhas é simétrico, já que se uma solução tem a $n$-ésima rainha no $m$-ésimo quadrado da
+coluna $i$, outra solução teria a $n$-ésima rainha no $m$-ésimo quadrado da linha $i$. Perceba que uma solução é
 equivalente à outra, a menos de rotações de 90º do tabuleiro. Assim, quando a heurística de ordenação de
 variáveis \technical{middle\_out} sucede sem \technical{backtrackings}, a heurística de ordenação de
 valores \codigo{indomain(Var, middle)} também deveria. Percebendo isso, podemos criar uma heurística
@@ -184,7 +184,7 @@ segue:
 
 Curiosamente, os resultados para o \technical{rotate} são muito melhores do que para
 \technical{middle\_out}, como pode ser visto na seguinte tabela, mostrando a quantidade de
-\technical{backtrackings} por N e por heurística:
+\technical{backtrackings} por $N$ e por heurística:
 
 \begin{figure}[H]
   \caption{Retirado de \cite{krzysztof}}\label{fig:psi}
@@ -193,7 +193,7 @@ Curiosamente, os resultados para o \technical{rotate} são muito melhores do que
 \end{figure}
 
 Isso ocorre porque o comportamento da propagação de restrições não é o mesmo para linhas e colunas.
-Se os valores para uma coluna são excluídos, exceto um, essa variável é instanciada ao velor
+Se os valores para uma coluna são excluídos, exceto um, essa variável é instanciada ao valor
 restante. Esse é o comportamento exibido por \technical{rotate}.
 
 No entanto, no comportamento exibido por \technical{middle\_out}, se todos os valores de uma linha
@@ -202,7 +202,7 @@ variáveis são representadas por colunas.
 
 Uma forma de conseguir a mesma quantidade de propagação é usar uma redundância na formulação do
 problema. Neste caso, poderíamos adicionar outro tabuleiro ligado ao primeiro de modo que, se uma
-rainha i é posta no quadrado j de um tabuleiro, no outro, uma rainha j é posta no quadrado i.
+rainha $i$ é posta no quadrado $j$ de um tabuleiro, no outro, uma rainha $j$ é posta no quadrado $i$.
 Técnicas desse tipo se mostraram muito eficientes.
 
 \subsection{O Predicado Search}
@@ -212,7 +212,7 @@ poderia ser substituído pelo uso do predicado \funtor{search/6}. Ele tem 6 argu
 \technical{search(+Lista, ++Arg, ++Select, +Escolha, ++Metodo, +Opcao)}. O primeiro argumento,
 \var{Lista}, é uma lista de variáveis de decisão (as variáveis do problema) quando \var{Arg} é 0, ou
 uma lista de funtores compostos quando $\var{Arg} > 0$. Assumiremos que \var{Arg} é 0. O argumento \var{Select}
-representa uma heurística (feita pelo usuário ou não) de ordenação de variáveis, enquanto que, o
+representa uma heurística (feita pelo usuário ou não) de ordenação de variáveis, enquanto que o
 \var{Escolha}, uma de ordenação de valores. Pelo \var{Metodo}, podemos selecionar a ``forma'' pela
 qual a busca deve ser feita: algumas opções são \technical{complete} (que realiza uma busca por
 todos os valores), e \technical{sbds} (que faz uso da biblioteca SBDS de quebra de simetria para
