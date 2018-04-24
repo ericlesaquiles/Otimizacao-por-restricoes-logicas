@@ -57,7 +57,7 @@ lista\footnote{Ou um vetor.} de $n$ posições, não uma matriz (como alguém po
 posição na lista é o intervalo inteiro $[1,n]$ e as restrições são que só pode existir uma rainha
 por linha (ou por coluna), o que se traduz na restrição \codigo{alldifferent(Cols)}, em que
 \var{Cols} é o vetor de colunas. Ademais, só pode existir uma rainha por linha, o que se traduz nas
-restrições\footnote{Por conveniência, usamos $X_i$ no lugar de $X[i]$.} \codigo{$X_i$ - $X_j$ $\setminus=\setminus$ I - J} e \codigo{$X_i$ - $X_j$ %COMMENT: troquei o footnote de lugar porque ele estava parecendo uma potencia
+restrições\footnote{Por conveniência, usamos $X_i$ no lugar de $X[i]$.} \codigo{$X_i$ - $X_j$ $\setminus=\setminus$ I - J} e \codigo{$X_i$ - $X_j$
   $\setminus=\setminus$ J - I}, em que $X_i$ e $X_j$ são membros distintos da lista de colunas (ou linhas).
 
     \begin{listing}[H]
@@ -68,7 +68,8 @@ restrições\footnote{Por conveniência, usamos $X_i$ no lugar de $X[i]$.} \codi
 Esse programa primeiro declara o vetor \var{RainhaStruct}, impõe a ele as restrições mencionadas,
 transforma o vetor em lista e realiza a busca (como explicada no Capítulo 10).%TODO por link
  O programa, no computador do autor, consegue resolver o problema por esse programa para \var{N} até 29,
-mas, adotando um tempo limite de 50 segundos, \var{N} = 30 já está fora de mão. %COMMENT: o que quer dizer com "fora de mao"? Que nao eh mais possivel?
+mas, adotando um tempo limite de 50 segundos, \var{N} = 30 já está fora de mão (leva mais de 50
+segundos).
 
 Alguém poderia dizer que isso ocorre porque esse código não foi feito de maneira inteligente,
 já que a assimetria do problema, presente no fato de que a alocação de uma rainha em uma coluna
@@ -132,7 +133,7 @@ o \technical{fisrt\_fail} ou não é pequena. Para $N$ grandes, entretanto, a di
     \caption{Heurística Meio + First Fail}
     \end{listing}
 
-\subsection{Heurísticas de ordenamento de valor} %QUESTION: nao deveria ser "ordenacao"?
+\subsection{Heurísticas de ordenação de valor}
 
 A mesma observação usada para a heurística \technical{middle\_out} vale para a ordem dos valores
 escolhidos: a escolha de valores próximos ao centro restringem mais os valores de outras variáveis e
