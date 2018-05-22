@@ -7,9 +7,13 @@ a Otimização por Restrições Lógicas no geral e Programação Lógica em par
 
 Uso:
   Para compilar um capítulo, faça:
+  ```
     $ pdflatex -shell-escape '[LOG]CapI.tex'
-  onde I é o número do capítulo
+  ```
+  em que I é o número do capítulo.
 
   Para compilar a versão completa, faça:
-    $ ./updateComplete.sh
-  na pasta doc/Complete. Aparecerão aluns warnings e erros. Ignore-os.
+  ```
+  $ ./updateComplete.sh
+  ```
+  na pasta `doc/Complete`. Aparecerão aluns warnings e erros. Ignore-os.
