@@ -1,0 +1,28 @@
+:- lib(ic).
+:- lib(branch_and_bound).
+
+model(Weights, Values, Bounds, Capacity, Amounts, Weight, Value) :-
+        ( foreach(Bound,Bounds), foreach(Amount,Amounts) do
+                Amount $:: 0..Bound
+        ),
+        integers(Amounts),
+        Amounts*Weights $= Weight,
+        Weight $=< Capacity,
+        Amounts*Values $= Value.
+
+solve(Weights, Values, Bounds, Capacity, Amounts, Weight, Value) :-
+        model(Weights, Values, Bounds, Capacity, Amounts, Weight,
+              Value),
+        Cost #= -Value,
+        minimize(search(Amounts, 0, largest, indomain_reverse_split,
+                        complete, []), Cost).
+
+main :-
+        data(Names, Weights, Values, Bounds, Capacity),
+        solve(Weights, Values, Bounds, Capacity, Amounts, Weight,
+              Value),
+        ( foreach(Amount,Amounts), foreach(Name,Names) do
+                ( Amount >0 -> printf("%d of %w%n", [Amount,Name]) ;
+                               true )
+        ),
+        writeln(weight=Weight;value=Value).
