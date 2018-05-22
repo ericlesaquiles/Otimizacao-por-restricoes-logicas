@@ -14,6 +14,6 @@ Uso:
 
   Para compilar a versão completa, faça:
   ```
-  $ ./updateComplete.sh
+    $ ./updateComplete.sh
   ```
   na pasta `doc/Complete`. Aparecerão aluns warnings e erros. Ignore-os.
