@@ -158,11 +158,35 @@ Não deve ser difícil de ver como isso nos leva ao resultado desejado.''
 
   \begin{listing}[H]
     \inputminted{prolog}{../Exemplos/Cap12/prog2-knapSackIc.ecl}
-    \caption{Conquistador Bárbaro IC}\label{lst:knapsackEplex}
+    \caption{Conquistador Bárbaro IC}\label{lst:knapsackIC}
   \end{listing}
 
   Para saber qual dos métodos é o mais interessante, podemos simplesmente tomar uma pequena quantidade dos itens
   iniciais, fazer um teste, e ver qual resolvemos mais rápido.''
+
+  ``Isso pode ser uma dificuldade, porque, como ainda não alcançamos todos os lugares de onde os
+  itens serão subtraídos, só temos uma ideia muito vaga sobre quais itens existem e qual o valor de
+  cada.'' - Disse Sulla.
+
+  ``Um problema facilmente remediado. Podemos fazer testes com valores aleatórios, como exemplificado aqui.'' e, ao dizer isso, Theon
+  primeiro explicou a notação que usaria e, depois, mostrou algo equivalente ao seguinte código a Sulla:
+
+  \begin{listing}[H]
+    \inputminted{prolog}{../Exemplos/Cap12/test/random.ecl}
+    \caption{Problemas Aleatórios}\label{lst:random}
+  \end{listing}
+
+  ``Desta forma, se nos limitarmos a 50 segundos de computação, pela primeira versão do
+  método\footnote{O programa \ref{lst:knapsackEplex}.}, podemos resolver o problema para 25 itens em
+  um tempo médio de 0,01 segundos, enquanto que pela segunda versão do método\footnote{O programa
+    \ref{lst:knapsackIC}.}, para 14 itens,  o tempo de resolução varia de 0,17 segundos a 34,23 segundos. Para 15 itens ou mais, não parece haver esperanças para o segundo método, enquanto que, pelo primeiro, problemas de 250.000 tipos de itens levam uma média de apenas 39 segundos para serem resolvidos.''
+
+  ``Parece que, pelo menos por ora, nosso problema está resolvido.'' - Disse Sulla.
+
+  ``Sim, o seu problema está.''
+
+
+
 
 
 
@@ -181,6 +205,9 @@ Não deve ser difícil de ver como isso nos leva ao resultado desejado.''
     Plutarch,
     ``Sulla'', traduzido por John Dryden
 
+  \bibitem{eclipse}
+    \eclipse,
+    \url{http://www.eclipseclp.org/examples/}
 
   \end{thebibliography}
 
