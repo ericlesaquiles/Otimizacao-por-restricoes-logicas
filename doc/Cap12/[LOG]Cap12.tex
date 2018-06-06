@@ -17,7 +17,7 @@ resolvê-lo e comparar esses métodos.
 
 \subsection{O Problema}
 
-O general romano Sulla, em suas campanhas pela Grécia, fez (entre outras ocisas) o que qualquer
+O general romano Sulla, em suas campanhas pela Grécia, fez (entre outras coisas) o que qualquer
 outro general bárbaro faria em seu lugar, isto é, saqueou tesouros locais para obter vantagem na
 guerra (diferente de outros
 generais bárbaros, Sulla prometeu devolver parte do saque). Mas isso constituiu um problema,
@@ -27,12 +27,12 @@ capacidade de carga de seu exército era muito limitada, umas vez que dispunha d
 dos tesouros, mas o seu peso.
 
 O valor de cada peça de tesouro é dado por uma função complicada de interesses internos e externos
-(no que influem, entre outros fatores, o preço pelo qual Sulla poderia vender dado item, no valor que cada
+(no que influenciam, entre outros fatores, o preço pelo qual Sulla poderia vender dado item, no valor que cada
 soldado atribui ao item, no valor que seus conterrâneos atribuiriam ao item e na reputação que
 carregar um item lhe conferiria) e
 é sumarizada no que chamamos de \enphasis{valor Sulla}, $\mathscr{S}$, de um item. Depois de calcular
 o $\mathscr{S}$ de cada item relevante, Sulla compilou a seguinte tabela preliminar com o peso médio e valor
-médio de cada item\footnote{Não há evidências de que tal tabela tenha sido feitas, mas é mantida
+médio de cada item\footnote{Não há evidências de que tal tabela tenha sido feita, mas é mantida
   aqui pela conveniência ao exemplo.}:
 
 
@@ -48,8 +48,8 @@ médio de cada item\footnote{Não há evidências de que tal tabela tenha sido f
 \end{center}
 
 Sem muito sucesso em resolver o problema, Sulla mandou que chamassem um matemático local para
-resolver o problema. Theon de Smyrna, estava por perto e foi convocado. No início, se sentiu
-incomodado no por ter que deixar de lado seu trabalho com os sólidos de Platão em favor de um
+resolvê-lo. Theon de Smyrna estava por perto e foi convocado. No início, se sentiu
+incomodado por ter que deixar de lado seu trabalho com os sólidos de Platão em favor de
 ajudar um bárbaro a resolver um problema desse tipo inferior, como considerava, mas,
 notando que pode ser mais difícil para um morto desenvolver trabalhos com
 os sólidos de Platão, decidiu ajudar Sulla com seu problema.
@@ -62,7 +62,7 @@ relembrar a infância, ainda mais que isso te será útil.''
 
 ``Continue.'' - disse Sulla.
 
-``Meu pai era um fazendeiro muito forte, mas também tinha o seus limites. Ás vezes, precisava
+``Meu pai era um fazendeiro muito forte, mas também tinha o seus limites. Às vezes, precisava
 realizar trabalhos em partes distantes e, para isso, precisava levar suas ferramentas. Cada
 ferramenta faria o seu trabalho mais fácil, ou o ajudaria a terminá-lo mais rápido, ou lhe
 proporcionaria maior conforto ao realizá-lo. Cada uma, também, tinha o seu peso, e meu pai, forte
@@ -96,7 +96,7 @@ modelo mais geral ao problema que deseja resolver é o seguinte:
   0 \leq q_i \leq l_i,\; & q_i \; inteiro
 \end{align*}
 
-Em que $q_i$ é a quantidade a ser levada do item $i$, $p_i$ o peso do item $i$ (em
+\noindent em que $q_i$ é a quantidade a ser levada do item $i$, $p_i$ o peso do item $i$ (em
 $\mathscr{S})$, $C$ a capacidade máxima a ser levada e $l_i$ limite máximo do item $i$ a ser
 levado (não podemos levar mais do que $l_i$ do item i, talvez porque não existam mais do que $l_i$
 desses itens).
@@ -110,8 +110,8 @@ você. Será divertido e intrutivo.''
 ``Imagine que você sabe resolver esse problema para $C' < C$ e para todo subconjunto dos itens (um
 subconjunto de $\{1, ..., n\}$) e tenha em mãos uma solução para ele. Se retirarmos dessa solução um item $i$, de peso $p_i$, deve ser
 claro que a solução restante é ótima para o problema cuja capacidade de $C - p_i$ e conjunto de
-itens $\{1, ..., n\}-i$. Isso indica que uma solução ótima goza de uma subestrutura ótima. Isto é, o
-retiro de itens dessa solução gera uma solução que é ótima para outro problema, de fato um
+itens $\{1, ..., n\}-\{i\}$. Isso indica que uma solução ótima goza de uma subestrutura ótima. Isto é, a
+remoção de itens dessa solução gera uma solução que é ótima para outro problema, de fato um
 subproblema, mais simples. Se temos a solução para algum desses subproblemas, só precisamos
 expandi-lo, considerando itens que não foram considerados. Para cada um desses itens, sabendo que a
 nova solução ótima $op(i,c)$ para uma capacidade $c$, ao considerar a adição de um item $i$, é:
@@ -125,7 +125,7 @@ nova solução ótima $op(i,c)$ para uma capacidade $c$, ao considerar a adiçã
 \]
 
 Fazendo $op(0, C) := 0$ e computando os valores de $op(i, c)$ por essa recursão\footnote{Conhecida
-como recursão de Bellman} nos dá o valor ótimo que o meu pai queria. Se quisermos resolver o seu
+como recursão de Bellman.} temos o valor ótimo que o meu pai queria. Se quisermos resolver o seu
 problema, precisamos fazer apenas uma pequena alteração, como a seguinte:
 
 \[
@@ -138,13 +138,14 @@ Não deve ser difícil de ver como isso nos leva ao resultado desejado.''
 ``Oh, mas Theon! Devo ter me enganado ao achar que era um matemático, pois você me está parecendo
   mais um ator de teatro! Isso porque qualquer ator de teatro me daria uma resposta como essa, mas
   ela é longe de satisfatória. Mas é pior do que um ator de teatro, porque quem quer que fosse
-  incubido de realizar a tarefa pelo método que você propôs ficaria um tempo intolerável fazendo
-  contas, tempo esse que é, de fato, morto. E você seria o responsável pela morte.'' - disse Sulla.
+  incumbido de realizar a tarefa pelo método que você propôs ficaria um tempo intolerável fazendo
+  contas, tempo esse que é, de fato, morto. %QUESTION: o tempo eh morto ou a pessoa morre de tanto tempo que demora?
+  E você seria o responsável pela morte.'' - disse Sulla.
 
   Theon, percebendo a gravidade da situação, disse o seguinte. ``Essa formulação, como eu disse
   antes, tinha um caráter mais introdutório e instrutivo. Se quer uma mais séria, existem várias e
   em vários sabores. Uma delas em particular faz uso extenso de técnicas de programação inteira, que
-  são desenvolvidas a muitas décadas\footnote{Infelizmente, não há evidências de desenvolvimentos de
+  são desenvolvidas há muitas décadas\footnote{Infelizmente, não há evidências de desenvolvimentos de
   programação inteira na época de Theon, mas a fala é mantida aqui por sua conveniência.}. Fazendo
   uso dessas técnicas, podemos gerar o seguinte programa:
 
@@ -178,8 +179,8 @@ Não deve ser difícil de ver como isso nos leva ao resultado desejado.''
 
   ``Desta forma, se nos limitarmos a 50 segundos de computação, pela primeira versão do
   método\footnote{O programa \ref{lst:knapsackEplex}.}, podemos resolver o problema para 25 itens em
-  um tempo médio de 0,01 segundos, enquanto que pela segunda versão do método\footnote{O programa
-    \ref{lst:knapsackIC}.}, para 14 itens,  o tempo de resolução varia de 0,17 segundos a 34,23 segundos. Para 15 itens ou mais, não parece haver esperanças para o segundo método, enquanto que, pelo primeiro, problemas de 250.000 tipos de itens levam uma média de apenas 39 segundos para serem resolvidos.''
+  um tempo médio de 0,01 segundo, enquanto que pela segunda versão do método\footnote{O programa
+    \ref{lst:knapsackIC}.}, para 14 itens,  o tempo de resolução varia de 0,17 segundo a 34,23 segundos. Para 15 itens ou mais, não parece haver esperanças para o segundo método, enquanto que, pelo primeiro, problemas de 250.000 tipos de itens levam uma média de apenas 39 segundos para serem resolvidos.''
 
   ``Parece que, pelo menos por ora, nosso problema está resolvido.'' - Disse Sulla.
 
@@ -187,7 +188,9 @@ Não deve ser difícil de ver como isso nos leva ao resultado desejado.''
 
 
 
+%COMMENT: fica faltando colocar o modo como construiu as instancias e uma tabela com os resultados. Eu faria isso em uma secao separada, saindo desta "fabula" e explicando as coisas mais "tecnicas".
 
+%COMMENT: acho que ficaria bom tambem destacar as diferencas dos 2 programas propostos para resolver o problema.
 
 
 
