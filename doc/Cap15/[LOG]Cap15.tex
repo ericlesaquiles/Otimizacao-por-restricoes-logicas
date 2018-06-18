@@ -1,0 +1,128 @@
+\documentclass{article}
+
+\input{../header.tex}
+
+
+\begin{document}
+
+\section{Desenvolvimento de Aeronaves por Programação Geométrica}
+
+\subsection{Introdução}
+
+Neste capítulo vamos ver como podemos usar um pouco do que vimos até agora para resolvermos um problema um pouco mais concreto
+do que os apresentados como exemplos. O problema a ser analisado é o de projeto (\foreign{design}) de aeronaves.
+
+Pelas últimas décadas, métodos de otimização têm tomado cada vez maior importância no desenvolvimento de máquinas
+complicadas, mas ainda com muitas limitações. O problema é que, quando um projeto é tão grande e complicado quanto o
+do desenvolvimento de aeronaves, que contam com relações altamente não lineares entre muitas % QUESTION Quantas?
+variáveis, a aplicação de um método homogêneo, ou mesmo de vários métodos heterogêneos, fica difícil. Não é pouco usual
+a aplicação de um método de otimização a uma parte específica do projeto (o da asa, por exemplo) e deixá-lo rodando por dias
+para obter, no final, apenas uma resposta aproximada, que pode ou não ser viável quando se leva em consideração o resto do projeto.
+
+Para estudar como melhor lidar com esse tipo de situação, surgiu o campo de estudos de \enphasis{Otimização Multidisciplinar de Projetos}
+(ou \foreign{Multidisciplinary Design Optimization}, \definicao{MDO} na sigla em inglês, que será usada daqui para frente). O objetivo
+dos métodos MDO são coordenar de maneira eficiente diferentes métodos de otimização para um projeto único, na esperança de assim obter projetos
+melhores (``melhores'' nos termos definidos pelo ou pela projetista) do que os obtidos otimizando o projeto por partes isoladas. 
+No entanto, mesmo depois de numerosos avanços em métodos MDO, aplicá-los a um projeto inteiro de uma aeronave ainda é impraticável
+na maior parte dos casos.
+
+Em última instância, a utilização de métodos de otimização para esse tipo de problema (o de projetos como o de uma aeronave, como no exemplo)
+é feita a fim de se entender e analisar melhor o problema em mãos. Isso porque, no início, o problema a ser resolvido pelo projeto não é, no geral, bem posto (muitas vezes, os objetivos do projeto não são sequer definidos\cite{hoburg}),
+e é de interesse entender o formato de sua fronteira de Pareto\footnote{Uma alocação de recursos (codificada aqui como a atribuição de valores
+  a variáveis) é dita Pareto eficiente se não é possível alterar tal alocação tal que um critério de otimalidade seja melhorado sem que
+  outro seja piorado. Fronteira de Pareto é o conjunto de alocações Pareto eficientes.}, a fim de se entender a relevância de cada característica (ou, poderíamos dizer, ``de cada variável'').
+Isso, aliado ao fato de que geralmente um
+projetista gostaria de otimizar vários parâmetros, e não só um, aumenta a necessidade de se obter não só uma  ``resposta'' otimizada, mas
+também um maneira de entender a vizinhança dessa resposta (isto é, realizar uma análise de sensitividade).
+
+Vale também notar que há um impasse entre a realização de uma análise de alta ou de baixa fidelidade. Para análises de alta fidelidade, existem duas opções:
+
+\begin{itemize}
+\item Fazer uma análise de uma parte específica (como o da asa, ou do motor) do projeto, o que possibilitaria a quem cuidar dele
+    fazer decisões mais informadas sobre essa parte específica;
+\item Fazer uma análise mais geral, envolvendo um subconjunto maior de ``partes específicas'', incorrendo em instâncias mais arbitrárias
+  de problemas mais gerais, e leva, em geral, dias ou semanas para a obtenção de uma solução.
+\end{itemize}
+
+Esses tipos de problemas, assim como a possibilidade de \foreign{overfitting} \footnote{Uma solução ``está em'' \foreign{overfitting} quando
+  levar a excelentes resultados para uma comparativamente pequena quantidade de casos de teste, mas a soluções ruins quando em situações
+  mais gerais.} levam, em vários casos, a uma escolha por uma análise de baixa fidelidade.
+
+
+Antes de seguirmos um pouco mais a fundo, convém obtermos uma ideia geral do desenvolvimento típico de uma aeronave. Esse desenvolvimento
+é composto por três etapas\cite{hoburg} (ou, pelo menos, assim os engenheiros o têm tratado por algumas décadas):
+\begin{itemize}
+\item Projetagem conceitual: etapa em que os objetivos do projeto são definidos, assim como requisitos de performance. Dependendo
+  do projeto, esta etapa pode levar vários anos e pode envolver uma análise matemática razoavelmente detalhada;  
+\item Projetagem preliminar:
+  Envolve uma análise mais aprofundada da configuração do projeto, identificação e resolução de problemas de interferência aerodinâmica e
+  de instabilidade é realizada e, em um certo ponto, a configuração básica da aeronave é ``congelada'', de modo a permitir que times que
+  trabalham com subsistemas possam trabalhar independentemente, sem afetar demais os outros timas;
+\item Projetagem detalhada:
+  Envolve uma projetagem detalhada do projeto, desenhos em CAD, determinação de passagens hidráulicas, elétricas e de combustível, assim
+  como fabriação de peças de produção\footnote{Peças que são pensadas para uso em um projeto específico.}.
+\end{itemize}
+
+Cada uma dessas etapas pode ser envolve grandes problemas de otimização com restrições, envolvendo as dificuldades notadas acima.
+    
+\subsection{Programação Geométrica}
+
+Nos últimos anos, técnicas de programação convexa têm se tornado cada vez mais eficientes (aproximando mesmo técnicas de programação linear).
+Apesar disso, por incrível que possa pareça, tais técnicas ainda são notavelmente ausentes em propostas MDO\cite{hoburg} e a abordagem mais
+comum a esses problemas é por meio de métodos gerais de programação não-linear. Assim, problemas muito gerais podem ser abordados, mas
+dificilmente os critérios de confiança e e eficiência são preenchidos.
+
+No lugar disso, então, voltamos nossa atenção a métodos de otimização convexa e, em particular, a um método que se mostrou particularmente
+adequado para lidar com problemas de projeto de aeronave, o de programação geométrica\footnote{Diferente do que se pode supor, o nome
+  ``programação geométrica'' não é devido às suas propriedades geométricas no geral, mas sim à desigualdade geométrico-aritmética,
+  que foi muito usada em sua análise.}. Quando esse método é aplicável, entre as vantagens
+que ele oferecem estão a obtenção de soluções globalmente ótimas (ou um certificado de infactibilidade, quando não existem tais soluções),
+com tempos te solução comparativamente curtos, que escalam para problemas maiores (isto é, quando o problema aumenta ``um pouco'', o tempo
+de solução aumenta só ``um pouco''). Ele tem a desvantagem de não ser um método geral, mas como, só estamos interessados (no momento)
+em resolver problemas de projetagem de aeronaves, essa desvantagem não nos entristece muito.
+
+Um problema de programação geométrica em forma padrão pode ser posto da seguinte forma:
+
+\begin{align*}
+  minimize \;& \sum\limits_{i=1}^n  f_0(x)\\
+  tal\; que\;& f_i(x) \leq 1, i  = 1, ..., n\\
+             & g_i(x) = 1, i = 1, ..., k,\\
+             & x \in R^n_{+},
+\end{align*}
+
+\noindent em que $f_i$ são posinômios ou monômios, os $g_i$ são monômios e $x \in R^n$. Aqui, no entando, a definição
+de monômios (e de posinômios) é um pouco diferente do usual em álgebra:
+
+\begin{itemize}
+\item Um \definicao{monômio} $g(x)$ é algo da forma $g(x) = kx^{\alpha}$, $\alpha \in R^n, k \in R^n_{+}$\footnote{Aqui, usamos a convenção de que, se $x \in R^n$ e $\alpha \in R^n$, $x^{\alpha} := \prod x_i^{\alpha_i}$.};
+  \item Um \definicao{posinômio} é algo da forma $f(x) = \sum g_i(x)$, em que cada $g_i$ é um monômio (em particular, monômios são posinômios).
+\end{itemize}
+
+Note que esse problema não só é altamente não-linear, mas também é não-convexo. Nós podemos, no entanto, torná-lo convexo, com uma mudança de coordenadas apropriada. Note que, se $f$ é um posinômio em $x$, $log(f(e^x))$ é convexo e, se $g$ é um monômio em $x$, $log(g(e^x))$ é, não só
+convexo, mas também afim. Realizando essa mudança de variáveis, nosso problema de otimização pode ser expresso como
+
+\begin{align*}
+  minimize \;& log \sum  e^{\alpha_{0k}'x + b_{0k}}\\
+  tal\; que\;& log \sum e^{\alpha_{ik}' + b_{ik}} \leq 0\\
+             & x \in R^n_{+}.
+\end{align*}
+
+Nessa nova formulação, estamos tomando $\alpha$ como a matriz de vetores que geram as potências dos monômios e posinômios. Note que, fazendo
+essa mudança de variáveis ($v = log(x)$), monômios se tornam funções afim e, posinômios, funções convexas.
+
+É importante notar que monômios e posinômios são um conjunto fechado sob as operações de divisão por monômios, então desigualdades do tipo $f_1(x) = f_2(x)$, em que $f_2$ é um monômio e $f_1$ é um posinômio poderiam ser lidadas fazendo $\frac{f_1(x)}{f_2(x)} = 1$. Ademais, igualdades como
+$g(x) = 1$, se $g$ é um monômio, podem ser lidadas fazendo $g(x) \leq 1$ e $\frac{1}{g(x)} \leq 1$\footnote{Em particular, isso mostra que um programa geométrico qualquer pode ser expresso com desigualdades do tipo $f_i(x) \leq 1$, o que é a entrada que alguns \foreign{solvers} requerem por padrão.}. A restrição de que $k$ precisa ser positivo acaba sendo frequentemente satisfeita sem esforços mas, quando esse não é o caso, é preciso se usar outro maquinário que não o da programação geométrica. Em particular, programação signomial, que faz uso de uma estrutura parecida com a da geométrica, resolve esse caso (e mais eficiente do que um método de programação linear genérico).
+
+
+
+    \begin{thebibliography}{1}
+
+      \bibitem{hoburg}
+        Hoburg, W. Warren,
+        ``Aircraft Design Optimization as a Geometric Program''       
+        2013.
+
+
+     \end{thebibliography}
+
+\end{document}
