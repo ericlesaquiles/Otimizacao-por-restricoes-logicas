@@ -1,0 +1,8 @@
+
+** sed -i 's/eclipse\ /eclipse\//' "./Cap*/[LOG]Cap*.tex"
+*** TODO Para que é isso mesmo?
+** TODO Revisar
+** TODO Cap12
+*** TODO Montar as diferenças ao rodar os códigos numa tabela, com as informações adequadas
+*** TODO Explicar melhor a diferença entre os códigos presentes
+    
