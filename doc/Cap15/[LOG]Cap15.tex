@@ -55,42 +55,42 @@ Antes de seguirmos um pouco mais a fundo, convém obtermos uma ideia geral do de
 \item Projetagem conceitual: etapa em que os objetivos do projeto são definidos, assim como requisitos de performance. Dependendo
   do projeto, esta etapa pode levar vários anos e pode envolver uma análise matemática razoavelmente detalhada;  
 \item Projetagem preliminar:
-  Envolve uma análise mais aprofundada da configuração do projeto, identificação e resolução de problemas de interferência aerodinâmica e
+  envolve uma análise mais aprofundada da configuração do projeto, identificação e resolução de problemas de interferência aerodinâmica e
   de instabilidade é realizada e, em um certo ponto, a configuração básica da aeronave é ``congelada'', de modo a permitir que times que
-  trabalham com subsistemas possam trabalhar independentemente, sem afetar demais os outros timas;
+  trabalham com subsistemas possam trabalhar independentemente, sem afetar demais os outros times;
 \item Projetagem detalhada:
-  Envolve uma projetagem detalhada do projeto, desenhos em CAD, determinação de passagens hidráulicas, elétricas e de combustível, assim
-  como fabriação de peças de produção\footnote{Peças que são pensadas para uso em um projeto específico.}.
+  envolve uma projetagem detalhada do projeto, desenhos em CAD, determinação de passagens hidráulicas, elétricas e de combustível, assim
+  como fabricação de peças de produção\footnote{Peças que são pensadas para uso em um projeto específico.}.
 \end{itemize}
 
-Cada uma dessas etapas pode ser envolve grandes problemas de otimização com restrições, envolvendo as dificuldades notadas acima.
+Cada uma dessas etapas pode envolver grandes problemas de otimização com restrições, envolvendo as dificuldades notadas acima.
     
 \subsection{Programação Geométrica}
 
 Nos últimos anos, técnicas de programação convexa têm se tornado cada vez mais eficientes (aproximando mesmo técnicas de programação linear).
-Apesar disso, por incrível que possa pareça, tais técnicas ainda são notavelmente ausentes em propostas MDO\cite{hoburg} e a abordagem mais
+Apesar disso, por incrível que possa parecer, tais técnicas ainda são notavelmente ausentes em propostas MDO\cite{hoburg} e a abordagem mais
 comum a esses problemas é por meio de métodos gerais de programação não-linear. Assim, problemas muito gerais podem ser abordados, mas
 dificilmente os critérios de confiança e e eficiência são preenchidos.
 
 No lugar disso, então, voltamos nossa atenção a métodos de otimização convexa e, em particular, a um método que se mostrou particularmente
-adequado para lidar com problemas de projeto de aeronave, o de programação geométrica\footnote{Diferente do que se pode supor, o nome
+adequado para lidar com problemas de projeto de aeronave, o de programação geométrica\footnote{Diferentemente do que se pode supor, o nome
   ``programação geométrica'' não é devido às suas propriedades geométricas no geral, mas sim à desigualdade geométrico-aritmética,
   que foi muito usada em sua análise.}. Quando esse método é aplicável, entre as vantagens
-que ele oferecem estão a obtenção de soluções globalmente ótimas (ou um certificado de infactibilidade, quando não existem tais soluções),
-com tempos te solução comparativamente curtos, que escalam para problemas maiores (isto é, quando o problema aumenta ``um pouco'', o tempo
-de solução aumenta só ``um pouco''). Ele tem a desvantagem de não ser um método geral, mas como, só estamos interessados (no momento)
+que ele oferece estão a obtenção de soluções globalmente ótimas (ou um certificado de infactibilidade, quando não existem tais soluções),
+com tempos de solução comparativamente curtos, que escalam para problemas maiores (isto é, quando o problema aumenta ``um pouco'', o tempo
+de solução aumenta só ``um pouco''). Ele tem a desvantagem de não ser um método geral, mas como só estamos interessados (no momento)
 em resolver problemas de projetagem de aeronaves, essa desvantagem não nos entristece muito.
 
 Um problema de programação geométrica em forma padrão pode ser posto da seguinte forma:
 
 \begin{align*}
   minimize \;& \sum\limits_{i=1}^n  f_0(x)\\
-  tal\; que\;& f_i(x) \leq 1, i  = 1, ..., n\\
+  tal\; que\;& f_i(x) \leq 1, i  = 1, ..., n,\\
              & g_i(x) = 1, i = 1, ..., k,\\
              & x \in R^n_{+},
 \end{align*}
 
-\noindent em que $f_i$ são posinômios ou monômios, os $g_i$ são monômios e $x \in R^n$. Aqui, no entando, a definição
+\noindent em que $f_i$ são posinômios ou monômios, os $g_i$ são monômios e $x \in R^n$. Aqui, a definição
 de monômios (e de posinômios) é um pouco diferente do usual em álgebra:
 
 \begin{itemize}
@@ -111,7 +111,7 @@ Nessa nova formulação, estamos tomando $\alpha$ como a matriz de vetores que g
 essa mudança de variáveis ($v = log(x)$), monômios se tornam funções afim e, posinômios, funções convexas.
 
 É importante notar que monômios e posinômios são um conjunto fechado sob as operações de divisão por monômios, então desigualdades do tipo $f_1(x) = f_2(x)$, em que $f_2$ é um monômio e $f_1$ é um posinômio poderiam ser lidadas fazendo $\frac{f_1(x)}{f_2(x)} = 1$. Ademais, igualdades como
-$g(x) = 1$, se $g$ é um monômio, podem ser lidadas fazendo $g(x) \leq 1$ e $\frac{1}{g(x)} \leq 1$\footnote{Em particular, isso mostra que um programa geométrico qualquer pode ser expresso com desigualdades do tipo $f_i(x) \leq 1$, o que é a entrada que alguns \foreign{solvers} requerem por padrão.}. A restrição de que $k$ precisa ser positivo acaba sendo frequentemente satisfeita sem esforços mas, quando esse não é o caso, é preciso se usar outro maquinário que não o da programação geométrica. Em particular, programação signomial, que faz uso de uma estrutura parecida com a da geométrica, resolve esse caso (e mais eficiente do que um método de programação linear genérico).
+$g(x) = 1$, se $g$ é um monômio, podem ser lidadas fazendo $g(x) \leq 1$ e $\frac{1}{g(x)} \leq 1$\footnote{Em particular, isso mostra que um programa geométrico qualquer pode ser expresso com desigualdades do tipo $f_i(x) \leq 1$, o que é a entrada que alguns \foreign{solvers} requerem por padrão.}. A restrição de que $k$ precisa ser positivo acaba sendo frequentemente satisfeita sem esforços mas, quando esse não é o caso, é preciso se usar outro maquinário que não o da programação geométrica. Em particular, programação signomial, que faz uso de uma estrutura parecida com a da geométrica, resolve esse caso (e mais eficientemente do que um método de programação linear genérico).
 
 
 
