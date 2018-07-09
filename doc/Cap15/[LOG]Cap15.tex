@@ -22,7 +22,7 @@ para obter, no final, apenas uma resposta aproximada, que pode ou não ser viáv
 Para estudar como melhor lidar com esse tipo de situação, surgiu o campo de estudos de \enphasis{Otimização Multidisciplinar de Projetos}
 (ou \foreign{Multidisciplinary Design Optimization}, \definicao{MDO} na sigla em inglês, que será usada daqui para frente). O objetivo
 dos métodos MDO são coordenar de maneira eficiente diferentes métodos de otimização para um projeto único, na esperança de assim obter projetos
-melhores (``melhores'' nos termos definidos pelo ou pela projetista) do que os obtidos otimizando o projeto por partes isoladas. 
+melhores (``melhores'' nos termos definidos pelo ou pela projetista) do que os obtidos otimizando o projeto por partes isoladas.
 No entanto, mesmo depois de numerosos avanços em métodos MDO, aplicá-los a um projeto inteiro de uma aeronave ainda é impraticável
 na maior parte dos casos.
 
@@ -53,7 +53,7 @@ Antes de seguirmos um pouco mais a fundo, convém obtermos uma ideia geral do de
 é composto por três etapas\cite{hoburg} (ou, pelo menos, assim os engenheiros o têm tratado por algumas décadas):
 \begin{itemize}
 \item Projetagem conceitual: etapa em que os objetivos do projeto são definidos, assim como requisitos de performance. Dependendo
-  do projeto, esta etapa pode levar vários anos e pode envolver uma análise matemática razoavelmente detalhada;  
+  do projeto, esta etapa pode levar vários anos e pode envolver uma análise matemática razoavelmente detalhada;
 \item Projetagem preliminar:
   envolve uma análise mais aprofundada da configuração do projeto, identificação e resolução de problemas de interferência aerodinâmica e
   de instabilidade é realizada e, em um certo ponto, a configuração básica da aeronave é ``congelada'', de modo a permitir que times que
@@ -64,7 +64,7 @@ Antes de seguirmos um pouco mais a fundo, convém obtermos uma ideia geral do de
 \end{itemize}
 
 Cada uma dessas etapas pode envolver grandes problemas de otimização com restrições, envolvendo as dificuldades notadas acima.
-    
+
 \subsection{Programação Geométrica}
 
 Nos últimos anos, técnicas de programação convexa têm se tornado cada vez mais eficientes (aproximando mesmo técnicas de programação linear).
@@ -111,18 +111,212 @@ Nessa nova formulação, estamos tomando $\alpha$ como a matriz de vetores que g
 essa mudança de variáveis ($v = log(x)$), monômios se tornam funções afim e, posinômios, funções convexas.
 
 É importante notar que monômios e posinômios são um conjunto fechado sob as operações de divisão por monômios, então desigualdades do tipo $f_1(x) = f_2(x)$, em que $f_2$ é um monômio e $f_1$ é um posinômio poderiam ser lidadas fazendo $\frac{f_1(x)}{f_2(x)} = 1$. Ademais, igualdades como
-$g(x) = 1$, se $g$ é um monômio, podem ser lidadas fazendo $g(x) \leq 1$ e $\frac{1}{g(x)} \leq 1$\footnote{Em particular, isso mostra que um programa geométrico qualquer pode ser expresso com desigualdades do tipo $f_i(x) \leq 1$, o que é a entrada que alguns \foreign{solvers} requerem por padrão.}. A restrição de que $k$ precisa ser positivo acaba sendo frequentemente satisfeita sem esforços mas, quando esse não é o caso, é preciso se usar outro maquinário que não o da programação geométrica. Em particular, programação signomial, que faz uso de uma estrutura parecida com a da geométrica, resolve esse caso (e mais eficientemente do que um método de programação linear genérico).
+$g(x) = 1$, se $g$ é um monômio, podem ser lidadas fazendo $g(x) \leq
+1$ e $\frac{1}{g(x)} \leq 1$\footnote{Em particular, isso mostra que
+  um programa geométrico qualquer pode ser expresso com desigualdades
+  do tipo $f_i(x) \leq 1$, o que é a entrada que alguns
+  \foreign{solvers} requerem por padrão.}. A restrição de que $k$
+precisa ser positivo acaba sendo frequentemente satisfeita sem
+esforços mas, quando esse não é o caso, é preciso se usar outro
+maquinário que não o da programação geométrica. Em particular,
+programação signomial\footnote{Um posinômio é um signômio que
+ é restrito a ter coeficientes positivos. Programação signomial é a
+ cujas restrições são signômios.}, que faz uso de uma estrutura
+parecida com a da geométrica, resolve esse caso (no geral, de forma
+mais eficientemente do que um método de programação não linear genérico).
 
+\subsection{Um modelo simples de aeronave}
+
+
+A seguir é apresentado um modelo de aeronave simplificado, em grande parte baseado no
+modelo da tese de Hoburg\cite{hoburg}. A modelagem do problema será
+feita com base no pacote GPkit. % TODO ADD citation
+
+\subsubsection{Modelo de Peso e Sustentação}
+
+Assumimos que a aeronave esteja
+em vôo de cruzeiro\footnote{Quando as velocidades linear a angular da
+  aeronave são constantes em um sistema de referência fixado ao
+  corpo. É o mesmo que ``vôo estável''.}, de modo que o sustentação seja igual ao arrasto e a sustentação igual
+ao peso. O peso da aeronave é a soma do peso de carga útil $P_0$, o da
+asa $P_a$ e do combustível $P_c$:
+\[
+  P \geq P_0 + P_a + P_c
+\]
+Usamos o modelo abaixo para vôo estável\footnote{O ``l'' abaixo vem de
+  ``\foreign{lift}'', ``sustentação'' em inglês.}:
+\[
+  P_0 + P_a + \frac{P_c}{2} \leq \frac{1}{2} \rho S C_l V^2
+\]
+
+\noindent em que a sustentação da aeronave é igual ao peso dela com metade de
+combustível, $C_l$ é o coeficiente de sustentação e $V$ a velocidade
+do avião. 
+
+Aqui usamos a equação para arrasto:
+\[
+  Arrasto = D := \frac{1}{2} \rho S C_d V^2
+\]
+
+\noindent em que $\frac{1}{2}\rho V^2$ representa a pressão dinâmica, $S$ corresponde à área da asa e $C_d$ ao coeficiente
+de arrasto total\footnote{O ``d'' vem de ``\foreign{drag}'', arrasto em inglês.}, dado por:
+\[
+  C_{d_{fuse}} = \frac{CDA_0}{S} + kC_f \frac{S_{wet}}{S} + \frac{C_{l}^2}{\pi
+    A e}
+\]
+
+\noindent em que $CDA_0$ corresponde à área de arrasto da
+fuselagem\footnote{Definida como a área normal ao fluxo de ar que
+  geraria o mesmo arrasto que o avião.}, $k$ é um
+fator de forma que leva em conta arrasto de pressão,
+$\frac{S_{wet}}{S}$ é a razão de área molhada\footnote{A área em
+  contato com o fluxo de ar.} e $e$ é o fator de
+eficiência de Oswald. $CDA_0$ é linearmente proporcional ao volume de
+combustível na fuselagem\footnote{GPkit faz checagem de unidades,
+  então precisamos corrigi-la explicitamente, do que o ``[metros]''
+  constitui um lembrete.}:
+\[
+  V_{f_{fase}} \leq CDA_0 \times 10 [metros]
+\]
+
+
+
+
+Assumindo um fluxo de Blasius turbulento sobre uma placa plana, o
+coeficiente de fricção $C_f$ pode ser aproximado por:
+\[
+  C_f = \frac{0.074}{Re^{0.2}}
+\]
+
+\noindent em que  $Re = \frac{\rho V}{\mu}\sqrt{\frac{S}{A}}$ é o
+número de Reynolds na corda média $\sqrt{\frac{S}{A}}$\footnote{$A$
+  representa a razão de aspecto, ie, a razão entre a distância entre
+  as pontas das asas e a corda média}.
+
+Também gostaríamos que uma aeronave cheia de combustível
+seja capaz de voar a uma velocidade mínima:
+\[
+  P \leq \frac{1}{2}\rho V_{min}^{2} S C_{l_{max}}
+\]
+
+\noindent em que $C_{l_{max}}$ é o coeficiente de sustentação máximo.
+
+Uma medida de performance útil, o tempo de vôo, é dada pela distância
+percorrida sobre velocidade:
+\[
+  T_{v\hat{o}o} \geq \frac{Dist\hat{a}ncia}{V}
+\]
+
+A razão de força de sustentação/arrasto é dada por:
+\[
+  \frac{L}{D} = \frac{C_l}{C_d}
+\]
+
+\noindent em que $C_l$ é o coeficiente de sustentação.
+
+Essas restrições se traduzem como
+
+\inputminted{python}{../Exemplos/Cap15/prog1_wlm.py}
+
+% \subsubsection{Modelo de Impulso e arrasto}
+
+Assumimos que o Consumo Específico de Combustível por Unidade de Empuxo (CEUE) é constante e
+que ele provê tanto impulso quanto necessário. Como a força de impulso
+$F$ é maior ou igual que a força de arrasto $D$, obtemos
+\[
+  P_f \geq CEUE \times T_{v\hat{o}o} \times D
+\]
+
+E podemos completar nosso modelo da seguinte forma:
+
+\inputminted{python}{../Exemplos/Cap15/prog2_tdm.py}
+
+\subsubsection{Volume do Combustível}
+
+Definindo o volume requerido em função da densidade do combustível
+$\rho f$, temos
+\[
+  V_c = \frac{P_c}{\rho_f g}
+\]
+
+Pelo modelo aerodinâmico, temos que
+\[
+  V_{c_{asa}}^2 \leq 0,0009\frac{S\tau^2}{A \times Dist\hat{a}ncia}
+\]
+
+O volume de combustível disponível $V_{c_{disp}}$ é limitado
+superiormente pelos volumes disponíveis na asa e na fuselagem:
+\[
+  V_{c_{disp}} \leq V_{c_{asa}}+ V_{c_{fuse}}
+\]
+
+\noindent Note que, devido à restrição acima, o programa resultante será
+signomial.
+
+Restringimos o volume total de combustível como menor do que o volume disponível:
+\[
+  V_{c_{disp}} \geq V_c
+\]
+
+\inputminted{python}{../Exemplos/Cap15/prog3_fvm.py}
+
+\subsubsection{Acumulação de Peso nas Asas}
+
+O peso na superfície da asa é uma função da área da asa
+
+\[
+  P_{p_{surp}} \geq P_{p_{coef2}}S
+\]
+
+O peso estrutural na asa é uma expressão posinomial que leva em conta o
+alívio de cisalhamento devido à presença de combustível nas asas e o
+momento flexor:
+\[
+  P_{p_{strc}}^2 \geq \frac{P_{p_{coeff1}}^2}{\tau^2}(N_{ult}^2
+  AR^3((P_0 + \rho_f g V_{c_{fuse}})PS))
+\]
+
+O peso total da asa é limitado:
+\[
+  P_p \geq P_{p_{surp}} + P_{p_{strc}}
+\]
+
+\inputminted{python}{../Exemplos/Cap15/prog4_wwb.py}
+
+\subsubsection{Possíveis Objetivos}
+
+Dadas essas restrições, algumas potenciais funções objetivo com as
+quais poderíamos querer trabalhar são:
+
+\begin{itemize}
+\item $P_c$, o peso do combustível (o objetivo padrão);
+\item $P$, o peso total da aeronave;
+\item $\frac{P_c}{T_{v\hat{o}o}}$, o peso do combustível dividido
+  pelo tempo de vôo (podemos pensar nisso como uma medida de
+  eficiência no uso do combustível);
+\item $P_c + c \times T_{v\hat{o}o}$, uma combinação linear antre
+  peso do combustível e tempo de vôo.
+\end{itemize}
 
 
     \begin{thebibliography}{1}
 
       \bibitem{hoburg}
         Hoburg, W. Warren,
-        ``Aircraft Design Optimization as a Geometric Program''       
+        ``Aircraft Design Optimization as a Geometric Program''
         2013.
 
+      \bibitem{gpkit}
+        E.~Burnell and W.~Hoburg, ``Gpkit software for geometric
+        programming.''
+        \url{https://github.com/convexengineering/gpkit}, 2018.
+        \newblock Version 0.7.0.
 
-     \end{thebibliography}
+      \bibitem{simpleac}
+        B.~Ozturk, ``SimPleAC''
+        \url{https://github.com/convexengineering/gplibrary/blob/master/gpkitmodels/SP/SimPleAC/simpleac.pdf}, 2018.
+
+        
+      \end{thebibliography}
 
 \end{document}
