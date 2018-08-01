@@ -27,7 +27,7 @@ solve(Weights, Values, Bounds, Capacity, Amounts, Weight, Value) :-
               Value),
         optimize(max(Value), _Value).
 
-main :-
+main(Capacity) :-
         data(Names, Weights, Values, Bounds, Capacity),
         solve(Weights, Values, Bounds, Capacity, Amounts, Weight,
               Value),
@@ -35,7 +35,8 @@ main :-
                 ( Amount >0 -> printf("%d of %w%n", [Amount,Name]) ;
                                true )
         ),
-        writeln(weight=Weight;value=Value).
+        !.
+% writeln(weight=Weight;value=Value), !.
 
 
 % data(Names, Weights, Values, Bounds, Capacity)
@@ -65,11 +66,17 @@ random_data(data([Counter|Ls], [W|Ws], [V|Vs], [B|Bs], _), Counter) :-
         random_int_between(1, 15, B),
         New_Counter is Counter - 1,
         random_data(data(Ls, Ws, Vs, Bs, _), New_Counter).
-           
-           
-init_data(data(Names, Weights, Values, Bounds, _)) :-
-        random_data(data(Names, Weights, Values, Bounds, _), 250000).
-           
 
-data(Names, Weights, Values, Bounds, 400) :-
-        init_data(data(Names, Weights, Values, Bounds, 400)).
+init_data(data(Names, Weights, Values, Bounds, Capacity)) :-
+        random_data(data(Names, Weights, Values, Bounds, Capacity), Capacity).
+
+data(Names, Weights, Values, Bounds, Capacity) :-
+        init_data(data(Names, Weights, Values, Bounds, Capacity)).
+
+run(Times) :-
+        N is 2^Times,
+        ( count(I, 1, Times),
+          param(N)
+        do
+            profile(main(N))
+        ).

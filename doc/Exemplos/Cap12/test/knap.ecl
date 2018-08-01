@@ -31,7 +31,7 @@ solve(Weights, Values, Bounds, Capacity, Amounts, Weight, Value) :-
         minimize(search(Amounts, 0, largest, indomain_reverse_split,
                         complete, []), Cost).
 
-main :-
+main(Capacity) :-
         data(Names, Weights, Values, Bounds, Capacity),
         solve(Weights, Values, Bounds, Capacity, Amounts, Weight,
               Value),
@@ -59,7 +59,6 @@ main :-
 %%         400
 %%     ).
 
-   
 random_data(data([],[],[],[],_), 0).
 random_data(data([Counter|Ls], [W|Ws], [V|Vs], [B|Bs], _), Counter) :-
         random_int_between(1, 50, W),
@@ -67,11 +66,18 @@ random_data(data([Counter|Ls], [W|Ws], [V|Vs], [B|Bs], _), Counter) :-
         random_int_between(1, 15, B),
         New_Counter is Counter - 1,
         random_data(data(Ls, Ws, Vs, Bs, _), New_Counter).
-           
-           
-init_data(data(Names, Weights, Values, Bounds, _)) :-
-        random_data(data(Names, Weights, Values, Bounds, _), 14).
+
+init_data(data(Names, Weights, Values, Bounds, Capacity)) :-
+        random_data(data(Names, Weights, Values, Bounds, Capacity), Capacity).
            
 
-data(Names, Weights, Values, Bounds, 400) :-
-        init_data(data(Names, Weights, Values, Bounds, 400)).
+data(Names, Weights, Values, Bounds, Capacity) :-
+        init_data(data(Names, Weights, Values, Bounds, Capacity)).
+
+run(Times) :-
+        N is 2^Times,
+        ( count(I, 4, Times),
+          param(N)
+        do 
+            profile(main(N))
+        ).
