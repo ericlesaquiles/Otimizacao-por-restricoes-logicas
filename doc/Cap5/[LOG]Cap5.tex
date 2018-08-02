@@ -6,143 +6,132 @@
 
 \input{../header.tex}
 
-\forestset{
-  tree angle/.style={
-    tikz={\path () coordinate (A) -- (!u) coordinate (B) -- (!n) coordinate (C) pic [draw] {angle};}
-  }
-}
+\forestset{ tree angle/.style={ tikz={\path () coordinate (A) -- (!u)
+      coordinate (B) -- (!n) coordinate (C) pic [draw] {angle};} } }
 \usetikzlibrary{arrows.meta,angles}
-
-
-%
-% TODO: revisar terminar esta seção!
-%
-%
-
 
 \begin{document}
 
 \section{Programas como árvores}
 
-Será conveniente termos uma interpretação mais visual de programas lógicos. Isso nos dará uma ideia melhor de em qual ordem ocorrem as tentativas de unificações e como lidar com elas.
-Considere o seguinte programa, representando um pedaço da árvore genealógica da dinastia
-Julio-Claudiana, junto com a relação ancestral\footnote{Os romanos, assim como outros povos, tinham
-o hábito de atribuir outro nome às pessoas, com base em características físicas, psicológicas, de
-caráter ou de hábito. Assim, por exemplo, Claudius significa ``manco'', Calígula significa ``bota de
-(pequeno) soldado'', Augustus significa ``majestico'' ou ``venerável'' e, Sulla, significa
-``manchado''.}
-    \begin{listing}[H]
-\inputminted{prolog}{../Exemplos/Cap5/prog1_ancestor.pl}
-\caption{Ancestral 0}
-    \end{listing}
+Será conveniente termos uma interpretação mais visual de programas
+lógicos. Isso nos dará uma ideia melhor de em qual ordem ocorrem as
+tentativas de unificações e como lidar com elas.  Considere o seguinte
+programa, representando um pedaço da árvore genealógica da dinastia
+Julio-Claudiana, junto com a relação ancestral\footnote{Os romanos,
+  assim como outros povos, tinham o hábito de atribuir outro nome às
+  pessoas, com base em características físicas, psicológicas, de
+  caráter ou de hábito. Assim, por exemplo, Claudius significa
+  ``manco'', Calígula significa ``bota de (pequeno) soldado'',
+  Augustus significa ``majéstico'' ou ``venerável'' e, Sulla,
+  significa ``manchado''.}
 
-Por conveniência, no lugar das relações filhx/2 e ancestral/2 e dos nomes mostrados acima, usaremos
-os mostrados no Código \ref{lst:ancestor1}\.
+\begin{listing}[H]
+  \inputminted{prolog}{../Exemplos/Cap5/prog1_ancestor.pl}\label{lst:ancestor1}
+  \caption{Ancestral 0}
+\end{listing}
 
-    \begin{listing}[H]
-\inputminted{prolog}{../Exemplos/Cap5/prog2_ancestor.pl}
-\caption{Ancestral 1}\label{lst:ancestor1}
-    \end{listing}
+Por conveniência, no lugar das relações filhx/2 e ancestral/2 e dos
+nomes mostrados acima, usaremos os mostrados no Código \ref{lst:ancestor1} .
+
+\begin{listing}[H]
+  \inputminted{prolog}{../Exemplos/Cap5/prog2_ancestor.pl}
+  \caption{Ancestral 1}\label{lst:ancestor1}
+\end{listing}
 
 
-O goal \codigo{a(au, ne)?} define implicitamente uma árvore, que começa da forma a seguir.
+O goal \codigo{a(au, ne)?} define implicitamente uma árvore, que
+começa da forma a seguir.
 
 \begin{center}
   {\footnotesize
     \begin{forest}
-      for tree={delay={where content={}{content={\phantom{00}}}{}},s sep+=5mm,l+=5mm}
-      [\codigo{a(au, ne)?}
-        [ \codigo{f(ne, au)?},edge={dashed,black,thick}
-          [falha]
-        ]
-        [\codigo{f(ne,C1), a(au,C1)?}
-          [ {C1 = ag},edge=dashed
-            [\codigo{f(ne, ag)?}]
-            [\codigo{a(au, ag)?}
-                [\codigo{f(ag,au)?},edge=dashed
-                  [falha]
-                ]
-              [\codigo{f(ag,C2), a(au,C2)?}
-                [$\vdots$]
-              ]
-            ]
-          ]
-          [ {C1 = gn},edge=dashed
-            [\codigo{f(ne, gn)?}]
-            [\codigo{a(au, gn)?}
-              [\codigo{f(gn,C2), a(au,C2)?}
-                [$\vdots$]
-              ]
-              [\codigo{f(gn, C2)?},edge=dashed
-                [falha]
-              ]
-            ]
-          ]
-        ]
-      ]
+      for tree={delay={where content={}{content={\phantom{00}}}{}},s
+        sep+=5mm,l+=5mm} [\codigo{a(au, ne)?}  [ \codigo{f(ne,
+            au)?},edge={dashed,black,thick} [falha] ]
+        [\codigo{f(ne,C1), a(au,C1)?}  [ {C1 = ag},edge=dashed
+            [\codigo{f(ne, ag)?}]  [\codigo{a(au, ag)?}
+              [\codigo{f(ag,au)?},edge=dashed [falha] ]
+              [\codigo{f(ag,C2), a(au,C2)?}  [$\vdots$] ] ] ] [ {C1 =
+              gn},edge=dashed [\codigo{f(ne, gn)?}]  [\codigo{a(au,
+                gn)?}  [\codigo{f(gn,C2), a(au,C2)?}  [$\vdots$] ]
+              [\codigo{f(gn, C2)?},edge=dashed [falha] ] ] ] ] ]
     \end{forest}
   }
 \end{center}
 
-A árvore inteira não será colocada por questões de espaço, mas continua de maneira semelhante. Os ramos tracejados indicam
-um ``ou'' lógico, enquanto que os sólidos indicam um ``e'' lógico. O que isso significa é que falha em um dos ramos dos arcos
-sólidos indica que todo o arco é falho, mas uma falha em um ramo tracejado só afeta o ramo tracejado.
+A árvore inteira não será colocada por questões de espaço, mas
+continua de maneira semelhante. Os ramos tracejados indicam um ``ou''
+lógico, enquanto que os sólidos indicam um ``e'' lógico. O que isso
+significa é que falha em um dos ramos dos arcos sólidos indica que
+todo o arco é falho, mas uma falha em um ramo tracejado só afeta o
+ramo tracejado.
 
-A execução de um programa lógico consiste em uma busca, em uma árvore como essa, por uma folha de ``sucesso''. Se, ao invés
-de ``sucesso'', é encontrada ``falha'', é feito o \technical{backtracking}. Quando alguém fala sobre um ``modelo computacional de
-programa lógico'', fala essencialmente sobre como percorrer essa árvore e como fazer esse \technical{backtracking}.
-Como pode ver, ela pode crescer muito em largura a cada nível (não cresceu tanto no exemplo acima porque colocamos uma quantidade reduzida de substituições). Por isso, é compreensível que prefiramos uma busca em profundidade
-do que em largura. Isso pode, é claro, levar a problemas técnicos e filosóficos, já que impõe uma escolha arbitrária sobre a ordem
-de avaliação das cláusulas e dos termos de cada cláusula, o que pode levar a comportamentos inesperados ao programador desatento a esse modelo\footnote{Convém lembrar que não estamos lidando com programação paralela.
-No modelo de programação paralela a avaliação pode ocorrer de maneira
-diferente.}. É claro, dizer apenas que a busca é em profundidade não é o suficiente: precisamos dizer que ela é em profundidade e
-à esquerda.
+A execução de um programa lógico consiste em uma busca, em uma árvore
+como essa, por uma folha de ``sucesso''. Se, ao invés de ``sucesso'',
+é encontrada ``falha'', é feito o \technical{backtracking}. Quando
+alguém fala sobre um ``modelo computacional de programa lógico'', fala
+essencialmente sobre como percorrer essa árvore e como fazer esse
+\technical{backtracking}.  Como pode ver, ela pode crescer muito em
+largura a cada nível (não cresceu tanto no exemplo acima porque
+colocamos uma quantidade reduzida de substituições). Por isso, é
+compreensível que prefiramos uma busca em profundidade do que em
+largura. Isso pode, é claro, levar a problemas técnicos e filosóficos,
+já que impõe uma escolha arbitrária sobre a ordem de avaliação das
+cláusulas e dos termos de cada cláusula, o que pode levar a
+comportamentos inesperados à programadora desatenta a esse
+modelo\footnote{Convém lembrar que não estamos lidando com programação
+  paralela.  No modelo de programação paralela a avaliação pode
+  ocorrer de maneira diferente.}. É claro, dizer apenas que a busca é
+em profundidade não é o suficiente: precisamos dizer que ela é em
+profundidade e à esquerda.
 
+O seguinte exemplo, um homem reclamando de sua vida, mostra que
+questões de parentesco podem ser mais complicadas do que isso (o
+exemplo é baseado na história retirada de \cite{antoni},
+frequentemente atribuída a Mark Twain):
 
+\cit{ Me casei com uma viúva, que tinha uma filha crescida. Meu pai, que nos
+  visitava frequentemente, se apaixonou com a filha.
+  e a tomou como sua  esposa. Isso fez do meu pai o meu filho adotado, e, de minha filha
+  adotada, minha madrasta.\\ Depois de um ano, minha esposa deu à luz
+  um filho, que se tornou o irmão adotado do meu pai e, ao mesmo
+  tempo, meu tio, já que ele era o irmão de minha madrasta.\\ Mas a
+  esposa de meu pai, isto é, minha filha adotada, também deu à luz um
+  filho. Então, ele era meu irmão e também meu neto, já que ele era o
+  filho de minha filha.\\ Isso quer dizer que eu me casei com minha
+  avó, já que ela era a mãe de minha mãe. Como o marido de minha
+  esposa, eu também era o neto adotado dela.\\ Nossos amigos dizem que
+  eu sou meu próprio avô. Isso é verdade?  }
 
-O seguinte exemplo, um homem reclamando de sua vida, mostra que questões de parentesco podem ser bem
-mais complicadas do que isso (o exemplo é baseado na história retirada de \cite{antoni}, frequentemente
-atribuída a Mark Twain):
+O personagem dessa história, não sabendo Prolog, teve uma certa
+dificuldade em responder a essa questão. Mas nós, como que por
+reflexo, fazemos o seguinte programa:
 
-\cit{
-  Me casei com uma viúva com uma filha crescida. Meu pai, que nos visitava frequentemente, se
-  apaixonou com a %QUESTION: copiou de algum lugar ou traduziu/modificou? Se for a segunda opcao, fica melhor trocar o "com a" por "pela"
-  filha e a tomou como sua esposa. Isso fez do meu pai o meu filho adotado, e, de
-  minha filha adotada, minha madrasta.\\
-  Depois de um ano, minha esposa deu à luz um filho, que se tornou o irmão adotado do meu pai e, ao
-  mesmo tempo, meu tio, já que ele era o irmão de minha madrasta.\\
-  Mas a esposa de meu pai, isto é, minha filha adotada, também deu à luz um filho. Então, ele era
-  meu irmão e também meu neto, já que ele era o filho de minha filha.\\
-  Isso quer dizer que eu me casei com minha avó, já que ela era a mãe de minha mãe. Como o marido de
-  minha esposa, eu também era o neto adotado dela.\\
-  Nossos amigos dizem que eu sou meu próprio avô. Isso é verdade?
-}
+%TODO fix layout
+\begin{listing}[H]
+  \inputminted{prolog}{../Exemplos/Cap5/prog1_family.pl}
+  \caption{Família}
+\end{listing}
 
-O personagem dessa história, não sabendo Prolog, teve uma certa dificuldade em responder a essa
-questão. Mas nós, como que por reflexo, fazemos o seguinte programa:
-
-%TODO fix
-    \begin{listing}[H]
-\inputminted{prolog}{../Exemplos/Cap5/prog1_family.pl}
-\caption{Família}
-    \end{listing}
-
-O último bloco de código na verdade não faz parte do programa, mas foi deixado por conveniência. Ele
-indica o goal (na verdade, só queremos saber se o pobre coitado é avô de si mesmo, mas os outros
-termos foram deixados por completeza). Você tem ideia de como é a árvore de busca para esse goal?
-
-%QUESTION: os goals nao iam ter uma ? no final, em vez de ponto?
+O último bloco de código na verdade não faz parte do programa, mas foi
+deixado por conveniência. Ele indica o goal (na verdade, só queremos
+saber se o pobre coitado é avô de si mesmo, mas os outros termos foram
+deixados por completeza). Você tem ideia de como é a árvore de busca
+para esse goal?
 
   \begin{thebibliography}{2}
 
-    \bibitem{antoni}
-    Niederliński, Antoni,
-    ``A gentle guide to constraint logical programming via Eclipse'',
-    3rd edition, Jacek Skalmierski Computer Studio, Gliwice, 2014
+    \bibitem{antoni} Niederliński, Antoni, ``A gentle guide to
+      constraint logical programming via Eclipse'', 3rd edition, Jacek
+      Skalmierski Computer Studio, Gliwice, 2014
 
-    \bibitem{russel} Russell, Bertrand (1919), Introduction to Mathematical Philosophy, George Allen and Unwin, London, UK. Reprinted, John G. Slater (intro.), Routledge, London, UK, 1993
-    \\Esse livro está datado em alguns pontos, mas permanece interessante. Está gratuitamente
-    disponível (em inglês) em \url{http://people.umass.edu/klement/russell-imp.html}
+    \bibitem{russel} Russell, Bertrand (1919), Introduction to
+      Mathematical Philosophy, George Allen and Unwin, London,
+      UK. Reprinted, John G. Slater (intro.), Routledge, London, UK,
+      1993 \\Esse livro está datado em alguns pontos, mas permanece
+      interessante. Está gratuitamente disponível (em inglês) em
+      \url{http://people.umass.edu/klement/russell-imp.html}
 
   \end{thebibliography}
 
