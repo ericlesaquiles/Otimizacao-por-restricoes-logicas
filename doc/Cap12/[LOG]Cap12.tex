@@ -179,15 +179,117 @@ Não deve ser difícil de ver como isso nos leva ao resultado desejado.''
     \caption{Problemas Aleatórios}\label{lst:random}
   \end{listing}
 
-  ``Desta forma, se nos limitarmos a 50 segundos de computação, pela primeira versão do
-  método\footnote{O programa \ref{lst:knapsackEplex}.}, podemos resolver o problema para 25 itens em
-  um tempo médio de 0,01 segundo, enquanto que pela segunda versão do método\footnote{O programa
-    \ref{lst:knapsackIC}.}, para 14 itens,  o tempo de resolução varia de 0,17 segundo a 34,23 segundos. Para 15 itens ou mais, não parece haver esperanças para o segundo método, enquanto que, pelo primeiro, problemas de 250.000 tipos de itens levam uma média de apenas 39 segundos para serem resolvidos.''
-
   ``Parece que, pelo menos por ora, nosso problema está resolvido.'' - Disse Sulla.
 
   ``Sim, o seu problema está.''
 
+
+
+
+
+
+  \subsection{Os Testes}
+
+  Levando em conta a discussão anterior, foram feitos testes para
+  checar a eficiência dos métodos discutidos. Eles foram realiados em
+  um computador Inspiron 5447, versão A06, com barramento de 64 bits,
+  produzido pela Dell. Esse computador conta com um processador Intel
+  Core i7-4510U, a 2GHz.
+
+  Os testes foram rodados da seguinte forma. O método que faz uso de
+  programação inteira foi testado 8 vezes, com o teste $i$ contando
+  com  $2^{i+4}$ tipos de itens.
+
+  Cada tipo de item tem um peso, um volume que ocupa e uma quantidade
+  de itens disponíveis. Nos testes que fazem uso de programação
+  inteira, o peso é escolhido
+  estocásticamente como um valor entre 1 e 50 (unidades de peso), o
+  volume como um valor
+  entre 1 e 100 (unidades de volume) e, a quantidade, como um valor
+  entre 1 e 15. Dada a natureza estocástica dos dados, é necessário
+  fazer o teste com a mesma quantidade de tipos de itens mais de uma
+  vez, e os que têm mais tipos de itens devem ser testados mais do que
+  os que têm menos tipos de itens. A maneira escolhida foi de rodar
+  $j$ vezes o teste com $2^j$ itens.
+
+  Infelizmente, realizar os mesmos
+  testes com o método que faz uso de \technical{branch and bound}
+  foi impraticável, dado o
+  tempo computacional necessário para tanto ser, no geral,  proibitivo
+  para $i \geq 6$\footnote{``No geral'', porque, os dados sendo
+    aleatórios, às vezes o programa termina rapidamente. Esse,
+    entretanto, não é o caso geral.}. No lugar disso, então, foram
+  rodados três testes para esse, os dois primeiros como explicados
+  anteriormente (no caso, fazendo $i + 4 = 4$ e $i + 4 = 5$) e o terceiro caso
+  de teste foi feito com 50 itens, o qual foi rodado 6 vezes (sendo a
+  quantidade de itens e de testes realizados as únicas diferenças entre
+  esta modalidade e a explanada acima).
+
+  Cada tipo
+  tem um peso, um volume e uma quantidade de itens disponível. Os
+  pesos são como um número aleatório entre 1 e 50 (unidades de peso),
+  os volumes são como um número aleatório entre 1 e 100 (unidades de
+  volume) e as quantidades de itens como um número aleatório entre 1 e
+  15.
+
+  Os resultados são como segue (medições de tempo com dois valores
+  significativos):
+
+  \begin{center}
+    \bgroup
+    \def\arraystretch{1.25}
+    \begin{tabular}{| l | c | c |}
+      \hline
+      Tempos & Programação inteira & Branch and Bound \\
+      \hline
+      \hline
+      Menor tempo para $2^4$ & 0,00s & 0,00s \\
+      Maior tempo para $2^4$ & 0,01s & 0,09s \\
+      Tempo médio para $2^4$ & 0,00s & 0,02s \\
+      \hline
+
+      Menor tempo para $2^5$ & 0,00s & 0,00s \\
+      Maior tempo para $2^5$ & 0,01s & 0,07s \\
+      Tempo médio para $2^5$ & 0,00s & 0,01s \\
+      \hline
+
+      Menor tempo para $2^6/50$ & 0,00s & 0,08s \\
+      Maior tempo para $2^6/50$ & 0,01s & 4,70 \\
+      Tempo médio para $2^6/50$ & 0,01s & 1.81 \\
+      \hline
+
+      Menor tempo para $2^7$ & 0,01s & NA \\
+      Maior tempo para $2^7$ & 0,01s & NA \\
+      Tempo médio para $2^7$ & 0,01s & NA \\
+      \hline
+
+      Menor tempo para $2^8$ & 0,02s & NA \\
+      Maior tempo para $2^8$ & 0,02s & NA \\
+      Tempo médio para $2^8$ & 0,02s & NA \\
+      \hline
+
+      Menor tempo para $2^9$ & 0,02s & NA \\
+      Maior tempo para $2^9$ & 0,04s & NA \\
+      Tempo médio para $2^9$ & 0,03s & NA \\
+      \hline
+
+      Menor tempo para $2^{10}$ & 0,05s & NA \\
+      Maior tempo para $2^{10}$ & 0,07s & NA \\
+      Tempo médio para $2^{10}$ & 0,06s & NA \\
+      \hline
+
+      Menor tempo para $2^{11}$ & 0,6s & NA \\
+      Maior tempo para $2^{11}$ & 0,8s & NA \\
+      Tempo médio para $2^{11}$ & 0,7s & NA \\
+      \hline
+
+      Menor tempo para $2^{12}$ & 0,14s & NA \\
+      Maior tempo para $2^{12}$ & 0,16s & NA \\
+      Tempo médio para $2^{12}$ & 0,14s & NA \\
+      \hline
+    \end{tabular}
+    \egroup
+  \end{center}
 
 
   \begin{thebibliography}{2}
