@@ -16,6 +16,9 @@
 \usepackage{caption}
 \usepackage{qtree}
 \usepackage{mathtools}
+\usepackage{perpage}
+
+\MakePerPage{footnote}
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
@@ -52,6 +55,8 @@
 \renewcommand{\lstlistingname}{Código}
 %\SetupFloatingEnvironment{listing}{name=Código}
 \renewcommand{\listingscaption}{Código}
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
 
 \let\oldsection\section
 \renewcommand\section{\clearpage\oldsection}
