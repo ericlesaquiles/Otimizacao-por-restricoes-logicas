@@ -2,94 +2,107 @@
 
 \input{../header.tex}
 
-
-
-\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
-
 \begin{document}
-
-%COMMENT: acho que teve um salto dos capitulos anteriores para este. Ficou faltando uma "liga", que talvez o capitulo 12 possa dar.
 
 \section{Dualidade e relaxação}
 
-\epigraph{\cit{ - Q: Qual é o contrário do ``espaço dual''?\\
-                - R: O espaço ``donothing''.}}{Eduardo Tengan, em uma aula qualquer}
+\epigraph{\cit{ - Q: Qual é o contrário do ``espaço dual''?\\ - R: O
+    espaço ``donothing''.}}{Eduardo Tengan, em uma aula qualquer}
 
-A noção de dualidade não é uma noção perene só na álgebra linear e suas áreas adjacentes (conhecidas
-em conjunto como ``matemática''), também ocupa um lugar especial na teoria de otimização. Em
-otimização, dualidade vem em diversas formas: dualidade de programação linear, de programação
-linear inteira (lagrangeana), entre outras. Frequentemente, os métodos de otimização mais
-confiavelmente eficicientes são métodos primal-dual.
+A noção de dualidade não é uma noção perene só na álgebra linear e
+suas áreas adjacentes (conhecidas em conjunto como ``matemática''),
+também ocupa um lugar especial na teoria de otimização. Em otimização,
+dualidade vem em diversas formas: dualidade de programação linear, de
+programação linear inteira (lagrangeana), entre
+outras. Frequentemente, os métodos de otimização mais confiavelmente
+eficicientes são métodos primal-dual.
 
-A dualidade é um tema unificador porque podemos expressar todos os duais como dual de inferência ou
-de relaxação (frequentemente, como ambos). Um dual de inferência pode ser visto como o
-problema de inferir das restrições nas variáveis um maior limitante inferior na imagem da função
-objetivo (assumimos daqui para frente, sem perda de generalidade, que queremos minimizar a função). Assim, a busca ocorre
-sobre provas, no lugar de sobre valores das variáveis. Mais precisamente, se tivermos um problema de
-otimização da forma
-
-\begin{align*}
-  &  min \; f(x),\\
-  &  R(x),\\
-  &  x \in X,
-\end{align*}
-
-\noindent em que $R(x)$ denota as restrições sobre $x$, sendo $X$ o seu domínio, seu respectivo
-\definicao{dual de inferência} nos coloca o problema de maximizar o limitante inferior em $f(x)$ que
-é inferível das restrições. Isso ocorre na forma de uma busca por uma prova do limitante ótimo (ou
-``bom o suficiente'', se não pudermos pedir por um ``ótimo''):
+A dualidade é um tema unificador porque podemos expressar todos os
+duais como dual de inferência ou de relaxação (frequentemente, como
+ambos). Um dual de inferência pode ser visto como o problema de
+inferir das restrições nas variáveis um maior limitante inferior na
+imagem da função objetivo (assumimos daqui para frente, sem perda de
+generalidade, que queremos minimizar a função). Assim, a busca ocorre
+sobre provas, no lugar de sobre valores das variáveis. Mais
+precisamente, se tivermos um problema de otimização da forma
 
 \begin{align*}
-  max \; & v,\\
-  C(x) & \vdash^{P} (f(x) \geq v),\\
-  v \in \mathbb{R}&, P \in \mathcal{P},
+  & min \; f(x),\\ & R(x),\\ & x \in X,
 \end{align*}
 
-\noindent em que $C(x) \vdash^{P} (f(x) \geq v)$ indica que \var{P} é uma prova de $(f(x) \geq v)$,
-usando o que é assumido em $C(x)$ (no caso, $C(x)$ indica as restrições). O domínio de \var{P} é uma família de provas $\mathcal{P}$, sendo
-$(v,P)$ um par de solução dual. Quando o problema inicial (dito ``\definicao{primal}'') não tem
-soluções, o conjunto de soluções para o dual é ilimitado.
+\noindent em que $R(x)$ denota as restrições sobre $x$, sendo $X$ o
+seu domínio, seu respectivo \definicao{dual de inferência} nos coloca
+o problema de maximizar o limitante inferior em $f(x)$ que é inferível
+das restrições. Isso ocorre na forma de uma busca por uma prova do
+limitante ótimo (ou ``bom o suficiente'', se não pudermos pedir por um
+``ótimo''):
 
-Quando o primal for um problema de programação linear, por exemplo, a família de provas pode
-consistir de combinações lineares não-negativas de restrições de desigualdade, sendo a solução dual
-identificada com os multiplicadores na combinação linear que deriva o maior limitante.
+\begin{align*}
+  max \; & v,\\ C(x) & \vdash^{P} (f(x) \geq v),\\ v \in \mathbb{R}&,
+  P \in \mathcal{P},
+\end{align*}
 
-Direto da definição, podemos inferir o \definicao{princípio de dualidade fraca}: um valor factível
-\var{v} do dual de inferência nunca pode ser maior do que qualquer valor factível do primal, o que
-nos possibilita limitar o valor para o ótimo do primal.
-Ademais, a diferença (a ``lacuna'') entre os valores ótimos do primal e do dual é chamada
-\definicao{lacuna de dualidade}. A lacuna de dualidade pode ser igual a zero, mas não é garantido
-que esse possa ser o caso (isto é, não é garantido que as soluções ótimas primal e dual possam ter o
-mesmo custo). Em particular, pode ser que exista um maior limitante inferior a $f(x)$, mas
-esse limitante inferior não ser inferível em $\mathcal{P}$. Quando esse é o caso, $\mathcal{P}$ é
-dita incompleta. Mais em geral, se $C(x)$ implica \var{C} mas não existe $P \in
-\mathcal{P}$ que infira \var{C}, $\mathcal{P}$ é dita incompleta. Caso contrário, ela é dita
-completa. Quando $\mathcal{P}$ for completa, a lacuna de dualidade pode, ao menos em princípio, ser
-reduzida a zero pelo dual, o que
-constitui o princípio de \definicao{dualidade forte}\footnote{Os ``princípios'' de dualidade fraca e
-  forte são às vezes referidos como teoremas (porque precisam ser provados). Suas provas, no
-  entanto, são tão simples, que foram omitidas a fim de não aborrecer a leitora.}.
+\noindent em que $C(x) \vdash^{P} (f(x) \geq v)$ indica que \var{P} é
+uma prova de $(f(x) \geq v)$, usando o que é assumido em $C(x)$ (no
+caso, $C(x)$ indica as restrições). O domínio de \var{P} é uma família
+de provas $\mathcal{P}$, sendo $(v,P)$ um par de solução dual. Quando
+o problema inicial (dito ``\definicao{primal}'') não tem soluções, o
+conjunto de soluções para o dual é ilimitado.
 
-A ideia de dualidade por inferência provê um plano unificador para várias ideias centrais em
-otimização no geral e em programação por restrições em particular. Entre outras coisas, dualidade
-por inferência nos provê métodos para \technical{aprendizado de cláusulas}, frequentemente muito
-úteis. Buscas com \technical{aprendizado de cláusulas} cresceram de pesquisa em
-\technical{aprendizado baseado em explicações}, um ramo de inteligência artificial que busca melhorar
-a eficiência de métodos de busca por \technical{backtracking} por meio de ``explicações de falha'',
-na forma de novas restrições ao problema original. Para CSPs em geral, tais ``explicações'' são
-chamadas \technical{nogood} (ou, às vezes, ``conflitos''). Foi mostrado que uma grande quantidade de
-problemas que não podem (até o presente momento) ser resolvidos por outras técnicas podem ser
-resolvidos de maneira eficiente por \technical{aprendizado de cláusulas}. Em particular, problemas
-(anteriormente) abertos em teoria de grupos foram resolvidos com essa técnica (entre outras). Para
-mais informações, veja~\cite{beame}
+Quando o primal for um problema de programação linear, por exemplo, a
+família de provas pode consistir de combinações lineares não-negativas
+de restrições de desigualdade, sendo a solução dual identificada com
+os multiplicadores na combinação linear que deriva o maior limitante.
+
+Direto da definição, podemos inferir o \definicao{princípio de
+  dualidade fraca}: um valor factível \var{v} do dual de inferência
+nunca pode ser maior do que qualquer valor factível do primal, o que
+nos possibilita limitar o valor para o ótimo do primal.  Ademais, a
+diferença (a ``lacuna'') entre os valores ótimos do primal e do dual é
+chamada \definicao{lacuna de dualidade}. A lacuna de dualidade pode
+ser igual a zero, mas não é garantido que esse possa ser o caso (isto
+é, não é garantido que as soluções ótimas primal e dual possam ter o
+mesmo custo). Em particular, pode ser que exista um maior limitante
+inferior a $f(x)$, mas esse limitante inferior não ser inferível em
+$\mathcal{P}$. Quando esse é o caso, $\mathcal{P}$ é dita
+incompleta. Mais em geral, se $C(x)$ implica \var{C} mas não existe $P
+\in \mathcal{P}$ que infira \var{C}, $\mathcal{P}$ é dita
+incompleta. Caso contrário, ela é dita completa. Quando $\mathcal{P}$
+for completa, a lacuna de dualidade pode, ao menos em princípio, ser
+reduzida a zero pelo dual, o que constitui o princípio de
+\definicao{dualidade forte}\footnote{Os ``princípios'' de dualidade
+  fraca e forte são às vezes referidos como teoremas (porque precisam
+  ser provados). Suas provas, no entanto, são tão simples, que foram
+  omitidas a fim de não aborrecer a leitora.}.
+
+A ideia de dualidade por inferência provê um plano unificador para
+várias ideias centrais em otimização no geral e em programação por
+restrições em particular. Entre outras coisas, dualidade por
+inferência nos provê métodos para \technical{aprendizado de
+  cláusulas}, frequentemente muito úteis. Buscas com
+\technical{aprendizado de cláusulas} cresceram de pesquisa em
+\technical{aprendizado baseado em explicações}, um ramo de
+inteligência artificial que busca melhorar a eficiência de métodos de
+busca por \technical{backtracking} por meio de ``explicações de
+falha'', na forma de novas restrições ao problema original. Para CSPs
+em geral, tais ``explicações'' são chamadas \technical{nogood} (ou, às
+vezes, ``conflitos''). Foi mostrado que uma grande quantidade de
+problemas que não podem (até o presente momento) ser resolvidos por
+outras técnicas podem ser resolvidos de maneira eficiente por
+\technical{aprendizado de cláusulas}. Em particular, problemas
+(anteriormente) abertos em teoria de grupos foram resolvidos com essa
+técnica (entre outras). Para mais informações, veja~\cite{beame}
 
 \subsection{Duais}
 
-Existem na literatura de programação por restrições, assim como na de programação matemática,
-diversas noções específicas de dual, para diversos tipos de problemas diferentes. Entre elas, destacam-se
-como especialmente úteis os duais \technical{substituto} e \technical{lagrangeano}, aos quais devotaremos alguma atenção
-nesta seção e na próxima, colocando ênfase especial na relação entre eles. Então, nossa atenção se
-voltará ao \technical{dual por ramificação}, que será útil em nosso posterior estudo de técnicas de
+Existem na literatura de programação por restrições, assim como na de
+programação matemática, diversas noções específicas de dual, para
+diversos tipos de problemas diferentes. Entre elas, destacam-se como
+especialmente úteis os duais \technical{substituto} e
+\technical{lagrangeano}, aos quais devotaremos alguma atenção nesta
+seção e na próxima, colocando ênfase especial na relação entre
+eles. Então, nossa atenção se voltará ao \technical{dual por
+  ramificação}, que será útil em nosso posterior estudo de técnicas de
 ramificação.
 
 \subsubsection{Dual Substituto}
@@ -98,34 +111,33 @@ Seja um problema do tipo
 
 \begin{equation}
   \begin{split}
-    & min f(x),\\
-    & g(x) \geq 0,\\
-    & x \in X,
+    & min f(x),\\ & g(x) \geq 0,\\ & x \in X,
   \end{split}\label{eqt:geral}
 \end{equation}
 
-\noindent em que $g(x)$ não necessariamente é linear e  $x \in X$ indica as demais restrições em $x$. Note
-que problemas de programação inteira mista são um caso particular em que $g(x)$ é uma função linear e $X =
-\mathbb{R}^n + \mathbb{Z}^m$. Obtemos o dual de inferência desse problema tomando combinações
-lineares não negativas e implicação como método de inferência, fazendo
+\noindent em que $g(x)$ não necessariamente é linear e $x \in X$
+indica as demais restrições em $x$. Note que problemas de programação
+inteira mista são um caso particular em que $g(x)$ é uma função linear
+e $X = \mathbb{R}^n + \mathbb{Z}^m$. Obtemos o dual de inferência
+desse problema tomando combinações lineares não negativas e implicação
+como método de inferência, fazendo
 
 \begin{equation}
   \begin{split}
-    & max \; v,\\
-    & (g(x) \geq 0) \vdash^P (f(x) \geq v),\\
-    & P \in \mathcal{P}, v \in \mathbb{R},
+    & max \; v,\\ & (g(x) \geq 0) \vdash^P (f(x) \geq v),\\ & P \in
+    \mathcal{P}, v \in \mathbb{R},
   \end{split}\label{eqt:surro}
 \end{equation}
 
-\noindent em que cada prova em $\mathcal{P}$ corresponde a um vetor $u$ de multiplicadores e a prova
-$P$ deduz $f(x) \geq v$ de $g(x) \geq 0$ quando a $ug(x) \geq 0 \Rightarrow f(x) \geq
-v$. Isto é o mesmo que dizer que o mínimo de $f(x)$ com $ug(x) \geq 0$ e $x \in X$ é no mínimo $v$.
-Daí segue que essa formulação é equivalente a
+\noindent em que cada prova em $\mathcal{P}$ corresponde a um vetor
+$u$ de multiplicadores e a prova $P$ deduz $f(x) \geq v$ de $g(x) \geq
+0$ quando a $ug(x) \geq 0 \Rightarrow f(x) \geq v$. Isto é o mesmo que
+dizer que o mínimo de $f(x)$ com $ug(x) \geq 0$ e $x \in X$ é no
+mínimo $v$.  Daí segue que essa formulação é equivalente a
 
 \begin{align*}
-  max \;& \sigma(u),\\
-  \sigma(u) &= min_{x\in X}\{f(x)|ug(x)\geq0\},\\
-  u &\geq 0.
+  max \;& \sigma(u),\\ \sigma(u) &= min_{x\in
+    X}\{f(x)|ug(x)\geq0\},\\ u &\geq 0.
 \end{align*}
 
 Pergunta: o \technical{dual substituto} é completo?
@@ -133,89 +145,103 @@ Pergunta: o \technical{dual substituto} é completo?
 
 \subsubsection{Dual Lagrangeano}
 
-O dual lagrangeano do problema (\ref{eqt:geral}) é semelhante ao dual substituto, exceto que, no dual
-lagrangeano, as provas fazem uso de combinações lineares e \technical{dominação}\footnote{Dizemos que uma
-desigualdade $g(x) \geq 0$ domina uma $h(x) \geq 0$ se $g(x) \leq h(x) \;\forall x$, ou se não existe $x$
-tal que $g(x) \geq 0$.}. O dual é o problema (\ref{eqt:surro}), em que $\mathcal{P}$ consiste de provas
-que mesclam combinação linear com dominação: $f(x) \geq v$ é inferido de $g(x) \geq 0$ se $\exists
-\; l \geq 0: lg(x)$ domina $f(x) \geq v$.
+O dual lagrangeano do problema (\ref{eqt:geral}) é semelhante ao dual
+substituto, exceto que, no dual lagrangeano, as provas fazem uso de
+combinações lineares e \technical{dominação}\footnote{Dizemos que uma
+  desigualdade $g(x) \geq 0$ domina uma $h(x) \geq 0$ se $g(x) \leq
+  h(x) \;\forall x$, ou se não existe $x$ tal que $g(x) \geq 0$.}. O
+dual é o problema (\ref{eqt:surro}), em que $\mathcal{P}$ consiste de
+provas que mesclam combinação linear com dominação: $f(x) \geq v$ é
+inferido de $g(x) \geq 0$ se $\exists \; l \geq 0: lg(x)$ domina $f(x)
+\geq v$.
 
-Como dominação é um requisito mais fraco do que implicação, o dual lagrangeano resulta em um dual de
-inferência mais fraco do que o \technical{substituto} e, assim, possibilita limitantes mais fracos
-em relação ao \technical{substituto}. Apesar disso, para outros fatores o lagrangeano goza de propriedades mais
-interessantes do que o \technical{substituto}, o que o torna atraente para uma grande variedade de problemas. Por exemplo,
-o conjunto de soluções factíveis para o \technical{dual lagrangeano} é côncavo (o que não vale, no
+Como dominação é um requisito mais fraco do que implicação, o dual
+lagrangeano resulta em um dual de inferência mais fraco do que o
+\technical{substituto} e, assim, possibilita limitantes mais fracos em
+relação ao \technical{substituto}. Apesar disso, para outros fatores o
+lagrangeano goza de propriedades mais interessantes do que o
+\technical{substituto}, o que o torna atraente para uma grande
+variedade de problemas. Por exemplo, o conjunto de soluções factíveis
+para o \technical{dual lagrangeano} é côncavo (o que não vale, no
 geral, para o \technical{dual substituto}). Isso pode ser visto
-facilmente se, supondo que $lg(x) \geq 0$ é factível para $l\geq0$, observarmos que o
-lagrangeano maximiza $v$ com $l \geq 0$ e $lg(x) \geq f(x) - v \; \forall x \in X$. Reescrevendo $lg(x)
-\leq f(x) - v$ como $v \leq f(x) - lg(x)$ e fazendo $\lambda(l,x) = f(x) - lg(x)$, nosso
-lagrangeano é equivalente a
+facilmente se, supondo que $lg(x) \geq 0$ é factível para $l\geq0$,
+observarmos que o lagrangeano maximiza $v$ com $l \geq 0$ e $lg(x)
+\geq f(x) - v \; \forall x \in X$. Reescrevendo $lg(x) \leq f(x) - v$
+como $v \leq f(x) - lg(x)$ e fazendo $\lambda(l,x) = f(x) - lg(x)$,
+nosso lagrangeano é equivalente a
 
 %\begin{equation}
-  \begin{align}
-     max &\; \lambda(l),\\
-     \lambda(l) &:=  inf_{x \in X}\{f(x) - lg(x)\},\label{eqt:lambda}\\
-     l & \geq 0,
-  \end{align}
+\begin{align}
+  max &\; \lambda(l),\\ \lambda(l) &:= inf_{x \in X}\{f(x) -
+  lg(x)\},\label{eqt:lambda}\\ l & \geq 0,
+\end{align}
 %\end{equation}
 
-\noindent e o conjunto de ínfimos de funções afim (como em (\ref{eqt:lambda})) é um conjunto côncavo
-($\lambda$ é afim para $x$ fixo). O vetor $l$ é popularmente conhecido como vetor de multiplicadores
-de lagrange.
+\noindent e o conjunto de ínfimos de funções afim (como em
+(\ref{eqt:lambda})) é um conjunto côncavo ($\lambda$ é afim para $x$
+fixo). O vetor $l$ é popularmente conhecido como vetor de
+multiplicadores de lagrange.
 
 \subsubsection{Dualidade por Ramificação}
 
-Intuitivamente, se temos uma árvore de busca para um problema de otimização, essa árvore vista ``de
-baixo para cima'', isto é, das folhas para a raíz, nos provê um certificado de otimalidade a uma
-solução ótima. Além disso, dada tal árvore de busca, cada subárvore dela constitui uma relaxação ao
-problema original e provê um limitante ao custo ótimo do problema original.
-Assim, parece natural definirmos um dual por ramificação ao problema de otimizar um $f(x)$ nas
-folhas de uma árvore de busca $\mathpzc{T}$ da seguinte forma:
+Intuitivamente, se temos uma árvore de busca para um problema de
+otimização, essa árvore vista ``de baixo para cima'', isto é, das
+folhas para a raíz, nos provê um certificado de otimalidade a uma
+solução ótima. Além disso, dada tal árvore de busca, cada subárvore
+dela constitui uma relaxação ao problema original e provê um limitante
+ao custo ótimo do problema original.  Assim, parece natural definirmos
+um dual por ramificação ao problema de otimizar um $f(x)$ nas folhas
+de uma árvore de busca $\mathpzc{T}$ da seguinte forma:
 
 \begin{equation}
   \begin{split}
-    max\; B(\mathpzc{T'}),\\
-    \mathpzc{T'} \in \mathcal{T},
+    max\; B(\mathpzc{T'}),\\ \mathpzc{T'} \in \mathcal{T},
   \end{split}
 \end{equation}
 
-\noindent em que $B$ é o limitante de $f$ em $\mathpzc{T'}$ e $\mathcal{T}$ é uma coleção de
-subárvores de $\mathpzc{T}$.
+\noindent em que $B$ é o limitante de $f$ em $\mathpzc{T'}$ e
+$\mathcal{T}$ é uma coleção de subárvores de $\mathpzc{T}$.
 
-As estratégias de ramificação que veremos logo mais podem ser vistas como instâncias do dual de
-ramificação. Para mais detalhes sobre o dual de inferência veja \cite{hooker}.
+As estratégias de ramificação que veremos logo mais podem ser vistas
+como instâncias do dual de ramificação. Para mais detalhes sobre o
+dual de inferência veja \cite{hooker}.
 
 
 \subsection{Complexidade}
 
-Um certificado de factibilidade (infactilibidade/otimalidade) é um pedaço de
-informação que permite a verificação da factibilidade (infactibilidade/otimalidade) da instância de
-um problema. Dizemos que um problema de otimização pertence ao NP (de \foreign{nondeterministic
-  polynomial}) se existe um certificado de factibilidade polinomial para qualquer instância factível
-do problema: a computação requerida para testar factibilidade, pelo certificado, é limitada por uma
-função polinomial do tamanho da instância do problema. Um problema de otimização é co-NP se existe
-um certificado polinomial de otimalidade para qualquer instância.
+Um certificado de factibilidade (infactilibidade/otimalidade) é um
+pedaço de informação que permite a verificação da factibilidade
+(infactibilidade/otimalidade) da instância de um problema. Dizemos que
+um problema de otimização pertence ao NP (de \foreign{nondeterministic
+  polynomial}) se existe um certificado de factibilidade polinomial
+para qualquer instância factível do problema: a computação requerida
+para testar factibilidade, pelo certificado, é limitada por uma função
+polinomial do tamanho da instância do problema. Um problema de
+otimização é co-NP se existe um certificado polinomial de otimalidade
+para qualquer instância.
 
-Se um problema de otimização primal for co-NP, seu dual de inferência é NP para alguma família de
-provas $\mathcal{P}$: se o problema for co-NP, seja $\mathcal{P}$ a família de provas $P_i$ (que
-assumimos polinomiais) de otimalidade da instância $i$, de valor ótimo $v_i$, provê um certificado
-polinomial de factibilidade do dual (que é, portanto, NP).
+Se um problema de otimização primal for co-NP, seu dual de inferência
+é NP para alguma família de provas $\mathcal{P}$: se o problema for
+co-NP, seja $\mathcal{P}$ a família de provas $P_i$ (que assumimos
+polinomiais) de otimalidade da instância $i$, de valor ótimo $v_i$,
+provê um certificado polinomial de factibilidade do dual (que é,
+portanto, NP).
 
-Programação linear pertence a ambos NP e co-NP. Problemas desse tipo são tidos ter ``boa
-caracterização'', no sentido de que soluções factíveis e provas de otimalidade são facilmente
-escritas.
+Programação linear pertence a ambos NP e co-NP. Problemas desse tipo
+são tidos ter ``boa caracterização'', no sentido de que soluções
+factíveis e provas de otimalidade são facilmente escritas.
 
-  \begin{thebibliography}{1}
+\begin{thebibliography}{1}
 
-    \bibitem{beame}
-    Beame Paul and Kautz Henry and Sabharwal Ashish,
-    Towards Understanding and Harnessing the Potential of Clause Learning,
-    Journal of Artificial Intelligence Research 22 (2004) 319-351.
+\bibitem{beame} Beame Paul and Kautz Henry and Sabharwal Ashish,
+  Towards Understanding and Harnessing the Potential of Clause
+  Learning, Journal of Artificial Intelligence Research 22 (2004)
+  319-351.
 
 
-    \bibitem{hooker}
-    Hooker N. John, Integrated Methods for Optimization, Second Edition, Springer Verlag, 2012.
+\bibitem{hooker} Hooker N. John, Integrated Methods for Optimization,
+  Second Edition, Springer Verlag, 2012.
 
-  \end{thebibliography}
+\end{thebibliography}
 
 \end{document}

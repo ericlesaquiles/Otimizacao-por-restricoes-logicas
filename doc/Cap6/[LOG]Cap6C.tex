@@ -2,31 +2,33 @@
 
 %\input{../header.tex}
 
-%
-% TODO: revisar esta seção!
-%
-
 %\begin{document}
 \section{Predicados de Inspeção de Estrutura}
 
-Predicados de inspeção de estrutura nos passam informações sobre um termo específico. Por exemplo, será um dado termo atômico, numérico, constante, variável? Ou será um funtor composto? Se for, qual será seu funtor principal, qual sua aridade e quais seus argumentos? Os predicados de inspeção de estrutura respondem esse tipo de questão.
+Predicados de inspeção de estrutura nos passam informações sobre um
+termo específico. Por exemplo, será um dado termo atômico, numérico,
+constante, variável? Ou será um funtor composto? Se for, qual será seu
+funtor principal, qual sua aridade e quais seus argumentos? Os
+predicados de inspeção de estrutura respondem esse tipo de questão.
 
 \subsection{Predicados de tipos}
 
 Alguns dos, assim chamados, predicados de tipo são:
 
 \begin{itemize}
-  \item \funtor{integer/1};
-  \item \funtor{real/1};
-  \item \funtor{atom/1};
-  \item \funtor{compound/1};
+\item \funtor{integer/1};
+\item \funtor{real/1};
+\item \funtor{atom/1};
+\item \funtor{compound/1};
 \end{itemize}
 
-Cada um deles pode ser interpretado como uma lista infinita de átomos. Por exemplo, \funtor{integer/1} pode ser interpretado como:
+Cada um deles pode ser interpretado como uma lista infinita de
+átomos. Por exemplo, \funtor{integer/1} pode ser interpretado como:
 
 \codigo{integer(0). integer(1). integer(2). integer(3), ...}.
 
-\noindent A partir desses predicados podemos criar outros. Por exemplo, podemos fazer
+\noindent A partir desses predicados podemos criar outros. Por
+exemplo, podemos fazer
 
 \codigo{numero(X) :- integer(X);real(X).}
 
@@ -36,116 +38,169 @@ Cada um deles pode ser interpretado como uma lista infinita de átomos. Por exem
 
 \subsection{Acesso de termos compostos}
 
-Queremos ser capaz, além de lidar com tipos, lidar com funtores. Para acessar o funtor principal,
-temos o predicado \funtor{functor/3}. O
-goal \codigo{functor(Termo, F, Aridade)?} tem sucesso se o funtor principal de \var{Termo} tem
-aridade \var{Aridade} e nome \var{F}. Assim, por exemplo, \codigo{functor(f($X_1$, ..., $X_n$), f,
-  n)}, onde os \var{$X_i$} são variáveis, tem sucesso, já que o funtor principal é \funtor{f/n}.
+Queremos ser capaz, além de lidar com tipos, lidar com funtores. Para
+acessar o funtor principal, temos o predicado \funtor{functor/3}. O
+goal \codigo{functor(Termo, F, Aridade)?} tem sucesso se o funtor
+principal de \var{Termo} tem aridade \var{Aridade} e nome
+\var{F}. Assim, por exemplo, \codigo{functor(f($X_1$, ..., $X_n$), f,
+  n)}, onde os \var{$X_i$} são variáveis, tem sucesso, já que o funtor
+principal é \funtor{f/n}.
 
-Pode-se usar esse predicado para, entre outras coisas, realizar a decomposição e criação de termos:
+Pode-se usar esse predicado para, entre outras coisas, realizar a
+decomposição e criação de termos:
 \begin{enumerate}
-  \item\codigo{functor(tio(a,b), X, Y)?} tem a solução \{\var{X} = tio, \var{Y} = 2\};
-  \item\codigo{functor(F, tio, 2)} tem a solução \{\var{F} = tio\}.
+\item\codigo{functor(tio(a,b), X, Y)?} tem a solução \{\var{X} =
+  tio, \var{Y} = 2\};
+\item\codigo{functor(F, tio, 2)} tem a solução \{\var{F} = tio\}.
 \end{enumerate}
 
-Note que, no item 2 acima, se o goal fosse \codigo{functor(F, tio, N)?}, teríamos erro, já que o interpretador não consegue adivinhar a aridade de um funtor a partir do nome. Analogamente,
-\codigo{functor(F, tio(a, b), N)?} resultaria em erro, já que \codigo{functor} espera um átomo como segundo argumento, não um funtor composto. Mas, \codigo{functor(tio, X, N)?} teria sucesso, com \{X = tio, N = 0\}.
+Note que, no item 2 acima, se o goal fosse \codigo{functor(F, tio,
+  N)?}, teríamos erro, já que o interpretador não consegue adivinhar a
+aridade de um funtor a partir do nome. Analogamente,
+\codigo{functor(F, tio(a, b), N)?} resultaria em erro, já que
+\codigo{functor} espera um átomo como segundo argumento, não um funtor
+composto. Mas, \codigo{functor(tio, X, N)?} teria sucesso, com \{X =
+tio, N = 0\}.
 
-Similar a \funtor{functor/3} é o \funtor{arg/3}: \codigo{arg(N, F($X_1$, ..., $X_n$), Q)?} tem
-sucesso se o Enésimo argumento de \var{F} é o \var{Q}. Assim como functor, \funtor{arg/3} é comumente usado para decomposição e criação de termos:
+Similar a \funtor{functor/3} é o \funtor{arg/3}: \codigo{arg(N,
+  F($X_1$, ..., $X_n$), Q)?} tem sucesso se o Enésimo argumento de
+\var{F} é o \var{Q}. Assim como functor, \funtor{arg/3} é comumente
+usado para decomposição e criação de termos:
 \begin{itemize}
-  \item Para decompor um termo, \funtor{arg/3} acha um argumento particular de um termo composto;
-  \item Para criar um termo, ele instancia um argumento variável de um termo.
+\item Para decompor um termo, \funtor{arg/3} acha um argumento
+  particular de um termo composto;
+\item Para criar um termo, ele instancia um argumento variável de um
+  termo.
 \end{itemize}
 
-Por exemplo, \codigo{arg(1, tio(a,b), X)?} tem sucesso com \{\var{X} = a\}, enquanto que \codigo{arg(1, tio(X,b), a)?} tem sucesso com \{\var{X} = a\}.
+Por exemplo, \codigo{arg(1, tio(a,b), X)?} tem sucesso com \{\var{X} =
+a\}, enquanto que \codigo{arg(1, tio(X,b), a)?} tem sucesso com
+\{\var{X} = a\}.
 
 Exemplos um pouco mais interessantes são os seguintes:
 
-    \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap6/prog1_subtermo.pl}
-\caption{Subtermo}
-    \end{listing}
+\begin{listing}
+  \inputminted{prolog}{../Exemplos/Cap6/prog1_subtermo.pl}
+  \caption{Subtermo}
+\end{listing}
 
-    \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap6/prog2_substitui.pl}
-\caption{Substituto}
-    \end{listing}
+\begin{listing}
+  \inputminted{prolog}{../Exemplos/Cap6/prog2_substitui.pl}
+  \caption{Substituto}
+\end{listing}
 
-Outro predicado de inspeção de estrutura é o, assim chamado (por razões históricas obscuras),
-\technical{univ}, escrito como \funtor{=../2}\footnote{Predicados para acesso e construção de termos
-  têm origem na família Prolog de Edimburgo (que tem se tornado o padrão de fato) e alguns dos nomes
-  usados vêm de lá. Em particular, a forma “=..” para \technical{univ} vem do Prolog-10, onde era
-  usado “,..” no lugar de “$|$” em listas (\codigo{[a, b,.. Xs]} no lugar de \codigo{[a, b|Xs]}).}.
-Um exemplo de seu uso é \codigo{Termo =.. [f,a,b]?}, que faz \codigo{Termo = f(a, b)}.
-O \technical{univ} pode ser usado de essencialmente duas formas diferentes:
+Outro predicado de inspeção de estrutura é o, assim chamado (por
+razões históricas obscuras), \technical{univ}, escrito como
+\funtor{=../2}\footnote{Predicados para acesso e construção de termos
+  têm origem na família Prolog de Edimburgo (que tem se tornado o
+  padrão de fato) e alguns dos nomes usados vêm de lá. Em particular,
+  a forma “=..” para \technical{univ} vem do Prolog-10, onde era usado
+  “,..” no lugar de “$|$” em listas (\codigo{[a, b,.. Xs]} no lugar de
+  \codigo{[a, b|Xs]}).}.  Um exemplo de seu uso é \codigo{Termo
+  =.. [f,a,b]?}, que faz \codigo{Termo = f(a, b)}.  O \technical{univ}
+pode ser usado de essencialmente duas formas diferentes:
 \begin{enumerate}
-  \item Com um funtor ao lado esquerdo e uma variável no direito: a variável é unificada com \codigo{[f|v]}, onde f é o funtor principal e V a lista de seus argumentos;
-  \item Com uma variável ao lado esquerdo e uma lista no direito: se a lista é \codigo{[a, $b_1$, ..., $b_n$]}, a variável é unificada com \codigo{a($b_1$, ..., $b_n$)}.
+\item Com um funtor ao lado esquerdo e uma variável no direito: a
+  variável é unificada com \codigo{[f|v]}, onde f é o funtor
+  principal e V a lista de seus argumentos;
+\item Com uma variável ao lado esquerdo e uma lista no direito: se a
+  lista é \codigo{[a, $b_1$, ..., $b_n$]}, a variável é unificada
+  com \codigo{a($b_1$, ..., $b_n$)}.
 \end{enumerate}
 
-O seguinte programa mostra um exemplo da utilidade de \technical{univ}:
+O seguinte programa mostra um exemplo da utilidade de
+\technical{univ}:
 
-    \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap6/prog3_apply.pl}
-\caption{Apply}
-    \end{listing}
+\begin{listing}
+  \inputminted{prolog}{../Exemplos/Cap6/prog3_apply.pl}
+  \caption{Apply}
+\end{listing}
 
 \subsection{Predicados de Meta-programação}
 
-Digamos que você queira fazer um interpretador de Prolog em Prolog (algumas possíveis aplicações disso são \foreign{debuggers}). O mais simples possível é dado a seguir:
+Digamos que você queira fazer um interpretador de Prolog em Prolog
+(algumas possíveis aplicações disso são \foreign{debuggers}). O mais
+simples possível é dado a seguir:
 
 \codigo{solve(Goal) :- Goal.}
 
-Esse interpretador, sozinho, é de pouca utilidade. Nos dá a possibilidade de acessar quase nada do programa. Se quisermos fazer
-melhor, precisaremos de predicados que nos digam mais sobre predicados (ou seja, meta-predicados, predicados de meta-programação).
+Esse interpretador, sozinho, é de pouca utilidade. Nos dá a
+possibilidade de acessar quase nada do programa. Se quisermos fazer
+melhor, precisaremos de predicados que nos digam mais sobre predicados
+(ou seja, meta-predicados, predicados de meta-programação).
 
-Um predicado de meta-programação básico é o \funtor{clause/2}. O goal \codigo{clause(Head, Body)?} é verdadeiro se \var{Head} for unificável
-com a cabeça de uma cláusula e \var{Body} com seu respectivo corpo (se \var{Head} for um fato, \var{Body} é unificável com \technical{true}).
+Um predicado de meta-programação básico é o \funtor{clause/2}. O goal
+\codigo{clause(Head, Body)?} é verdadeiro se \var{Head} for unificável
+com a cabeça de uma cláusula e \var{Body} com seu respectivo corpo (se
+\var{Head} for um fato, \var{Body} é unificável com \technical{true}).
 
 Com isso, podemos fazer um meta-interpretador, algo mais elaborado:
 
-    \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap6/prog4_meta1.pl}
-\caption{Meta 1}
-    \end{listing}
+\begin{listing}
+  \inputminted{prolog}{../Exemplos/Cap6/prog4_meta1.pl}
+  \caption{Meta 1}
+\end{listing}
 
-Precisamos dos parênteses a mais em \codigo{solve((A,B))} por razões técnicas (não queremos confundir o compilador). Esse
-interpretador teria que ser estendido se quisermos que faça tudo o que é esperado de um interpretador Prolog (ele não lida
-apropriadamente com cortes, por exemplo, ou com entradas pelo teclado). Isso poderia ser corrigido sem grandes dificuldades.
+Precisamos dos parênteses a mais em \codigo{solve((A,B))} por razões
+técnicas (não queremos confundir o compilador). Esse interpretador
+teria que ser estendido se quisermos que faça tudo o que é esperado de
+um interpretador Prolog (ele não lida apropriadamente com cortes, por
+exemplo, ou com entradas pelo teclado). Isso poderia ser corrigido sem
+grandes dificuldades.
 
-O Prolog nos possibilita não só facilmente escrever interpretadores para a própria linguagem (o que pode ser útil, por exemplo, na construção de \foreign{debuggers}, de sistemas especializados, de programas autocorretores, de programas que ``se explicam'' em termos
-de porquês e comos entre outros), mas também nos possibilita facilmente escrever interpretadores para outras linguagens e para
-dialeto dessas. Por exemplo, alguém poderia argumentar que o Prolog, sendo uma linguagem de programação lógica, não lida bem
-com situações em que a incerteza é uma parte importante. Mas, com ele, podemos facilmente criar nossa própria linguagem
-para fazer isso. Para tanto, suponhamos, por exemplo, que cláusulas com uma certeza (a probabilidade
-de estar correta) \var{C} sejam representadas pelo funtor \funtor{clause\_c/3}, em que \codigo{clause\_c(Head,Body,C)?} é verdade quando \var{Head} unifica com uma cabeça de cláusula cujo corpo unifica com \var{Body} e cujo ``fator de certeza''  unifica com \var{C}, e considere o seguinte:
+O Prolog nos possibilita não só facilmente escrever interpretadores
+para a própria linguagem (o que pode ser útil, por exemplo, na
+construção de \foreign{debuggers}, de sistemas especializados, de
+programas autocorretores, de programas que ``se explicam'' em termos
+de porquês e comos entre outros), mas também nos possibilita
+facilmente escrever interpretadores para outras linguagens e para
+dialeto dessas. Por exemplo, alguém poderia argumentar que o Prolog,
+sendo uma linguagem de programação lógica, não lida bem com situações
+em que a incerteza é uma parte importante. Mas, com ele, podemos
+facilmente criar nossa própria linguagem para fazer isso. Para tanto,
+suponhamos, por exemplo, que cláusulas com uma certeza (a
+probabilidade de estar correta) \var{C} sejam representadas pelo
+funtor \funtor{clause\_c/3}, em que \codigo{clause\_c(Head,Body,C)?} é
+verdade quando \var{Head} unifica com uma cabeça de cláusula cujo
+corpo unifica com \var{Body} e cujo ``fator de certeza'' unifica com
+\var{C}, e considere o seguinte:
 
-    \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap6/prog5_meta2.pl}
-\caption{Meta 2}
-    \end{listing}
+\begin{listing}
+  \inputminted{prolog}{../Exemplos/Cap6/prog5_meta2.pl}
+  \caption{Meta 2}
+\end{listing}
 
-Um goal \codigo{solve(Goal,C,Limit)?} submetido a esse interpretador resulta em sucesso se a ``confiança'' \var{C} de \var{Goal}
-for maior do que o limite inferior \var{Limit}. Alguns pontos válidos de se notar nesse programa são que, numa conjunção \codigo{A,B},
-a nossa confiança na conjunção é tomada como o mínimo entre a de \var{A} e a de \var{B} e que se, para provar um goal \var{Goal}, é
-preciso passar por uma cláusula com fator de certeza \var{C1}, a prova do corpo da cláusula terá um fator de certeza menor, dado
-por \codigo{Limit/C1}. Isto porque queremos que nossa ``confiança'' (pensando de forma probabilística) \var{C1} na cláusula vezes
-a confiança \var{C2} (pense na probabilidade de eventos independentes) na resolução do corpo da cláusula seja maior que \var{Limit}.
+Um goal \codigo{solve(Goal,C,Limit)?} submetido a esse interpretador
+resulta em sucesso se a ``confiança'' \var{C} de \var{Goal} for maior
+do que o limite inferior \var{Limit}. Alguns pontos válidos de se
+notar nesse programa são que, numa conjunção \codigo{A,B}, a nossa
+confiança na conjunção é tomada como o mínimo entre a de \var{A} e a
+de \var{B} e que se, para provar um goal \var{Goal}, é preciso passar
+por uma cláusula com fator de certeza \var{C1}, a prova do corpo da
+cláusula terá um fator de certeza menor, dado por
+\codigo{Limit/C1}. Isto porque queremos que nossa ``confiança''
+(pensando de forma probabilística) \var{C1} na cláusula vezes a
+confiança \var{C2} (pense na probabilidade de eventos independentes)
+na resolução do corpo da cláusula seja maior que \var{Limit}.
 
 \subsubsection{Meta-predicados de variáveis}
 
-Outro predicado de meta-programação básico é o \funtor{var/1}: o goal \codigo{var(T)?} tem sucesso se
-\var{T} é uma variável não instanciada e falha caso contrário. Sua irmã, \funtor{nonvar/1}, funciona de maneira análoga. Por exemplo, \codigo{var(a)?} e \codigo{var([X|Xs])?} falham, enquanto que \codigo{var(X)?} tem sucesso, se X é uma variável não instanciada.
-Esse predicado nos permite fazer, por exemplo, programas como o seguinte:
+Outro predicado de meta-programação básico é o \funtor{var/1}: o goal
+\codigo{var(T)?} tem sucesso se \var{T} é uma variável não instanciada
+e falha caso contrário. Sua irmã, \funtor{nonvar/1}, funciona de
+maneira análoga. Por exemplo, \codigo{var(a)?} e \codigo{var([X|Xs])?}
+falham, enquanto que \codigo{var(X)?} tem sucesso, se X é uma variável
+não instanciada.  Esse predicado nos permite fazer, por exemplo,
+programas como o seguinte:
 
-    \begin{listing}
-\inputminted{prolog}{../Exemplos/Cap6/prog6_glength.pl}
-\caption{Length mais geral}
-    \end{listing}
+\begin{listing}
+  \inputminted{prolog}{../Exemplos/Cap6/prog6_glength.pl}
+  \caption{Length mais geral}
+\end{listing}
 
 %TODO inserir refs e links
-\noindent em que \funtor{length1/2} e \funtor{length2/2} são dados pelos length no (Capítulo 4).
+\noindent em que \funtor{length1/2} e \funtor{length2/2} são dados
+pelos length no (Capítulo 4).
 
 %TODO inserir bibliografia para solver
 

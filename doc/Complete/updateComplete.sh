@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 #
 # Has to:
 #   Copy Capi.tex to CapiC.tex;
@@ -12,7 +11,7 @@
 #     \end{document}
 #
 
-for ((i = 0; i < 14; i++))
+for ((i = 0; i < 16; i++))
 do
   cp "../Cap${i}/[LOG]Cap${i}.tex" "../Cap${i}/[LOG]Cap${i}C.tex"
   sed -i 's/\\documentclass{article}/%\\documentclass{article}/' "../Cap${i}/[LOG]Cap${i}C.tex"
