@@ -76,8 +76,11 @@ data(Names, Weights, Values, Bounds, Capacity) :-
 
 run(Times) :-
         N is 2^Times,
-        ( count(I, 4, Times),
+        ( count(I, 1, Times),
           param(N)
         do 
             profile(main(N))
         ).
+
+
+pro(N) :- profile(main(N)).
