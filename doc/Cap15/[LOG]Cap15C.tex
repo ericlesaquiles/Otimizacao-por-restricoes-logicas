@@ -366,18 +366,17 @@ quais poderíamos querer trabalhar são:
   do combustível e tempo de vôo.
 \end{itemize}
 
-
-
-
 \subsection{Modelo de Asa}
 Como um exemplo simples de aplicação de programação geométrica, é
 apresentado a seguir um projeto de asa simples, tirado de
-\cite{warren}.  Queremos dimensionar uma asa de área total $S$,
+\cite{warren}. As fórmulas usadas aqui são semelhantes às vistas na
+seção anterior.  Queremos dimensionar uma asa de área total $S$,
 envergadura $b$ e alongamento $A = \frac{b^2}{S}$. Gostaríamos de
 escolher esses parâmetros de forma a minimizar o arrasto total, $D =
 \frac{1}{2}\rho V^2 C_D S$.  O coeficiente de arrasto é modelado como
 a soma de arrasto parasita da fuselagem, arrasto parasita da asa e
 arrasto induzido,
+
 \[
 C_D = \frac{CDA_0}{S} + kC_f \frac{S_{wet}}{S} + \frac{C_{L}^2}{\pi A
   e}
@@ -388,7 +387,7 @@ k é o fator de forma, que leva em conta o arrasto de pressão,
 $S_wet/S$ é a razão de área molhada e $e$ é o fator de eficiência de
 Oswald.
 
-O coeficiente de fricção $C_f$ pode ser aproximável por:
+O coeficiente de fricção $C_f$ é aproximado por:
 \[
 C_f = \frac{0,074}{Re^{0,2}}
 \]
