@@ -1,0 +1,70 @@
+\contentsline {section}{\numberline {0}Dando nome aos bois}{8}{section.0}
+\contentsline {section}{\numberline {1}Modelo Computacional de Programas L\IeC {\'o}gicos}{15}{section.1}
+\contentsline {subsection}{\numberline {1.1}Programas ``gera-e-testa''}{19}{subsection.1.1}
+\contentsline {section}{\numberline {2}Teoria de Programa\IeC {\c c}\IeC {\~a}o L\IeC {\'o}gica}{24}{section.2}
+\contentsline {subsection}{\numberline {2.1}Sem\IeC {\^a}ntica}{24}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Corre\IeC {\c c}\IeC {\~a}o do Programa}{25}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Complexidade}{28}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Nega\IeC {\c c}\IeC {\~a}o}{29}{subsection.2.4}
+\contentsline {section}{\numberline {3}Listas}{31}{section.3}
+\contentsline {subsubsection}{\numberline {3.0.1}Operadores aritm\IeC {\'e}ticos}{32}{subsubsection.3.0.1}
+\contentsline {subsubsection}{\numberline {3.0.2}Flattening}{34}{subsubsection.3.0.2}
+\contentsline {subsubsection}{\numberline {3.0.3}Lista Completa}{34}{subsubsection.3.0.3}
+\contentsline {subsection}{\numberline {3.1}Listas de diferen\IeC {\c c}a}{35}{subsection.3.1}
+\contentsline {section}{\numberline {4}Alguns predicados n\IeC {\~a}o l\IeC {\'o}gicos}{40}{section.4}
+\contentsline {subsection}{\numberline {4.1}Outras Op\IeC {\c c}\IeC {\~o}es}{43}{subsection.4.1}
+\contentsline {section}{\numberline {5}Programas como \IeC {\'a}rvores}{45}{section.5}
+\contentsline {section}{\numberline {6}Predicados de Inspe\IeC {\c c}\IeC {\~a}o de Estrutura}{51}{section.6}
+\contentsline {subsection}{\numberline {6.1}Predicados de tipos}{51}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Acesso de termos compostos}{51}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Predicados de Meta-programa\IeC {\c c}\IeC {\~a}o}{53}{subsection.6.3}
+\contentsline {subsubsection}{\numberline {6.3.1}Meta-predicados de vari\IeC {\'a}veis}{55}{subsubsection.6.3.1}
+\contentsline {section}{\numberline {7}Restri\IeC {\c c}\IeC {\~o}es}{57}{section.7}
+\contentsline {subsection}{\numberline {7.1}Dom\IeC {\'\i }nios}{57}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}\IeC {\'A}rvores}{59}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Ideias de resolu\IeC {\c c}\IeC {\~a}o}{60}{subsection.7.3}
+\contentsline {subsubsection}{\numberline {7.3.1}Propaga\IeC {\c c}\IeC {\~a}o local}{60}{subsubsection.7.3.1}
+\contentsline {subsection}{\numberline {7.4}Busca Top-Down}{62}{subsection.7.4}
+\contentsline {subsection}{\numberline {7.5}Branch and Bound and Cut}{63}{subsection.7.5}
+\contentsline {subsection}{\numberline {7.6}Proje\IeC {\c c}\IeC {\~a}o}{64}{subsection.7.6}
+\contentsline {subsection}{\numberline {7.7}Equival\IeC {\^e}ncia}{65}{subsection.7.7}
+\contentsline {subsection}{\numberline {7.8}Programa\IeC {\c c}\IeC {\~a}o por restri\IeC {\c c}\IeC {\~o}es l\IeC {\'o}gicas}{66}{subsection.7.8}
+\contentsline {section}{\numberline {8}Restri\IeC {\c c}\IeC {\~o}es passivas e implementa\IeC {\c c}\IeC {\~o}es no Eclipse}{69}{section.8}
+\contentsline {subsection}{\numberline {8.1}Backtracking no Prolog/Eclipse}{70}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Vari\IeC {\'a}veis n\IeC {\~a}o-l\IeC {\'o}gicas}{72}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}A biblioteca suspend}{74}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}Outras Bibliotecas}{75}{subsection.8.4}
+\contentsline {section}{\numberline {9}Propaga\IeC {\c c}\IeC {\~a}o de restri\IeC {\c c}\IeC {\~o}es em dom\IeC {\'\i }nios finitos}{78}{section.9}
+\contentsline {subsection}{\numberline {9.1}Consist\IeC {\^e}ncia por n\IeC {\'o} e por arco}{78}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}Consistncia por limite}{82}{subsection.9.2}
+\contentsline {subsection}{\numberline {9.3}Consist\IeC {\^e}ncia global}{86}{subsection.9.3}
+\contentsline {subsubsection}{\numberline {9.3.1}Alldifferent}{87}{subsubsection.9.3.1}
+\contentsline {subsection}{\numberline {9.4}Indexicals}{88}{subsection.9.4}
+\contentsline {section}{\numberline {10}Restri\IeC {\c c}\IeC {\~o}es ativas}{92}{section.10}
+\contentsline {subsection}{\numberline {10.1}Backtracking raso}{95}{subsection.10.1}
+\contentsline {subsection}{\numberline {10.2}Busca por backtracking}{96}{subsection.10.2}
+\contentsline {section}{\numberline {11}Heur\IeC {\'\i }sticas}{99}{section.11}
+\contentsline {subsection}{\numberline {11.1}Vetores}{99}{subsection.11.1}
+\contentsline {subsection}{\numberline {11.2}As $n$-rainhas}{99}{subsection.11.2}
+\contentsline {subsection}{\numberline {11.3}Ordena\IeC {\c c}\IeC {\~a}o de vari\IeC {\'a}veis}{102}{subsection.11.3}
+\contentsline {subsection}{\numberline {11.4}Heur\IeC {\'\i }sticas de ordena\IeC {\c c}\IeC {\~a}o de valor}{103}{subsection.11.4}
+\contentsline {subsection}{\numberline {11.5}Outras Considera\IeC {\c c}\IeC {\~o}es}{104}{subsection.11.5}
+\contentsline {subsection}{\numberline {11.6}O Predicado Search}{106}{subsection.11.6}
+\contentsline {section}{\numberline {12}O Problema do General B\IeC {\'a}rbaro}{108}{section.12}
+\contentsline {subsection}{\numberline {12.1}O Problema}{108}{subsection.12.1}
+\contentsline {subsection}{\numberline {12.2}Os Testes}{113}{subsection.12.2}
+\contentsline {section}{\numberline {13}Dualidade e relaxa\IeC {\c c}\IeC {\~a}o}{117}{section.13}
+\contentsline {subsection}{\numberline {13.1}Duais}{118}{subsection.13.1}
+\contentsline {subsubsection}{\numberline {13.1.1}Dual Substituto}{119}{subsubsection.13.1.1}
+\contentsline {subsubsection}{\numberline {13.1.2}Dual Lagrangeano}{119}{subsubsection.13.1.2}
+\contentsline {subsubsection}{\numberline {13.1.3}Dualidade por Ramifica\IeC {\c c}\IeC {\~a}o}{120}{subsubsection.13.1.3}
+\contentsline {subsection}{\numberline {13.2}Complexidade}{121}{subsection.13.2}
+\contentsline {section}{\numberline {14}Desenvolvimento de Aeronaves por Programa\IeC {\c c}\IeC {\~a}o Geom\IeC {\'e}trica}{123}{section.14}
+\contentsline {subsection}{\numberline {14.1}Introdu\IeC {\c c}\IeC {\~a}o}{123}{subsection.14.1}
+\contentsline {subsection}{\numberline {14.2}Programa\IeC {\c c}\IeC {\~a}o Geom\IeC {\'e}trica}{124}{subsection.14.2}
+\contentsline {subsection}{\numberline {14.3}Um modelo simples de aeronave}{126}{subsection.14.3}
+\contentsline {subsubsection}{\numberline {14.3.1}Modelo de Peso e Sustenta\IeC {\c c}\IeC {\~a}o}{126}{subsubsection.14.3.1}
+\contentsline {subsubsection}{\numberline {14.3.2}Volume do Combust\IeC {\'\i }vel}{128}{subsubsection.14.3.2}
+\contentsline {subsubsection}{\numberline {14.3.3}Acumula\IeC {\c c}\IeC {\~a}o de Peso nas Asas}{129}{subsubsection.14.3.3}
+\contentsline {subsubsection}{\numberline {14.3.4}Poss\IeC {\'\i }veis Objetivos}{130}{subsubsection.14.3.4}
+\contentsline {subsection}{\numberline {14.4}Modelo de Asa}{130}{subsection.14.4}
