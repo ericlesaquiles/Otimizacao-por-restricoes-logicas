@@ -197,12 +197,12 @@ por restrições, com algo como o seguinte programa:
 
 Para saber qual dos métodos é o mais interessante, podemos
 simplesmente tomar uma pequena quantidade dos itens iniciais, fazer
-um teste, e ver qual resolvemos mais rápido.''
+um teste, e ver qual resolvemos mais rápido.
 
 ``Isso pode ser uma dificuldade, porque, como ainda não alcançamos
 todos os lugares de onde os itens serão subtraídos, só temos uma
 ideia muito vaga sobre quais itens existem e qual o valor de cada.''
-- Disse Sulla.
+- disse Sulla.
 
 ``Um problema facilmente remediado. Podemos fazer testes com valores
 aleatórios, como exemplificado aqui.'' e, ao dizer isso, Theon
@@ -215,31 +215,31 @@ equivalente ao seguinte código a Sulla:
 \end{listing}
 
 ``Parece que, pelo menos por ora, nosso problema está resolvido.'' -
-Disse Sulla.
+disse Sulla.
 
 ``Sim, o seu problema está.''
 
 \subsection{Os Testes}
 
 Levando em conta a discussão anterior, foram feitos testes para
-checar a eficiência dos métodos discutidos. Eles foram realiados em
+checar a eficiência dos métodos discutidos. Eles foram realizados em
 um computador Inspiron 5447, versão A06, com barramento de 64 bits,
 produzido pela Dell. Esse computador conta com um processador Intel
 Core i7-4510U, a 2GHz.
 
-Os testes foram rodados da seguinte forma. O método que faz uso de
+Os testes foram executados da seguinte forma. O método que faz uso de
 programação inteira foi testado 8 vezes, com o teste $i$ contando
 com $2^{i+4}$ tipos de itens.
 
 Cada tipo de item tem um peso, um volume que ocupa e uma quantidade
 de itens disponíveis. Nos testes que fazem uso de programação
-inteira, o peso é escolhido estocásticamente como um valor entre 1 e
+inteira, o peso é escolhido estocasticamente como um valor entre 1 e
 50 (unidades de peso), o volume como um valor entre 1 e 100
 (unidades de volume) e, a quantidade, como um valor entre 1 e
 15. Dada a natureza estocástica dos dados, é necessário fazer o
 teste com a mesma quantidade de tipos de itens mais de uma vez, e os
 que têm mais tipos de itens devem ser testados mais do que os que
-têm menos tipos de itens. A maneira escolhida foi de rodar $j$ vezes
+têm menos tipos de itens. A maneira escolhida foi de executar $j$ vezes
 o teste com $2^j$ itens.
 
 Infelizmente, realizar os mesmos testes com o método que faz uso de
@@ -247,21 +247,30 @@ Infelizmente, realizar os mesmos testes com o método que faz uso de
 computacional necessário para tanto ser, no geral, proibitivo para
 $i \geq 6$\footnote{``No geral'', porque, os dados sendo aleatórios,
   às vezes o programa termina rapidamente. Esse, entretanto, não é o
-  caso geral.}. No lugar disso, então, foram rodados três testes
+  caso geral.}. No lugar disso, então, foram executados três testes
 para esse, os dois primeiros como explicados anteriormente (no caso,
 fazendo $i + 4 = 4$ e $i + 4 = 5$) e o terceiro caso de teste foi
-feito com 50 itens, o qual foi rodado 6 vezes (sendo a quantidade de
+feito com 50 itens, o qual foi executado 6 vezes (sendo a quantidade de
 itens e de testes realizados as únicas diferenças entre esta
 modalidade e a explanada acima).
 
 Cada tipo tem um peso, um volume e uma quantidade de itens
-disponível. Os pesos são como um número aleatório entre 1 e 50
-(unidades de peso), os volumes são como um número aleatório entre 1
-e 100 (unidades de volume) e as quantidades de itens como um número
-aleatório entre 1 e 15.
+disponível. Os pesos são definidos como um número aleatório entre 1 e
+50 (unidades de peso), os volumes são definidos como um número
+aleatório entre 1 e 100 (unidades de volume) e as quantidades de itens
+como um número aleatório entre 1 e 15.
 
-Os resultados são como segue (medições de tempo com dois valores
-significativos):
+Os resultados são como segue na tabela a seguir (medições de tempo com
+dois valores significativos). Os valores na coluna ``Programação
+Inteira'' são referentes aos respectivos tempos para a resolução dos
+problemas por meio de restrições provindas da biblioteca
+\technical{eplex} de programação inteira, enquanto que os valores na
+coluna ``Branch and Bound'' são referentes aos respectivos tempos para
+a resolução dos problemas por meio de restrições provindas da
+biblioteca \technical{branch\_and\_bound}. Como os testes para $2^7$
+itens ou mais se tornaram inviáveis se fazendo uso da biblioteca
+\technical{branch\_and\_bound}, os respectivos espaços na tabela foram
+substituídos por ``NA''.
 
 \begin{center}
   \bgroup \def\arraystretch{1.25}

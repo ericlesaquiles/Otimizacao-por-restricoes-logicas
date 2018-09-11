@@ -1,11 +1,9 @@
-%%
 % pai(?Pai, ?Filhx).
 % mae(?Mae, ?Filhx).
 % avoh(?Avó, ?Netx).
 % avo(?Avô, ?Netx).
 % irmao(?Pai, ?Irmao1, ?Irmao2).
 % tio(?Pai, ?Tio, ?Sobrinhx).
-
 
 avo(Avo, Neto):-
          pai(Avo, Avo_filho),
@@ -23,26 +21,17 @@ tio(Pai, Tio, Sobrinho):-
        irmao(_,Pai,Tio),
        pai(Tio, Sobrinho).
 
-
-% Eu sou o filho do meu pai
 pai(meu_pai, eu).
 
-% Meu pai é meu filho adotado
 pai(eu, meu_pai).
 
-% Eu sou o pai do filho da minha esposa
 pai(eu, filho_meu_e_de_minha_esposa).
 
-% Meu pai é o pai do filho_de_minha_filha_adotiva
 pai(meu_pai, filho_de_minha_filha_adotiva).
 
-% Minha filha adotiva é minha madastra
 mae(minha_filha_adotiva, eu).
 
-% Minha esposa é a mãe de minha filha adotiva
 mae(minha_esposa, minha_filha_adotiva).
-
-
 
 % O filho meu e de minha esposa é o irmão adotado de meu pai
 % O filho meu e de minha esposa é meu tio
