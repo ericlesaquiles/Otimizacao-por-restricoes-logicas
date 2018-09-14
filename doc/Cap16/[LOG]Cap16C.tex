@@ -1,0 +1,482 @@
+%\documentclass{article}
+
+\setcounter{section}{-1} %\input{../header.tex}
+
+%\begin{document}
+
+
+\section{Programação Relacional em Scheme}
+
+\epigraph{\cit{Uma pessoa só tem certeza daquilo que
+    constrói}}{Giambattista Vico - \\Historiador italiano, século XVIII}
+
+
+Neste capítulo, veremos uma linguagem de programação lógica com um
+sabor diferente do Prolog que vimos no início, chamada
+\technical{miniKanren}, e veremos como implementá-la, por meio da
+linguagem \technical{Scheme}.
+
+Usaremos \technical{Scheme} porque é uma linguagem que é pequena, o
+que significa que não será gasto muito esforço para apresentar o seu
+funcionamento. E é, ao mesmo tempo, poderosa, o que significa que não
+precisaremos de muito código para fazer o que nos propomos.
+
+Esse capítulo tem um sabor diferente dos demais. Essa diferença pode ser visto
+rapidamente, pela cara do código, mas também de várias outras
+formas. Redefiniremos alguns termos usados anteriormente. Essas
+redefinições terão semelhanças e diferenças às definições originais,
+mas escolhemos não notar essas diferenças aqui, por acreditarmos serem
+claras o suficiente. Outro ponto que vale nota é que, aqui, buscamos
+apenas um maior entendimento e, para tanto, tentamos deixar o código
+como ``implementado em primeiros princípios'', evitando detalhes que
+poderiam deixá-lo mais eficiente, mas elevando os prerrequisitos para
+a compreensão do código, ou exigindo uma discussão mais completa sobre
+ele (o que preferimos evitar).
+
+\subsection{Introdução ao Scheme}
+
+\technical{Scheme} é um \technical{Lisp}\footnote{De
+  \foreign{LISt Processing}}. O termo \technical{Lisp} é às vezes
+usado para ser referir a uma linguagem de programação, mas o mais
+correto seria ser referida como a uma família de linguagens (de fato,
+dezenas de linguagens), todas com algumas características em comum,
+notadamente:
+
+\begin{itemize}
+\item São linguagens multi-paradigma, mas como um
+  foco no paradigma de programação funcional, isto é,
+  funções são ``cidadãos de primeira classe'';
+\item ``Todo''\footnote{Com uma excessão bem
+    natural, que será mencionada mais adiante.} código
+  \technical{Lisp} (que não tenha erro de sintaxe) é avaliado para
+  algum valor;
+\item Programas são expressos em notação polonêsa, em formato de
+  listas\footnote{Também conhecidas como \technical{S-Expressions}, ou
+    \technical{Sexps}}(listas em \technical{Lisps} são delimitadas por
+  parênteses)\footnote{Usaremos daqui em diante a notação
+    \enphasisb{codigo \seta valor} para denotar que o código
+    \enphasisb{codigo} avalia para o valor \enphasisb{valor}.}:
+  \\
+  \codigo{(+ 1 2)} \seta 3;
+\item O que nos leva a outro ponto: não existe diferença
+  sintática entre a forma como programas \technical{Lisp} são escritos
+  e a forma como suas estruturas de dados são representadas. Diz-se,
+  assim, que \technical{Lisps} são homoicônicas (vale dizer, Prolog
+  também é uma língua homoicônica), o que significa que a diferença
+  entre dados e programa é ``borrada'', e programas podem, e
+  frequentemente são, manipulados livremente.
+\end{itemize}
+
+Agora, vamos rapidamente introduzir a sintaxe principal de
+\technical{Scheme}, com alguns exemplos\footnote{Note que só
+  introduziremos a parte da linguagem que nos será relevante, o que
+  não é a linguagem toda.}:
+
+\begin{itemize}
+\item Listas são representadas como \codigo{($el_1\ el_2\ ...\
+    el_n$)}, em que $el_i$ é o iésimo elemento da lista. No entanto, se
+  escrevêssemos uma lista simplesmente assim, a lista seria
+  confundida com uma aplicação de função (aplicação da função $el_1$
+  aos argumentos $el_2$ a $el_n$), então, para fins de
+  desambiguação, é usada uma aspa simples, e a lista é escrita como
+  '($el_1 el_2 ... el_n$), que é equivalente a \codigo{(list $'el_1\
+    ...\ 'el_n$)} . Essa aspa simples também pode ser usada para
+  ``evitar que um objeto seja avaliado''\footnote{Uma colocação mais
+    correta seria ``tornar objetos auto-avaliantes'', mas não
+    precisamos entrar em muitos detalhes de como isso funciona. Para
+    nós é suficiente dizer que 'a é um símbolo.}:\\
+  A linha\\
+  \codigo{a} \seta erro\\
+  resulta em erro se \codigo{a} não for uma variável, já que
+  tentará ser avaliada, sendo que \codigo{a} não tem valor
+  associado, mas a linha\\
+  $'a\ \Rightarrow\ 'a$\\
+  é avaliada como ela mesma.\\
+
+\item Uma estrutura de dados mais geral do que lista em
+  \technical{Scheme} é o que é chamado \technical{cons pair} (que nós
+  chamaremos daqui para frente simplesmente de ``par'').. A lista
+  \codigo{'(a b c d)} é equivalente a \codigo{(cons a (cons b (cons c
+    (cons d '()))))}, em que \codigo{'()} é a lista
+  vazia
+  % \footnote{Note que a estrutura \codigo{(cons a (cons b (cons c  d)))} não.
+    Assim \technical{cons} constrói uma estrutura de
+    dados formada por um par. Para obter o primeiro elemento do par,
+    usa-se \technical{car} e, para obter o segundo,
+    \technical{cdr}\footnote{Esses nomes têm uma motivação histórica:
+      eram nomes de registradores quando os primeiros
+      \technical{Lisps} estavam sendo criados.}. Temos, por exemplo,\\
+    \codigo{(car (cons 1 (cons 2 3)))} \seta 1\\
+    \codigo{(cdr (cons 1 (cons 2 3)))} \seta \codigo{(cons 2 3)} =
+    \codigo{'(2 . 3)}\\
+    \codigo{(car '(1 2 3 4))} \seta 1\\
+    \codigo{(cdr '(1 2 3 4))} \seta \codigo{'(2 3 4)}\\
+    Com isso, podemos definir um lista indutivamente como sendo ou a
+    lista vazia, \codigo{'()}, ou um par, cujo
+    \technical{cdr} é uma lista\footnote{Note que \codigo{(cons 2 3)},
+      por exemplo, não é uma lista. Esse tipo de estrutura é chamada
+      \foreign{dotted list}, porque, para distingui-la de uma lista, é
+      costumeiramente impressa como \codigo{'(2 . 3)}, mas, assim como
+      com Prolog, é uma estrutura de dados diferente, que tem o nome
+      \foreign{dotted \enphasisb{list}} como que por uma aparência acidental.}.
+\item Para definir funções, use \enphasisb{lambda}, ou
+  \enphasisb{$\lambda$}\footnote{Editores de texto atuais aceitam os dois tipos de
+    entrada, mas optamos por usar $\lambda$. Esse uso do símbolo tem a
+    seguinte origem: Bertrand Russel e Alfred Whitehead buscaram, no
+    início do século XX lançar as bases lógicas da matemática eu seu
+    trabalho \foreign{Principia Mathematica}. Lá, para denotar que uma
+    variável é livre, ela recebia chapéu, como em \technical{â(a +
+      y)}. Mais tarde, Alonzo Church achou que seria mais conveniente
+    ter fórmulas crescendo linearmente na horizontal, então decidiu
+    mover o chapéu para o lado, obtendo \technical{\^{}a(a + y)}.
+    Mas o chapéu flutuando parece engraçado, então Church o trocou
+    pelo  o símbolo não usado mais próximo que tinha, um $\Lambda$, como em
+    \technical{$\Lambda a$(a + y)}. Mas
+    $\Lambda$ tem uma grafia muito parecida com outra letra comum, então
+    ele acabou eventualmente trocando para $\lambda$ em sua teoria, que
+    acabou se chamando \enphasis{cálculo $\lambda$} \cite{norvig}.}:\\
+  \codigo{(($\lambda$ (a b) (/ a b)) 1 3)} \seta 1/3
+
+\item Para definir constantes, use \enphasisb{define}:\\
+  \codigo{(define divide ($\lambda$ (a b) (/ 1 3)))}\footnote{Um
+    \technical{açucar sintático} para essa construção é
+    \codigo{(define (divide a b) (/ 1 3))}.}\\
+  \codigo{(divide 1 3)} \seta 1/3\\
+  \codigo{(define c (divide 1 3))}\\
+  \codigo{(divide (divide 1 9) c)} \seta 1/3
+
+\item  Um ponto importante, que usaremos muito logo mais é que, se
+  quisermos criar listas com os valores das variáveis, no lugar de
+  nomes simbólicos, podemos usar, no lugar da aspa simples a crase e
+  preceder o nome da variável com uma vírgula:\\
+  \codigo{(define x 10)}\\
+  \codigo{`(1 2 'x ,x)} \seta \codigo{'(1 2 'x 10)}
+
+\item Para realizar execuções condicionais, use \enphasisb{cond}:\\
+  \begin{lstlisting}
+    (cond
+      ((< 1 0) (+ 3 4))
+      ((< 0 1) (- 3 4))
+      (else 0))
+  \end{lstlisting}
+  \hspace{1cm} \seta -1\\
+  
+  Podem ser adicionadas quantas cláusulas do tipo
+  \codigo{((condicao)(efeito))} se quiser (vale notar que elas são
+  avaliadas sequencialmente), sendo que a última pode
+  opcionalmente ser como \codigo{(else (efeito))}, ou \codigo{(\#t
+    (efeito))}\footnote{Preferiremos a segunda opção. O
+    \technical{\#t} é de \foreign{true} e existe, analogamente, o
+    \technical{\#f}, de \foreign{false}.}.
+
+\item Para adicionar variáveis locais, use \technical{let}:
+  \begin{lstlisting}
+    (let ((a (+ 3 4))
+          (b (cons 1 2)))
+      (+ a (car b)))
+  \end{lstlisting}
+  \hspace{1cm} \seta 8\\
+  O \technical{let} tem duas partes, a de definições, da forma
+  \codigo{((variavel valor)(variavel valor) ... (variavel
+    valor))}\footnote{Podem ser adicionadas quantas variáveis se
+    quiser. As atribuições são feitas ``paralelamente'' (o que
+    significa que a atribuição de valor a uma variável não influi no
+    da outra, o que pode ser feito de forma paralela, ou não).}.
+  em seguida, a parte de valor, que nos dá o valor que \technical{let}
+  assume.  
+\end{itemize}
+
+  Como exemplo, o seguinte programa calcula o comprimento de uma lista
+  (lembre que, como 
+
+  Dada essa introdução, faremos uso dessas e outras construções da
+  linguagem sem maiores comentários (exceto quando uma construção
+  especialmente difícil ou complexa o justificar). Para uma introdução
+  mais compreensiva à linguagem, veja \cite{kent}.
+
+  \subsection{A linguagem miniKanren}
+
+  Nosso objetivo aqui é implementar miniKanren, uma linguagem de
+  programação relacional. No lugar de descrever toda a linguagem e
+  depois implementá-la, seguimos pelo caminho de mostrar um pequeno
+  exemplo do que esperamos conseguir e, então, implementamos a
+  linguagem. A esperança é que essa abordagem ofereça maior
+  entendimento dos conceitos explorados.
+
+  % Antes de prosseguir, vale uma pequena explicação sobre os usos
+  % não-usuais da
+  O tipo de coisa que queremos poder fazer com miniKanren é como o
+  seguinte\footnote{Usaremos as convenções da literatura de usar
+    subescritos e sobrescritos e símbolos matemáticos, como $\equiv $, para
+    representar as relações, na esperança de que isso clarifique a
+    notação e deixe o texto menos pesado. Em particular, para
+    diferenciar um objeto relacional de um funcional, o relacional
+    terá um ``o'' sobrescrito (como em $relacao^o$).}:\\
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+    (defrel ([$teacup^o$] t)
+      ([$disj_2$] ([$\equiv $] 'tea t) ([$\equiv $] 'cup t)))
+    ([$run^*$] x
+      ([$teacup^o$] x))
+  \end{lstlisting}
+  \hspace{1cm} \seta \codigo{'(tea cup)}\\
+
+  Veremos mais exemplos enquanto o construímos. A construção a seguir
+  é em grande parte baseada em \cite{will}. Para conferir detalhes de
+  implementações completas, veja \cite{kanren}.
+
+  Antes de outras coisas, será útil sabermos como definir uma
+  variável. Lembre-se que uma variável relacional não é a a mesma
+  coisa que uma variável em uma linguagem de programação tradicional
+  (não relacional). Para uma variável única, usamos\footnote{Usamos
+    \technical{vector} para que a unicidade da variável seja definida
+    por sua posição de memória. Outra opção, seria distingui-las por
+    valor, se nos assegurássemos que seu valor é único.}
+  
+  \begin{lstlisting}
+    (define (var name)(vector name))
+  \end{lstlisting}
+
+  \noindent usamos também\footnote{Símbolos como ``?'' podem ser
+    usados no meio do código asssim como outros, tais como ``a'' ou ``b''.}
+
+  \begin{lstlisting}
+    (define (var? name)(vector? name))
+  \end{lstlisting}
+
+  Precisamos, agora, saber como associar um valor a uma
+  variável. Diremos que o par \codigo{`(,z . a)} é uma associação de
+  \enphasis{a} à variável \enphasis{z}. Mais em geral, um par é uma
+  associação quando o \technical{car} dele é uma variável.
+
+  A uma lista de associações chamaremos \enphasis{substituição}. Na
+  substituição \codigo{`((,x . ,z))}, a variável \enphasis{x} é
+  ``fundida'' (ou, na nossa linguagem anterior, unificada) à variável
+  \enphasis{z}. A substituição vazia é simplesmente uma lista vazia:
+  \codigo{(define empty-s '())}. Nem toda lista de associações é uma
+  substituição, no entanto. Isso porque, não aceitamos, em nossas
+  substituições, associações com o mesmo \technical{car}. Então, o
+  seguinte não é uma substituição: \codigo{`((,z . a)(,x . c)(,z
+    . b))}.
+
+  Precisamos de dois procedimentos importantes para lidar com
+  substituições: um para extênde-las e um para obter o valor de uma
+  variável presente nela.
+
+  Para obter o valor associado a \enphasis{x}, usamos \enphasis{walk},
+  que deve se comportar como o seguinte:
+  \begin{lstlisting}
+    (walk y
+      `((,z . a)(,x . ,w)(,y . ,z)))
+  \end{lstlisting}
+  \hspace{1cm} \seta \enphasis{a}\\
+  porque \enphasis{y} está fundido a \enphasis{z}, que está associado
+  a \enphasis{a}. O \technical{walk} é como se
+  segue\footnote{Lembre-se que \codigo{(and a b)} \seta \enphasis{b},
+    se \enphasis{a} $\neq \#f$.}:
+
+  \begin{lstlisting}
+    (define (walk v s)
+      (let ((a (and (var? v)(assv v s))))
+        (cond
+          ((pair? a)(walk (cdr a) s))
+          (else v))))
+  \end{lstlisting}
+
+  \noindent Esse código faz uso de \enphasis{assv}, que ou produz
+  \enphasis{\#f}, se não há associação cujo \technical{car} seja
+  \enphasis{v} na substituição \enphasis{s}, ou produz o
+  \technical{cdr} de tal associação. Perceba que, se \enphasis{walk}
+  produz uma variável como valor, ela é necessariamente fresca (isto
+  é, que não foi associada).
+
+  Para extender uma substituição, usamos \technical{ext-s}, que faz
+  uso de \technical{occurs?}:
+
+  \begin{lstlisting}
+    (define (ext-s x v s)
+      (cond
+        ((occurs? x v s) #f)
+        (else (cons '(,x . ,v) s))))
+
+    (define (occurs? x v s)
+      (let ((v (walk v s)))
+        (cond
+          ((var? v) (eqv? v x))
+          ((pair? v)
+            (or (occurs? x (car v) s)
+                (occurs? x (cdr v) s)))
+          (else #f))))
+  \end{lstlisting}
+
+  Esse \technical{occurs?} realiza o ``teste de ocorrência'' (aquele
+  que, como mencionamos anteriormenet, não é feito por padrão no
+  Prolog por razões de eficiência, e que faz com que substituições do
+  tipo \codigo{`((,y . (,x))(,x . (a . ,y))} sejam inválidas).
+
+  Com isso em mãos, podemos definir nosso unificador:
+
+  \begin{lstlisting}
+
+    (define (unify u v s)
+      (let ((u (walk u s))(v (walk v s)))
+        (cond
+          ((eqv? u v) s)
+          ((var? u) (ext-s u v s))
+          ((var? v) (ext-s v u s))
+          ((and (pair? u) (pair? v))
+           (let ((s (unify (car u)(car v) s)))
+             (and s
+               (unify (cdr u)(cdr v) s))))
+          (else #f))))
+
+  \end{lstlisting}
+
+  \subsection{Streams}
+
+  Antes de continuarmos, precisamos tocar no modelo de avaliação de
+  Scheme. Scheme é uma linguagem de ``ordem aplicativa'', o que
+  significa que os argumentos de uma função são todos avaliados no
+  momento em que a função é aplicada. Por esse motivo, os
+  \technical{and} e \technical{or} usuais, por exemplo, não podem ser
+  funções em Scheme. Uma alternativa à ordem aplicativa é a ``ordem
+  normal'', que algumas outras linguagens de programação funcional
+  adotaram. Linguagens de ordem normal só avaliam o argumento de uma
+  função quando esse argumento for usada, atrasando a avaliação do
+  mesmo (no que é chamado ``avaliação tardia'', ou ``avaliação
+  preguiçosa'').
+
+  Avaliação preguiçosa é conveniente para diversas operações e pode
+  ser emulada em linguagens de programação funcional de ordem
+  aplicativa pelo uso de \definicao{streams}. \technical{Streams} são
+  definidos como sendo ou a lista vazia, ou um par cujo
+  \technical{cdr} é um \technical{stream}, ou uma suspenção.
+
+  Uma \definicao{suspenção} é uma função formada por \codigo{($\lambda$ ()
+    corpo)}, em que \codigo{(($\lambda$ () corpo))} é uma
+  \technical{stream}. Agora, se definirmos
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+    (define ([$\equiv $] u v)
+      ([$\lambda$] (s)
+        (let ((s (unify u v s)))
+          (if s `(,s) '()))))
+  \end{lstlisting}
+        
+  \noindent $\equiv $ produz um goal. Dois outros goals, \enphasis{sucesso}
+  e \enphasis{falha}, são denotamos \#s e \#u:\\
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+    (define #s
+      ([$\lambda$] (s)
+        `(,s)))
+
+    (define #u
+      ([$\lambda$] (s)
+        '()))
+  \end{lstlisting}
+
+  Um goal é uma função que recebe uma substituição e que, se retorna,
+  retorna uma \technical{stream} de substituições.
+
+  Como um exemplo, temos que \codigo{(($\equiv $x y) empty-s)} \seta
+  \codigo{`(((,x . ,y)))}, uma lista com uma substituição (com uma
+  associação).
+
+  Ao lidar com \technical{Streams}, precisamos de funções especiais,
+  já que não são simples listas. \technical{Streams} são uteis para a
+  representação de estruturas de dados infinitas, então, por isso,
+  funções e variáveis para lidar com elas terão um $\infty$ sobrescrito,
+  para diferenciá-las das funções para listas comuns. Assim, podemos
+  definir $append^\infty$:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$append^\infty$] [$s^\infty$] [$t^\infty$])
+      (cond
+        ((null? [$s^\infty$]) [$t^\infty$])
+        ((pair? [$s^\infty$])
+          (cons (car [$s^\infty$]
+            ([$append^\infty$] (cdr [$s^\infty$]) [$t^\infty$]))))
+        (else ([$\lambda$] ()
+                ([$append^\infty$] [$t^\infty$] ([$s^\infty$]))))))
+        
+  \end{lstlisting}
+
+  \noindent Note que, na suspensção, a ordem dos argumentos é trocada.
+  Com essa função, podemos fazer
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$disj_2\ g_1\ g_2$])
+      ([$\lambda$] (s)
+        ([$append^\infty$] ([$g_1$] s) ([$g_2$] s))))
+
+  \end{lstlisting}
+      
+  \noindent em que $disj_2$ é uma disjunção (um \enphasis{ou}
+  lógico). 
+
+  Veja agora a seguinte definição:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$never^o$])
+      ([$\lambda$] (s)
+        ([$\lambda$] ()
+          (([$never^o$]) s))))
+
+  \end{lstlisting}
+
+  \noindent Esse é um goal que não sucede nem falha. Para entender
+  porque a ordem dos argumentos é trocada na suspenção de $append^\infty$,
+  compare o valor de $s^\infty$ em
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (let (([$s^\infty$] (([$disj_2$]
+                      ([$never^o$])
+                      ([$\equiv $ 'olive x]))
+                      empty-s)))
+      [$s^\infty$])
+                      
+  \end{lstlisting}
+
+  \noindent com o valor de $s^\infty$ em
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (let (([$s^\infty$] (([$disj_2$]
+                      ([$\equiv $ 'olive x]))
+                      ([$never^o$])
+                      empty-s)))
+      [$s^\infty$])
+                      
+  \end{lstlisting}
+
+  
+  
+
+    
+  \begin{thebibliography}{1}
+
+  \bibitem{kent} R. Kent Dybvyg,
+    ``The Scheme Programming Language - Fourth Edition'',
+    disponível em \url{https://www.scheme.com/tspl4/}, acesso em
+    Setembro de 2018.
+
+  \bibitem{norvig} Peter Norvig,
+    ``Paradigms of Artificial Inteligence Programming - Case Studies
+    in Common Lisp'',
+    Morgan Kauffman Publishers, 1992.
+
+    \bibitem{will} Daniel P. Friedman, William E. Byrd, Oleg Kiselyov,
+      Jason Hemann,
+      ``The Reasoned Schemer - Second Edition'',
+      The MIT Press, 2018.
+
+      \bibitem{kanren} Site do miniKanren \url{http://minikanren.org/}.
+      
+  \end{thebibliography}
+
+%\end{document}
