@@ -221,6 +221,15 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \end{lstlisting}
   \hspace{1cm} \seta \codigo{'(tea cup)}\\
 
+  %% TODO
+
+  %% \begin{lstlisting}[escapeinside={[}{]}]
+  %%   ([$run^*$] x
+  %%     (fresh c u d a)
+  %%       (([$\equiv$] c 'pea)([$\equiv$] x c)))
+  %% \end{lstlisting}
+  %% \hspace{1cm} \seta \codigo{'(tea cup)}\\
+
   Veremos mais exemplos enquanto o construímos. A construção a seguir
   é em grande parte baseada em \cite{will}. Para conferir detalhes de
   implementações completas, veja \cite{kanren}.
@@ -454,8 +463,61 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
                       
   \end{lstlisting}
 
+  Em contraste com $never^o$, aqui está $always^o$:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$always^o$])
+      ([$\lambda$] (s)
+        ([$\lambda$] ()
+          (([$disj_2$] \#s ([$always^o$])) s))))
+
+  \end{lstlisting}
+
+  Antes de continuar, será útil conhecer a função \technical{map}:\\
+  \codigo{(map f '($el_1\ ...\ el_n$))} \seta \codigo{'((f $e_1$) ... (f $el_n$))}
+
+  \noindent A lista construída por \technical{map} é constrúida por
+  \technical{cons}. Mas existe também \technical{map-append}, análoga
+  a \technical{map}, mas em que a lista resultante é construída por
+  \technical{append}. Usaremos um \technical{append-map}, mas para
+  \technical{streams}, isto é, um \technical{$append-map^\infty$}:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$append-map^\infty$] g [$s^\inft$])
+      (cond
+        ((null? [$s^\inft$]) '())
+        ((pair? [$s^\inft$])
+          ([$append^\infty$] (g (car [$s^\inft$]))
+            ([$append-map^\infty$] g (cdr [$s^\inft$]))))
+      (else ([$\lambda$] ()
+              ([$append-map^\infty$] g ([$s^\inft$]))))))
+
+  \end{lstlisting}
+
+  Com isso, podemos definir a conjunção de dois goals, assim como
+  definimos a disjunção:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$conj_2$] [$g_1$] [$g_2$])
+      ([$\lambda$] (s)
+        ([$append-map^\infty$] [$g_2$] ([$g_1$] s))))
+
+  \end{lstlisting}
+
+  Lembremos agora que, como visto no primeiro exemplo desta seção,
+  como não seguimos, como em Prolog, uma convenção de nomeação de
+  variáveis (em Prolog, a convenção era de que variáveis são
+  capitalizadas), precisamos de algo para discerni-las e que, o que
+  usamos é o \technical{fresh}, para dizer que a variável é ``fresca''.
+
+    
+
+
   
-  
+  %% \codigo{(cons (f $el_1$) (cons ... (cons (f $el_n$) '())))}
 
     
   \begin{thebibliography}{1}
