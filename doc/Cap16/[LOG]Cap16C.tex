@@ -1,9 +1,8 @@
 %\documentclass{article}
 
-\setcounter{section}{-1} %\input{../header.tex}
+%\input{../header.tex}
 
 %\begin{document}
-
 
 \section{Programação Relacional em Scheme}
 
@@ -55,7 +54,7 @@ notadamente:
     \technical{Sexps}}(listas em \technical{Lisps} são delimitadas por
   parênteses)\footnote{Usaremos daqui em diante a notação
     \enphasisb{codigo \seta valor} para denotar que o código
-    \enphasisb{codigo} avalia para o valor \enphasisb{valor}.}:
+    \enphasisb{código} avalia para o valor \enphasisb{valor}.}:
   \\
   \codigo{(+ 1 2)} \seta 3;
 \item O que nos leva a outro ponto: não existe diferença
@@ -211,7 +210,14 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     representar as relações, na esperança de que isso clarifique a
     notação e deixe o texto menos pesado. Em particular, para
     diferenciar um objeto relacional de um funcional, o relacional
-    terá um ``o'' sobrescrito (como em $relacao^o$).}:\\
+    terá um ``o'' sobrescrito (como em $relacao^o$). Ao escrever o
+    programa para o computador ler, os sobrescritos e subescritos que
+    forem alfa-numéricos ou ``*'' podem ser escritos normalmente, na
+    frente do termo (como em $relacaoo$, ou $run*$). O símbolo $\equiv$ é
+    escrito ``$==$'' e, termos como $termo^\infty$,
+    ``$termo-inf$''. Ademais, \#u e \#s devem ser trocados por
+    \enphasis{fail} e \enphasis{succeed}., respectivamente.}:
+  \\
 
   \begin{lstlisting}[escapeinside={[}{]}]
     (defrel ([$teacup^o$] t)
@@ -221,12 +227,27 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \end{lstlisting}
   \hspace{1cm} \seta \codigo{'(tea cup)}\\
 
+  %% TODO
+
+  %% \begin{lstlisting}[escapeinside={[}{]}]
+  %%   ([$run^*$] x
+  %%     (fresh c u d a)
+  %%       (([$\equiv$] c 'pea)([$\equiv$] x c)))
+  %% \end{lstlisting}
+  %% \hspace{1cm} \seta \codigo{'(tea cup)}\\
+
   Veremos mais exemplos enquanto o construímos. A construção a seguir
   é em grande parte baseada em \cite{will}. Para conferir detalhes de
   implementações completas, veja \cite{kanren}.
 
-  Antes de outras coisas, será útil sabermos como definir uma
-  variável. Lembre-se que uma variável relacional não é a a mesma
+  Como visto no primeiro exemplo, não seguimos, como em Prolog, uma
+  convenção de nomeação de variáveis (em Prolog, a convenção era de
+  que variáveis são  capitalizadas). Assim, precisamos de algo para
+  discerni-las e, para tal fim, o que usamos é o \technical{fresh},
+  informando que a variável é ``fresca''.
+
+  
+  Lembre-se que uma variável relacional não é a a mesma
   coisa que uma variável em uma linguagem de programação tradicional
   (não relacional). Para uma variável única, usamos\footnote{Usamos
     \technical{vector} para que a unicidade da variável seja definida
@@ -244,10 +265,24 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     (define (var? name)(vector? name))
   \end{lstlisting}
 
+  Para evitar problemas como os de colisão de variáveis, as variáveis
+  são locais, assim como em \technical{Scheme}. Precisamos, então, de
+  uma forma de modelar isso (note que a definição acima não reflete
+  isso) e, o que usamos é o seguinte:
+
+  \begin{lstlisting}
+    (define (call/fresh name f)
+      (f (var name)))
+  \end{lstlisting}
+
+  Essa função espera, como segundo argumento, uma expressão $\lambda$, que
+  recebe como argumento uma variável e produz como valor um goal, que
+  tem acesso à variável criada.
+  
   Precisamos, agora, saber como associar um valor a uma
   variável. Diremos que o par \codigo{`(,z . a)} é uma associação de
   \enphasis{a} à variável \enphasis{z}. Mais em geral, um par é uma
-  associação quando o \technical{car} dele é uma variável.
+  associação quando o seu \technical{car} é uma variável.
 
   A uma lista de associações chamaremos \enphasis{substituição}. Na
   substituição \codigo{`((,x . ,z))}, a variável \enphasis{x} é
@@ -454,8 +489,284 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
                       
   \end{lstlisting}
 
+  Em contraste com $never^o$, aqui está $always^o$:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$always^o$])
+      ([$\lambda$] (s)
+        ([$\lambda$] ()
+          (([$disj_2$] #s ([$always^o$])) s))))
+
+  \end{lstlisting}
+
+  Antes de continuar, será útil conhecer a função \technical{map}:\\
+  \codigo{(map f '($el_1\ ...\ el_n$))} \seta \codigo{'((f $e_1$) ... (f $el_n$))}
+
+  \noindent A lista construída por \technical{map} é constrúida por
+  \technical{cons}. Mas existe também \technical{map-append}, análoga
+  a \technical{map}, mas em que a lista resultante é construída por
+  \technical{append}. Usaremos um \technical{append-map}, mas para
+  \technical{streams}, isto é, um \technical{$append-map^\infty$}:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$append-map^\infty$] g [$s^\infty$])
+      (cond
+        ((null? [$s^\infty$]) '())
+        ((pair? [$s^\infty$])
+          ([$append^\infty$] (g (car [$s^\infty$]))
+            ([$append-map^\infty$] g (cdr [$s^\infty$]))))
+      (else ([$\lambda$] ()
+              ([$append-map^\infty$] g ([$s^\infty$]))))))
+
+  \end{lstlisting}
+
+  Com isso, podemos definir a conjunção de dois goals, assim como
+  definimos a disjunção:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$conj_2$] [$g_1$] [$g_2$])
+      ([$\lambda$] (s)
+        ([$append-map^\infty$] [$g_2$] ([$g_1$] s))))
+
+  \end{lstlisting}
+
+  
+  \subsubsection{Voltando ao problema das variáveis}
+
+
+  ``Reificação'' é um termo muito usado em contextos de programação
+  relacional, assim como nos da teoria de Marx, e com significado
+  semelhante. Notadamente, é ``o ato de tratar algo abstrato como algo
+  concreto, ou algo concreto como algo abstrato''. No nosso contexto,
+  pode-se argumentar que uma variável é algo ``concreto'', na medida
+  que tem algum significado para quem programa. Apesar disso, temos a
+  liberdade de, quando conveniente, tratá-la como algo abstrato, um
+  \foreign{place-holder}, e, quando não apresentar valor, podemos
+  denotá-la simplesmente como um ``\_'' seguido de um número, que
+  serve para diferi-lo de outras variáveis\footnote{Nos programas,
+    usaremos $\__n$, em que $n$ é um número natural.}.
+
+  Isso é útil, por exemplo, para mostrarmos os valores das variáveis
+  (e, quando a variável for fresca, podemos simplesmente mostrá-la
+  como ``$\__n$''). Mais em geral, quando uma variável é criada
+  fresca, não tem valor. Na verdade, ``não ter valor'' significa que a
+  variável é fresca, e a forma de representarmos isso convenientemente
+  é reificando-a. Para realizar isso, precisamos primeiro do
+  \technical{reify-name}\footnote{$string\rightarrow symbol$ é escrito
+    \technical{$string->symbol$}.}:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define (reify-name n)
+      ([$string\rightarrow symbol$]
+        (string-append ``_''
+          ([$number\rightarrow string$] n))))
+
+  \end{lstlisting}
+
+  Com \technical{reify-name}, podemos criar o \technical{reify-s}, que
+  recebe uma variável e uma substituição, inicialmente vazia, r:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define (reify-s v r)
+      (let ((v (walk v r)))
+        (cond
+          ((var? v)
+           (let ((n (length r)))
+             (let ((rn (reify-name n)))
+               (cons `(,v . ,rn) r))))
+          ((pair? v)
+           (let ((r (reify-s (car v) r)))
+             (reify-s (cdr v) r)))
+          (else r))))
+
+  \end{lstlisting}
+
+  \noindent Aqui usamos \technical{length} para produzir um número
+  único em cada uso de \technical{reify-name}.
+
+  Para continuar com nosso esquema de reificação, vamos precisar de
+  uma versão ligeiramente diferente de \technical{walk}, o qual
+  chamaremos \technical{$walk^*$}\footnote{Leia \enphasis{walk
+      star}.}. Veja a definição:
+  
+  \begin{lstlisting}[escapeinside={[}{]}]
+    (define ([$walk^*$] v s)
+      (let (v (walk v s))
+        (cond
+          ((var? v) v)
+          ((pair? v)
+            (cons
+              ([$walk^*$] (car v) s)
+              ([$walk^*$] (cdr v) s)))
+          (else v))))
+  \end{lstlisting}
+
+  Note que \technical{walk} e \technical{$walk^*$} só diferem se
+  \technical{$walk^*$} \enphasis{caminhar} a um par que contém alguma
+  variável com associação na substituição \enphasis{s}. Além disso,
+  note que, se \technical{$walk^*$} produz um valor \enphasis{v} ao
+  \enphasis{caminhar} por uma substituição \enphasis{s}, temos
+  garantia de que as variáveis em \enphasis{v} são frescas.
+
+  Com isso em mãos, podemos substituir cada variável fresca por sua
+  reificação, com
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define (reify s)
+      ([$\lambda$] (s)
+        (let ((v ([$walk^*$] v s)))
+          (let ((r (reify-s v empty-s)))
+            ([$walk^*$] v r)))))
+
+  \end{lstlisting}
+
+  % Exemplo:
+
+  % \begin{lstlisting}[escapeinside={[}{]}]
+  % Insert example code
+  % \end{lstlisting}
+
+  \subsection{Finalizando}
+
+  Na seção anterior, definimos a coluna dorsal do miniKanren. Para
+  fechar precisaremos usar as macros do \foreign{Scheme}. A palavra
+  ``macro'', no geral, é usada (neste contexto de programação) para se
+  referir a código que ``escreve código'', isto é, que realiza
+  transformações no código a ser ``enviado''ao compilador ou
+  interpretador. Várias linguagens têm macros de tipos diferentes, mas
+  poucas são tão poderosas como as macros que costumam estar presentes
+  em linguagens Lisp. \technical{Scheme} não tem na própria linguagem
+  mecanismos de iteração, por exemplo (como um laço \technical{for},
+  ou \technical{while}), mas esses (assim como vários outros
+  mecanismos de iteração) podem ser facilmente definidos por meio de
+  macros.
+
+  Para começar, notamos que temos $disj_2$ e $conj_2$, que são a
+  disjunção e conjunção, mas para apenas dois argumentos. Gostaríamos
+  de realizar disjunções e conjunções com vários goals. A disjunção de
+  $n$ termos é definida induvivamente (a conjunção é análoga):
+
+  \begin{align*}
+    &(disj) \Rightarrow \#u \\
+    &(disj\ g) \Rightarrow g \\
+    &(disj\ g_0\ g\ ...) \Rightarrow (disj_2\ g_0\ (disj\ g\ ...))
+  \end{align*}
+
+  \noindent que se traduz como
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define-syntax disj
+      (syntax-rules ()
+        ((disj) #u)
+        ((disj g) g)
+        ((disj [$g_0$] g ...) ([$disj_2$] [$g_0$] (disj g ...)))))
+
+  \end{lstlisting}
+
+  Cada \technical{defrel} define uma nova função:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define-syntax defrel
+      (syntax-rules ()
+        ((defrel (name x  ...) g ...)
+         (define (name x ...)
+           ([$\lambda$] (s)
+             ([$\lambda$] ()
+               ((conj g ...) s)))))))
+
+  \end{lstlisting}
+             
+  Váriaveis frescas são criadas com:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define-syntax fresh
+      (syntax-rules ()
+        ((fresh () g ...)(conj g ...))
+        ((fresh ([$x_0$] x ...) g ...)
+          (call/fresh '[$x_0$]
+            ([$\lambda$] ([$x_0$])
+              (fresh (x ...) g ...))))))
+
+  \end{lstlisting}
+  
+  Para executar o goal, definimos \technical{$run^*$}, que recebe uma
+  lista de variáveis e um goal e, se terminar de executar, assume como
+  valor uma lista com os valores de associção a tais variáveis de modo
+  que o goal tenha sucesso (vale lembrar, tal valor pode ser uma
+  variável reificada). Definimos também \technical{$run$}, que recebe
+  um número natural $n$, uma lista de variáveis e um goal, e se
+  terminar de executar, assume como valor os $n$ primeiros elementos
+  de \technical{$run^*$}.
+
+  Para termos essas definições, precisamos de \technical{$take^\infty$},
+  que, quando dado um número $n$ e uma stream \technical{$s^\infty$}, se
+  algo, produz uma lista de, no máximo, $n$ valores:
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define ([$take^\infty$] n [$s^\infty$])
+      (cond
+        ((and n (zero? n)) '())
+        ((null? [$s^\infty$]) '())
+        ((pair? [$s^\infty$])
+         (cons (car [$s^\infty$])
+           ([$take^\infty$] (and n (sub1 n))
+             (cdr [$s^\infty$]))))
+        (else ([$take^\infty$] n ([$s^\infty$])))))
+
+  \end{lstlisting}
+
+  \noindent note que, se $n = false$, \technical{$take^\infty$}, se
+  retornar, produz uma lista de \enphasis{todos} os valores (pergunta:
+  valores de que?).
+
+  Agora podemos definir
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define (run-goal n g)
+      ([$take^\infty$] n (g empty-s)))
+
+  \end{lstlisting}
+
+  \noindent e
+
+  \begin{lstlisting}[escapeinside={[}{]}]
+
+    (define-syntax run
+      (syntax-rules ()
+        ((run n ([$x_0$] x ...) g ...)
+         (run n q (fresh ([$x_0$] x ...)
+                    ([$\equiv$] `(,[$x_0$] ,x ...) q) g ...)))
+        ((run n q g ...)
+         (let ((q (var 'q)))
+           (map (reify q)
+             (run-goal n (conj g ...)))))))
+
+     (define-syntax [$run^*$]
+       (syntax-rules ()
+         (([$run^*$] q g ...)(run #f q g ...))))
+
+  \end{lstlisting}
+
+  Com isso, temos um implementação mínima de
+  \enphasis{miniKanren}. Algumas construções importantes foram
+  deixadas de lado em favor da brevidade, como os
+  \technical{$cond^e$}, \technical{$cond^a$} e \technical{$cond^u$},
+  mas a leitora interessada é convidada a checar \cite{will} ou
+  \cite{kanren} para mais detalhes.
   
   
+  %% \codigo{(cons (f $el_1$) (cons ... (cons (f $el_n$) '())))}
 
     
   \begin{thebibliography}{1}
