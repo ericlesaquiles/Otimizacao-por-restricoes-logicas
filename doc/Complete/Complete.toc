@@ -68,7 +68,9 @@
 \contentsline {subsubsection}{\numberline {14.3.3}Acumula\IeC {\c c}\IeC {\~a}o de Peso nas Asas}{129}{subsubsection.14.3.3}
 \contentsline {subsubsection}{\numberline {14.3.4}Poss\IeC {\'\i }veis Objetivos}{130}{subsubsection.14.3.4}
 \contentsline {subsection}{\numberline {14.4}Modelo de Asa}{130}{subsection.14.4}
-\contentsline {section}{\numberline {0}Programa\IeC {\c c}\IeC {\~a}o Relacional em Scheme}{136}{section.0}
-\contentsline {subsection}{\numberline {0.1}Introdu\IeC {\c c}\IeC {\~a}o ao Scheme}{136}{subsection.0.1}
-\contentsline {subsection}{\numberline {0.2}A linguagem miniKanren}{139}{subsection.0.2}
-\contentsline {subsection}{\numberline {0.3}Streams}{141}{subsection.0.3}
+\contentsline {section}{\numberline {15}Programa\IeC {\c c}\IeC {\~a}o Relacional em Scheme}{136}{section.15}
+\contentsline {subsection}{\numberline {15.1}Introdu\IeC {\c c}\IeC {\~a}o ao Scheme}{136}{subsection.15.1}
+\contentsline {subsection}{\numberline {15.2}A linguagem miniKanren}{139}{subsection.15.2}
+\contentsline {subsection}{\numberline {15.3}Streams}{142}{subsection.15.3}
+\contentsline {subsubsection}{\numberline {15.3.1}Voltando ao problema das vari\IeC {\'a}veis}{144}{subsubsection.15.3.1}
+\contentsline {subsection}{\numberline {15.4}Finalizando}{146}{subsection.15.4}
