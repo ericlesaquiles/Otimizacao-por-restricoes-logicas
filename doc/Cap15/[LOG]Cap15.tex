@@ -7,8 +7,6 @@
 
 \section{Desenvolvimento de Aeronaves por Programação Geométrica}
 
-\subsection{Introdução}
-
 Neste capítulo vamos ver como podemos usar um pouco do que vimos até
 agora para resolvermos um problema um pouco mais concreto do que os
 apresentados como exemplos. O problema a ser analisado é o de projeto
@@ -55,15 +53,15 @@ aliado ao fato de que geralmente um projetista gostaria de otimizar
 vários parâmetros, e não só um, aumenta a necessidade de se obter não
 só uma ``resposta'' otimizada, mas também um maneira de entender a
 vizinhança dessa resposta (isto é, realizar uma análise de
-sensitividade).
+sensibilidade).
 
 Vale também notar que há um impasse entre a realização de uma análise
 de alta ou de baixa fidelidade. Para análises de alta fidelidade,
 existem duas opções:
 
 \begin{itemize}
-\item Fazer uma análise de uma parte específica (como o da asa, ou do
-  motor) do projeto, o que possibilitaria a quem cuidar dele fazer
+\item Fazer uma análise de uma parte específica do projeto (como o da
+  asa, ou do motor), o que possibilitaria a quem cuidar dele fazer
   decisões mais informadas sobre essa parte específica;
 \item Fazer uma análise mais geral, envolvendo um subconjunto maior de
   ``partes específicas'', incorrendo em instâncias mais arbitrárias de
@@ -135,7 +133,7 @@ Um problema de programação geométrica em forma padrão pode ser posto
 da seguinte forma:
 
 \begin{align*}
-  minimize \;& \sum\limits_{i=1}^n f_0(x)\\ tal\; que\;& f_i(x) \leq
+  minimize \;& \sum\limits_{i=1}^n f_0(x)\\ tal\; que\;& f_i(x) \leq\
   1, i = 1, ..., n,\\ & g_i(x) = 1, i = 1, ..., k,\\ & x \in R^n_{+},
 \end{align*}
 
@@ -181,13 +179,13 @@ fazendo $g(x) \leq 1$ e $\frac{1}{g(x)} \leq 1$\footnote{Em
   expresso com desigualdades do tipo $f_i(x) \leq 1$, o que é a
   entrada que alguns \foreign{solvers} requerem por padrão.}. A
 restrição de que $k$ precisa ser positivo acaba sendo frequentemente
-satisfeita sem esforços mas, quando esse não é o caso, é preciso se
+satisfeita sem esforços mas, quando esse não é o caso, é preciso
 usar outro maquinário que não o da programação geométrica. Em
 particular, programação signomial\footnote{Um posinômio é um signômio
   que é restrito a ter coeficientes positivos. Programação signomial é
   a cujas restrições são signômios.}, que faz uso de uma estrutura
 parecida com a da geométrica, resolve esse caso (no geral, de forma
-mais eficientemente do que um método de programação não linear
+mais eficiente do que um método de programação não linear
 genérico).
 
 \subsection{Um modelo simples de aeronave}
@@ -195,9 +193,9 @@ genérico).
 
 A seguir é apresentado um modelo de aeronave simplificado, em grande
 parte baseado no modelo da tese de Hoburg\cite{hoburg}. A modelagem do
-problema será feita com base no pacote GPkit. % TODO ADD citation
+problema será feita com base no pacote GPkit\cite{gpkit}. % TODO ADD citation
 
-\subsubsection{Modelo de Peso e Sustentação}
+\subsubsection{Modelo de peso e sustentação}
 
 Assumimos que a aeronave esteja em vôo de cruzeiro\footnote{Quando as
   velocidades linear a angular da aeronave são constantes em um
@@ -211,16 +209,16 @@ P \geq P_0 + P_a + P_c
 Usamos o modelo abaixo para vôo estável\footnote{O ``l'' abaixo vem de
   ``\foreign{lift}'', ``sustentação'' em inglês.}:
 \[
-P_0 + P_a + \frac{P_c}{2} \leq \frac{1}{2} \rho S C_l V^2
+  P_0 + P_a + \frac{P_c}{2} \leq \frac{1}{2} \rho S C_l V^2,
 \]
 
 \noindent em que a sustentação da aeronave é igual ao peso dela com
 metade de combustível, $C_l$ é o coeficiente de sustentação e $V$ a
-velocidade do avião.
+velocidade do avião e $\rho$ é uma constante física.
 
 Aqui usamos a equação para arrasto:
 \[
-Arrasto = D := \frac{1}{2} \rho S C_d V^2
+  Arrasto = D := \frac{1}{2} \rho S C_d V^2,
 \]
 
 \noindent em que $\frac{1}{2}\rho V^2$ representa a pressão dinâmica,
@@ -228,8 +226,8 @@ $S$ corresponde à área da asa e $C_d$ ao coeficiente de arrasto
 total\footnote{O ``d'' vem de ``\foreign{drag}'', arrasto em inglês.},
 dado por:
 \[
-C_{d_{fuse}} = \frac{CDA_0}{S} + kC_f \frac{S_{wet}}{S} +
-\frac{C_{l}^2}{\pi A e}
+  C_{d_{fuse}} = \frac{CDA_0}{S} + kC_f \frac{S_{wet}}{S} +
+  \frac{C_{l}^2}{\pi A e},
 \]
 
 \noindent em que $CDA_0$ corresponde à área de arrasto da
@@ -242,7 +240,7 @@ volume de combustível na fuselagem\footnote{GPkit faz checagem de
   unidades, então precisamos corrigi-la explicitamente, do que o
   ``[metros]'' constitui um lembrete.}:
 \[
-V_{f_{fase}} \leq CDA_0 \times 10 [metros]
+  V_{f_{fase}} \leq CDA_0 \times 10 [metros].
 \]
 
 
@@ -251,7 +249,7 @@ V_{f_{fase}} \leq CDA_0 \times 10 [metros]
 Assumindo um fluxo de Blasius turbulento sobre uma placa plana, o
 coeficiente de fricção $C_f$ pode ser aproximado por:
 \[
-C_f = \frac{0.074}{Re^{0.2}}
+  C_f = \frac{0,074}{Re^{0,2}},
 \]
 
 \noindent em que $Re = \frac{\rho V}{\mu}\sqrt{\frac{S}{A}}$ é o
@@ -262,7 +260,7 @@ número de Reynolds na corda média $\sqrt{\frac{S}{A}}$\footnote{$A$
 Também gostaríamos que uma aeronave cheia de combustível seja capaz de
 voar a uma velocidade mínima:
 \[
-P \leq \frac{1}{2}\rho V_{min}^{2} S C_{l_{max}}
+  P \leq \frac{1}{2}\rho V_{min}^{2} S C_{l_{max}},
 \]
 
 \noindent em que $C_{l_{max}}$ é o coeficiente de sustentação máximo.
@@ -270,12 +268,12 @@ P \leq \frac{1}{2}\rho V_{min}^{2} S C_{l_{max}}
 Uma medida de performance útil, o tempo de vôo, é dada pela distância
 percorrida sobre velocidade:
 \[
-T_{v\hat{o}o} \geq \frac{Dist\hat{a}ncia}{V}
+  T_{v\hat{o}o} \geq \frac{Dist\hat{a}ncia}{V}.
 \]
 
 A razão de força de sustentação/arrasto é dada por:
 \[
-\frac{L}{D} = \frac{C_l}{C_d}
+  \frac{L}{D} = \frac{C_l}{C_d},
 \]
 
 \noindent em que $C_l$ é o coeficiente de sustentação.
@@ -291,30 +289,30 @@ Empuxo (CEUE) é constante e que ele provê tanto impulso quanto
 necessário. Como a força de impulso $F$ é maior ou igual que a força
 de arrasto $D$, obtemos
 \[
-P_f \geq CEUE \times T_{v\hat{o}o} \times D
+  P_f \geq CEUE \times T_{v\hat{o}o} \times D.
 \]
 
 E podemos completar nosso modelo da seguinte forma:
 
 \inputminted{python}{../Exemplos/Cap15/prog2_tdm.py}
 
-\subsubsection{Volume do Combustível}
+\subsubsection{Volume do combustível}
 
 Definindo o volume requerido em função da densidade do combustível
 $\rho f$, temos
 \[
-V_c = \frac{P_c}{\rho_f g}
+  V_c = \frac{P_c}{\rho_f g}.
 \]
 
 Pelo modelo aerodinâmico, temos que
 \[
-V_{c_{asa}}^2 \leq 0,0009\frac{S\tau^2}{A \times Dist\hat{a}ncia}
+  V_{c_{asa}}^2 \leq 0,0009\frac{S\tau^2}{A \times Dist\hat{a}ncia}.
 \]
 
 O volume de combustível disponível $V_{c_{disp}}$ é limitado
 superiormente pelos volumes disponíveis na asa e na fuselagem:
 \[
-V_{c_{disp}} \leq V_{c_{asa}}+ V_{c_{fuse}}
+  V_{c_{disp}} \leq V_{c_{asa}}+ V_{c_{fuse}}.
 \]
 
 \noindent Note que, devido à restrição acima, o programa resultante
@@ -323,38 +321,38 @@ será signomial.
 Restringimos o volume total de combustível como menor do que o volume
 disponível:
 \[
-V_{c_{disp}} \geq V_c
+  V_{c_{disp}} \geq V_c.
 \]
 
 \inputminted{python}{../Exemplos/Cap15/prog3_fvm.py}
 
-\subsubsection{Acumulação de Peso nas Asas}
+\subsubsection{Acumulação de peso nas asas}
 
 O peso na superfície da asa é uma função da área da asa
 
 \[
-P_{p_{surp}} \geq P_{p_{coef2}}S
+  P_{p_{surp}} \geq P_{p_{coef2}}S.
 \]
 
 O peso estrutural na asa é uma expressão posinomial que leva em conta
 o alívio de cisalhamento devido à presença de combustível nas asas e o
 momento flexor:
 \[
-P_{p_{strc}}^2 \geq \frac{P_{p_{coeff1}}^2}{\tau^2}(N_{ult}^2
-AR^3((P_0 + \rho_f g V_{c_{fuse}})PS))
+  P_{p_{strc}}^2 \geq \frac{P_{p_{coeff1}}^2}{\tau^2}(N_{ult}^2
+  AR^3((P_0 + \rho_f g V_{c_{fuse}})PS)).
 \]
 
 O peso total da asa é limitado:
 \[
-P_p \geq P_{p_{surp}} + P_{p_{strc}}
+  P_p \geq P_{p_{surp}} + P_{p_{strc}}.
 \]
 
 \inputminted{python}{../Exemplos/Cap15/prog4_wwb.py}
 
-\subsubsection{Possíveis Objetivos}
+\subsubsection{Possíveis objetivos}
 
-Dadas essas restrições, algumas potenciais funções objetivo com as
-quais poderíamos querer trabalhar são:
+Dadas essas restrições, algumas potenciais funções objetivo (a serem
+minimizadas) com as quais poderíamos querer trabalhar são:
 
 \begin{itemize}
 \item $P_c$, o peso do combustível (o objetivo padrão);
@@ -366,7 +364,7 @@ quais poderíamos querer trabalhar são:
   do combustível e tempo de vôo.
 \end{itemize}
 
-\subsection{Modelo de Asa}
+\subsection{Modelo de asa}
 Como um exemplo simples de aplicação de programação geométrica, é
 apresentado a seguir um projeto de asa simples, tirado de
 \cite{warren}. As fórmulas usadas aqui são semelhantes às vistas na
@@ -378,28 +376,28 @@ a soma de arrasto parasita da fuselagem, arrasto parasita da asa e
 arrasto induzido,
 
 \[
-C_D = \frac{CDA_0}{S} + kC_f \frac{S_{wet}}{S} + \frac{C_{L}^2}{\pi A
-  e}
+  C_D = \frac{CDA_0}{S} + kC_f \frac{S_{wet}}{S} + \frac{C_{L}^2}{\pi A
+    e},
 \]
 
-\noindent em que $(CDA_0)$ representa a área de arrasto da fuselagem,
-k é o fator de forma, que leva em conta o arrasto de pressão,
+\noindent em que $CDA_0$ representa a área de arrasto da fuselagem,
+$k$ é o fator de forma, que leva em conta o arrasto de pressão,
 $S_wet/S$ é a razão de área molhada e $e$ é o fator de eficiência de
 Oswald.
 
 O coeficiente de fricção $C_f$ é aproximado por:
 \[
-C_f = \frac{0,074}{Re^{0,2}}
+  C_f = \frac{0,074}{Re^{0,2}},
 \]
 
 \noindent em que $Re = \frac{\rho V}{\mu} \sqrt{\frac{S}{A}}$. O peso
 total da aeronave é modelado como a soma de um peso fixo $W_0$ e o
 peso da asa $W_w$, $W = W_0 + W_w$. O peso da asa é modelado como:
 \[
-W_w = 45,42S + 8,71\times10^{-5} \frac{N_{lift}b^3\sqrt{W_0W}}{S\tau}
+  W_w = 45,42S + 8,71\times10^{-5} \frac{N_{lift}b^3\sqrt{W_0W}}{S\tau}m
 \]
 
-em que $N_{lift}$ é o fator de carga para dimensionamento estrutural e
+\noindent em que $N_{lift}$ é o fator de carga para dimensionamento estrutural e
 $\tau$ é a razão de espessura-para-corda do aerofólio.
 
 Tomamos também que
@@ -410,42 +408,42 @@ W = \frac{1}{2} \rho V^2 C_L S
 Além disso, a aeronave deve ser capaz de voar a uma velocidade mínima
 $V_{min}$
 \[
-\frac{2W}{\rho V_{min}^2 S} \leq C_{L,max}
+  \frac{2W}{\rho V_{min}^2 S} \leq C_{L,max}.
 \]
 
 
 Note que as restrições acima são expressões monomiais e posinomiais,
-de modo que podemos lidar com ele como um problema de programação
+de modo que podemos lidar com este modelo como um problema de programação
 geométrica.
 
-Resolvendo o problema, obtemos um custo ótimo de 303,1 e os seguintes
+Resolvendo o problema com o código no final da seção, obtemos um custo ótimo de 303,1 e os seguintes
 valores para as variáveis livres:
 
 \begin{tabular}{r c c r}
-  A & : & 8.46 & alongamento \\ $C_D$ & : & 0.02059 & Coeficiente de
-  arrasto da asa \\ $C_L$ & : & 0.4988 & Coeficiente de sustentação da
-  asa \\ $C_f$ & : & 0.003599 & Coeficiente de fricção \\ D & : &
-  303.1 (N) & Força de arrasto total \\ Re & : & 3.675e+06 & Número de
-  Reynold \\ S & : & 16.44 ($m^2$) & Área total da asa \\ V & : &
-  38.15 (m/s) & Velocidade de cruzeiro \\ W & : & 7341 (N) & Peso
+  A & : & 8,46 & Alongamento \\ $C_D$ & : & 0,02059 & Coeficiente de
+  arrasto da asa \\ $C_L$ & : & 0,4988 & Coeficiente de sustentação da
+  asa \\ $C_f$ & : & 0,003599 & Coeficiente de fricção \\ D & : &
+  303,1 (N) & Força de arrasto total \\ Re & : & 3,675e+06 & Número de
+  Reynold \\ S & : & 16,44 ($m^2$) & Área total da asa \\ V & : &
+  38,15 (m/s) & Velocidade de cruzeiro \\ W & : & 7341 (N) & Peso
   total da aeronave \\ $W_w$ & : & 2401 (N) & Peso da asa \\
 \end{tabular}
 
-É importante para um projetista ter também ideia da sensitividade de
+É importante para um projetista ter também ideia da sensibilidade de
 algumas variáveis (isto é, mudando um pouco o valor de uma variável, é
 de interesse saber quanto o valor da solução muda, se muito ou
 pouco). Os valores a seguir buscam refletir isso (os valores são
 referentes à derivada logarítmica $\frac{d(log(y)}{d(log(x)}$):
 
 \begin{tabular}{l c  c  r}
-  $W_0$ & : & +1 & Peso da aeronave sem asa \\ e & : & -0.48 & Fator
-  de eficiência de Oswald \\ ($\frac{S}{S_{wet}}$) & : & +0.43 & Razão
-  de área molhada \\ k & : & +0.43 & Fator de forma \\ $V_{min}$ & : &
-  -0.37 & Velocidade de decolagem \\
+  $W_0$ & : & +1 & Peso da aeronave sem asa \\ e & : & -0,48 & Fator
+  de eficiência de Oswald \\ ($\frac{S}{S_{wet}}$) & : & +0,43 & Razão
+  de área molhada \\ $k$ & : & +0,43 & Fator de forma \\ $V_{min}$ & : &
+  -0,37 & Velocidade de decolagem \\
 \end{tabular}
 
 
-Frequentemente o conhecimento da fronteira de Pareto é ser de grande
+Frequentemente o conhecimento da fronteira de Pareto é de grande
 importância. Para obtermos algum conhecimento sobre ela, podemos
 atribuir valores a algumas variáveis e checar como as soluções se
 comportam para tais valores. Fazemos isso com as variáveis $V$ e
@@ -465,27 +463,28 @@ Obtemos, assim, os respectivos custos:
 Os valores das variáveis livres são os seguintes:
 
 \begin{tabular}{c c c c c c c r}
-  A & : & 6.2 & 8.84 & 4.77 & 7.16 & & Alongamento \\ $C_D$ & : &
-  0.0146 & 0.0196 & 0.0123 & 0.0157 & & Coeficiente de arrasto da asa
-  \\ $C_L$ & : & 0.296 & 0.463 & 0.198 & 0.31 & & Lift coefficent of
-  wing \\ $C_f$ & : & 0.00333 & 0.00361 & 0.00314 & 0.00342 & &
+  A & : & 6,2 & 8,84 & 4,77 & 7,16 & & Alongamento \\ $C_D$ & : &
+  0,0146 & 0,0196 & 0,0123 & 0,0157 & & Coeficiente de arrasto da asa
+  \\ $C_L$ & : & 0,296 & 0,463 & 0,198 & 0,31 & & Lift coefficent of
+  wing \\ $C_f$ & : & 0,00333 & 0,00361 & 0,00314 & 0,00342 & &
   Coeficiente de fricção \\ D & : & 338 & 294 & 396 & 326 & N & Força
-  de arrasto total \\ Re & : & 5.38e+06 & 3.63e+06 & 7.24e+06 &
-  4.75e+06 & & Número de Reynolds \\ S & : & 18.6 & 12.1 & 17.3 & 11.2
-  & $m^2$ & Área total da asa \\ W & : & 6.85e+03 & 6.97e+03 & 6.4e+03
-  & 6.44e+03 & N & Peso total da aeronave \\ $W_w$ & : & 1.91e+03 &
-  2.03e+03 & 1.46e+03 & 1.5e+03 & N & Peso da asa \\
+  de arrasto total \\ Re & : & 5,38e+06 & 3,63e+06 & 7,24e+06 &
+  4,75e+06 & & Número de Reynolds \\ S & : & 18,6 & 12,1 & 17,3 & 11,2
+  & $m^2$ & Área total da asa \\ W & : & 6,85e+03 & 6,97e+03 & 6,4e+03
+  & 6,44e+03 & N & Peso total da aeronave \\ $W_w$ & : & 1,91e+03 &
+  2,03e+03 & 1,46e+03 & 1,5e+03 & N & Peso da asa \\
 \end{tabular}
 
-As variáveis mais sensíveis são:
+As variáveis mais sensíveis, como apresentado pelo modelo (veja
+\cite{gpkit} para mais detalhes), são:
 
 \begin{tabular}{c c c c c c r}
-  $ W_0$ &: & +0.92 & +0.95 & +0.85 & +0.85 & peso da aeronave sem a asa
-  \\ $ V_{min}$ &: & -0.82 & -0.41 & -1 & -0.71 & velocidade de
-  decolagem \\ $ V$ &: & +0.59 & +0.25 & +0.97 & +0.75 & velocidade de
-  cruzeiro \\ $(\frac{S}{S_{wet}})$ &: & +0.56 & +0.45 & +0.63 & +0.54
-  & razão de área molhada \\ $ k$ &: & +0.56 & +0.45 & +0.63 & +0.54 &
-  fator de forma
+  $ W_0$ &: & +0,92 & +0,95 & +0,85 & +0,85 & Peso da aeronave sem a asa
+  \\ $ V_{min}$ &: & -0,82 & -0,41 & -1 & -0,71 & Velocidade de
+  decolagem \\ $ V$ &: & +0,59 & +0,25 & +0,97 & +0,75 & Velocidade de
+  cruzeiro \\ $(\frac{S}{S_{wet}})$ &: & +0,56 & +0,45 & +0,63 & +0,54
+  & Razão de área molhada \\ $ k$ &: & +0,56 & +0,45 & +0,63 & +0,54 &
+  Fator de forma
 \end{tabular}
 
 \pagebreak
