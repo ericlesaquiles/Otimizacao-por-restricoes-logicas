@@ -53,10 +53,10 @@ notadamente:
   listas\footnote{Também conhecidas como \technical{S-Expressions}, ou
     \technical{Sexps}}(listas em \technical{Lisps} são delimitadas por
   parênteses)\footnote{Usaremos daqui em diante a notação
-    \enphasisb{codigo \seta valor} para denotar que o código
+    \enphasisb{codigo \seta\ valor} para denotar que o código
     \enphasisb{código} avalia para o valor \enphasisb{valor}.}:
   \\
-  \codigo{(+ 1 2)} \seta 3;
+  \codigo{(+ 1 2)} \seta\ 3;
 \item O que nos leva a outro ponto: não existe diferença
   sintática entre a forma como programas \technical{Lisp} são escritos
   e a forma como suas estruturas de dados são representadas. Diz-se,
@@ -85,7 +85,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     precisamos entrar em muitos detalhes de como isso funciona. Para
     nós é suficiente dizer que 'a é um símbolo.}:\\
   A linha\\
-  \codigo{a} \seta erro\\
+  \codigo{a} \seta\ erro\\
   resulta em erro se \codigo{a} não for uma variável, já que
   tentará ser avaliada, sendo que \codigo{a} não tem valor
   associado, mas a linha\\
@@ -105,11 +105,11 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     \technical{cdr}\footnote{Esses nomes têm uma motivação histórica:
       eram nomes de registradores quando os primeiros
       \technical{Lisps} estavam sendo criados.}. Temos, por exemplo,\\
-    \codigo{(car (cons 1 (cons 2 3)))} \seta 1\\
-    \codigo{(cdr (cons 1 (cons 2 3)))} \seta \codigo{(cons 2 3)} =
+    \codigo{(car (cons 1 (cons 2 3)))} \seta\ 1\\
+    \codigo{(cdr (cons 1 (cons 2 3)))} \seta\ \codigo{(cons 2 3)} =
     \codigo{'(2 . 3)}\\
-    \codigo{(car '(1 2 3 4))} \seta 1\\
-    \codigo{(cdr '(1 2 3 4))} \seta \codigo{'(2 3 4)}\\
+    \codigo{(car '(1 2 3 4))} \seta\ 1\\
+    \codigo{(cdr '(1 2 3 4))} \seta\ \codigo{'(2 3 4)}\\
     Com isso, podemos definir um lista indutivamente como sendo ou a
     lista vazia, \codigo{'()}, ou um par, cujo
     \technical{cdr} é uma lista\footnote{Note que \codigo{(cons 2 3)},
@@ -134,22 +134,22 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     $\Lambda$ tem uma grafia muito parecida com outra letra comum, então
     ele acabou eventualmente trocando para $\lambda$ em sua teoria, que
     acabou se chamando \enphasis{cálculo $\lambda$} \cite{norvig}.}:\\
-  \codigo{(($\lambda$ (a b) (/ a b)) 1 3)} \seta 1/3
+  \codigo{(($\lambda$ (a b) (/ a b)) 1 3)} \seta\ 1/3
 
 \item Para definir constantes, use \enphasisb{define}:\\
   \codigo{(define divide ($\lambda$ (a b) (/ 1 3)))}\footnote{Um
     \technical{açucar sintático} para essa construção é
     \codigo{(define (divide a b) (/ 1 3))}.}\\
-  \codigo{(divide 1 3)} \seta 1/3\\
+  \codigo{(divide 1 3)} \seta\ 1/3\\
   \codigo{(define c (divide 1 3))}\\
-  \codigo{(divide (divide 1 9) c)} \seta 1/3
+  \codigo{(divide (divide 1 9) c)} \seta\ 1/3
 
 \item  Um ponto importante, que usaremos muito logo mais é que, se
   quisermos criar listas com os valores das variáveis, no lugar de
   nomes simbólicos, podemos usar, no lugar da aspa simples a crase e
   preceder o nome da variável com uma vírgula:\\
   \codigo{(define x 10)}\\
-  \codigo{`(1 2 'x ,x)} \seta \codigo{'(1 2 'x 10)}
+  \codigo{`(1 2 'x ,x)} \seta\ \codigo{'(1 2 'x 10)}
 
 \item Para realizar execuções condicionais, use \enphasisb{cond}:\\
   \begin{lstlisting}
@@ -158,7 +158,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
       ((< 0 1) (- 3 4))
       (else 0))
   \end{lstlisting}
-  \hspace{1cm} \seta -1\\
+  \hspace{1cm} \seta\ -1\\
   
   Podem ser adicionadas quantas cláusulas do tipo
   \codigo{((condicao)(efeito))} se quiser (vale notar que elas são
@@ -174,7 +174,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
           (b (cons 1 2)))
       (+ a (car b)))
   \end{lstlisting}
-  \hspace{1cm} \seta 8\\
+  \hspace{1cm} \seta\ 8\\
   O \technical{let} tem duas partes, a de definições, da forma
   \codigo{((variavel valor)(variavel valor) ... (variavel
     valor))}\footnote{Podem ser adicionadas quantas variáveis se
@@ -225,7 +225,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     ([$run^*$] x
       ([$teacup^o$] x))
   \end{lstlisting}
-  \hspace{1cm} \seta \codigo{'(tea cup)}\\
+  \hspace{1cm} \seta\ \codigo{'(tea cup)}\\
 
   %% TODO
 
@@ -234,7 +234,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   %%     (fresh c u d a)
   %%       (([$\equiv$] c 'pea)([$\equiv$] x c)))
   %% \end{lstlisting}
-  %% \hspace{1cm} \seta \codigo{'(tea cup)}\\
+  %% \hspace{1cm} \seta\ \codigo{'(tea cup)}\\
 
   Veremos mais exemplos enquanto o construímos. A construção a seguir
   é em grande parte baseada em \cite{will}. Para conferir detalhes de
@@ -304,10 +304,10 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     (walk y
       `((,z . a)(,x . ,w)(,y . ,z)))
   \end{lstlisting}
-  \hspace{1cm} \seta \enphasis{a}\\
+  \hspace{1cm} \seta\ \enphasis{a}\\
   porque \enphasis{y} está fundido a \enphasis{z}, que está associado
   a \enphasis{a}. O \technical{walk} é como se
-  segue\footnote{Lembre-se que \codigo{(and a b)} \seta \enphasis{b},
+  segue\footnote{Lembre-se que \codigo{(and a b)} \seta\ \enphasis{b},
     se \enphasis{a} $\neq \#f$.}:
 
   \begin{lstlisting}
@@ -414,7 +414,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   Um goal é uma função que recebe uma substituição e que, se retorna,
   retorna uma \technical{stream} de substituições.
 
-  Como um exemplo, temos que \codigo{(($\equiv $x y) empty-s)} \seta
+  Como um exemplo, temos que \codigo{(($\equiv $x y) empty-s)} \seta\
   \codigo{`(((,x . ,y)))}, uma lista com uma substituição (com uma
   associação).
 
@@ -501,7 +501,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \end{lstlisting}
 
   Antes de continuar, será útil conhecer a função \technical{map}:\\
-  \codigo{(map f '($el_1\ ...\ el_n$))} \seta \codigo{'((f $e_1$) ... (f $el_n$))}
+  \codigo{(map f '($el_1\ ...\ el_n$))} \seta\ \codigo{'((f $e_1$) ... (f $el_n$))}
 
   \noindent A lista construída por \technical{map} é constrúida por
   \technical{cons}. Mas existe também \technical{map-append}, análoga
