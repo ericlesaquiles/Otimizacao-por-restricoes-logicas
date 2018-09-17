@@ -226,7 +226,7 @@ checar a eficiência dos métodos discutidos. Eles foram realizados em
 um computador Inspiron 5447, versão A06, com barramento de 64 bits,
 produzido pela Dell. Esse computador conta com um processador Intel
 Core i7-4510U, a 2GHz e sistema operaiconal Debian Strech. A versão do
-sistema de programação usado é \eclipse 7.0 (de Julho de 2018). 
+sistema de programação usado é \eclipse\ 7.0 (de Julho de 2018). 
 
 Os testes foram executados da seguinte forma. O método que faz uso de
 programação inteira foi testado 8 vezes, com o teste $i$ contando
@@ -234,10 +234,10 @@ com $2^{i+4}$ tipos de itens.
 
 Cada tipo de item tem um peso, um volume que ocupa e uma quantidade
 de itens disponíveis. Nos testes que fazem uso de programação
-inteira, o peso é escolhido estocasticamente como um valor entre 1 e
+inteira, o peso é escolhido aleatoriamente como um valor entre 1 e
 50 (unidades de peso), o volume como um valor entre 1 e 100
 (unidades de volume) e, a quantidade, como um valor entre 1 e
-15. Dada a natureza estocástica dos dados, é necessário fazer o
+15. Dada a natureza aleatória dos dados, é necessário fazer o
 teste com a mesma quantidade de tipos de itens mais de uma vez, e os
 que têm mais tipos de itens devem ser testados mais do que os que
 têm menos tipos de itens. A maneira escolhida foi de executar $j$ vezes
@@ -255,61 +255,73 @@ feito com 50 itens, o qual foi executado 6 vezes (sendo a quantidade de
 itens e de testes realizados as únicas diferenças entre esta
 modalidade e a explanada acima).
 
-Cada tipo tem um peso, um volume e uma quantidade de itens
-disponível. Os pesos são definidos como um número aleatório entre 1 e
-50 (unidades de peso), os volumes são definidos como um número
-aleatório entre 1 e 100 (unidades de volume) e as quantidades de itens
-como um número aleatório entre 1 e 15.
-
-Os resultados são como segue na tabela a seguir (medições de tempo com
+Os resultados são como segue na Tabela \ref{tab:rst} (medições de tempo com
 dois valores significativos). Os valores na coluna ``Programação
 Inteira'' são referentes aos respectivos tempos para a resolução dos
 problemas por meio de restrições provindas da biblioteca
-\technical{eplex} de programação inteira, enquanto que os valores na
+\technical{eplex} de programação inteira\footnote{Essa biblioteca
+  \eclipse é uma maneira geral de fazer interface com uma variedade de
+  \foreign{solvers} para problemas de programação linear e
+  inteira. Neste caso em particular, os \foreign{solvers} carregados
+  são o \technical{COIN-OR CLP}, versão 1.6 (linear) com
+  \technical{CBC} versão 2.9 (inteiro misto)\cite{coin}.}, enquanto
+que os valores na
 coluna ``Branch and Bound'' são referentes aos respectivos tempos para
 a resolução dos problemas por meio de restrições provindas da
-biblioteca \technical{branch\_and\_bound}. Como os testes para $2^7$
-itens ou mais se tornaram inviáveis se fazendo uso da biblioteca
-\technical{branch\_and\_bound}, os respectivos espaços na tabela foram
-substituídos por ``NA''.
+biblioteca \technical{branch\_and\_bound}\footnote{A biblioteca
+  \eclipse \technical{branch\_and\_bound} provê predicados genéricos
+  que implementam a busca por \foreign{branch and bound}, isto é,
+  \begin{enumerate}
+  \item achando uma solução,
+  \item adicionando uma restrição que requer uma solução melhor do
+    que a melhor vista até então e
+  \item achar uma solução que satisfaz essa nova restrição.
+  \end{enumerate}} . Como os
+  testes para $2^7$ itens ou mais se tornaram inviáveis se fazendo uso
+  da biblioteca \eclipse\ \technical{branch\_and\_bound}, os
+  respectivos espaços na tabela foram substituídos por ``NA''.
 
 \begin{center}
   \bgroup \def\arraystretch{1.25}
-  \begin{tabular}{| l | c | c |}
-    \hline Tempos & Programação inteira & Branch and Bound \\ \hline
-    \hline Menor tempo para $2^4$ & 0,00s & 0,00s \\ Maior tempo
-    para $2^4$ & 0,01s & 0,09s \\ Tempo médio para $2^4$ & 0,00s &
-    0,02s \\ \hline
+  \begin{table}
+    \begin{tabular}{| l | c | c |}
+      \hline Tempos & Programação inteira & Branch and Bound \\ \hline
+      \hline Menor tempo para $2^4$ & 0,00s & 0,00s \\ Maior tempo
+      para $2^4$ & 0,01s & 0,09s \\ Tempo médio para $2^4$ & 0,00s &
+                                                                     0,02s \\ \hline
 
-    Menor tempo para $2^5$ & 0,00s & 0,00s \\ Maior tempo para $2^5$
-    & 0,01s & 0,07s \\ Tempo médio para $2^5$ & 0,00s & 0,01s
-    \\ \hline
+      Menor tempo para $2^5$ & 0,00s & 0,00s \\ Maior tempo para $2^5$
+                    & 0,01s & 0,07s \\ Tempo médio para $2^5$ & 0,00s & 0,01s
+      \\ \hline
 
-    Menor tempo para $2^6/50$ & 0,00s & 0,08s \\ Maior tempo para
-    $2^6/50$ & 0,01s & 4,70 \\ Tempo médio para $2^6/50$ & 0,01s &
-    1.81 \\ \hline
+      Menor tempo para $2^6/50$ & 0,00s & 0,08s \\ Maior tempo para
+      $2^6/50$ & 0,01s & 4,70s \\ Tempo médio para $2^6/50$ & 0,01s &
+                                                                     1.81s \\ \hline
 
-    Menor tempo para $2^7$ & 0,01s & NA \\ Maior tempo para $2^7$ &
-    0,01s & NA \\ Tempo médio para $2^7$ & 0,01s & NA \\ \hline
+      Menor tempo para $2^7$ & 0,01s & NA \\ Maior tempo para $2^7$ &
+                                                                      0,01s & NA \\ Tempo médio para $2^7$ & 0,01s & NA \\ \hline
 
-    Menor tempo para $2^8$ & 0,02s & NA \\ Maior tempo para $2^8$ &
-    0,02s & NA \\ Tempo médio para $2^8$ & 0,02s & NA \\ \hline
+      Menor tempo para $2^8$ & 0,02s & NA \\ Maior tempo para $2^8$ &
+                                                                      0,02s & NA \\ Tempo médio para $2^8$ & 0,02s & NA \\ \hline
 
-    Menor tempo para $2^9$ & 0,02s & NA \\ Maior tempo para $2^9$ &
-    0,04s & NA \\ Tempo médio para $2^9$ & 0,03s & NA \\ \hline
+      Menor tempo para $2^9$ & 0,02s & NA \\ Maior tempo para $2^9$ &
+                                                                      0,04s & NA \\ Tempo médio para $2^9$ & 0,03s & NA \\ \hline
 
-    Menor tempo para $2^{10}$ & 0,05s & NA \\ Maior tempo para
-    $2^{10}$ & 0,07s & NA \\ Tempo médio para $2^{10}$ & 0,06s & NA
-    \\ \hline
+      Menor tempo para $2^{10}$ & 0,05s & NA \\ Maior tempo para
+      $2^{10}$ & 0,07s & NA \\ Tempo médio para $2^{10}$ & 0,06s & NA
+      \\ \hline
 
-    Menor tempo para $2^{11}$ & 0,6s & NA \\ Maior tempo para
-    $2^{11}$ & 0,8s & NA \\ Tempo médio para $2^{11}$ & 0,7s & NA
-    \\ \hline
+      Menor tempo para $2^{11}$ & 0,60s & NA \\ Maior tempo para
+      $2^{11}$ & 0,80s & NA \\ Tempo médio para $2^{11}$ & 0,70s & NA
+      \\ \hline
 
-    Menor tempo para $2^{12}$ & 0,14s & NA \\ Maior tempo para
-    $2^{12}$ & 0,16s & NA \\ Tempo médio para $2^{12}$ & 0,14s & NA
-    \\ \hline
-  \end{tabular}
+      Menor tempo para $2^{12}$ & 0,14s & NA \\ Maior tempo para
+      $2^{12}$ & 0,16s & NA \\ Tempo médio para $2^{12}$ & 0,14s & NA
+      \\ \hline
+    \end{tabular}
+    \caption{Resultados}
+    \label{tab:rst}
+  \end{table}
   \egroup
 \end{center}
 
@@ -324,6 +336,10 @@ substituídos por ``NA''.
 \bibitem{eclipse} \eclipse,
   \url{http://www.eclipseclp.org/examples/}
 
+\bibitem{coin}
+  COIN-OR,
+  \url{https://projects.coin-or.org/CoinBinary}
+  
 \end{thebibliography}
 
 %\end{document}
