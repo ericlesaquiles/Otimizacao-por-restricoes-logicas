@@ -15,44 +15,42 @@ sabor diferente do Prolog que vimos no início, chamada
 \technical{miniKanren}, e veremos como implementá-la, por meio da
 linguagem \technical{Scheme}.
 
-Usaremos \technical{Scheme} porque é uma linguagem que é pequena, o
-que significa que não será gasto muito esforço para apresentar o seu
-funcionamento. E é, ao mesmo tempo, poderosa, o que significa que não
-precisaremos de muito código para fazer o que nos propomos.
+Usaremos \technical{Scheme} porque é uma linguagem é pequena, o
+que significa que sua apresentação será curta, e que é, ao mesmo
+tempo, poderosa, o que significa que não precisaremos de muito código
+para fazer o que nos propomos.
 
-Esse capítulo tem um sabor diferente dos demais. Essa diferença pode ser visto
+Esse capítulo tem um sabor diferente dos demais. A diferença pode ser vista
 rapidamente, pela cara do código, mas também de várias outras
 formas. Redefiniremos alguns termos usados anteriormente. Essas
 redefinições terão semelhanças e diferenças às definições originais,
-mas escolhemos não notar essas diferenças aqui, por acreditarmos serem
-claras o suficiente. Outro ponto que vale nota é que, aqui, buscamos
+mas escolhemos não explicitar essas diferenças aqui, por acreditarmos serem
+claras o suficiente sem um comentário a mais. Outro ponto que vale nota é que, aqui, buscamos
 apenas um maior entendimento e, para tanto, tentamos deixar o código
 como ``implementado em primeiros princípios'', evitando detalhes que
-poderiam deixá-lo mais eficiente, mas elevando os prerrequisitos para
-a compreensão do código, ou exigindo uma discussão mais completa sobre
-ele (o que preferimos evitar).
+poderiam deixá-lo mais eficiente, mas que elevariam os prerrequisitos para
+a compreensão do código ou exigiriam uma maior discussão sobre
+ele, o que preferimos evitar.
 
 \subsection{Introdução ao Scheme}
 
 \technical{Scheme} é um \technical{Lisp}\footnote{De
   \foreign{LISt Processing}}. O termo \technical{Lisp} é às vezes
 usado para ser referir a uma linguagem de programação, mas o mais
-correto seria ser referida como a uma família de linguagens (de fato,
+correto seria ser usado para ser referir a uma família de linguagens (de fato,
 dezenas de linguagens), todas com algumas características em comum,
-notadamente:
+em particular:
 
 \begin{itemize}
 \item São linguagens multi-paradigma, mas como um
-  foco no paradigma de programação funcional, isto é,
-  funções são ``cidadãos de primeira classe'';
-\item ``Todo''\footnote{Com uma excessão bem
-    natural, que será mencionada mais adiante.} código
-  \technical{Lisp} (que não tenha erro de sintaxe) é avaliado para
-  algum valor;
-\item Programas são expressos em notação polonêsa, em formato de
+  foco no paradigma de programação funcional, o que significa, entre
+  outras coisas, que  funções são ``cidadãos de primeira classe'';
+\item Todo código \technical{Lisp} (que não tenha erro de sintaxe) é avaliado para
+  algum valor no momento de execução;
+\item Programas são expressos em notação polonesa, em formato de
   listas\footnote{Também conhecidas como \technical{S-Expressions}, ou
     \technical{Sexps}}(listas em \technical{Lisps} são delimitadas por
-  parênteses)\footnote{Usaremos daqui em diante a notação
+  parenteses)\footnote{Usaremos daqui em diante a notação
     \enphasisb{codigo \seta\ valor} para denotar que o código
     \enphasisb{código} avalia para o valor \enphasisb{valor}.}:
   \\
@@ -67,34 +65,35 @@ notadamente:
 \end{itemize}
 
 Agora, vamos rapidamente introduzir a sintaxe principal de
-\technical{Scheme}, com alguns exemplos\footnote{Note que só
+\technical{Scheme}, com alguns exemplos\footnote{Só
   introduziremos a parte da linguagem que nos será relevante, o que
-  não é a linguagem toda.}:
+  não é a linguagem inteira.}:
 
 \begin{itemize}
 \item Listas são representadas como \codigo{($el_1\ el_2\ ...\
     el_n$)}, em que $el_i$ é o iésimo elemento da lista. No entanto, se
-  escrevêssemos uma lista simplesmente assim, a lista seria
+  escrevêssemos uma lista assim, ela seria
   confundida com uma aplicação de função (aplicação da função $el_1$
   aos argumentos $el_2$ a $el_n$), então, para fins de
   desambiguação, é usada uma aspa simples, e a lista é escrita como
-  '($el_1 el_2 ... el_n$), que é equivalente a \codigo{(list $'el_1\
+  '($el_1 el_2 ... el_n$)\footnote{Note que, por ser fechada por
+    parenteses, apenas uma aspa é o suficiente.}, que é equivalente a \codigo{(list $'el_1\
     ...\ 'el_n$)} . Essa aspa simples também pode ser usada para
   ``evitar que um objeto seja avaliado''\footnote{Uma colocação mais
     correta seria ``tornar objetos auto-avaliantes'', mas não
     precisamos entrar em muitos detalhes de como isso funciona. Para
     nós é suficiente dizer que 'a é um símbolo.}:\\
   A linha\\
-  \codigo{a} \seta\ erro\\
+  \codigo{a}\\
   resulta em erro se \codigo{a} não for uma variável, já que
-  tentará ser avaliada, sendo que \codigo{a} não tem valor
-  associado, mas a linha\\
+  o executor do código tentará avaliá-la (gerar um valor a partir
+  dela), mas \codigo{a} não tem valor associado. Mas a linha\\
   $'a\ \Rightarrow\ 'a$\\
-  é avaliada como ela mesma.\\
+  é avaliada, ``como ela mesma''.\\
 
 \item Uma estrutura de dados mais geral do que lista em
   \technical{Scheme} é o que é chamado \technical{cons pair} (que nós
-  chamaremos daqui para frente simplesmente de ``par'').. A lista
+  chamaremos daqui para frente simplesmente de ``par''). A lista
   \codigo{'(a b c d)} é equivalente a \codigo{(cons a (cons b (cons c
     (cons d '()))))}, em que \codigo{'()} é a lista
   vazia
@@ -102,9 +101,11 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     Assim \technical{cons} constrói uma estrutura de
     dados formada por um par. Para obter o primeiro elemento do par,
     usa-se \technical{car} e, para obter o segundo,
-    \technical{cdr}\footnote{Esses nomes têm uma motivação histórica:
+    \technical{cdr}\footnote{Esses nomes têm uma origem histórica:
       eram nomes de registradores quando os primeiros
-      \technical{Lisps} estavam sendo criados.}. Temos, por exemplo,\\
+      \technical{Lisps} estavam sendo criados (vale notar que o
+      primeiro Lisp foi também uma das primeiras linguagens de
+      alto-nível ainda em uso, tendo surgido pouco depois do Fortran.}. Temos, por exemplo,\\
     \codigo{(car (cons 1 (cons 2 3)))} \seta\ 1\\
     \codigo{(cdr (cons 1 (cons 2 3)))} \seta\ \codigo{(cons 2 3)} =
     \codigo{'(2 . 3)}\\
@@ -117,32 +118,39 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
       \foreign{dotted list}, porque, para distingui-la de uma lista, é
       costumeiramente impressa como \codigo{'(2 . 3)}, mas, assim como
       com Prolog, é uma estrutura de dados diferente, que tem o nome
-      \foreign{dotted \enphasisb{list}} como que por uma aparência acidental.}.
+      \foreign{dotted \enphasisb{list}} devido a uma aparência como que acidental.}.
 \item Para definir funções, use \enphasisb{lambda}, ou
-  \enphasisb{$\lambda$}\footnote{Editores de texto atuais aceitam os dois tipos de
-    entrada, mas optamos por usar $\lambda$. Esse uso do símbolo tem a
+  \enphasisb{$\lambda$}\footnote{Editores de texto atuais podem aceitar os dois tipos de
+    entrada, mas optamos por usar $\lambda$. Este uso do símbolo tem a
     seguinte origem: Bertrand Russel e Alfred Whitehead buscaram, no
-    início do século XX lançar as bases lógicas da matemática eu seu
+    início do século XX lançar as bases lógicas da matemática em seu
     trabalho \foreign{Principia Mathematica}. Lá, para denotar que uma
-    variável é livre, ela recebia chapéu, como em \technical{â(a +
-      y)}. Mais tarde, Alonzo Church achou que seria mais conveniente
-    ter fórmulas crescendo linearmente na horizontal, então decidiu
+    variável é livre, ela recebia um chapéu, como em \technical{â(a +
+      y)}. Mais tarde, ainda trabalhando nos fundamentos da
+    matemática,Alonzo Church achou que seria mais conveniente
+    ter fórmulas crescendo linearmente na horizontal (note que o
+    ``chapéu'' faz com que a fórmula cresça para cima'), então decidiu
     mover o chapéu para o lado, obtendo \technical{\^{}a(a + y)}.
     Mas o chapéu flutuando parece engraçado, então Church o trocou
     pelo  o símbolo não usado mais próximo que tinha, um $\Lambda$, como em
     \technical{$\Lambda a$(a + y)}. Mas
-    $\Lambda$ tem uma grafia muito parecida com outra letra comum, então
-    ele acabou eventualmente trocando para $\lambda$ em sua teoria, que
-    acabou se chamando \enphasis{cálculo $\lambda$} \cite{norvig}.}:\\
-  \codigo{(($\lambda$ (a b) (/ a b)) 1 3)} \seta\ 1/3
+    $\Lambda$ tem uma grafia muito parecida com outra letra comum, o que foi
+    percebido como um incoveniente, então ele acabou eventualmente
+    trocando para $\lambda$ em sua teoria, que acabou se chamando
+    \enphasis{cálculo $\lambda$} \cite{norvig}.}:\\
+  \codigo{(($\lambda$ (a b) (/ a b)) 1 3)} \seta\ 1/3n
 
 \item Para definir constantes, use \enphasisb{define}:\\
-  \codigo{(define divide ($\lambda$ (a b) (/ 1 3)))}\footnote{Um
+  \codigo{(define divide ($\lambda$ (a b) (/ a b)))}\footnote{Um
     \technical{açucar sintático} para essa construção é
-    \codigo{(define (divide a b) (/ 1 3))}.}\\
+    \codigo{(define (divide a b) (/ a b))}.}\\
   \codigo{(divide 1 3)} \seta\ 1/3\\
   \codigo{(define c (divide 1 3))}\\
-  \codigo{(divide (divide 1 9) c)} \seta\ 1/3
+  \codigo{(divide (divide 1 9) c)} \seta\ 1/3\\
+  \codigo{(define (divide3 (divide3 a) (divide a 3)))}\\
+  \codigo{(divide3 9)} \seta 3\footnote{Esse tipo de uso é chamado
+    \foreign{currying}, e é possível porque \technical{Scheme} tem
+    fecho lexico.};
 
 \item  Um ponto importante, que usaremos muito logo mais é que, se
   quisermos criar listas com os valores das variáveis, no lugar de
@@ -161,12 +169,10 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \hspace{1cm} \seta\ -1\\
   
   Podem ser adicionadas quantas cláusulas do tipo
-  \codigo{((condicao)(efeito))} se quiser (vale notar que elas são
+  \codigo{((condicao)(efeito))} se quiser (vale notar, elas são
   avaliadas sequencialmente), sendo que a última pode
   opcionalmente ser como \codigo{(else (efeito))}, ou \codigo{(\#t
-    (efeito))}\footnote{Preferiremos a segunda opção. O
-    \technical{\#t} é de \foreign{true} e existe, analogamente, o
-    \technical{\#f}, de \foreign{false}.}.
+    (efeito))}.
 
 \item Para adicionar variáveis locais, use \technical{let}:
   \begin{lstlisting}
@@ -180,13 +186,22 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     valor))}\footnote{Podem ser adicionadas quantas variáveis se
     quiser. As atribuições são feitas ``paralelamente'' (o que
     significa que a atribuição de valor a uma variável não influi no
-    da outra, o que pode ser feito de forma paralela, ou não).}.
+    da outra, o que pode ser feito de forma paralela, no sentido usual, ou não).}.
   em seguida, a parte de valor, que nos dá o valor que \technical{let}
-  assume.  
+  assume.
 \end{itemize}
 
-  Como exemplo, o seguinte programa calcula o comprimento de uma lista
-  (lembre que, como 
+  % Como exemplo, o seguinte programa calcula o comprimento de uma lista
+
+  % \begin{lstlisting}[escapeinside={[}{]}]
+  %   (define length
+  %     ([$\lambda$] (l)
+  %       (cond
+  %         ((null? l)0)
+  %         (else
+  %           (+ 1 (length (cdr l)))))))
+  % \end{lstlisting}
+  
 
   Dada essa introdução, faremos uso dessas e outras construções da
   linguagem sem maiores comentários (exceto quando uma construção
@@ -236,7 +251,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   %% \end{lstlisting}
   %% \hspace{1cm} \seta\ \codigo{'(tea cup)}\\
 
-  Veremos mais exemplos enquanto o construímos. A construção a seguir
+  Veremos mais exemplos quando o construirmos. A construção que se segue
   é em grande parte baseada em \cite{will}. Para conferir detalhes de
   implementações completas, veja \cite{kanren}.
 
@@ -245,21 +260,21 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   que variáveis são  capitalizadas). Assim, precisamos de algo para
   discerni-las e, para tal fim, o que usamos é o \technical{fresh},
   informando que a variável é ``fresca''.
-
   
   Lembre-se que uma variável relacional não é a a mesma
   coisa que uma variável em uma linguagem de programação tradicional
-  (não relacional). Para uma variável única, usamos\footnote{Usamos
-    \technical{vector} para que a unicidade da variável seja definida
-    por sua posição de memória. Outra opção, seria distingui-las por
-    valor, se nos assegurássemos que seu valor é único.}
+  (não relacional). Para definirmos uma variável única, vamos precisar
+  de\footnote{Usamos \technical{vector} para que a unicidade da
+    variável seja definida por sua posição de memória. Outra opção,
+    seria distingui-las por valor, se nos assegurássemos de que seu valor
+    é único.}
   
   \begin{lstlisting}
     (define (var name)(vector name))
   \end{lstlisting}
 
   \noindent usamos também\footnote{Símbolos como ``?'' podem ser
-    usados no meio do código asssim como outros, tais como ``a'' ou ``b''.}
+    usados no meio do código da mesma forma que outros, tais como ``a'' ou ``b''.}
 
   \begin{lstlisting}
     (define (var? name)(vector? name))
@@ -276,15 +291,15 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \end{lstlisting}
 
   Essa função espera, como segundo argumento, uma expressão $\lambda$, que
-  recebe como argumento uma variável e produz como valor um goal, que
+  recebe como argumento uma variável e produz como valor um goal, o qual
   tem acesso à variável criada.
   
   Precisamos, agora, saber como associar um valor a uma
   variável. Diremos que o par \codigo{`(,z . a)} é uma associação de
   \enphasis{a} à variável \enphasis{z}. Mais em geral, um par é uma
-  associação quando o seu \technical{car} é uma variável.
+  associação quando o seu \technical{car} for uma variável.
 
-  A uma lista de associações chamaremos \enphasis{substituição}. Na
+  Uma lista de associações será chamada \enphasis{substituição}. Na
   substituição \codigo{`((,x . ,z))}, a variável \enphasis{x} é
   ``fundida'' (ou, na nossa linguagem anterior, unificada) à variável
   \enphasis{z}. A substituição vazia é simplesmente uma lista vazia:
@@ -374,20 +389,23 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   significa que os argumentos de uma função são todos avaliados no
   momento em que a função é aplicada. Por esse motivo, os
   \technical{and} e \technical{or} usuais, por exemplo, não podem ser
-  funções em Scheme. Uma alternativa à ordem aplicativa é a ``ordem
+  funções em Scheme\footnote{Se fossem, \codigo{(or \#t a)}, por
+    exemplo, poderia gerar erro se \codigo{a} não for uma
+    variável. Como \technical{or} não é uma função, o \technical{a}
+    nessa linha não chega a ser avaliado, e temos \codigo{(or \#t a)}
+    \seta \#t.}. Uma alternativa à ordem aplicativa é a ``ordem
   normal'', que algumas outras linguagens de programação funcional
   adotaram. Linguagens de ordem normal só avaliam o argumento de uma
-  função quando esse argumento for usada, atrasando a avaliação do
+  função quando esse argumento for usado, atrasando a avaliação do
   mesmo (no que é chamado ``avaliação tardia'', ou ``avaliação
   preguiçosa'').
 
   Avaliação preguiçosa é conveniente para diversas operações e pode
   ser emulada em linguagens de programação funcional de ordem
   aplicativa pelo uso de \definicao{streams}. \technical{Streams} são
-  definidos como sendo ou a lista vazia, ou um par cujo
-  \technical{cdr} é um \technical{stream}, ou uma suspenção.
-
-  Uma \definicao{suspenção} é uma função formada por \codigo{($\lambda$ ()
+  definidos indutivamente como sendo ou a lista vazia, ou um par cujo
+  \technical{cdr} é um \technical{stream}, ou uma suspenção, em que
+  uma \definicao{suspenção} é uma função do tipo \codigo{($\lambda$ ()
     corpo)}, em que \codigo{(($\lambda$ () corpo))} é uma
   \technical{stream}. Agora, se definirmos
 
@@ -399,7 +417,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \end{lstlisting}
         
   \noindent $\equiv $ produz um goal. Dois outros goals, \enphasis{sucesso}
-  e \enphasis{falha}, são denotamos \#s e \#u:\\
+  e \enphasis{falha}, são denotados \#s e \#u:\\
 
   \begin{lstlisting}[escapeinside={[}{]}]
     (define #s
@@ -422,7 +440,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   já que não são simples listas. \technical{Streams} são uteis para a
   representação de estruturas de dados infinitas, então, por isso,
   funções e variáveis para lidar com elas terão um $\infty$ sobrescrito,
-  para diferenciá-las das funções para listas comuns. Assim, podemos
+  para diferenciá-las das funções para listas comuns. Podemos, então,
   definir $append^\infty$:
 
   \begin{lstlisting}[escapeinside={[}{]}]
@@ -489,7 +507,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
                       
   \end{lstlisting}
 
-  Em contraste com $never^o$, aqui está $always^o$:
+  Em contraste com $never^o$, aqui está $always^o$, que sempre sucede:
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -533,29 +551,30 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \end{lstlisting}
 
-  
+
   \subsubsection{Voltando ao problema das variáveis}
 
-
   ``Reificação'' é um termo muito usado em contextos de programação
-  relacional, assim como nos da teoria de Marx, e com significado
+  relacional, assim como nos da teoria de Marx, com significado
   semelhante. Notadamente, é ``o ato de tratar algo abstrato como algo
   concreto, ou algo concreto como algo abstrato''. No nosso contexto,
   pode-se argumentar que uma variável é algo ``concreto'', na medida
-  que tem algum significado para quem programa. Apesar disso, temos a
-  liberdade de, quando conveniente, tratá-la como algo abstrato, um
-  \foreign{place-holder}, e, quando não apresentar valor, podemos
-  denotá-la simplesmente como um ``\_'' seguido de um número, que
-  serve para diferi-lo de outras variáveis\footnote{Nos programas,
-    usaremos $\__n$, em que $n$ é um número natural.}.
+  que tem algum significado para quem programa\footnote{Também
+    poderíamos argumentar o contrário, mas prefirimos não entediar a
+    leitora.}. Apesar disso, temos a liberdade de, quando conveniente,
+  tratá-la como algo abstrato, um \foreign{place-holder}, e, quando
+  não apresentar valor, podemos denotá-la simplesmente como um ``\_''
+  seguido de um número, que serve para diferi-lo de outras
+  variáveis\footnote{Nos programas, usaremos $\__n$, em que $n$ é um
+    número natural.}.
 
   Isso é útil, por exemplo, para mostrarmos os valores das variáveis
   (e, quando a variável for fresca, podemos simplesmente mostrá-la
   como ``$\__n$''). Mais em geral, quando uma variável é criada
-  fresca, não tem valor. Na verdade, ``não ter valor'' significa que a
-  variável é fresca, e a forma de representarmos isso convenientemente
-  é reificando-a. Para realizar isso, precisamos primeiro do
-  \technical{reify-name}\footnote{$string\rightarrow symbol$ é escrito
+  fresca, não tem valor. Na verdade, ``não ter valor'' significa o
+  mesmo que dizer ``a variável é fresca'', e a forma de representarmos
+  isso convenientemente é reificando-a. Para realizar isso, precisamos
+  primeiro do \technical{reify-name}\footnote{$string\rightarrow symbol$ é escrito
     \technical{$string->symbol$}.}:
 
   \begin{lstlisting}[escapeinside={[}{]}]
@@ -587,10 +606,10 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \end{lstlisting}
 
   \noindent Aqui usamos \technical{length} para produzir um número
-  único em cada uso de \technical{reify-name}.
+  único em cada uso de \technical{reify-nanme}.
 
   Para continuar com nosso esquema de reificação, vamos precisar de
-  uma versão ligeiramente diferente de \technical{walk}, o qual
+  uma versão ligeiramente diferente do \technical{walk}, o qual
   chamaremos \technical{$walk^*$}\footnote{Leia \enphasis{walk
       star}.}. Veja a definição:
   
@@ -608,10 +627,11 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   Note que \technical{walk} e \technical{$walk^*$} só diferem se
   \technical{$walk^*$} \enphasis{caminhar} a um par que contém alguma
-  variável com associação na substituição \enphasis{s}. Além disso,
+  variável com associação na substituição \enphasis{s} (algo do tipo
+  \codigo{(,z . (1 . ,x))}. Além disso,
   note que, se \technical{$walk^*$} produz um valor \enphasis{v} ao
   \enphasis{caminhar} por uma substituição \enphasis{s}, temos
-  garantia de que as variáveis em \enphasis{v} são frescas.
+  garantia de que as variáveis em \enphasis{v} (se existirem) são frescas.
 
   Com isso em mãos, podemos substituir cada variável fresca por sua
   reificação, com
@@ -647,10 +667,11 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   mecanismos de iteração) podem ser facilmente definidos por meio de
   macros.
 
-  Para começar, notamos que temos $disj_2$ e $conj_2$, que são a
-  disjunção e conjunção, mas para apenas dois argumentos. Gostaríamos
-  de realizar disjunções e conjunções com vários goals. A disjunção de
-  $n$ termos é definida induvivamente (a conjunção é análoga):
+  Para começar, notamos que temos a disjunção e a conjunção, mas para
+  apenas dois argumentos, na forma de  $disj_2$ e $conj_2$. Gostaríamos
+  de realizar disjunções e conjunções com $n$ goals, em que $n$ pode
+  ser diferente de 2. A disjunção de $n$ termos é definida
+  induvivamente (a conjunção é análoga):
 
   \begin{align*}
     &(disj) \Rightarrow \#u \\
@@ -658,7 +679,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     &(disj\ g_0\ g\ ...) \Rightarrow (disj_2\ g_0\ (disj\ g\ ...))
   \end{align*}
 
-  \noindent que se traduz como
+  \noindent que se traduz em código como
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -707,7 +728,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   terminar de executar, assume como valor os $n$ primeiros elementos
   de \technical{$run^*$}.
 
-  Para termos essas definições, precisamos de \technical{$take^\infty$},
+  Para termos essas definições, usaremos \technical{$take^\infty$},
   que, quando dado um número $n$ e uma stream \technical{$s^\infty$}, se
   algo, produz uma lista de, no máximo, $n$ valores:
 
