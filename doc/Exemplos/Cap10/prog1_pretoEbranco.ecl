@@ -16,7 +16,6 @@ resmungos_consecutivos(Membro, Verdade1, Verdade2) :-
 
 %% resolve([?Membro_1, ?Membro_2, ?Membro_3])
 % Membro_x é unificado com o nome do seu respectivo grupo
-%
 resolve([Membro_1, Membro_2, Membro_3]):-
     [Membro_1, Membro_2, Membro_3] &:: membro_do_clube,
     [Membro_3_possivelmente_disse, Membro_3_disse, Membro_1_disse,
