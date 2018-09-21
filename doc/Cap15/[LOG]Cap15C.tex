@@ -134,7 +134,7 @@ da seguinte forma:
 
 \begin{align*}
   minimize \;& \sum\limits_{i=1}^n f_0(x)\\ tal\; que\;& f_i(x) \leq\
-  1, i = 1, ..., n,\\ & g_i(x) = 1, i = 1, ..., k,\\ & x \in R^n_{+},
+  1,\ i = 1, ..., n,\\ & g_i(x) = 1,\ i = 1, ..., k,\\ & x \in R^n_{+},
 \end{align*}
 
 \noindent em que $f_i$ são posinômios ou monômios, os $g_i$ são
@@ -145,7 +145,8 @@ posinômios) é um pouco diferente do usual em álgebra:
 \item Um \definicao{monômio} $g(x)$ é algo da forma $g(x) =
   kx^{\alpha}$, $\alpha \in R^n, k \in R^n_{+}$\footnote{Aqui, usamos
     a convenção de que, se $x \in R^n$ e $\alpha \in R^n$, $x^{\alpha}
-    := \prod x_i^{\alpha_i}$.};
+    := \prod x_i^{\alpha_i}$ e, analogamente, se $x \in R$ e $\alpha \in R^n$, $x^\alpha :=
+    (x^{\alpha_i}) \in R^n$.};
 \item Um \definicao{posinômio} é algo da forma $f(x) = \sum g_i(x)$,
   em que cada $g_i$ é um monômio (em particular, monômios são
   posinômios).
@@ -159,9 +160,13 @@ $log(g(e^x))$ é, não só convexo, mas também afim. Realizando essa
 mudança de variáveis, nosso problema de otimização pode ser expresso
 como
 
+  % minimize \;& log \sum e^{\alpha_{0k}'x + b_{0k}}\\ tal\; que\;& log
+  % \sum e^{\alpha_{ik}' + b_{ik}} \leq 0\\ & x \in R^n_{+}.
+
 \begin{align*}
-  minimize \;& log \sum e^{\alpha_{0k}'x + b_{0k}}\\ tal\; que\;& log
-  \sum e^{\alpha_{ik}' + b_{ik}} \leq 0\\ & x \in R^n_{+}.
+  minimize\; & log\ f_0 (e^x)\\
+  tal\; que\; & log\ f_i (e^x) \leq 0\\
+  e\; & log\ g_i (e^x) = 0.
 \end{align*}
 
 Nessa nova formulação, estamos tomando $\alpha$ como a matriz de
@@ -193,18 +198,20 @@ genérico).
 
 A seguir é apresentado um modelo de aeronave simplificado, em grande
 parte baseado no modelo da tese de Hoburg\cite{hoburg}. A modelagem do
-problema será feita com base no pacote GPkit\cite{gpkit}. % TODO ADD citation
+problema será feita com base no pacote GPkit\cite{gpkit}, um
+pacote de software para modelagem algébrica de problemas de
+programação geométrica para a linguagem Python, que nos permite lidar
+com esse tipo de problema de maneira semelhante (apesar de não em
+sintaxe) ao que estávamos acostumados com o \eclipse.
 
 \subsubsection{Modelo de peso e sustentação}
 
-Assumimos que a aeronave esteja em vôo de cruzeiro\footnote{Quando as
-  velocidades linear a angular da aeronave são constantes em um
-  sistema de referência fixado ao corpo. É o mesmo que ``vôo
-  estável''.}, de modo que o sustentação seja igual ao arrasto e a
-sustentação igual ao peso. O peso da aeronave é a soma do peso de
-carga útil $P_0$, o da asa $P_a$ e do combustível $P_c$:
+Assumimos que a aeronave esteja em vôo de cruzeiro\footnote{Quando o
+  avião atinge sua altitude de vôo.}, de modo que a sustentação igual
+ao peso. O peso da aeronave é a soma do peso de carga útil $P_0$, o da
+asa $P_a$ e do combustível $P_c$:
 \[
-P \geq P_0 + P_a + P_c
+P \geq P_0 + P_a + P_c,
 \]
 Usamos o modelo abaixo para vôo estável\footnote{O ``l'' abaixo vem de
   ``\foreign{lift}'', ``sustentação'' em inglês.}:
@@ -255,7 +262,7 @@ coeficiente de fricção $C_f$ pode ser aproximado por:
 \noindent em que $Re = \frac{\rho V}{\mu}\sqrt{\frac{S}{A}}$ é o
 número de Reynolds na corda média $\sqrt{\frac{S}{A}}$\footnote{$A$
   representa a razão de aspecto, ie, a razão entre a distância entre
-  as pontas das asas e a corda média}.
+  as pontas das asas e a corda média.}.
 
 Também gostaríamos que uma aeronave cheia de combustível seja capaz de
 voar a uma velocidade mínima:
@@ -394,7 +401,7 @@ O coeficiente de fricção $C_f$ é aproximado por:
 total da aeronave é modelado como a soma de um peso fixo $W_0$ e o
 peso da asa $W_w$, $W = W_0 + W_w$. O peso da asa é modelado como:
 \[
-  W_w = 45,42S + 8,71\times10^{-5} \frac{N_{lift}b^3\sqrt{W_0W}}{S\tau}m
+  W_w = 45,42S + 8,71\times10^{-5} \frac{N_{lift}b^3\sqrt{W_0W}}{S\tau},
 \]
 
 \noindent em que $N_{lift}$ é o fator de carga para dimensionamento estrutural e
@@ -419,14 +426,16 @@ geométrica.
 Resolvendo o problema com o código no final da seção, obtemos um custo ótimo de 303,1 e os seguintes
 valores para as variáveis livres:
 
-\begin{tabular}{r c c r}
+\begin{tabular}{|r c c r|}
+  \hline
   A & : & 8,46 & Alongamento \\ $C_D$ & : & 0,02059 & Coeficiente de
   arrasto da asa \\ $C_L$ & : & 0,4988 & Coeficiente de sustentação da
   asa \\ $C_f$ & : & 0,003599 & Coeficiente de fricção \\ D & : &
   303,1 (N) & Força de arrasto total \\ Re & : & 3,675e+06 & Número de
   Reynold \\ S & : & 16,44 ($m^2$) & Área total da asa \\ V & : &
   38,15 (m/s) & Velocidade de cruzeiro \\ W & : & 7341 (N) & Peso
-  total da aeronave \\ $W_w$ & : & 2401 (N) & Peso da asa \\
+                                                             total da aeronave \\ $W_w$ & : & 2401 (N) & Peso da asa \\
+  \hline
 \end{tabular}
 
 É importante para um projetista ter também ideia da sensibilidade de
@@ -435,11 +444,13 @@ de interesse saber quanto o valor da solução muda, se muito ou
 pouco). Os valores a seguir buscam refletir isso (os valores são
 referentes à derivada logarítmica $\frac{d(log(y)}{d(log(x)}$):
 
-\begin{tabular}{l c  c  r}
+\begin{tabular}{|l c  c  l|}
+  \hline
   $W_0$ & : & +1 & Peso da aeronave sem asa \\ e & : & -0,48 & Fator
   de eficiência de Oswald \\ ($\frac{S}{S_{wet}}$) & : & +0,43 & Razão
   de área molhada \\ $k$ & : & +0,43 & Fator de forma \\ $V_{min}$ & : &
-  -0,37 & Velocidade de decolagem \\
+                                                                         -0,37 & Velocidade de decolagem \\
+  \hline
 \end{tabular}
 
 
@@ -449,20 +460,23 @@ atribuir valores a algumas variáveis e checar como as soluções se
 comportam para tais valores. Fazemos isso com as variáveis $V$ e
 $V_{min}$:
 
-\begin{tabular}{c c c c c c c r}
-  V & : & 45 & 45 & 55 & 55 & m/s & velocidade de cruzeiro
-  \\ $V_{min}$ & : & 20 & 25 & 20 & 25 & m/s & velocidade de decolagem
+\begin{tabular}{|c c  c  c  c  c  l  l|}
+  \hline
+  V & : & 45 & 45 & 55 & 55 & m/s & Velocidade de cruzeiro \\ \hline
+  $V_{min}$ & : & 20 & 25 & 20 & 25 & m/s & Velocidade de decolagem \\
+  \hline
 \end{tabular}
 
 Obtemos, assim, os respectivos custos:
 
 \begin{tabular}{c c c c}
-  338 & 294 & 396 & 326
+  338 & 294 & 396 & 326.
 \end{tabular}
 
 Os valores das variáveis livres são os seguintes:
 
-\begin{tabular}{c c c c c c c r}
+\begin{tabular}{|c c c c c c c l|}
+  \hline
   A & : & 6,2 & 8,84 & 4,77 & 7,16 & & Alongamento \\ $C_D$ & : &
   0,0146 & 0,0196 & 0,0123 & 0,0157 & & Coeficiente de arrasto da asa
   \\ $C_L$ & : & 0,296 & 0,463 & 0,198 & 0,31 & & Lift coefficent of
@@ -472,19 +486,22 @@ Os valores das variáveis livres são os seguintes:
   4,75e+06 & & Número de Reynolds \\ S & : & 18,6 & 12,1 & 17,3 & 11,2
   & $m^2$ & Área total da asa \\ W & : & 6,85e+03 & 6,97e+03 & 6,4e+03
   & 6,44e+03 & N & Peso total da aeronave \\ $W_w$ & : & 1,91e+03 &
-  2,03e+03 & 1,46e+03 & 1,5e+03 & N & Peso da asa \\
+                                                                    2,03e+03 & 1,46e+03 & 1,5e+03 & N & Peso da asa \\
+  \hline
 \end{tabular}
 
 As variáveis mais sensíveis, como apresentado pelo modelo (veja
 \cite{gpkit} para mais detalhes), são:
 
-\begin{tabular}{c c c c c c r}
+\begin{tabular}{|c c c c c c l|}
+  \hline
   $ W_0$ &: & +0,92 & +0,95 & +0,85 & +0,85 & Peso da aeronave sem a asa
   \\ $ V_{min}$ &: & -0,82 & -0,41 & -1 & -0,71 & Velocidade de
   decolagem \\ $ V$ &: & +0,59 & +0,25 & +0,97 & +0,75 & Velocidade de
   cruzeiro \\ $(\frac{S}{S_{wet}})$ &: & +0,56 & +0,45 & +0,63 & +0,54
   & Razão de área molhada \\ $ k$ &: & +0,56 & +0,45 & +0,63 & +0,54 &
-  Fator de forma
+                                                                       Fator de forma \\
+  \hline
 \end{tabular}
 
 \pagebreak
