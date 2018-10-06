@@ -134,12 +134,13 @@ da seguinte forma:
 
 \begin{align*}
   minimize \;& \sum\limits_{i=1}^n f_0(x)\\ tal\; que\;& f_i(x) \leq\
-  1,\ i = 1, ..., n,\\ & g_i(x) = 1,\ i = 1, ..., k,\\ & x \in R^n_{+},
+  1,\ i = 1, ..., n,\\ & g_j(x) = 1,\ j = 1, ..., k,\\ & x \in R^n_{+},
 \end{align*}
 
-\noindent em que $f_i$ são posinômios ou monômios, os $g_i$ são
-monômios e $x \in R^n$. Aqui, a definição de monômios (e de
-posinômios) é um pouco diferente do usual em álgebra:
+\noindent em que $f_i$ são posinômios ou monômios, os $g_j$ são
+monômios e $x \in R^n$ (sendo $n$ a quantidade de monômios e $k$ a de
+posinômios). Aqui, a definição de monômios (e de posinômios) é um
+pouco diferente do usual em álgebra:
 
 \begin{itemize}
 \item Um \definicao{monômio} $g(x)$ é algo da forma $g(x) =
@@ -165,8 +166,8 @@ como
 
 \begin{align*}
   minimize\; & log\ f_0 (e^x)\\
-  tal\; que\; & log\ f_i (e^x) \leq 0\\
-  e\; & log\ g_i (e^x) = 0.
+  tal\; que\; & log\ f_i (e^x) \leq 0,\; para\; 1 \leq i \leq n\\
+  e\; & log\ g_j (e^x) = 0,\; para\; 1 \leq j \leq k.
 \end{align*}
 
 Nessa nova formulação, estamos tomando $\alpha$ como a matriz de
@@ -409,7 +410,7 @@ $\tau$ é a razão de espessura-para-corda do aerofólio.
 
 Tomamos também que
 \[
-W = \frac{1}{2} \rho V^2 C_L S
+W = \frac{1}{2} \rho V^2 C_L S,
 \]
 
 Além disso, a aeronave deve ser capaz de voar a uma velocidade mínima
@@ -469,8 +470,10 @@ $V_{min}$:
 
 Obtemos, assim, os respectivos custos:
 
-\begin{tabular}{c c c c}
-  338 & 294 & 396 & 326.
+\begin{tabular}{|c c c c|}
+  \hline
+  338 & 294 & 396 & 326\\
+  \hline
 \end{tabular}
 
 Os valores das variáveis livres são os seguintes:

@@ -15,29 +15,36 @@ sabor diferente do Prolog que vimos no início, chamada
 \technical{miniKanren}, e veremos como implementá-la, por meio da
 linguagem \technical{Scheme}.
 
-Usaremos \technical{Scheme} porque é uma linguagem é pequena, o
+Usaremos \technical{Scheme} porque é uma linguagem pequena, o
 que significa que sua apresentação será curta, e que é, ao mesmo
 tempo, poderosa, o que significa que não precisaremos de muito código
 para fazer o que nos propomos.
 
 Esse capítulo tem um sabor diferente dos demais. A diferença pode ser vista
-rapidamente, pela cara do código, mas também de várias outras
+rapidamente, pela cara do código\footnote{Em particular, nota-se que
+  usamos aqui, para os códigos, fontes e cores diferentes das usadas nos
+  capítulos anteriores. Isso é, principalmente, porque entendemos que, aqui, a
+  utilização de cores e artifícios como o {\bf negrito} tenderiam a
+  atribuir atenção especial para elementos que não precisam de atenção
+  especial.} para , mas também de várias outras
 formas. Redefiniremos alguns termos usados anteriormente. Essas
 redefinições terão semelhanças e diferenças às definições originais,
 mas escolhemos não explicitar essas diferenças aqui, por acreditarmos serem
 claras o suficiente sem um comentário a mais. Outro ponto que vale nota é que, aqui, buscamos
 apenas um maior entendimento e, para tanto, tentamos deixar o código
-como ``implementado em primeiros princípios'', evitando detalhes que
-poderiam deixá-lo mais eficiente, mas que elevariam os prerrequisitos para
-a compreensão do código ou exigiriam uma maior discussão sobre
-ele, o que preferimos evitar.
+como ``implementado em primeiros princípios'', isto é, de forma mais
+simples. Isso significa evitar construções que poderiam
+deixá-lo mais eficiente, mas que requeririam uma discussão maior,
+o que seria às custas de uma divergência de atenção aos pontos
+principais que queremos passar. Para uma implementação que tenta ser
+eficiente, veja, por exemplo \cite{fast}.
 
 \subsection{Introdução ao Scheme}
 
 \technical{Scheme} é um \technical{Lisp}\footnote{De
-  \foreign{LISt Processing}}. O termo \technical{Lisp} é às vezes
-usado para ser referir a uma linguagem de programação, mas o mais
-correto seria ser usado para ser referir a uma família de linguagens (de fato,
+  \foreign{LISt Processing}.}. O termo \technical{Lisp} é às vezes
+usado para se referir a uma linguagem de programação, mas o mais
+correto seria ser usado para se referir a uma família de linguagens (de fato,
 dezenas de linguagens), todas com algumas características em comum,
 em particular:
 
@@ -47,12 +54,12 @@ em particular:
   outras coisas, que  funções são ``cidadãos de primeira classe'';
 \item Todo código \technical{Lisp} (que não tenha erro de sintaxe) é avaliado para
   algum valor no momento de execução;
-\item Programas são expressos em notação polonesa, em formato de
+\item Programas são expressos em ``notação polonesa'' (notação prefixada), em formato de
   listas\footnote{Também conhecidas como \technical{S-Expressions}, ou
-    \technical{Sexps}}(listas em \technical{Lisps} são delimitadas por
+    \technical{Sexps}.}(listas em \technical{Lisps} são delimitadas por
   parenteses)\footnote{Usaremos daqui em diante a notação
     \enphasisb{codigo \seta\ valor} para denotar que o código
-    \enphasisb{código} avalia para o valor \enphasisb{valor}.}:
+    \enphasisb{código} avalia para o valor \enphasisb{valor}.}, por exemplo:
   \\
   \codigo{(+ 1 2)} \seta\ 3;
 \item O que nos leva a outro ponto: não existe diferença
@@ -71,13 +78,13 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
 \begin{itemize}
 \item Listas são representadas como \codigo{($el_1\ el_2\ ...\
-    el_n$)}, em que $el_i$ é o iésimo elemento da lista. No entanto, se
+    el_n$)}, em que $el_i$ é o $i$-ésimo elemento da lista. No entanto, se
   escrevêssemos uma lista assim, ela seria
   confundida com uma aplicação de função (aplicação da função $el_1$
   aos argumentos $el_2$ a $el_n$), então, para fins de
   desambiguação, é usada uma aspa simples, e a lista é escrita como
   '($el_1 el_2 ... el_n$)\footnote{Note que, por ser fechada por
-    parenteses, apenas uma aspa é o suficiente.}, que é equivalente a \codigo{(list $'el_1\
+    parênteses, apenas uma aspa é o suficiente.}, que é equivalente a \codigo{(list $'el_1\
     ...\ 'el_n$)} . Essa aspa simples também pode ser usada para
   ``evitar que um objeto seja avaliado''\footnote{Uma colocação mais
     correta seria ``tornar objetos auto-avaliantes'', mas não
@@ -88,7 +95,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   resulta em erro se \codigo{a} não for uma variável, já que
   o executor do código tentará avaliá-la (gerar um valor a partir
   dela), mas \codigo{a} não tem valor associado. Mas a linha\\
-  $'a\ \Rightarrow\ 'a$\\
+  \codigo{'a} $\Rightarrow $ \codigo{'a}\\
   é avaliada, ``como ela mesma''.\\
 
 \item Uma estrutura de dados mais geral do que lista em
@@ -105,7 +112,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
       eram nomes de registradores quando os primeiros
       \technical{Lisps} estavam sendo criados (vale notar que o
       primeiro Lisp foi também uma das primeiras linguagens de
-      alto-nível ainda em uso, tendo surgido pouco depois do Fortran.}. Temos, por exemplo,\\
+      alto-nível ainda em uso, tendo surgido pouco depois do Fortran).}. Temos, por exemplo,\\
     \codigo{(car (cons 1 (cons 2 3)))} \seta\ 1\\
     \codigo{(cdr (cons 1 (cons 2 3)))} \seta\ \codigo{(cons 2 3)} =
     \codigo{'(2 . 3)}\\
@@ -123,13 +130,13 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \enphasisb{$\lambda$}\footnote{Editores de texto atuais podem aceitar os dois tipos de
     entrada, mas optamos por usar $\lambda$. Este uso do símbolo tem a
     seguinte origem: Bertrand Russel e Alfred Whitehead buscaram, no
-    início do século XX lançar as bases lógicas da matemática em seu
+    início do século XX, lançar as bases lógicas da matemática em seu
     trabalho \foreign{Principia Mathematica}. Lá, para denotar que uma
     variável é livre, ela recebia um chapéu, como em \technical{â(a +
       y)}. Mais tarde, ainda trabalhando nos fundamentos da
-    matemática,Alonzo Church achou que seria mais conveniente
+    matemática, Alonzo Church achou que seria mais conveniente
     ter fórmulas crescendo linearmente na horizontal (note que o
-    ``chapéu'' faz com que a fórmula cresça para cima'), então decidiu
+    ``chapéu'' faz com que a fórmula cresça para cima), então decidiu
     mover o chapéu para o lado, obtendo \technical{\^{}a(a + y)}.
     Mas o chapéu flutuando parece engraçado, então Church o trocou
     pelo  o símbolo não usado mais próximo que tinha, um $\Lambda$, como em
@@ -150,11 +157,11 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \codigo{(define (divide3 (divide3 a) (divide a 3)))}\\
   \codigo{(divide3 9)} \seta 3\footnote{Esse tipo de uso é chamado
     \foreign{currying}, e é possível porque \technical{Scheme} tem
-    fecho lexico.};
+    fecho lexico.},;
 
 \item  Um ponto importante, que usaremos muito logo mais é que, se
   quisermos criar listas com os valores das variáveis, no lugar de
-  nomes simbólicos, podemos usar, no lugar da aspa simples a crase e
+  nomes simbólicos, podemos usar, no lugar da aspa simples, a crase e
   preceder o nome da variável com uma vírgula:\\
   \codigo{(define x 10)}\\
   \codigo{`(1 2 'x ,x)} \seta\ \codigo{'(1 2 'x 10)}
@@ -185,9 +192,9 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \codigo{((variavel valor)(variavel valor) ... (variavel
     valor))}\footnote{Podem ser adicionadas quantas variáveis se
     quiser. As atribuições são feitas ``paralelamente'' (o que
-    significa que a atribuição de valor a uma variável não influi no
-    da outra, o que pode ser feito de forma paralela, no sentido usual, ou não).}.
-  em seguida, a parte de valor, que nos dá o valor que \technical{let}
+    significa que a atribuição de valor a uma variável não influencia no
+    da outra, o que pode ser feito de forma paralela, no sentido usual, ou não).}
+  e, em seguida, a parte de valor, que nos dá o valor que \technical{let}
   assume.
 \end{itemize}
 
@@ -231,7 +238,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     frente do termo (como em $relacaoo$, ou $run*$). O símbolo $\equiv$ é
     escrito ``$==$'' e, termos como $termo^\infty$,
     ``$termo-inf$''. Ademais, \#u e \#s devem ser trocados por
-    \enphasis{fail} e \enphasis{succeed}., respectivamente.}:
+    \enphasis{fail} e \enphasis{succeed}, respectivamente.}:
   \\
 
   \begin{lstlisting}[escapeinside={[}{]}]
@@ -261,11 +268,11 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   discerni-las e, para tal fim, o que usamos é o \technical{fresh},
   informando que a variável é ``fresca''.
   
-  Lembre-se que uma variável relacional não é a a mesma
+  Lembre-se que uma variável relacional não é a mesma
   coisa que uma variável em uma linguagem de programação tradicional
   (não relacional). Para definirmos uma variável única, vamos precisar
   de\footnote{Usamos \technical{vector} para que a unicidade da
-    variável seja definida por sua posição de memória. Outra opção,
+    variável seja definida por sua posição de memória. Outra opção
     seria distingui-las por valor, se nos assegurássemos de que seu valor
     é único.}
   
@@ -273,7 +280,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     (define (var name)(vector name))
   \end{lstlisting}
 
-  \noindent usamos também\footnote{Símbolos como ``?'' podem ser
+  \noindent Usaremos também a seguinte definição:\footnote{Símbolos como ``?'' podem ser
     usados no meio do código da mesma forma que outros, tais como ``a'' ou ``b''.}
 
   \begin{lstlisting}
@@ -299,8 +306,9 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \enphasis{a} à variável \enphasis{z}. Mais em geral, um par é uma
   associação quando o seu \technical{car} for uma variável.
 
-  Uma lista de associações será chamada \enphasis{substituição}. Na
-  substituição \codigo{`((,x . ,z))}, a variável \enphasis{x} é
+  Uma lista de associações será chamada \enphasis{substituição}.
+
+  Na substituição \codigo{`((,x . ,z))}, a variável \enphasis{x} é
   ``fundida'' (ou, na nossa linguagem anterior, unificada) à variável
   \enphasis{z}. A substituição vazia é simplesmente uma lista vazia:
   \codigo{(define empty-s '())}. Nem toda lista de associações é uma
@@ -310,7 +318,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     . b))}.
 
   Precisamos de dois procedimentos importantes para lidar com
-  substituições: um para extênde-las e um para obter o valor de uma
+  substituições: um para estendê-las e um para obter o valor de uma
   variável presente nela.
 
   Para obter o valor associado a \enphasis{x}, usamos \enphasis{walk},
@@ -340,7 +348,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   produz uma variável como valor, ela é necessariamente fresca (isto
   é, que não foi associada).
 
-  Para extender uma substituição, usamos \technical{ext-s}, que faz
+  Para estender uma substituição, usamos \technical{ext-s}, que faz
   uso de \technical{occurs?}:
 
   \begin{lstlisting}
@@ -360,7 +368,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \end{lstlisting}
 
   Esse \technical{occurs?} realiza o ``teste de ocorrência'' (aquele
-  que, como mencionamos anteriormenet, não é feito por padrão no
+  que, como mencionamos anteriormente, não é feito por padrão no
   Prolog por razões de eficiência, e que faz com que substituições do
   tipo \codigo{`((,y . (,x))(,x . (a . ,y))} sejam inválidas).
 
@@ -792,23 +800,27 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     
   \begin{thebibliography}{1}
 
+  \bibitem{fast} Ballantyne Michael,
+    ``A fast implementation of miniKanren with disequality and absento, compatible with Racket and Chez.''
+    \url{https://github.com/michaelballantyne/faster-miniKanren}
+    
+  \bibitem{kanren} Site do miniKanren \url{http://minikanren.org/}.
+
   \bibitem{kent} R. Kent Dybvyg,
     ``The Scheme Programming Language - Fourth Edition'',
     disponível em \url{https://www.scheme.com/tspl4/}, acesso em
     Setembro de 2018.
-
+    
   \bibitem{norvig} Peter Norvig,
     ``Paradigms of Artificial Inteligence Programming - Case Studies
     in Common Lisp'',
     Morgan Kauffman Publishers, 1992.
 
-    \bibitem{will} Daniel P. Friedman, William E. Byrd, Oleg Kiselyov,
-      Jason Hemann,
-      ``The Reasoned Schemer - Second Edition'',
-      The MIT Press, 2018.
+  \bibitem{will} Daniel P. Friedman, William E. Byrd, Oleg Kiselyov,
+    Jason Hemann,
+    ``The Reasoned Schemer - Second Edition'',
+    The MIT Press, 2018.
 
-      \bibitem{kanren} Site do miniKanren \url{http://minikanren.org/}.
-      
   \end{thebibliography}
 
 %\end{document}
