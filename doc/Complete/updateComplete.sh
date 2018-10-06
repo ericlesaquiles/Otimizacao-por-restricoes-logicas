@@ -31,7 +31,10 @@ echo "Ignore os erros/warnings."
 pdflatex -shell-escape "Complete.tex"
 
 
-
+for ((i = 0; i < 17; i++))
+do
+    rm "../Cap${i}/[LOG]Cap${i}C.tex"
+done
 
   # Remove \documentclass{article}
   #sed -i 's|\\documentclass\{article\}||g'
