@@ -157,7 +157,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \codigo{(define (divide3 (divide3 a) (divide a 3)))}\\
   \codigo{(divide3 9)} \seta 3\footnote{Esse tipo de uso é chamado
     \foreign{currying}, e é possível porque \technical{Scheme} tem
-    fecho lexico.},;
+    fecho léxico.},;
 
 \item  Um ponto importante, que usaremos muito logo mais é que, se
   quisermos criar listas com os valores das variáveis, no lugar de
@@ -297,7 +297,9 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
       (f (var name)))
   \end{lstlisting}
 
-  Essa função espera, como segundo argumento, uma expressão $\lambda$, que
+  Essa função\footnote{``Método'', ou ``\foreign{procedure}'', como é
+    mais popularmente conhecido na comunidade Scheme.},  espera, como
+  segundo argumento, uma expressão $\lambda$, que
   recebe como argumento uma variável e produz como valor um goal, o qual
   tem acesso à variável criada.
   
@@ -373,7 +375,8 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   tipo \codigo{`((,y . (,x))(,x . (a . ,y))} sejam inválidas).
 
   Com isso em mãos, podemos definir nosso unificador:
-
+  \vspace{1.5cm}
+  
   \begin{lstlisting}
 
     (define (unify u v s)
@@ -393,29 +396,30 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \subsection{Streams}
 
   Antes de continuarmos, precisamos tocar no modelo de avaliação de
-  Scheme. Scheme é uma linguagem de ``ordem aplicativa'', o que
-  significa que os argumentos de uma função são todos avaliados no
-  momento em que a função é aplicada. Por esse motivo, os
+  Scheme. Scheme é ``uma linguagem de ordem aplicativa'', o que
+  significa que, quando uma função é avaliada, seus argumentos são
+  todos avaliados no momento de aplicação. Por esse motivo, os
   \technical{and} e \technical{or} usuais, por exemplo, não podem ser
   funções em Scheme\footnote{Se fossem, \codigo{(or \#t a)}, por
-    exemplo, poderia gerar erro se \codigo{a} não for uma
+    exemplo, poderia gerar erro quando \codigo{a} não for uma
     variável. Como \technical{or} não é uma função, o \technical{a}
     nessa linha não chega a ser avaliado, e temos \codigo{(or \#t a)}
     \seta \#t.}. Uma alternativa à ordem aplicativa é a ``ordem
-  normal'', que algumas outras linguagens de programação funcional
+  normal'', que outras linguagens de programação funcional
   adotaram. Linguagens de ordem normal só avaliam o argumento de uma
-  função quando esse argumento for usado, atrasando a avaliação do
+  função quando esse argumento for usado, ``atrasando'' a avaliação do
   mesmo (no que é chamado ``avaliação tardia'', ou ``avaliação
   preguiçosa'').
 
-  Avaliação preguiçosa é conveniente para diversas operações e pode
+  Avaliação preguiçosa é conveniente em diversas ocasiões e pode
   ser emulada em linguagens de programação funcional de ordem
-  aplicativa pelo uso de \definicao{streams}. \technical{Streams} são
-  definidos indutivamente como sendo ou a lista vazia, ou um par cujo
-  \technical{cdr} é um \technical{stream}, ou uma suspenção, em que
-  uma \definicao{suspenção} é uma função do tipo \codigo{($\lambda$ ()
+  aplicativa\footnote{Com fecho léxico.} pelo uso de
+  \definicao{streams}. \technical{Streams} são definidos indutivamente
+  como sendo ou a lista vazia, ou um par cujo
+  \technical{cdr} é um \technical{stream}, ou uma suspenção. Uma
+  \definicao{suspenção} é uma função do tipo \codigo{($\lambda$ ()
     corpo)}, em que \codigo{(($\lambda$ () corpo))} é uma
-  \technical{stream}. Agora, se definirmos
+  \technical{stream}. Agora, se fizermos
 
   \begin{lstlisting}[escapeinside={[}{]}]
     (define ([$\equiv $] u v)
@@ -424,7 +428,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
           (if s `(,s) '()))))
   \end{lstlisting}
         
-  \noindent $\equiv $ produz um goal. Dois outros goals, \enphasis{sucesso}
+  \noindent temos que $\equiv $ produz um goal. Dois outros goals, \enphasis{sucesso}
   e \enphasis{falha}, são denotados \#s e \#u:\\
 
   \begin{lstlisting}[escapeinside={[}{]}]
@@ -437,19 +441,20 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
         '()))
   \end{lstlisting}
 
-  Um goal é uma função que recebe uma substituição e que, se retorna,
-  retorna uma \technical{stream} de substituições.
+  Definimos, neste contexto, um goal como uma função que recebe uma
+  substituição e que, se retorna, retorna uma \technical{stream} de
+  substituições.
 
-  Como um exemplo, temos que \codigo{(($\equiv $x y) empty-s)} \seta\
+  Como um exemplo, temos que \codigo{(($\equiv $ x y) empty-s)} \seta\
   \codigo{`(((,x . ,y)))}, uma lista com uma substituição (com uma
   associação).
 
   Ao lidar com \technical{Streams}, precisamos de funções especiais,
-  já que não são simples listas. \technical{Streams} são uteis para a
-  representação de estruturas de dados infinitas, então, por isso,
-  funções e variáveis para lidar com elas terão um $\infty$ sobrescrito,
-  para diferenciá-las das funções para listas comuns. Podemos, então,
-  definir $append^\infty$:
+  já que não são ``simples listas''. \technical{Streams} são uteis
+  (entre outras coisas) para a representação de estruturas de dados
+  infinitas, então, por isso, funções e variáveis para lidar com elas
+  terão um $\infty$ sobrescrito, para diferenciá-las das funções para
+  listas comuns. Podemos, então, definir $append^\infty$:
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -464,7 +469,8 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
         
   \end{lstlisting}
 
-  \noindent Note que, na suspensção, a ordem dos argumentos é trocada.
+  \noindent Note que, na suspensção, a ordem dos argumentos é
+  trocada\footnote{No que é chamado de \technical{trampolim binário} \cite{tramp}.}
   Com essa função, podemos fazer
 
   \begin{lstlisting}[escapeinside={[}{]}]
@@ -475,7 +481,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \end{lstlisting}
       
-  \noindent em que $disj_2$ é uma disjunção (um \enphasis{ou}
+  \noindent em que $disj_2$ é uma disjunção (como um \enphasis{ou}
   lógico). 
 
   Veja agora a seguinte definição:
@@ -492,6 +498,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \noindent Esse é um goal que não sucede nem falha. Para entender
   porque a ordem dos argumentos é trocada na suspenção de $append^\infty$,
   compare o valor de $s^\infty$ em
+  \vspace{.7cm}
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -533,7 +540,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \technical{cons}. Mas existe também \technical{map-append}, análoga
   a \technical{map}, mas em que a lista resultante é construída por
   \technical{append}. Usaremos um \technical{append-map}, mas para
-  \technical{streams}, isto é, um \technical{$append-map^\infty$}:
+  \technical{streams}, isto é, um \technical{append-ma$p^\infty$}:
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -548,8 +555,8 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \end{lstlisting}
 
-  Com isso, podemos definir a conjunção de dois goals, assim como
-  definimos a disjunção:
+  Assim como definimos a disjunção de dois goals, com isso podemos
+  definir também a conjunção:
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -562,28 +569,17 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \subsubsection{Voltando ao problema das variáveis}
 
-  ``Reificação'' é um termo muito usado em contextos de programação
-  relacional, assim como nos da teoria de Marx, com significado
-  semelhante. Notadamente, é ``o ato de tratar algo abstrato como algo
-  concreto, ou algo concreto como algo abstrato''. No nosso contexto,
-  pode-se argumentar que uma variável é algo ``concreto'', na medida
-  que tem algum significado para quem programa\footnote{Também
-    poderíamos argumentar o contrário, mas prefirimos não entediar a
-    leitora.}. Apesar disso, temos a liberdade de, quando conveniente,
-  tratá-la como algo abstrato, um \foreign{place-holder}, e, quando
-  não apresentar valor, podemos denotá-la simplesmente como um ``\_''
-  seguido de um número, que serve para diferi-lo de outras
-  variáveis\footnote{Nos programas, usaremos $\__n$, em que $n$ é um
-    número natural.}.
-
-  Isso é útil, por exemplo, para mostrarmos os valores das variáveis
-  (e, quando a variável for fresca, podemos simplesmente mostrá-la
-  como ``$\__n$''). Mais em geral, quando uma variável é criada
-  fresca, não tem valor. Na verdade, ``não ter valor'' significa o
-  mesmo que dizer ``a variável é fresca'', e a forma de representarmos
-  isso convenientemente é reificando-a. Para realizar isso, precisamos
-  primeiro do \technical{reify-name}\footnote{$string\rightarrow symbol$ é escrito
-    \technical{$string->symbol$}.}:
+  No \technical{miniKanren}, assim como em linguagens de programação
+  relacional no geral, as variáveis são lógicas. Mas, como a
+  implementação está sendo feita em \technical{Scheme}, precisamos,
+  eventualmente, representar variáveis em termos de
+  \technical{Scheme}, num processo de reificação (lembre-se que
+  reificação tem a ver com ``concretização''). Em particular, um
+  termo \technical{miniKanren} reificado não pode conter variáveis
+  lógicas. Fazemos isso associando variáveis lógicas a símbolos do
+  tipo $\__i$. Para realizar essa operação, precisamos
+  primeiro do \technical{reify-name}\footnote{$string\rightarrow symbol$ é
+    escrito \technical{$string->symbol$}.}:
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -613,8 +609,8 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \end{lstlisting}
 
-  \noindent Aqui usamos \technical{length} para produzir um número
-  único em cada uso de \technical{reify-nanme}.
+  \noindent Vale notar, aqui \technical{length} produz um número único
+  em cada uso de \technical{reify-name}.
 
   Para continuar com nosso esquema de reificação, vamos precisar de
   uma versão ligeiramente diferente do \technical{walk}, o qual
@@ -634,9 +630,9 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \end{lstlisting}
 
   Note que \technical{walk} e \technical{$walk^*$} só diferem se
-  \technical{$walk^*$} \enphasis{caminhar} a um par que contém alguma
-  variável com associação na substituição \enphasis{s} (algo do tipo
-  \codigo{(,z . (1 . ,x))}. Além disso,
+  \technical{$walk^*$} \enphasis{caminhar} a um par com alguma
+  variável com associação na substituição \enphasis{s} (algo como
+  \codigo{(,z . (1 . ,x))}). Além disso,
   note que, se \technical{$walk^*$} produz um valor \enphasis{v} ao
   \enphasis{caminhar} por uma substituição \enphasis{s}, temos
   garantia de que as variáveis em \enphasis{v} (se existirem) são frescas.
@@ -662,24 +658,32 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \subsection{Finalizando}
 
-  Na seção anterior, definimos a coluna dorsal do miniKanren. Para
-  fechar precisaremos usar as macros do \foreign{Scheme}. A palavra
+  Na seção anterior, definimos a ``coluna dorsal'' do
+  \technical{miniKanren}. Para terminarmos\footnote{Mais precisamente,
+    terminarmos o \enphasis{início}, já que \technical{miniKanren} vai
+    além do que vemos aqui.} precisaremos usar as macros do
+  \foreign{Scheme}. A palavra
   ``macro'', no geral, é usada (neste contexto de programação) para se
   referir a código que ``escreve código'', isto é, que realiza
-  transformações no código a ser ``enviado''ao compilador ou
-  interpretador. Várias linguagens têm macros de tipos diferentes, mas
-  poucas são tão poderosas como as macros que costumam estar presentes
-  em linguagens Lisp. \technical{Scheme} não tem na própria linguagem
+  transformações no código a ser compilado ou interpretado. Várias
+  linguagens têm macros de tipos diferentes, mas
+  poucas são tão poderosas como as macros que (geralmente) estão
+  presentes
+  em linguagens Lisp\footnote{Provavelmente isso é devido ao aspecto
+    homoicônico da linguagem, que torna transformações desse tipo mais
+    simples de se realizar do ponto de vista do compilador ou
+    interpretador em relação a outras linguagens.}. \technical{Scheme}
+  não tem na própria linguagem
   mecanismos de iteração, por exemplo (como um laço \technical{for},
   ou \technical{while}), mas esses (assim como vários outros
-  mecanismos de iteração) podem ser facilmente definidos por meio de
-  macros.
+  mecanismos de iteração) podem ser facilmente implementados por meio
+  de macros.
 
   Para começar, notamos que temos a disjunção e a conjunção, mas para
   apenas dois argumentos, na forma de  $disj_2$ e $conj_2$. Gostaríamos
   de realizar disjunções e conjunções com $n$ goals, em que $n$ pode
   ser diferente de 2. A disjunção de $n$ termos é definida
-  induvivamente (a conjunção é análoga):
+  indutivamente (a conjunção é análoga):
 
   \begin{align*}
     &(disj) \Rightarrow \#u \\
@@ -699,7 +703,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \end{lstlisting}
 
-  Cada \technical{defrel} define uma nova função:
+  Cada \technical{defrel} vai definir uma nova função:
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -713,7 +717,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \end{lstlisting}
              
-  Váriaveis frescas são criadas com:
+  Váriaveis frescas são criadas com \technical{fresh}:
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -732,7 +736,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   valor uma lista com os valores de associção a tais variáveis de modo
   que o goal tenha sucesso (vale lembrar, tal valor pode ser uma
   variável reificada). Definimos também \technical{$run$}, que recebe
-  um número natural $n$, uma lista de variáveis e um goal, e se
+  um número natural $n$, uma lista de variáveis e um goal e, se
   terminar de executar, assume como valor os $n$ primeiros elementos
   de \technical{$run^*$}.
 
@@ -791,7 +795,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \enphasis{miniKanren}. Algumas construções importantes foram
   deixadas de lado em favor da brevidade, como os
   \technical{$cond^e$}, \technical{$cond^a$} e \technical{$cond^u$},
-  mas a leitora interessada é convidada a checar \cite{will} ou
+  A leitora interessada é convidada a checar \cite{will} ou
   \cite{kanren} para mais detalhes.
   
   
@@ -803,6 +807,15 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \bibitem{fast} Ballantyne Michael,
     ``A fast implementation of miniKanren with disequality and absento, compatible with Racket and Chez.''
     \url{https://github.com/michaelballantyne/faster-miniKanren}
+
+  \bibitem{will} Daniel P. Friedman, William E. Byrd, Oleg Kiselyov,
+    Jason Hemann,
+    ``The Reasoned Schemer - Second Edition'',
+    The MIT Press, 2018.
+
+  \bibitem{tramp} Ganz, Steven E., Daniel P. Friedman, and Mitchell Wand.
+    ``Trampolined style.'',
+    In ACM SIGPLAN Notices, vol. 34, no. 9, pp. 18-27. ACM, 1999.
     
   \bibitem{kanren} Site do miniKanren \url{http://minikanren.org/}.
 
@@ -815,11 +828,6 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
     ``Paradigms of Artificial Inteligence Programming - Case Studies
     in Common Lisp'',
     Morgan Kauffman Publishers, 1992.
-
-  \bibitem{will} Daniel P. Friedman, William E. Byrd, Oleg Kiselyov,
-    Jason Hemann,
-    ``The Reasoned Schemer - Second Edition'',
-    The MIT Press, 2018.
 
   \end{thebibliography}
 
