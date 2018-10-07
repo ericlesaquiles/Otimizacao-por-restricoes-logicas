@@ -102,7 +102,7 @@ alguns:
 
 \begin{itemize}
 \item As relações entre os Membros (termos simbólicos) são
-  realizadas por restrições de    \technical{ic\_symbolic} (vale
+  realizadas por restrições de \technical{ic\_symbolic} (vale
   lembrar, os ``\#'' indicam que a restrição têm o significado
   usual, mas nos inteiros).
 \item As entre o que eles disseram (ou possivelmente disseram), por
@@ -115,8 +115,13 @@ alguns:
   \\\codigo{oposicionista\_honrado) => Verdade}, o símbolo
   ``\codigo{=>}'' é o de implicação como em lógica clássica.
 \item Restrições como \codigo{(Membro \&= colaborador\_secreto)} são
-  reificadas, isto é, assumem um valor de ``verdadeiro'' ou
-  ``falso'' (na prática, 0 ou 1).
+  reificadas. \definicao{Reificação} é um termo muito usado em
+  contextos de programação relacional, assim como nos da teoria de
+  Marx, com significado semelhante. Notadamente, é ``o ato de tratar
+  algo abstrato como algo concreto''. No nosso contexto,
+  ``reificar'' uma expressão ou variável significa lhe atribuir um
+  ``valor concreto'', em algum sentido. Neste caso, significa assumir
+  um valor de ``verdadeiro'' ou ``falso'' (na prática, 0 ou 1).
 \item As linhas tais como \codigo{writeln("Membro\_1":Membro\_1)}
   escrevem ``Membro1~:~valor'', na qual ``valor'' é o valor de
   Membro1.
