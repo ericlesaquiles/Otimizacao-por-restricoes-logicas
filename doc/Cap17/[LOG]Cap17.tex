@@ -6,43 +6,47 @@
 
 \section{Próximos passos}
 
-Para finalizar, vamos explorar aqui alguns tópicos que não puderam ser
-explorados no resto do texto, na tentativa de mostrar algumas direções
-em que é possível caminhar, além das já apresentadas. Começamos com
-\technical{CLP(SMT)}.
+Para podermos melhorar nosso campo de atuação, é importante sabermos
+usar as ferramentas de que dispomos para estender outras de modo
+adequado, abrindo espaço para novas aplicações. Como conclusão deste
+texto, buscaremos mostrar isso com um breve exemplo, de estenção de
+\foreign{solvers} SMT por CLP.
 
-Antes, convém começarmos com problemas \technical{SAT} \footnote{SAT
-  vem de \foreign{satisfiability}.}. SAT o problema de
+Antes, convém conhecer o problema \technical{SAT} \footnote{SAT
+  vem de \foreign{satisfiability}.}. SAT é o problema de
 determinar se existe uma interpretação (atribuição de
 valores \technical{booleanos} a variáveis) que
-satisfaça uma fórmula \technical{booleana}.Foi o primeiro
+satisfaça uma fórmula booleana.Foi o primeiro
 problema a ser provado NP-completo mas, apesar disso, tem se mostrado
 de grande utilidade para diversos problemas práticos. Como é de se
-esperar da formulação, SAT é um problema central na ciência da
+esperar da formulação, SAT é um problema central em ciência da
 computação. Assim, tem recebido muita atenção e conta com
-implementações eficientes para grandes classes de problemas
-específicos.
+implementações de \foreign{solvers} eficientes para grandes classes de
+sub-problemas mais específicos.
 
 Uma instância de SAT é o de obter atribuições para as variáveis $A, B$
-e $C$ tal que a fórmula $A \wedge B \vee (\neg C \vee (A \wedge \neg B))$.
+e $C$ tal que a fórmula $A \wedge B \vee (\neg C \vee (A \wedge \neg B))$ seja satisfeita.
 
 \technical{SMT}\footnote{SMT vem de
   \foreign{satisfiability modulo theories}.} é uma generalização do
-problema SAT para lidar com outras teorias, de forma mais geral, como
-sobre inteiros, listas, vetores, dentre outros. Semelhante ao caso já
-visto com problemas em CLP, um \foreign{solver} SMT terá, no caso
+problema SAT para lidar com outras teorias e de forma mais
+geral. Exemplos de teorias abrangidas por SMT são sobre inteiros,
+listas e vetores\footnote{Existem várias outras, mas as teorias
+  específicas utilizadas variam de \foreign{solver}.}. Semelhante ao
+caso já visto com problemas em CLP, um \foreign{solver} SMT terá, no caso
 geral, algorítmos especializados para lidar com teorias diferentes
 (lembre-se que uma das vantagens de CLP é facilitar essa unificação de
 diferentes métodos). Devido em grande parte a sua generalidade e
-eficiência, o uso de \foreign{solvers} SMT tem ganho grande
+à eficiência desenvolvida (depois de anos de pesquisa), o uso de
+\foreign{solvers} SMT tem ganho grande
 popularidade para se lidar com problemas de diversas áreas, como de
 análise de programas\cite{zheng}, síntese de programas\cite{beyene},
 verificação de hardware\cite{kroenig}, automação de design
 eletrônico\cite{kroenig}, segurança de computadores\cite{vanegue}, IA,
-pesquisas operacionais (MAXSAT)\cite{li} e biologia\cite{yordanov}.
+pesquisas operacionais\cite{li} e biologia\cite{yordanov}.
 
 Existem atualmente vários \foreign{solvers} de SMT, dos quais os mais
-populares são Z3, criado pela Microsoft e CVC4\footnote{De
+populares são Z3, da Microsoft e CVC4\footnote{De
   \foreign{cooperating validity checking}.}, mantido por um grupo de
 pesquisadores (em grande parte, da Universidade de Stanford). Neste
 texto, focaremos no Z3\footnote{Explicaremos apenas o básico para que
@@ -87,7 +91,11 @@ sat
 
 O \enphasis{sat} é de \foreign{satisfyable}, a resposta ao
 \codigo{(check-sat)} (seria \enphasis{unsat}, se o modelo posto não
-fosse satisfazível).
+fosse satisfazível). SMT é um problema mais difícil do que SAT, que é
+NP-completo. Assim, como é de se esperar, existem vários problemas
+para os quais ele não funciona muito bem. Então, parte do desafio ao
+(buscar) resolver um problema SMT está em expressá-lo de forma que
+fique na ``parte fácil'' para o \foreign{solver}.
 
 \subsection{Breve Introdução a SMT e sobre o problema da estratégia}
 
@@ -98,44 +106,100 @@ baseados em DPLL \footnote{O algorítmo de
   de lógica proposicional em forma normal conjuntiva podem ser
   satisfeitas, introduzido em 1962, que ainda forma a base de
   \foreign{solvers} eficientes para SAT.}. Para SMT, temos o DPLL(T),
-, que é um formalismo para descrever como \foreign{solvers} da teoria
+que é um formalismo para descrever como \foreign{solvers} da teoria
 T devem ser integrados com os \foreign{solvers} SAT.
 
 Uma dificuldade é que, para um \foreign{solver} SMT de alta
 performance, parte importante da implementação não está no esquema
-formal do DPLL(T), mas sim na forma de heurísticas. Essas heurísticas
+formal do DPLL(T), mas sim em heurísticas. Essas heurísticas
 são frequentemente projetadas para funcionar muito bem para algumas
-classe de problemas, tendendo a funcionar mal para outra classes. À
+classe de problemas, tendendo a funcionar mal para outras. À
 medida que \foreign{solvers} SMT ganham a atenção de cientistas e
-engenheiros passou a se tornar claro que isso é um problema, porque há
+engenheiros, passou a se tornar claro que isso é um problema, porque há
 uma necessidade de grande controle sobre o \foreign{solver} para que
 ele se comporte de forma eficiente, o que 
 significa expor até centenas de parâmetros para que usuários
 decidam quais heurísticas usar e como. Esse é um problema posto por
-Leonardo de Moura, um criador do Z3, no artigo \cite{moura}. Nesse
-artigo, ele define o problema da estratégia como o de prover ao
-usuário meios adequados de dirigir a busca. Mais em geral, ele define
-estratégia (neste contexto) como ``\foreign{adaptations of general
-  search mechanisms which reduce the search space by tailoring its
-  exploration to a particular class of problems}''\cite{moura} e,
-assim, o
-problema da estratégia se traduziria como o de prover uma linguagem
-adequada para o usuário realizar sua busca.
+Leonardo de Moura \foreign{et. al}, um criador do Z3, no artigo
+\cite{moura}. Nesse artigo, ele define o problema da estratégia como o
+de prover ao usuário meios adequados de dirigir a busca (já que, de
+uma forma ou de outra, a resolução de uma instância do problema SMT
+envolve busca). Mais em geral, ele define estratégia (neste contexto)
+como ``\foreign{adaptations of general search mechanisms which reduce
+  the search space by tailoring its exploration to a particular class
+  of problems}''\cite{moura} e, assim, o problema da estratégia se
+traduziria como o de prover uma linguagem adequada que o usuário possa
+usar para realizar sua busca.
 
 Existe mais de uma forma de buscar resolver esse problema. A abordagem
-que tomaremos aqui é a adotada por Nada Amin e William Byrd, de juntar
-SMT com CLP, em um CLP(SMT), usando miniKanren como base. Para checar
-esse trabalho, cheque \cite{namin} ou \cite{namim} (esse último, na
-linguagem Clojure). Vale notar que, no momento da escrita deste texto
-(em Outubro de 2018), isso é trabalho em progresso.
+que abordaremos (de forma resumida) aqui é a adotada por Nada Amin e
+William Byrd, de juntar SMT com CLP, em um CLP(SMT), usando miniKanren
+como base\footnote{Vale notar, o que implementamos no capítulo passado
+  não lida com restrições no sentido usual, mas ele pode ser
+  facilmente estendido com relações de CLP. Veja \cite{alvis}.}. Para
+checar esse trabalho, veja \cite{namin} ou
+\cite{namim} (esse último, na linguagem Clojure). Vale notar que, no
+momento da escrita deste texto (em Outubro de 2018), isto é trabalho
+em progresso.
 
 A ideia é pensar no \foreign{solver} SMT como um implementador de
 restrições de baixo nível, com o qual o usuário interaje com o
-miniKanren, de forma mais abstrata.
+miniKanren, de forma mais abstrata (assim como fizemos com outras
+técnicas para otimização e para busca de satisfação de
+restrições). Isso pode ser útil de várias formas. Primeiro, nota-se
+que \foreign{solvers} SMT não lidam bem com recursões em geral, o que
+não é problema para linguagens de programação lógica ou de programação
+por restrições. Assim, por exemplo, se o seguinte for submetido ao Z3,
+depois de algum tempo, ele retorna (no momento da escrita deste texto)
+\foreign{unknown}:
 
+\begin{lstlisting}
+  (declare-fun fact (Int) Int)
+  (assert (= (fact 0) 1))
+  (assert (forall ((n Int))
+    (=> (> n 0) (= (fact n) (* n (fact (- n 1)))))))
+  (declare-const r6 Int)
+  (check-sat)
+\end{lstlisting}
 
+Mas, usando Z3 a partir do miniKanren\footnote{O que, já que as
+  entradas e saídas são em \technical{Sexps}, não é difícil.} (com o
+software em \cite{namin}, por exemplo), podemos fazer o seguinte:
 
-% \subsection{Conclusão}
+\begin{lstlisting}[escapeinside={[}{]}]
+(define faco
+  ([$\lambda$] (n out)
+    ([$cond^e$] ((z/assert `(= ,n 0))
+            (z/assert `(= ,out 1)))
+           ((z/assert `(> ,n 0))
+            (fresh (n-1 r)
+              (z/assert `(= (- ,n 1) ,n-1))
+              (z/assert `(= (* ,n ,r) ,out))
+              (faco n-1 r))))))
+
+(test "faco-7"
+  (run 7 (q)
+    (fresh (n out)
+      (faco n out)
+      (== q `(,n ,out))))
+  '((0 1) (1 1) (2 2) (3 6) (4 24) (5 120) (6 720)))
+
+\end{lstlisting}
+
+\noindent em que \codigo{(con$d^e$ ($a_1$ ... $a_i$) ... ($f_1$
+  ... $f_j$))} pode ser lido logicamente como $(a_1 \wedge ... \wedge a_i) \vee
+... \vee (f_1 ... f_j)$ e \codigo{z/assert} faz a interface com o
+\foreign{solver}, tomando uma expressão booleana com variáveis (por
+padrão, inteiras). Além de \codigo{z/assert}, existem \codigo{z/},
+\codigo{z/check} e \codigo{z/purge}, para interagir com o Z3 de forma
+diferente.
+
+Ainda não é certo, se para algum, para qual ou quais tipos de
+problemas esse tipo de abordagem é apropriado, mas é um exemplo de
+tentativa de uso da ideia de CLP para algo diferente, de forma não
+óbvia.
+           
+\subsection{Conclusão}
 
 % Com essa última seção, esperamos ter conseguido passar uma ideia de
 % como o \foreign{framework} CLP pode ser extendido positivamente e de
@@ -146,11 +210,18 @@ miniKanren, de forma mais abstrata.
 
 Se você prestou atenção no caminho até aqui, deve ter adquirido algum
 conhecimento básico sobre programação por restrições e, assim
-esperamos, quando e se precisar de fazer uso de algumas das 
+esperamos, quando e se precisar de fazer uso de algumas das ideias
+desenvolvidas, será capaz de avaliar como fazê-lo. Mais importante
+ainda, esperamos que seja capaz de avaliar quando e como pode ``ser
+preciso'' fazer uso das ideias aqui desenvolvidas.
 
 
 \begin{thebibliography}{99}
 
+\bibitem{alvis} Alvis, Claire E., Jeremiah J. Willcock, Kyle
+  M. Carter, William E. Byrd, Daniel P. Friedman.
+  ``cKanren miniKanren with constraints.'' (2011).
+  
 \bibitem{beyene} Beyene, Tewodros A., Swarat Chaudhuri, Corneliu
   Popeea, e Andrey Rybalchenko
   ``Recursive games for compositional program synthesis.''
