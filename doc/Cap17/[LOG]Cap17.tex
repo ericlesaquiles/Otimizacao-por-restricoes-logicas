@@ -133,7 +133,7 @@ usar para realizar sua busca.
 
 Existe mais de uma forma de buscar resolver esse problema. A abordagem
 que abordaremos (de forma resumida) aqui é a adotada por Nada Amin e
-William Byrd, de juntar SMT com CLP, em um CLP(SMT), usando miniKanren
+William Byrd, de juntar SMT com CLP, em um CLP(SMT), usando \technical{miniKanren}
 como base\footnote{Vale notar, o que implementamos no capítulo passado
   não lida com restrições no sentido usual, mas ele pode ser
   facilmente estendido com relações de CLP. Veja \cite{alvis}.}. Para
@@ -144,7 +144,7 @@ em progresso.
 
 A ideia é pensar no \foreign{solver} SMT como um implementador de
 restrições de baixo nível, com o qual o usuário interaje com o
-miniKanren, de forma mais abstrata (assim como fizemos com outras
+\technical{miniKanren}, de forma mais abstrata (assim como fizemos com outras
 técnicas para otimização e para busca de satisfação de
 restrições). Isso pode ser útil de várias formas. Primeiro, nota-se
 que \foreign{solvers} SMT não lidam bem com recursões em geral, o que
@@ -162,7 +162,7 @@ depois de algum tempo, ele retorna (no momento da escrita deste texto)
   (check-sat)
 \end{lstlisting}
 
-Mas, usando Z3 a partir do miniKanren\footnote{O que, já que as
+Mas, usando Z3 a partir do \technical{miniKanren}\footnote{O que, já que as
   entradas e saídas são em \technical{Sexps}, não é difícil.} (com o
 software em \cite{namin}, por exemplo), podemos fazer o seguinte:
 
