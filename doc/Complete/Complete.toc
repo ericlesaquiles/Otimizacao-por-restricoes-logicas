@@ -72,5 +72,7 @@
 \contentsline {subsection}{\numberline {15.1}Introdu\IeC {\c c}\IeC {\~a}o ao Scheme}{135}{subsection.15.1}
 \contentsline {subsection}{\numberline {15.2}A linguagem miniKanren}{138}{subsection.15.2}
 \contentsline {subsection}{\numberline {15.3}Streams}{141}{subsection.15.3}
-\contentsline {subsubsection}{\numberline {15.3.1}Voltando ao problema das vari\IeC {\'a}veis}{143}{subsubsection.15.3.1}
+\contentsline {subsubsection}{\numberline {15.3.1}Voltando ao problema das vari\IeC {\'a}veis}{144}{subsubsection.15.3.1}
 \contentsline {subsection}{\numberline {15.4}Finalizando}{145}{subsection.15.4}
+\contentsline {section}{\numberline {16}Pr\IeC {\'o}ximos passos}{149}{section.16}
+\contentsline {subsection}{\numberline {16.1}Breve Introdu\IeC {\c c}\IeC {\~a}o a SMT e sobre o problema da estrat\IeC {\'e}gia}{150}{subsection.16.1}
