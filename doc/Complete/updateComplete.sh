@@ -11,7 +11,9 @@
 #     \end{document}
 #
 
-for ((i = 0; i < 18; i++))
+nCap=18
+
+for ((i = 0; i < $nCap ; i++))
 do
   cp "../Cap${i}/[LOG]Cap${i}.tex" "../Cap${i}/[LOG]Cap${i}C.tex"
   sed -i 's/\\documentclass{article}/%\\documentclass{article}/' "../Cap${i}/[LOG]Cap${i}C.tex"
@@ -31,7 +33,7 @@ echo "Ignore os erros/warnings."
 pdflatex -shell-escape "Complete.tex"
 
 
-for ((i = 0; i < 17; i++))
+for ((i = 0; i < $nCap; i++))
 do
     rm "../Cap${i}/[LOG]Cap${i}C.tex"
 done

@@ -76,3 +76,4 @@
 \contentsline {subsection}{\numberline {15.4}Finalizando}{145}{subsection.15.4}
 \contentsline {section}{\numberline {16}Pr\IeC {\'o}ximos passos}{149}{section.16}
 \contentsline {subsection}{\numberline {16.1}Breve Introdu\IeC {\c c}\IeC {\~a}o a SMT e sobre o problema da estrat\IeC {\'e}gia}{150}{subsection.16.1}
+\contentsline {subsection}{\numberline {16.2}Conclus\IeC {\~a}o}{152}{subsection.16.2}
