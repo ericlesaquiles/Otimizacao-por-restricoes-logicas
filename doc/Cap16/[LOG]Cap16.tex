@@ -61,7 +61,7 @@ em particular:
     \enphasisb{codigo \seta\ valor} para denotar que o código
     \enphasisb{código} avalia para o valor \enphasisb{valor}.}, por exemplo:
   \\
-  \codigo{(+ 1 2)} \seta\ 3;
+  \codigo{(+ 1 2)} \seta\ 3
 \item O que nos leva a outro ponto: não existe diferença
   sintática entre a forma como programas \technical{Lisp} são escritos
   e a forma como suas estruturas de dados são representadas. Diz-se,
@@ -149,15 +149,15 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
 \item Para definir constantes, use \enphasisb{define}:\\
   \codigo{(define divide ($\lambda$ (a b) (/ a b)))}\footnote{Um
-    \technical{açucar sintático} para essa construção é
+    \technical{açúcar sintático} para essa construção é
     \codigo{(define (divide a b) (/ a b))}.}\\
   \codigo{(divide 1 3)} \seta\ 1/3\\
   \codigo{(define c (divide 1 3))}\\
   \codigo{(divide (divide 1 9) c)} \seta\ 1/3\\
   \codigo{(define (divide3 (divide3 a) (divide a 3)))}\\
-  \codigo{(divide3 9)} \seta 3\footnote{Esse tipo de uso é chamado
+  \codigo{(divide3 9)} \seta\ 3\footnote{Esse tipo de uso é chamado
     \foreign{currying}, e é possível porque \technical{Scheme} tem
-    fecho léxico.},;
+    fecho léxico.}
 
 \item  Um ponto importante, que usaremos muito logo mais é que, se
   quisermos criar listas com os valores das variáveis, no lugar de
@@ -469,7 +469,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
         
   \end{lstlisting}
 
-  \noindent Note que, na suspensção, a ordem dos argumentos é
+  \noindent Note que, na suspenção, a ordem dos argumentos é
   trocada\footnote{No que é chamado de \technical{trampolim binário} \cite{tramp}.}
   Com essa função, podemos fazer
 
@@ -495,7 +495,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \end{lstlisting}
 
-  \noindent Esse é um goal que não sucede nem falha. Para entender
+  \noindent Esse é um goal que não tem sucesso nem falha. Para entender
   porque a ordem dos argumentos é trocada na suspenção de $append^\infty$,
   compare o valor de $s^\infty$ em
   \vspace{.7cm}
@@ -522,7 +522,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
                       
   \end{lstlisting}
 
-  Em contraste com $never^o$, aqui está $always^o$, que sempre sucede:
+  Em contraste com $never^o$, aqui está $always^o$, que sempre tem sucesso:
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -555,8 +555,8 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
 
   \end{lstlisting}
 
-  Assim como definimos a disjunção de dois goals, com isso podemos
-  definir também a conjunção:
+  Assim como definimos a disjunção de dois goals, podemos
+  definir a conjunção:
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
@@ -733,7 +733,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   
   Para executar o goal, definimos \technical{$run^*$}, que recebe uma
   lista de variáveis e um goal e, se terminar de executar, assume como
-  valor uma lista com os valores de associção a tais variáveis de modo
+  valor uma lista com os valores de associação a tais variáveis de modo
   que o goal tenha sucesso (vale lembrar, tal valor pode ser uma
   variável reificada). Definimos também \technical{$run$}, que recebe
   um número natural $n$, uma lista de variáveis e um goal e, se
@@ -794,7 +794,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   Com isso, temos um implementação mínima de
   \enphasis{miniKanren}. Algumas construções importantes foram
   deixadas de lado em favor da brevidade, como os
-  \technical{$cond^e$}, \technical{$cond^a$} e \technical{$cond^u$},
+  \technical{$cond^e$}, \technical{$cond^a$} e \technical{$cond^u$}.
   A leitora interessada é convidada a checar \cite{will} ou
   \cite{kanren} para mais detalhes.
   

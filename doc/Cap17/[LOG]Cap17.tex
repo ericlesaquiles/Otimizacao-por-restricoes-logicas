@@ -9,15 +9,16 @@
 Para podermos melhorar nosso campo de atuação, é importante sabermos
 usar as ferramentas de que dispomos para estender outras de modo
 adequado, abrindo espaço para novas aplicações. Como conclusão deste
-texto, buscaremos mostrar isso com um breve exemplo, de estenção de
-\foreign{solvers} SMT por CLP.
+texto, buscaremos mostrar isso com um breve exemplo, de extensão de
+\foreign{solvers} para SMT por CLP.
 
 Antes, convém conhecer o problema \technical{SAT} \footnote{SAT
   vem de \foreign{satisfiability}.}. SAT é o problema de
 determinar se existe uma interpretação (atribuição de
 valores \technical{booleanos} a variáveis) que
-satisfaça uma fórmula booleana.Foi o primeiro
-problema a ser provado NP-completo mas, apesar disso, tem se mostrado
+satisfaça uma fórmula booleana. Foi o primeiro
+problema a ser provado NP-completo\cite{schaefer} mas, apesar disso,
+tem se mostrado
 de grande utilidade para diversos problemas práticos. Como é de se
 esperar da formulação, SAT é um problema central em ciência da
 computação. Assim, tem recebido muita atenção e conta com
@@ -32,21 +33,26 @@ e $C$ tal que a fórmula $A \wedge B \vee (\neg C \vee (A \wedge \neg B))$ seja 
 problema SAT para lidar com outras teorias e de forma mais
 geral. Exemplos de teorias abrangidas por SMT são sobre inteiros,
 listas e vetores\footnote{Existem várias outras, mas as teorias
-  específicas utilizadas variam de \foreign{solver}.}. Semelhante ao
-caso já visto com problemas em CLP, um \foreign{solver} SMT terá, no caso
-geral, algorítmos especializados para lidar com teorias diferentes
+  específicas utilizadas variam de \foreign{solver}.}. Uma instância
+de problema SMT é como uma de problema SAT, exceto que algumas (ou
+todas) as variáveis booleanas são substutuídas por predicados sob
+variáveis não-binárias, como em $(3 + X \leq 2) \wedge (4Y - \pi \geq X)$.
+
+Semelhante ao caso já visto com problemas em CLP, um \foreign{solver}
+SMT terá, no caso
+geral, algoritmos especializados para lidar com teorias diferentes
 (lembre-se que uma das vantagens de CLP é facilitar essa unificação de
-diferentes métodos). Devido em grande parte a sua generalidade e
+diferentes métodos). Devido em grande parte à sua generalidade e
 à eficiência desenvolvida (depois de anos de pesquisa), o uso de
 \foreign{solvers} SMT tem ganho grande
-popularidade para se lidar com problemas de diversas áreas, como de
+popularidade para lidar com problemas de diversas áreas, como de
 análise de programas\cite{zheng}, síntese de programas\cite{beyene},
 verificação de hardware\cite{kroenig}, automação de design
 eletrônico\cite{kroenig}, segurança de computadores\cite{vanegue}, IA,
 pesquisas operacionais\cite{li} e biologia\cite{yordanov}.
 
 Existem atualmente vários \foreign{solvers} de SMT, dos quais os mais
-populares são Z3, da Microsoft e CVC4\footnote{De
+populares são Z3 da Microsoft e CVC4\footnote{De
   \foreign{cooperating validity checking}.}, mantido por um grupo de
 pesquisadores (em grande parte, da Universidade de Stanford). Neste
 texto, focaremos no Z3\footnote{Explicaremos apenas o básico para que
@@ -97,11 +103,11 @@ para os quais ele não funciona muito bem. Então, parte do desafio ao
 (buscar) resolver um problema SMT está em expressá-lo de forma que
 fique na ``parte fácil'' para o \foreign{solver}.
 
-\subsection{Breve Introdução a SMT e sobre o problema da estratégia}
+\subsection{Breve introdução a SMT e sobre o problema da estratégia}
 
-\foreign{Solvers} SMT se baseiam fortemente em \foreign{solvers} SAT,
-baseados em DPLL \footnote{O algorítmo de
-  Davis–Putnam–Logemann–Loveland é um algorítmo de busca completo,
+\foreign{Solvers} para SMT se baseiam fortemente em \foreign{solvers}
+para SAT, baseados em DPLL \footnote{O algoritmo de
+  Davis–Putnam–Logemann–Loveland é um algoritmo de busca completo,
   baseado em \foreign{backtracking}, para decidir a se dadas fórmulas
   de lógica proposicional em forma normal conjuntiva podem ser
   satisfeitas, introduzido em 1962, que ainda forma a base de
@@ -132,18 +138,18 @@ traduziria como o de prover uma linguagem adequada que o usuário possa
 usar para realizar sua busca.
 
 Existe mais de uma forma de buscar resolver esse problema. A abordagem
-que abordaremos (de forma resumida) aqui é a adotada por Nada Amin e
+que tomaremos (de forma resumida) aqui é a adotada por Nada Amin e
 William Byrd, de juntar SMT com CLP, em um CLP(SMT), usando \technical{miniKanren}
 como base\footnote{Vale notar, o que implementamos no capítulo passado
   não lida com restrições no sentido usual, mas ele pode ser
   facilmente estendido com relações de CLP. Veja \cite{alvis}.}. Para
 checar esse trabalho, veja \cite{namin} ou
 \cite{namim} (esse último, na linguagem Clojure). Vale notar que, no
-momento da escrita deste texto (em Outubro de 2018), isto é trabalho
+momento da escrita deste texto (em outubro de 2018), isto é trabalho
 em progresso.
 
 A ideia é pensar no \foreign{solver} SMT como um implementador de
-restrições de baixo nível, com o qual o usuário interaje com o
+restrições de baixo nível, com o qual o usuário interage com o
 \technical{miniKanren}, de forma mais abstrata (assim como fizemos com outras
 técnicas para otimização e para busca de satisfação de
 restrições). Isso pode ser útil de várias formas. Primeiro, nota-se
@@ -249,14 +255,17 @@ preciso'' fazer uso das ideias aqui desenvolvidas.
 
 \bibitem{namim} Explorations in logic programming:
   \url{https://github.com/namin/logically}
+
+\bibitem{schaefer} Schaefer, Thomas J.
+  ``The complexity of satisfiability problems''
+  In: Proceedings of the tenth annual ACM symposium on Theory of
+  computing. ACM, 1978. p. 216-226.
   
 \bibitem{trindade} Trindade, Alessandro B., Lucas C. Cordeiro.
   ``Applying SMT-based verification to hardware/software partitioning
   in embedded systems.''
   Design Automation for Embedded Systems 20, no. 1 (2016): 1-19.
 
-\bibitem{tuto} Z3 Tutorial: \url{https://rise4fun.com/z3/tutorial}
-  
 \bibitem{vanegue} Vanegue, Julien, Sean Heelan, Rolf Rolles.
   ``SMT Solvers in Software Security.'' WOOT 12 (2012): 9-22.
   
@@ -274,7 +283,9 @@ preciso'' fazer uso das ideias aqui desenvolvidas.
   \url{http://leodemoura.github.io/blog/2012/10/02/open-z3.html}
   
 \bibitem{z3} Z3 wiki: \url{https://github.com/Z3Prover/z3/wiki}
-  
+
+\bibitem{tuto} Z3 Tutorial: \url{https://rise4fun.com/z3/tutorial}
+
 \end{thebibliography}
 
 \end{document}
