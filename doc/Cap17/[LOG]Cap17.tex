@@ -25,8 +25,9 @@ computação. Assim, tem recebido muita atenção e conta com
 implementações de \foreign{solvers} eficientes para grandes classes de
 sub-problemas mais específicos.
 
-Uma instância de SAT é o de obter atribuições para as variáveis $A, B$
-e $C$ tal que a fórmula $A \wedge B \vee (\neg C \vee (A \wedge \neg B))$ seja satisfeita.
+Uma instância de SAT é o de obter valores booleanos para
+$A, B$ e $C$ tal que a fórmula $A \wedge B \vee (\neg C \vee (A \wedge \neg B))$ seja
+satisfeita.
 
 \technical{SMT}\footnote{SMT vem de
   \foreign{satisfiability modulo theories}.} é uma generalização do
@@ -35,23 +36,22 @@ geral. Exemplos de teorias abrangidas por SMT são sobre inteiros,
 listas e vetores\footnote{Existem várias outras, mas as teorias
   específicas utilizadas variam de \foreign{solver}.}. Uma instância
 de problema SMT é como uma de problema SAT, exceto que algumas (ou
-todas) as variáveis booleanas são substutuídas por predicados sob
+todas) as variáveis booleanas são substituídas por predicados sob
 variáveis não-binárias, como em $(3 + X \leq 2) \wedge (4Y - \pi \geq X)$.
 
 Semelhante ao caso já visto com problemas em CLP, um \foreign{solver}
-SMT terá, no caso
-geral, algoritmos especializados para lidar com teorias diferentes
-(lembre-se que uma das vantagens de CLP é facilitar essa unificação de
-diferentes métodos). Devido em grande parte à sua generalidade e
-à eficiência desenvolvida (depois de anos de pesquisa), o uso de
-\foreign{solvers} SMT tem ganho grande
+para SMT terá, no caso geral, algoritmos especializados para lidar com
+teorias diferentes (lembre-se que uma das vantagens de CLP é facilitar
+essa unificação de diferentes métodos). Devido em grande parte à sua
+generalidade e à eficiência desenvolvida (depois de anos de pesquisa),
+o uso de \foreign{solvers} para SMT tem ganho grande
 popularidade para lidar com problemas de diversas áreas, como de
 análise de programas\cite{zheng}, síntese de programas\cite{beyene},
 verificação de hardware\cite{kroenig}, automação de design
 eletrônico\cite{kroenig}, segurança de computadores\cite{vanegue}, IA,
-pesquisas operacionais\cite{li} e biologia\cite{yordanov}.
+pesquisa operacional\cite{li} e biologia\cite{yordanov}.
 
-Existem atualmente vários \foreign{solvers} de SMT, dos quais os mais
+Existem atualmente vários \foreign{solvers} para SMT, dos quais os mais
 populares são Z3 da Microsoft e CVC4\footnote{De
   \foreign{cooperating validity checking}.}, mantido por um grupo de
 pesquisadores (em grande parte, da Universidade de Stanford). Neste
@@ -74,8 +74,8 @@ Z3\footnote{Vale notar, ele está expresso em \technical{Sexps}, mas
                                          (cdr TreeList)))))
 (declare-const t1 (Tree Int))
 (declare-const t2 (Tree Bool))
-; we must use the 'as' construct to distinguish the leaf
-; (Tree Int) from leaf (Tree Bool)
+; we must use the 'as' construct to distinguish the
+; leaf (Tree Int) from leaf (Tree Bool)
 (assert (not (= t1 (as leaf (Tree Int)))))
 (assert (> (value t1) 20))
 (assert (not (is-leaf t2)))
@@ -97,7 +97,8 @@ sat
 
 O \enphasis{sat} é de \foreign{satisfyable}, a resposta ao
 \codigo{(check-sat)} (seria \enphasis{unsat}, se o modelo posto não
-fosse satisfazível). SMT é um problema mais difícil do que SAT, que é
+fosse satisfazível). SMT é um problema mais geral do que SAT (note
+que SAT é um caso particular de SMT), que é
 NP-completo. Assim, como é de se esperar, existem vários problemas
 para os quais ele não funciona muito bem. Então, parte do desafio ao
 (buscar) resolver um problema SMT está em expressá-lo de forma que
@@ -120,7 +121,7 @@ performance, parte importante da implementação não está no esquema
 formal do DPLL(T), mas sim em heurísticas. Essas heurísticas
 são frequentemente projetadas para funcionar muito bem para algumas
 classe de problemas, tendendo a funcionar mal para outras. À
-medida que \foreign{solvers} SMT ganham a atenção de cientistas e
+medida que \foreign{solvers} para SMT ganham a atenção de cientistas e
 engenheiros, passou a se tornar claro que isso é um problema, porque há
 uma necessidade de grande controle sobre o \foreign{solver} para que
 ele se comporte de forma eficiente, o que 
@@ -153,7 +154,7 @@ restrições de baixo nível, com o qual o usuário interage com o
 \technical{miniKanren}, de forma mais abstrata (assim como fizemos com outras
 técnicas para otimização e para busca de satisfação de
 restrições). Isso pode ser útil de várias formas. Primeiro, nota-se
-que \foreign{solvers} SMT não lidam bem com recursões em geral, o que
+que \foreign{solvers} para SMT não lidam bem com recursões em geral, o que
 não é problema para linguagens de programação lógica ou de programação
 por restrições. Assim, por exemplo, se o seguinte for submetido ao Z3,
 depois de algum tempo, ele retorna (no momento da escrita deste texto)
@@ -170,7 +171,7 @@ depois de algum tempo, ele retorna (no momento da escrita deste texto)
 
 Mas, usando Z3 a partir do \technical{miniKanren}\footnote{O que, já que as
   entradas e saídas são em \technical{Sexps}, não é difícil.} (com o
-software em \cite{namin}, por exemplo), podemos fazer o seguinte:
+software em \cite{namin}, por exemplo), podemos fazer o seguinte:\\
 
 \begin{lstlisting}[escapeinside={[}{]}]
 (define faco
@@ -200,8 +201,8 @@ padrão, inteiras). Além de \codigo{z/assert}, existem \codigo{z/},
 \codigo{z/check} e \codigo{z/purge}, para interagir com o Z3 de forma
 diferente.
 
-Ainda não é certo, se para algum, para qual ou quais tipos de
-problemas esse tipo de abordagem é apropriado, mas é um exemplo de
+Ainda não é certo, para qual ou quais tipos de problemas esse tipo de
+abordagem é apropriado, ou mesmo se para algum, mas é um exemplo de
 tentativa de uso da ideia de CLP para algo diferente, de forma não
 óbvia.
            

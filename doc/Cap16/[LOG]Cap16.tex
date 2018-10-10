@@ -166,7 +166,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   \codigo{(define x 10)}\\
   \codigo{`(1 2 'x ,x)} \seta\ \codigo{'(1 2 'x 10)}
 
-\item Para realizar execuções condicionais, use \enphasisb{cond}:\\
+\item Para realizar execuções condicionais, use \enphasisb{cond}:
   \begin{lstlisting}
     (cond
       ((< 1 0) (+ 3 4))
@@ -450,7 +450,7 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   associação).
 
   Ao lidar com \technical{Streams}, precisamos de funções especiais,
-  já que não são ``simples listas''. \technical{Streams} são uteis
+  já que não são ``simples listas''. \technical{Streams} são úteis
   (entre outras coisas) para a representação de estruturas de dados
   infinitas, então, por isso, funções e variáveis para lidar com elas
   terão um $\infty$ sobrescrito, para diferenciá-las das funções para
@@ -685,13 +685,11 @@ Agora, vamos rapidamente introduzir a sintaxe principal de
   ser diferente de 2. A disjunção de $n$ termos é definida
   indutivamente (a conjunção é análoga):
 
-  \begin{align*}
-    &(disj) \Rightarrow \#u \\
-    &(disj\ g) \Rightarrow g \\
-    &(disj\ g_0\ g\ ...) \Rightarrow (disj_2\ g_0\ (disj\ g\ ...))
-  \end{align*}
+\noindent  \codigo{(disj)} $\Rightarrow $ \codigo{\#u} \\
+  \codigo{(disj g)} $\Rightarrow $ \codigo{g}\\
+  \codigo{(disj $g_0$ g ...)} $\Rightarrow $ \codigo{(dis$j_2$ $g_0$ (disj g ...))}
 
-  \noindent que se traduz em código como
+  \noindent que se traduz para código como
 
   \begin{lstlisting}[escapeinside={[}{]}]
 
