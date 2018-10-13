@@ -61,7 +61,7 @@ texto, focaremos no Z3\footnote{Explicaremos apenas o básico para que
 estado-da-arte, que se tornou um projeto de código aberto em 2012
 (veja \cite{leo} para detalhes).
 
-Para que se tenha alguma ideia de como se usa um \foreign{solver} SMT,
+Para que se tenha alguma ideia de como se usa um \foreign{solver} para SMT,
 segue um exemplo (retirado de \cite{tuto}) de código para
 Z3\footnote{Vale notar, ele está expresso em \technical{Sexps}, mas
   não em Scheme.}:
@@ -116,7 +116,7 @@ para SAT, baseados em DPLL \footnote{O algoritmo de
 que é um formalismo para descrever como \foreign{solvers} da teoria
 T devem ser integrados com os \foreign{solvers} SAT.
 
-Uma dificuldade é que, para um \foreign{solver} SMT de alta
+Uma dificuldade é que, para um \foreign{solver} para SMT de alta
 performance, parte importante da implementação não está no esquema
 formal do DPLL(T), mas sim em heurísticas. Essas heurísticas
 são frequentemente projetadas para funcionar muito bem para algumas
@@ -149,7 +149,7 @@ checar esse trabalho, veja \cite{namin} ou
 momento da escrita deste texto (em outubro de 2018), isto é trabalho
 em progresso.
 
-A ideia é pensar no \foreign{solver} SMT como um implementador de
+A ideia é pensar no \foreign{solver} para SMT como um implementador de
 restrições de baixo nível, com o qual o usuário interage com o
 \technical{miniKanren}, de forma mais abstrata (assim como fizemos com outras
 técnicas para otimização e para busca de satisfação de
